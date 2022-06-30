@@ -1,0 +1,71 @@
+{
+  "api_signup": [
+    {
+      "id": 0,
+      "email": "test@test.com",
+      "password": "xptmxm123!",
+      "passwordCheck": "xptmxm123!",
+      "name": "홍길동"
+    },
+    {
+      "id": 1,
+      "email": "test1@test.com",
+      "password": "xptmxm123!",
+      "passwordCheck": "xptmxm123!",
+      "name": "홍길동"
+    },
+    {
+      "email": "gg@gg.com",
+      "name": "홍길동",
+      "password": "xptmxm123!",
+      "passwordCheck": "xptmxm123!",
+      "id": 2
+    },
+    {
+      "email": "gg@gg.com",
+      "name": "test",
+      "password": "xptmxm123!",
+      "passwordCheck": "xptmxm123!",
+      "id": 3
+    },
+    {
+      "email": "gg@gg.com",
+      "name": "test",
+      "password": "xptmxm123!",
+      "passwordCheck": "xptmxm123!",
+      "id": 4
+    }
+  ],
+  "api_login": [
+    {
+      "id": 0,
+      "email": "tst@tst.com",
+      "password": "xptmxm123!"
+    },
+    {
+      "id": 1,
+      "email": "test@test.com",
+      "password": "xptmxm123!"
+    },
+    {
+      "email": "gg@gg.com",
+      "password": "xptmxm123!",
+      "id": 2
+    },
+    {
+      "email": "gg@gg.com",
+      "password": "xptmxm123!",
+      "id": 3
+    },
+    {
+      "email": "gg@gg.com",
+      "password": "xptmxm123!",
+      "id": 4
+    },
+    {
+      "email": "gg@gg.com",
+      "password": "xptmxm123!",
+      "id": 5
+    }
+  ]
+}

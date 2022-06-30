@@ -1,0 +1,234 @@
+import React from 'react';
+import styled from 'styled-components';
+
+import { emailCheck_reg, passwordCheck_reg } from '../shared/regExp';
+import { useDispatch } from 'react-redux';
+import { signUpDB } from '../redux/modules/user';
+import { useNavigate } from 'react-router-dom';
+
+import logo from '../images/logo/Group 14@2x.png';
+
+import Input01 from '../elements/Input01';
+import Button01 from '../elements/Button01';
+
+const SignUp = () => {
+  const [email, setEmail] = React.useState('');
+  const [name, setName] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [passwordCheck, setPasswordCheck] = React.useState('');
+
+  const [isNext, setIsNext] = React.useState(1);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  const userName = (e) => {
+    setName(e.target.value);
+  };
+  const userPassword = (e) => {
+    setPassword(e.target.value);
+  };
+  const userPasswordCheck = (e) => {
+    setPasswordCheck(e.target.value);
+  };
+
+  // 버튼 클릭 시
+  const signUp = () => {
+    if (isNext === 1 && email === '') {
+      alert('이메일을 입력해주세요!');
+      return;
+    }
+
+    if (isNext === 1 && !emailCheck_reg(email)) {
+      alert('이메일 형식을 확인해주세요.');
+      return;
+    } else if (isNext === 1 && emailCheck_reg(email)) {
+      setIsNext(2);
+      return;
+    }
+
+    if (isNext === 2 && name === '') {
+      alert('이름을 입력해주세요!');
+      return;
+    } else if (isNext === 2 && name !== '') {
+      setIsNext(3);
+      return;
+    }
+
+    if (isNext === 3 && (password === '' || passwordCheck === '')) {
+      alert('비밀번호를 입력해주세요!');
+      return;
+    }
+
+    if (isNext === 3 && !passwordCheck_reg(password)) {
+      alert('비밀번호 형식을 확인해주세요.\n영문, 숫자, 특수문자 포함 8자리 이상입니다!');
+      return;
+    }
+
+    if (isNext === 3 && password !== passwordCheck) {
+      alert('비밀번호가 달라요! 다시 확인해주세요.');
+      return;
+    }
+
+    console.log(email, name, password, passwordCheck);
+    dispatch(signUpDB(email, name, password, passwordCheck));
+    // if (email === '' || name === '' || password === '' || passwordCheck === '') {
+    //   alert('빈칸을 모두 입력해주세요.');
+    //   return;
+    // }
+    // if (!emailCheck_reg(email)) {
+    //   alert('이메일 형식을 확인해주세요.');
+    //   return;
+    // }
+    // if (!passwordCheck_reg(password)) {
+    //   alert('비밀번호 형식을 확인해주세요.');
+    //   return;
+    // }
+    // if (password !== passwordCheck) {
+    //   alert('비밀번호가 다릅니다. 다시 확인해주세요.');
+    //   return;
+    // }
+    // navigate('/login');
+  };
+
+  return (
+    <Container className='container'>
+      <Logo>
+        <img className='logo' src={logo} alt='' />
+      </Logo>
+
+      <Title className='text-style-kr'>
+        <p>
+          믑티를 빛내주실✨
+          <br />
+          정말 멋진 분이 오셨네요!
+        </p>
+      </Title>
+      {isNext === 1 ? (
+        <>
+          <SubTitle>먼저 이메일이 필요해요 :)</SubTitle>
+          <Input01 placeholder='이메일' type='text' _onChange={userEmail} />
+        </>
+      ) : null}
+      {isNext === 2 ? (
+        <>
+          <SubTitle>멋진 이름을 입력해주세요 :)</SubTitle>
+          <Input01 placeholder='이름' type='text' _onChange={userName} />
+        </>
+      ) : null}
+      {isNext === 3 ? (
+        <>
+          <SubTitle>이번이 마지막 단계 입니다!</SubTitle>
+          <Input01
+            margin='0 0 15px 0'
+            placeholder='영문, 숫자, 특수문자 포함 8자리 이상'
+            type='password'
+            _onChange={userPassword}
+          />
+          <Input01
+            placeholder='다시 한번 입력해주세요.'
+            type='password'
+            _onChange={userPasswordCheck}
+          />
+        </>
+      ) : null}
+
+      <Button01
+        _className='hover-btn1'
+        color='#fff'
+        margin='43px 0 0 0'
+        backgroundColor='#64be72'
+        _onClick={() => {
+          signUp();
+          // if (isNext < 3) {
+          //   setIsNext(isNext + 1);
+          //   if (isNext === 1 && email === '') {
+          //     alert('하이');
+          //     return;
+          //   }
+          // }
+          // if (isNext === 3) {
+          //   return SignUp();
+          // }
+        }}
+      >
+        {isNext === 3 ? '회원가입 하기' : '다음으로'}
+      </Button01>
+
+      {/* <p>
+        믑티를 빛내주실✨
+        <br />
+        정말 멋진 분이 오셨네요!
+      </p>
+
+      <p>먼저 이메일이 필요해요 :)</p>
+
+      <Input01 text={'이메일'} />
+      <Input01 text={'이름'} />
+      <Input01 text={'비밀번호'} />
+      <Button01 text={'다음으로'} color={'#fff'} backgroundColor={'#64be72'} /> */}
+
+      {/* <div>
+        <p>이메일</p>
+        <input type='text' placeholder='이메일을 입력해주세요.' onChange={userEmail} />
+      </div>
+
+      <div>
+        <p>이름</p>
+        <input type='text' placeholder='이름을 입력해주세요.' onChange={userName} />
+      </div>
+
+      <div>
+        <p>비밀번호</p>
+        <input type='password' placeholder='비밀번호를 입력해주세요.' onChange={userPassword} />
+      </div>
+
+      <div>
+        <p>비밀번호 확인</p>
+        <input
+          type='password'
+          placeholder='비밀번호를 재입력해주세요.'
+          onChange={userPasswordCheck}
+        />
+      </div>
+
+      <button onClick={signUp}>회원가입</button> */}
+    </Container>
+  );
+};
+
+const Container = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+  }
+`;
+
+const Logo = styled.div`
+  margin-top: 58px;
+  margin-bottom: 49.7px;
+  display: flex;
+
+  justify-content: center;
+`;
+
+const Title = styled.div`
+  font-weight: 500;
+  font-size: 24px;
+  margin-bottom: 64px;
+`;
+
+const SubTitle = styled.p`
+  font-size: 14px;
+  font-weight: 400;
+  color: #adadad;
+  letter-spacing: -0.8px;
+  margin-bottom: 11px;
+`;
+export default SignUp;
