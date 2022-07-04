@@ -19,6 +19,9 @@ const SignUp = () => {
 
   const [isNext, setIsNext] = React.useState(1);
 
+  // 뒤로가기로 해당 페이지 가기 막기
+  // window.history.forward();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -143,59 +146,10 @@ const SignUp = () => {
         backgroundColor='#64be72'
         _onClick={() => {
           signUp();
-          // if (isNext < 3) {
-          //   setIsNext(isNext + 1);
-          //   if (isNext === 1 && email === '') {
-          //     alert('하이');
-          //     return;
-          //   }
-          // }
-          // if (isNext === 3) {
-          //   return SignUp();
-          // }
         }}
       >
         {isNext === 3 ? '회원가입 하기' : '다음으로'}
       </Button01>
-
-      {/* <p>
-        믑티를 빛내주실✨
-        <br />
-        정말 멋진 분이 오셨네요!
-      </p>
-
-      <p>먼저 이메일이 필요해요 :)</p>
-
-      <Input01 text={'이메일'} />
-      <Input01 text={'이름'} />
-      <Input01 text={'비밀번호'} />
-      <Button01 text={'다음으로'} color={'#fff'} backgroundColor={'#64be72'} /> */}
-
-      {/* <div>
-        <p>이메일</p>
-        <input type='text' placeholder='이메일을 입력해주세요.' onChange={userEmail} />
-      </div>
-
-      <div>
-        <p>이름</p>
-        <input type='text' placeholder='이름을 입력해주세요.' onChange={userName} />
-      </div>
-
-      <div>
-        <p>비밀번호</p>
-        <input type='password' placeholder='비밀번호를 입력해주세요.' onChange={userPassword} />
-      </div>
-
-      <div>
-        <p>비밀번호 확인</p>
-        <input
-          type='password'
-          placeholder='비밀번호를 재입력해주세요.'
-          onChange={userPasswordCheck}
-        />
-      </div>
-
-      <button onClick={signUp}>회원가입</button> */}
     </Container>
   );
 };

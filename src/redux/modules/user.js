@@ -7,15 +7,15 @@ const SIGN_IN = 'user/SIGN_IN';
 
 const initialState = {
   is_login: false,
+  email: null,
   user: {
-    userImage: null,
-    nickname: null,
-    gender: null,
-    birthday: null,
-    mbti: null,
-    introduction: null,
-    mannerScore: null,
-    point: null,
+    userImage: '',
+    nickname: '',
+    gender: '',
+    birthday: '',
+    mbti: '',
+    introduction: '',
+    mannerScore: '',
   },
 };
 
@@ -42,6 +42,25 @@ export const signUpDB = (email, name, password, passwordCheck) => {
 export const signInDB = (email, password) => {
   return function (dispatch) {
     authApi.login(email, password);
+    dispatch(signIn(email));
+  };
+};
+
+export const kakaoLogin = (code) => {
+  return async function (dispatch) {
+    await authApi.kakaoLogin(code);
+  };
+};
+
+export const userInfoDB = (
+  nickname,
+  birthday,
+  user_mbti,
+  introduction,
+  userGender
+) => {
+  return function (dispatch) {
+    authApi.userInfo(nickname, birthday, user_mbti, introduction, userGender);
   };
 };
 // export const loadUserDB = () => {
@@ -51,8 +70,10 @@ export const signInDB = (email, password) => {
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case 'user/LOAD_USER': {
-      return { is_login: true, user: action.user };
+    case 'user/SIGN_IN': {
+      console.log(action);
+
+      return { is_login: true, email: action.user, user: { ...state.user } };
     }
 
     // case 'user/SIGN_UP': {

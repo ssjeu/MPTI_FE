@@ -5,7 +5,14 @@ import UserInfo from './pages/UserInfo';
 import './css/font.css';
 import Main from './pages/Main';
 
+import { useSelector } from 'react-redux';
+import KakaoLogin from './components/KakaoLogin';
+import React from 'react';
+
 function App() {
+  const test = useSelector((state) => state);
+  console.log(test);
+
   return (
     <div className='App'>
       <Routes>
@@ -13,6 +20,7 @@ function App() {
         <Route path='/login' element={<SignIn />} />
         <Route path='/join' element={<SignUp />} />
         <Route path='/info' element={<UserInfo />} />
+        <Route path='/api/kakao/callback' element={<KakaoLogin />} />
       </Routes>
     </div>
   );

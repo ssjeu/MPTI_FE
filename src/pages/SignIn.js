@@ -18,8 +18,8 @@ const SignIn = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  // const email = useRef();
-  // const password = useRef();
+  // 뒤로가기로 해당 페이지 가기 막기
+  // window.history.forward();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,6 +39,10 @@ const SignIn = () => {
   const inputPassword = (e) => {
     setPassword(e.target.value);
   };
+
+  // 카카오 로그인 테스트
+  const CLIENT_ID = '	8889cc33c5ac3c4cec9e5da61462fad9';
+  const REDIRECT_URI = 'http://3.35.170.203/api/kakao/callback';
 
   return (
     <Container className='container'>
@@ -87,7 +91,9 @@ const SignIn = () => {
         _className='hover-btn2'
         color='#000'
         backgroundColor='#ffe502'
-        _onClick={null}
+        _onClick={() => {
+          window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+        }}
         margin='27px 0px 14px 0px'
       >
         카카오 계정으로 로그인
