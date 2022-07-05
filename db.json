@@ -1,0 +1,156 @@
+{
+  "postList": [
+    {
+      "postId": 0,
+      "postContent": "postContent 0",
+      "postImage": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmaOQ55V7m0IRiAObC72mVFbNKPfAe9VsJsg&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU",
+        "https://i.pinimg.com/736x/77/f7/5a/77f75a4dc86b86f55926515e70d558e3.jpg"
+      ],
+      "postCategory": "MBTI",
+      "createdAt": "2022-06-28",
+      "userId": "userId 0",
+      "commentCount": 0
+    },
+    {
+      "postId": 1,
+      "postContent": "postContent 1",
+      "postImage": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU"],
+      "postCategory": "MBTI",
+      "createdAt": "2022-06-28",
+      "userId": "userId 1",
+      "commentCount": 0
+    },
+    {
+      "postId": 2,
+      "postContent": "postContent 2",
+      "postImage": [],
+      "postCategory": "자유",
+      "createdAt": "2022-06-28",
+      "userId": "userId 2",
+      "commentCount": 0
+    },
+    {
+      "postId": 3,
+      "postContent": "postContent 3",
+      "postImage": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU"],
+      "postCategory": "고민상담",
+      "createdAt": "2022-06-28",
+      "userId": "userId 3",
+      "commentCount": 0
+    },
+    {
+      "postId": 4,
+      "postContent": "postContent 4",
+      "postImage": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU"],
+      "postCategory": "자유",
+      "createdAt": "2022-06-28",
+      "userId": "userId 4",
+      "commentCount": 0
+    },
+    {
+      "postId": 5,
+      "postContent": "postContent 5",
+      "postImage": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU"],
+      "postCategory": "익명",
+      "createdAt": "2022-06-28",
+      "userId": "userId 5",
+      "commentCount": 0
+    }
+  ],
+  "posts": [
+    {
+      "postId": 0,
+      "postContent": "postContent 0",
+      "postImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU",
+      "postCategory": "MBTI",
+      "createdAt": "2022-06-28",
+      "userId": "userId 0",
+      "commentCount": 0
+    },
+    {
+      "postId": 1,
+      "postContent": "postContent 1",
+      "postImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU",
+      "postCategory": "MBTI",
+      "createdAt": "2022-06-28",
+      "userId": "userId 1",
+      "commentCount": 0
+    },
+    {
+      "postId": 2,
+      "postContent": "postContent 2",
+      "postImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU",
+      "postCategory": "자유",
+      "createdAt": "2022-06-28",
+      "userId": "userId 2",
+      "commentCount": 0
+    },
+    {
+      "postId": 3,
+      "postContent": "postContent 3",
+      "postImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU",
+      "postCategory": "고민상담",
+      "createdAt": "2022-06-28",
+      "userId": "userId 3",
+      "commentCount": 0
+    },
+    {
+      "postId": 4,
+      "postContent": "postContent 4",
+      "postImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU",
+      "postCategory": "자유",
+      "createdAt": "2022-06-28",
+      "userId": "userId 4",
+      "commentCount": 0
+    },
+    {
+      "postId": 5,
+      "postContent": "postContent 5",
+      "postImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU",
+      "postCategory": "익명",
+      "createdAt": "2022-06-28",
+      "userId": "userId 5",
+      "commentCount": 0
+    }
+  ],
+
+  "comments": [
+    {
+      "comment": "댓글입니다 0",
+      "commentId": 0,
+      "createdAt": "2022-06-28",
+      "postId": 0,
+      "userId": "userId 0"
+    },
+    {
+      "comment": "댓글입니다 1",
+      "commentId": 1,
+      "createdAt": "2022-06-28",
+      "postId": 1,
+      "userId": "userId 0"
+    },
+    {
+      "comment": "댓글입니다 2",
+      "commentId": 2,
+      "createdAt": "2022-06-28",
+      "postId": 1,
+      "userId": "userId 0"
+    },
+    {
+      "comment": "댓글입니다 3",
+      "commentId": 3,
+      "createdAt": "2022-06-28",
+      "postId": 2,
+      "userId": "userId 0"
+    },
+    {
+      "comment": "댓글입니다 4",
+      "commentId": 4,
+      "createdAt": "2022-06-28",
+      "postId": 2,
+      "userId": "userId 4"
+    }
+  ]
+}

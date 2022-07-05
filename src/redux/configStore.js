@@ -1,17 +1,15 @@
-// 스토어
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import movieList from './modules/movieList';
-import commentModule from './modules/commentModule';
-import user from './modules/user';
-import detail from './modules/detail';
+import { legacy_createStore as createStore, combineReducers, applyMiddleware} from "redux";
+import thunk from "redux-thunk";
+
+//모듈
+import post from "./modules/post"
+
 
 const middlewares = [thunk];
-
-const rootReducer = combineReducers({});
-
 const enhancer = applyMiddleware(...middlewares);
-
-const store = createStore(rootReducer, enhancer);
+const rootReducer = combineReducers({
+    post,
+})
+const store = createStore(rootReducer,enhancer);
 
 export default store;
