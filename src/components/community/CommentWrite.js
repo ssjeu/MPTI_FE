@@ -2,8 +2,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { actionCreators as postActions } from "../../redux/modules/comment";
 
 const CommentWrite = () => {
+  const dispatch = useDispatch();
   const params = useParams();
   const postId = params.index;
 
@@ -12,6 +15,10 @@ const CommentWrite = () => {
 
   const activeComment = () => {
     if (content_ref.current.value === "") alert("댓글을 입력해주세요!");
+    else {
+      dispatch(postActions.addCommentAC(postId, content_ref.current.value));
+      content_ref.current.value = "";
+    }
     return;
   };
 
@@ -31,6 +38,7 @@ const CommentWriteWrap = styled.div`
   height: 80px;
   width: 100%;
   bottom: 80px;
+  padding: 0 20px;
 `;
 
 const CommentInput = styled.div`
@@ -39,7 +47,7 @@ const CommentInput = styled.div`
   border-radius: 6px;
   height: 40px;
   width: 90%;
-  margin: 20px;
+  margin: 20px 0;
   font-size: 16px;
 
   &:focus {

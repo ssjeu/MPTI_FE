@@ -38,9 +38,9 @@ const PostDetail = () => {
       {/* <PostList card={posts[postId]} /> */}
       <PostList card={result} />
       <Comment>
-        {/* {comments.map((card, index) => (
+        {comments.map((card, index) => (
           <CommentList card={card} key={index} />
-        ))} */}
+        ))}
       </Comment>
       <CommentWrite />
     </PostDetailWrap>
