@@ -11,7 +11,7 @@ import PostWrite from "../images/mode@3x.png";
 const Community = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const posts = useSelector((state) => state.post.post);
 
   // 서버에서 postlist 로드
@@ -26,10 +26,10 @@ const Community = () => {
   // 카테고리 목록
   const categories = ["전체", "MBTI", "자유", "고민상담", "익명"];
   const [activeCat, setActiveCat] = useState(categories);
+  const [activeCatState, setActiveCatState] = useState(0);
 
   // 해당 카테고리 게시물 목록을 보여주기 위한 객체
   const [data, setData] = useState([]);
-  console.log(data);
 
   const activeCategory = (btn) => {
     if (btn === "전체") {
@@ -48,15 +48,31 @@ const Community = () => {
     <CommunityWrap>
       <Category>
         {activeCat.map((cate, index) => {
-          if (cate === "전체") {
+          if (cate === "전체")
             return (
-              <CategoryAll onClick={() => activeCategory(cate)} key={index}>
+              <CategoryAll
+                onClick={() => {
+                  activeCategory(cate);
+                  setActiveCatState(index);
+                  console.log(index);
+                }}
+                key={index}
+                className={activeCatState === index ? "active" : null}
+              >
                 {cate}
               </CategoryAll>
             );
-          } else
+          else
             return (
-              <CategoryButton onClick={() => activeCategory(cate)} key={index}>
+              <CategoryButton
+                onClick={() => {
+                  activeCategory(cate);
+                  setActiveCatState(index);
+                  console.log(index);
+                }}
+                key={index}
+                className={activeCatState === index ? "active" : null}
+              >
                 {cate}
               </CategoryButton>
             );
@@ -67,10 +83,14 @@ const Community = () => {
       </Notice>
       <CommunityList>
         {data.map((card, index) => (
-          <PostList card={card} key={index}/>
+          <PostList card={card} key={index} />
         ))}
       </CommunityList>
-      <PostButton onClick={() => {navigate("/postwrite")}}>
+      <PostButton
+        onClick={() => {
+          navigate("/postwrite");
+        }}
+      >
         <img src={PostWrite} alt="postwrite" />
         <br />
         글작성
@@ -92,18 +112,33 @@ const Category = styled.div`
   background-color: white;
 `;
 
-const CategoryAll = styled.div`
+const CategoryAll = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
   text-align: center;
   width: 44px;
   height: 30px;
-  margin: 10px 20px 0 20px;
+  margin: 0 20px;
+
+  &.active {
+    color: var(--maincolor);
+    font-weight: bold;
+    border-bottom: 2px solid var(--maincolor);
+  }
 `;
 
-const CategoryButton = styled.div`
+const CategoryButton = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
   text-align: center;
   width: 100px;
   height: 30px;
-  margin-top: 10px;
+
+  &.active {
+    color: var(--maincolor);
+    font-weight: bold;
+    border-bottom: 2px solid var(--maincolor);
+  }
 `;
 
 const Notice = styled.div`
@@ -143,7 +178,7 @@ const PostButton = styled.div`
 
   & img {
     width: 24px;
-    margin: 12px 0 2px 0;
+    margin-top: 12px;
   }
 `;
 

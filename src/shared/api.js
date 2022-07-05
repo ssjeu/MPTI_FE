@@ -1,8 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-    // baseURL: 'http://localhost:5001',
     baseURL: 'http://3.35.170.203'
+});
+
+const api2 = axios.create({
+    baseURL: 'http://localhost:5001',
 });
 
 export const apis = {
@@ -11,7 +14,7 @@ export const apis = {
     // postList: () => api.get(`/postList`),
     // postDetail: (postId) => api.get(`/posts/${postId}`)
     // commentList: () => api.get(`/comments`),
-    // postWrite: (post) => api.post(`/posts`, post),
+    // postWrite: (post) => api2.post(`/newPost`, post),
 
     postList: () => api.get(`/api/posts/postList`),
     postDetail: (postId) => api.get(`/api/posts/${postId}`),

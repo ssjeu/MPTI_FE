@@ -48,6 +48,7 @@ const PostUser = styled.div`
 
   & div {
       margin-top: 4px;
+      font-weight: 300;
   }
 `;
 

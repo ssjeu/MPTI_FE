@@ -19,26 +19,32 @@ const PostWrite = () => {
   };
 
   // 게시글 내용란 data
-  let formData = new FormData();
+  const formData = new FormData();
   const img_ref = React.useRef();
   const content_ref = React.useRef();
   const [img, setImg] = useState([]);
   const [previewImg, setPreviewImg] = useState([]);
 
-  // 이미지 preview
+  // 이미지 업로드
   const uploadFile = (e) => {
     const fileArr = e.target.files;
     let fileURLs = [];
+    let filePreviewURLs = [];
     let filesLength = fileArr.length > 10 ? 10 : fileArr.length;
+
+    // if(e.target.files[0]) {
+    //     let reader = new FileReader();
+    //     reader.readAsDataURL(e.target.files[0])
+    //     setImg([...img, e.target.files[0]])
+    //   }
 
     for (let i = 0; i < filesLength; i++) {
       let file = fileArr[i];
-
       let reader = new FileReader();
+
       reader.onload = () => {
-        // console.log(reader.result);
-        fileURLs[i] = reader.result;
-        setPreviewImg([...fileURLs]);
+        filePreviewURLs[i] = reader.result;
+        setPreviewImg([...filePreviewURLs]);
       };
       reader.readAsDataURL(file);
     }
@@ -46,10 +52,10 @@ const PostWrite = () => {
 
   // 프리뷰에서 이미지 삭제
   const deleteImg = (index) => {
-    //   const imgArr = img.filter((el, idx) => idx !== index)
+    // const imgArr = img.filter((el, idx) => idx !== index);
     const imgNameArr = previewImg.filter((el, idx) => idx !== index);
 
-    //   setImg([...imgArr])
+    // setImg([...imgArr]);
     setPreviewImg([...imgNameArr]);
   };
 
@@ -60,20 +66,15 @@ const PostWrite = () => {
     else if (content_ref.current.value.length < 5)
       alert("최소 5자 이상 입력해주세요!");
     else {
-        formData.append("postCategory", selected);
-        formData.append("postContent", content_ref.current.value);
-        formData.append("postImage",img);
       dispatch(
         postActions.addPostAC({
-            formData
-        //   postCategory: selected,
-        //   postContent: content_ref.current.value,
-        //   postImage:
-        //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVuHxYICoCOR4UutN9GAjyBD1ODV4W9S_Fw&usqp=CAU",
+          category: selected,
+          content: content_ref.current.value,
+          imageUrl: previewImg,
         })
       );
       alert("게시글 작성 완료!");
-      navigate("/community");
+      //   navigate("/community");
     }
   };
 
@@ -119,6 +120,7 @@ const PostWrite = () => {
         ></textarea>
       </TextArea>
 
+      {/* 이미지 프리뷰 */}
       {previewImg && (
         <ImagePreview>
           {" "}
@@ -228,7 +230,7 @@ const TextArea = styled.div`
   & textarea::placeholder {
     color: var(--gray2);
   }
-  
+
   & textarea:focus {
     // outline: none;
     // outline-color: var(--gray4);

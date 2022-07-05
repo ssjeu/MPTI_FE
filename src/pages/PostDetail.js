@@ -15,7 +15,9 @@ const PostDetail = () => {
 
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.post.post);
-  const comments = useSelector((state) => state.post.detail_post.existingComment);
+  const comments = useSelector(
+    (state) => state.post.detail_post.existingComment
+  );
 
   // 서버에서 postlist, comments 로드
   useEffect(() => {
@@ -23,7 +25,13 @@ const PostDetail = () => {
     dispatch(postActions.detailPostDB(id));
   }, []);
 
+//   useEffect(() => {
+//     setCmt(comments);
+//   }, [comments]);
+
   const result = posts.find((post) => post.postId === Number(id));
+//   const [cmt, setCmt] = useState([]);
+//   console.log(cmt);
 
   return (
     <PostDetailWrap>
@@ -31,9 +39,9 @@ const PostDetail = () => {
       <PostList card={result} />
       <Comment>
         {comments.map((card, index) => (
-          <CommentList card={card} key={index}/>
+          <CommentList card={card} key={index} />
         ))}
-        </Comment>
+      </Comment>
       <CommentWrite />
     </PostDetailWrap>
   );

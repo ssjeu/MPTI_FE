@@ -55,21 +55,21 @@ const detailPostDB = (postId) => {
 };
 
 // 게시글 업로드
-const addPostAC = (postCategory, postContent, postImage) => {
+const addPostAC = (post) => {
   return async function (dispatch, getState) {
     // const config = {
     // 	headers: {
     // 		"Content-Type": "multipart/form-data",
+    //      Authorization: `BEARER ${sessionStorage.getItem("token")}`
     // 	},
+    // { withCredentials: true } // cors Error 방지
     // };
-    let new_post = {
-        postCategory: postCategory,
-        postContent: postContent,
-        postImage: postImage,
-      };
-
     await apis
-      .postWrite( {...new_post} )
+      .postWrite({
+        postCategory: post.category,
+        postContent: post.content,
+        postImage: post.imageUrl,
+      })
       .then((res) => {
         console.log("addPost response", res);
       })
@@ -89,6 +89,15 @@ const addPostAC = (postCategory, postContent, postImage) => {
         }
         console.log(err, err.config);
       });
+
+    // await apis
+    //   .postWrite( {...formData} )
+    //   .then((res) => {
+    //     console.log("addPost response", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err, err.config);
+    //   });
   };
 };
 
@@ -105,12 +114,13 @@ export default handleActions(
         draft.detail_post = action.payload.detail_post;
         console.log("GET_DETAIL 성공");
       }),
-      [ADD_POST]: (state, action) =>
-      produce(state, (draft) => {
-        // push: 배열의 맨 마지막에 쌓여 뷰에서 맨 밑에 쌓임
-        // 따라서 배열의 맨 앞에 쌓는 unshift 사용
-        draft.post.unshift(action.payload.post); 
-      }),
+
+    // [ADD_POST]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     // push: 배열의 맨 마지막에 쌓여 뷰에서 맨 밑에 쌓임
+    //     // 따라서 배열의 맨 앞에 쌓는 unshift 사용
+    //     draft.post.unshift(action.payload.post);
+    //   }),
   },
   initialState
 );
@@ -121,7 +131,7 @@ const actionCreators = {
   getDetail,
   detailPostDB,
   addPost,
-  addPostAC
+  addPostAC,
 };
 
 export { actionCreators };

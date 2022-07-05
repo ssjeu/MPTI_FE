@@ -48,6 +48,7 @@ const CommentInput = styled.div`
   }
 
   & input {
+    font-size: 16px;
     border: none;
     float: left;
     margin-left: 16px;
@@ -71,7 +72,7 @@ const InputButton = styled.div`
   float: right;
   width: auto;
   padding: 2px 16px;
-  margin-top: 8px;
+  margin-top: 5px;
   color: var(--maincolor);
   font-weight: 500;
 `;
