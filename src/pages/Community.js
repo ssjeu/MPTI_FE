@@ -54,7 +54,6 @@ const Community = () => {
                 onClick={() => {
                   activeCategory(cate);
                   setActiveCatState(index);
-                  console.log(index);
                 }}
                 key={index}
                 className={activeCatState === index ? "active" : null}
@@ -68,7 +67,6 @@ const Community = () => {
                 onClick={() => {
                   activeCategory(cate);
                   setActiveCatState(index);
-                  console.log(index);
                 }}
                 key={index}
                 className={activeCatState === index ? "active" : null}
@@ -108,8 +106,10 @@ const Category = styled.div`
   height: 40px;
   align-content: center;
   display: flex;
-  justify-content: flex-start;
+//   justify-content: flex-start;
   background-color: white;
+  overflow: auto;
+  white-space: nowrap;
 `;
 
 const CategoryAll = styled.div.attrs((props) => ({
