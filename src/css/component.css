@@ -1,0 +1,53 @@
+.container {
+    width: 100vw;
+    height: auto;
+  
+    /* display: flex;
+    flex-flow: column nowrap; */
+  
+    box-sizing: border-box;
+    padding: 0 10.4%;
+  }
+  
+  .text-style-kr {
+    letter-spacing: -0.8px;
+  }
+  
+  .text-style-2 {
+    font-weight: 500;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.8px;
+  }
+  
+  .logo {
+    width: 85px;
+    height: 25.3px;
+    object-fit: contain;
+  }
+  
+  .hover-btn1:hover {
+    background-color: #73ca80;
+    transition: background-color 0.15s ease-in-out;
+  }
+  
+  .hover-btn1:focus {
+    background-color: #73ca80;
+    transition: background-color 0.15s ease-in-out;
+  }
+  
+  .hover-btn2:hover {
+    background-color: #ffed4d;
+    transition: background-color 0.15s ease-in-out;
+  }
+  
+  .hover-btn2:focus {
+    background-color: #ffed4d;
+    transition: background-color 0.15s ease-in-out;
+  }
+  
+  .display-Hcenter {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }

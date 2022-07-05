@@ -1,12 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 import Logo from "../images/logo@2x.png";
 import Alarm from "../images/notifications-none@3x.png";
 import Back from "../images/keyboard-arrow-left@3x.png";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const location = useLocation();
+  console.log(location);
+  if (location.pathname === "/login") return null;
+  else if (location.pathname === "/join") return null;
+  else if (location.pathname === "/info") return null;
 
   return (
     <HeaderWrap>

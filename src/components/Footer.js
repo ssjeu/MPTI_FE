@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Home from "../images/footer/home@3x.png";
 import Community from "../images/footer/people@3x.png";
@@ -13,6 +14,11 @@ const Footer = () => {
 
   // 현재 선택된 아이콘
   const [activeNav, setActiveNav] = useState(1);
+
+  const location = useLocation();
+  if (location.pathname === "/login") return null;
+  else if (location.pathname === "/join") return null;
+  else if (location.pathname === "/info") return null;
 
   return (
     <FooterWrap>
