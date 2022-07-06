@@ -20,7 +20,7 @@ const MoreButton = ({ id, type }) => {
   };
 
   // 더보기 버튼 클릭 상태
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(0);
 
   const activeButton = () => {
     setOpen(!open);
@@ -32,11 +32,8 @@ const MoreButton = ({ id, type }) => {
   const commentUpdate = (cmtId) => {};
 
   const handleUpdate = () => {
-    if (type === "post") {
-      postUpdate(id);
-    } else if (type === "comment") {
-      commentUpdate(id);
-    }
+    if (type === "post") postUpdate(id);
+    else if (type === "comment") commentUpdate(id);
   };
 
   // 삭제하기 부분
@@ -58,7 +55,7 @@ const MoreButton = ({ id, type }) => {
       <MoreDropdown>
         <li>
           <img src={more} alt="more" onClick={activeButton} />
-          <Menu display={open}>
+          <Menu openState={open}>
             <div>수정</div>
             <div onClick={handleDelete}>삭제</div>
           </Menu>
@@ -88,7 +85,7 @@ const MoreDropdown = styled.ul`
 `;
 
 const Menu = styled.div`
-  display: ${(props) => (props.display ? "block" : "none")};
+  display: ${(props) => (props.openState ? "block" : "none")};
   position: absolute;
   width: 28px;
   margin-top: 16px;

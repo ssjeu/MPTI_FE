@@ -54,7 +54,7 @@ const detailPostDB = (postId) => {
   };
 };
 
-// 게시글 업로드
+// 게시글 작성
 const addPostAC = (post) => {
   return async function (dispatch, getState) {
     // const config = {
@@ -90,6 +90,21 @@ const addPostAC = (post) => {
   };
 };
 
+// 게시글 수정
+const updatePostAC = (postId) => {
+    return async function () {
+      await communityApi
+        .postUpdate(postId)
+        .then((res) => {
+          console.log(res.data, "updatePostAC response");
+        })
+        .catch((err) => {
+          console.log("PUT updatePostAC Error: ", err);
+        });
+    };
+  };
+
+// 게시글 삭제
 const deletePostAC = (postId) => {
     return async function () {
       await communityApi
@@ -134,6 +149,8 @@ const actionCreators = {
   detailPostDB,
   addPost,
   addPostAC,
+  updatePost,
+  updatePostAC,
   deletePost,
   deletePostAC
 };
