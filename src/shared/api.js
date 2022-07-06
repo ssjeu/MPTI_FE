@@ -12,7 +12,13 @@ export const apis = {
   // community
   postList: () => api.get(`/api/posts/postList`),
   postDetail: (postId) => api.get(`/api/posts/${postId}`),
-  postWrite: () => api.post(`/api/posts`),
+  
+  postWrite: (content, image, category) =>
+    api.post(
+      `/api/posts`,
+      { postContent: content, postImage: image, postCategory: category },
+      { headers: { Authorization: `Bearer ${token}` } }
+    ),
   postUpdate: (postId) => api.put(`/api/posts/${postId}`),
   postDelete: (postId) => api.delete(`/api/posts/${postId}`),
 

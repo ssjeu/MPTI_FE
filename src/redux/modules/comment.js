@@ -4,9 +4,17 @@ import { apis } from "../../shared/api";
 
 // Action Type
 const ADD_COMMENT = "ADD_COMMENT";
+const UPDATE_COMMENT = "UPDATE_COMMENT";
+const DELETE_COMMENT = "DELETE_COMMENT";
 
 // Action Creator
 const addComment = createAction(ADD_COMMENT, (comment) => ({
+  comment,
+}));
+const updateComment = createAction(ADD_COMMENT, (comment) => ({
+  comment,
+}));
+const deleteComment = createAction(ADD_COMMENT, (comment) => ({
   comment,
 }));
 
@@ -17,8 +25,6 @@ const initialState = {
 // Middlewares
 const addCommentAC = (postId, text) => {
   return async function (dispatch, getState) {
-    console.log("postId: ", postId);
-    console.log("comment: ", text);
     await apis
       .commentWrite(postId, text)
       .then((res) => {
@@ -38,7 +44,6 @@ export default handleActions(
     //     draft.post = action.payload.post;
     //     console.log("GET_POST 성공");
     //   }),
-
     // [ADD_POST]: (state, action) =>
     //   produce(state, (draft) => {
     //     // push: 배열의 맨 마지막에 쌓여 뷰에서 맨 밑에 쌓임

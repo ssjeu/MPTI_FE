@@ -65,11 +65,7 @@ const addPostAC = (post) => {
     // { withCredentials: true } // cors Error 방지
     // };
     await apis
-      .postWrite({
-        postCategory: post.category,
-        postContent: post.content,
-        postImage: post.imageUrl,
-      })
+      .postWrite(post.category, post.content,post.imageUrl)
       .then((res) => {
         console.log("addPost response", res);
       })
@@ -79,14 +75,7 @@ const addPostAC = (post) => {
           console.log(err.response.data);
           console.log(err.response.status);
           console.log(err.response.headers);
-        } else if (err.request) {
-          // 요청이 전송되었지만, 응답이 수신되지 않음
-          // 'error.request'는 브라우저에서 XMLHtpRequest 인스턴스, node.js에서는 http.ClientRequest 인스턴스
-          console.log(err.request);
-        } else {
-          // 오류가 발생한 요청을 설정하는 동안 문제가 발생
-          console.log("Error", err.message);
-        }
+        } 
         console.log(err, err.config);
       });
 

@@ -2,17 +2,22 @@
 import React from "react";
 import styled from "styled-components";
 
+import MoreButton from "../../elements/MoreButton";
+
 const Comment = ({ card }) => {
+
   return (
     <CommentWrap>
       <CommentInfo>
-        <ProfileImage></ProfileImage>
+        <ProfileImage />
         <PostUser>
           <strong>{card.userId}</strong>
-          <span>{card.createdAt}</span><br/>
+          <span>{card.createdAt}</span>
+          <br />
           <div>{card.comment}</div>
         </PostUser>
       </CommentInfo>
+      <MoreButton />
     </CommentWrap>
   );
 };
@@ -22,6 +27,8 @@ const CommentWrap = styled.div`
   padding: 16px 20px;
   background-color: white;
   border-bottom: 0.5px solid var(--gray1);
+  display: flex;
+  justify-content: space-between;
 `;
 
 const CommentInfo = styled.div`
@@ -47,8 +54,8 @@ const PostUser = styled.div`
   }
 
   & div {
-      margin-top: 4px;
-      font-weight: 300;
+    margin-top: 4px;
+    font-weight: 300;
   }
 `;
 

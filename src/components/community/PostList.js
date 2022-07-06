@@ -35,7 +35,7 @@ const PostList = ({ card }) => {
       </PostContents>
 
       <PostAction>
-        좋아요 {card.commentCount} &nbsp;&nbsp;&nbsp; 댓글 {card.commentCount}
+        좋아요 0 &nbsp;&nbsp;&nbsp; 댓글 {card.commentCount}
         <hr />
       </PostAction>
 

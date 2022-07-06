@@ -53,7 +53,7 @@ const PostDetailWrap = styled.div`
 
 const Comment = styled.div`
   margin-top: 4px;
-  margin-bottom: 80px;
+  margin-bottom: 160px;
 `;
 
 export default PostDetail;
