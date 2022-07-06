@@ -6,26 +6,30 @@ import { useNavigate } from "react-router-dom";
 import PostSwiper from "./PostSwiper";
 import Like from "../../images/favorite-border@3x.png";
 import Comment from "../../images/chat-bubble-outline@3x.png";
+import MoreButton from "../../elements/MoreButton";
 
 const PostList = ({ card }) => {
   const navigate = useNavigate();
 
   return (
-    <PostWrap
-      onClick={() => {
-        navigate("/posts/" + card.postId);
-      }}
-    >
-      <PostInfo>
-        <ProfileImage></ProfileImage>
-        <PostUser>
-          {card.userId}
-          <br />
-          <span>{card.createdAt}</span>
-        </PostUser>
-      </PostInfo>
+    <PostListWrap>
+      <PostWrap>
+        <PostInfo>
+          <ProfileImage></ProfileImage>
+          <PostUser>
+            {card.userId}
+            <br />
+            <span>{card.createdAt}</span>
+          </PostUser>
+        </PostInfo>
+        <MoreButton />
+      </PostWrap>
 
-      <PostContents>
+      <PostContents
+        onClick={() => {
+          navigate("/posts/" + card.postId);
+        }}
+      >
         {card.postContent}
         {card.postImage.length === 1 ? (
           <img src={card.postImage.toString()} alt="postImage" />
@@ -34,7 +38,11 @@ const PostList = ({ card }) => {
         ) : null}
       </PostContents>
 
-      <PostAction>
+      <PostAction
+        onClick={() => {
+          navigate("/posts/" + card.postId);
+        }}
+      >
         좋아요 0 &nbsp;&nbsp;&nbsp; 댓글 {card.commentCount}
         <hr />
       </PostAction>
@@ -43,15 +51,20 @@ const PostList = ({ card }) => {
         <img src={Like} alt="like" />
         <img src={Comment} alt="comment" />
       </PostButton>
-    </PostWrap>
+    </PostListWrap>
   );
 };
 
-const PostWrap = styled.div`
+const PostListWrap = styled.div`
   text-align: left;
   padding: 20px 20px 12px 20px;
   background-color: white;
   margin-bottom: 12px;
+`;
+
+const PostWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const PostInfo = styled.div`

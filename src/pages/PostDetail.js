@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 
 import PostList from "../components/community/PostList";
-import CommentList from "../components/community/Comment";
+import Comment from "../components/community/Comment";
 import CommentWrite from "../components/community/CommentWrite";
 
 const PostDetail = () => {
@@ -37,11 +37,11 @@ const PostDetail = () => {
     <PostDetailWrap>
       {/* <PostList card={posts[postId]} /> */}
       <PostList card={result} />
-      <Comment>
+      <CommentList>
         {comments.map((card, index) => (
-          <CommentList card={card} key={index} />
+          <Comment card={card} key={index} />
         ))}
-      </Comment>
+      </CommentList>
       <CommentWrite />
     </PostDetailWrap>
   );
@@ -51,7 +51,7 @@ const PostDetailWrap = styled.div`
   background-color: var(--gray1);
 `;
 
-const Comment = styled.div`
+const CommentList = styled.div`
   margin-top: 4px;
   margin-bottom: 160px;
 `;
