@@ -24,21 +24,15 @@ const PostDetail = () => {
     dispatch(postActions.postDB());
     dispatch(postActions.detailPostDB(id));
   }, []);
-
-//   useEffect(() => {
-//     setCmt(comments);
-//   }, [comments]);
-
+  
   const result = posts.find((post) => post.postId === Number(id));
-//   const [cmt, setCmt] = useState([]);
-//   console.log(cmt);
 
   return (
     <PostDetailWrap>
       {/* <PostList card={posts[postId]} /> */}
       <PostList card={result} />
       <CommentList>
-        {comments.map((card, index) => (
+        {comments && comments.map((card, index) => (
           <Comment card={card} key={index} />
         ))}
       </CommentList>
