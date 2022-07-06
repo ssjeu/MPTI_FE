@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { apis } from "../../shared/api";
+import { communityApi } from "../../shared/api";
 
 // Action Type
 const GET_POST = "GET_POST";
@@ -27,7 +27,7 @@ const initialState = {
 // 전체 게시글 불러오기
 const postDB = () => {
   return async function (dispatch, getState) {
-    await apis
+    await communityApi
       .postList()
       .then((res) => {
         console.log(res.data, "postDB response");
@@ -42,7 +42,7 @@ const postDB = () => {
 // 상세 정보 불러오기
 const detailPostDB = (postId) => {
   return async function (dispatch, getState) {
-    await apis
+    await communityApi
       .postDetail(postId)
       .then((res) => {
         console.log(res.data, "detailPostDB response");
@@ -64,7 +64,7 @@ const addPostAC = (post) => {
     // 	},
     // { withCredentials: true } // cors Error 방지
     // };
-    await apis
+    await communityApi
       .postWrite(post.category, post.content,post.imageUrl)
       .then((res) => {
         console.log("addPost response", res);

@@ -17,7 +17,7 @@ const Comment = ({ card }) => {
           <div>{card.comment}</div>
         </PostUser>
       </CommentInfo>
-      <MoreButton />
+      <MoreButton id={card.commentId} type={"comment"}/>
     </CommentWrap>
   );
 };

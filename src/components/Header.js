@@ -38,7 +38,7 @@ const HeaderWrap = styled.div`
   justify-content: space-between;
 `;
 
-// 스크롤시 고정시
+// 스크롤 고정시
 
 // const HeaderWrap = styled.div`
 //   position: fixed;

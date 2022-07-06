@@ -19,7 +19,6 @@ const CommentWrite = () => {
       dispatch(postActions.addCommentAC(postId, content_ref.current.value));
       content_ref.current.value = "";
     }
-    return;
   };
 
   return (

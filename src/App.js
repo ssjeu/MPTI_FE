@@ -6,8 +6,9 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Main from "./pages/Main";
 import Community from "./pages/Community";
-import PostWrite from "./pages/PostWrite";
 import PostDetail from "./pages/PostDetail";
+import PostWrite from "./pages/PostWrite";
+import PostUpdate from "./pages/PostUpdate";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import UserInfo from "./pages/UserInfo";
@@ -22,8 +23,9 @@ function App() {
       <Routes>
       <Route path='/' element={<Main />} />
         <Route path="/community" exact element={<Community />} />
-        <Route path="/postwrite" exact element={<PostWrite />} />
         <Route path="/posts/:index" element={<PostDetail />} />
+        <Route path="/postwrite" exact element={<PostWrite />} />
+        <Route path="/postupdate" exact element={<PostUpdate />} />
         <Route path='/login' element={<SignIn />} />
         <Route path='/join' element={<SignUp />} />
         <Route path='/info' element={<UserInfo />} />

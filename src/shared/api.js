@@ -1,35 +1,36 @@
-import axios from "axios";
 import instance from "./Request";
-
-const api = axios.create({
-  baseURL: "http://3.35.170.203",
-});
 
 // 토큰 설정
 const token = localStorage.getItem("is_login");
 
-export const apis = {
+export const communityApi = {
   // community
-  postList: () => api.get(`/api/posts/postList`),
-  postDetail: (postId) => api.get(`/api/posts/${postId}`),
-  
+  postList: () => instance.get(`/api/posts/postList`),
+  postDetail: (postId) => instance.get(`/api/posts/${postId}`),
+
   postWrite: (content, image, category) =>
-    api.post(
+    instance.post(
       `/api/posts`,
       { postContent: content, postImage: image, postCategory: category },
       { headers: { Authorization: `Bearer ${token}` } }
     ),
-  postUpdate: (postId) => api.put(`/api/posts/${postId}`),
-  postDelete: (postId) => api.delete(`/api/posts/${postId}`),
+  postUpdate: (postId) => instance.put(`/api/posts/${postId}`),
+  postDelete: (postId) => instance.delete(`/api/posts/${postId}`),
 
   commentWrite: (postId, cmt) =>
-    api.post(
+    instance.post(
       `/api/comments/${postId}`,
       { comment: cmt },
       { headers: { Authorization: `Bearer ${token}` } }
     ),
-  commentUpdate: (postId) => api.put(`/api/comments/${postId}`),
-  commentDelete: (postId) => api.delete(`/api/comments/${postId}`),
+  commentUpdate: (cmtId) =>
+    instance.put(`/api/comments/${cmtId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  commentDelete: (cmtId) =>
+    instance.delete(`/api/comments/${cmtId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
 };
 
 export const authApi = {

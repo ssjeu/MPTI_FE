@@ -22,7 +22,7 @@ const PostList = ({ card }) => {
             <span>{card.createdAt}</span>
           </PostUser>
         </PostInfo>
-        <MoreButton />
+        <MoreButton id={card.postId} type={"post"}/>
       </PostWrap>
 
       <PostContents
