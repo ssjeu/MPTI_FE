@@ -29,7 +29,6 @@ const PostDetail = () => {
 
   return (
     <PostDetailWrap>
-      {/* <PostList card={posts[postId]} /> */}
       <PostList card={result} />
       <CommentList>
         {comments && comments.map((card, index) => (
