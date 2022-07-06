@@ -2,36 +2,55 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { actionCreators as moreActions } from "../redux/modules/comment";
+import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as commentActions } from "../redux/modules/comment";
 
 import more from "../images/icons/more-horiz@3x.png";
 
 const MoreButton = ({ id, type }) => {
-  console.log(id, type); // type: post or comment
+  // type: post or comment
   const dispatch = useDispatch();
 
   const options = ["수정", "삭제"];
-  const [open, setOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setOpen(false);
   };
 
+  // 더보기 버튼 클릭 상태
+  const [open, setOpen] = useState(false);
+
   const activeButton = () => {
     setOpen(!open);
   };
 
+  // 수정하기 부분
+  const postUpdate = (postId) => {};
+
+  const commentUpdate = (cmtId) => {};
+
+  const handleUpdate = () => {
+    if (type === "post") {
+      postUpdate(id);
+    } else if (type === "comment") {
+      commentUpdate(id);
+    }
+  };
+
+  // 삭제하기 부분
+  const postDelete = (postId) => {
+    dispatch(postActions.deletePostAC(postId));
+  };
+
   const commentDelete = (cmtId) => {
-    dispatch(moreActions.deleteCommentAC(cmtId));
+    dispatch(commentActions.deleteCommentAC(cmtId));
   };
 
   const handleDelete = () => {
-    if (type === "post") {
-    } else if (type === "comment") {
-      commentDelete(id);
-    }
+    if (type === "post") postDelete(id);
+    else if (type === "comment") commentDelete(id);
   };
 
   return (

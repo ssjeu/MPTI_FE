@@ -37,13 +37,25 @@ const addCommentAC = (postId, text) => {
   };
 };
 
+const updateCommentAC = (commentId) => {
+  return async function () {
+    await communityApi
+      .updateDelete(commentId)
+      .then((res) => {
+        console.log(res.data, "updateCommentAC response");
+      })
+      .catch((err) => {
+        console.log("PUT updateCommentAC Error: ", err);
+      });
+  };
+};
+
 const deleteCommentAC = (commentId) => {
   return async function () {
     await communityApi
       .commentDelete(commentId)
       .then((res) => {
         console.log(res.data, "deleteCommentAC response");
-        // dispatch(addComment(res.data));
       })
       .catch((err) => {
         console.log("DELETE deleteCommentAC Error: ", err);
@@ -58,6 +70,8 @@ const actionCreators = {
   addCommentAC,
   deleteComment,
   deleteCommentAC,
+  updateComment,
+  updateCommentAC,
 };
 
 export { actionCreators };

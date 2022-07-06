@@ -15,7 +15,10 @@ export const communityApi = {
       { headers: { Authorization: `Bearer ${token}` } }
     ),
   postUpdate: (postId) => instance.put(`/api/posts/${postId}`),
-  postDelete: (postId) => instance.delete(`/api/posts/${postId}`),
+  postDelete: (postId) =>
+    instance.delete(`/api/posts/${postId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
 
   commentWrite: (postId, cmt) =>
     instance.post(

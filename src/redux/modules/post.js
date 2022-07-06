@@ -90,6 +90,19 @@ const addPostAC = (post) => {
   };
 };
 
+const deletePostAC = (postId) => {
+    return async function () {
+      await communityApi
+        .postDelete(postId)
+        .then((res) => {
+          console.log(res.data, "deletePostAC response");
+        })
+        .catch((err) => {
+          console.log("DELETE deletePostAC Error: ", err);
+        });
+    };
+  };
+
 export default handleActions(
   {
     [GET_POST]: (state, action) =>
@@ -121,6 +134,8 @@ const actionCreators = {
   detailPostDB,
   addPost,
   addPostAC,
+  deletePost,
+  deletePostAC
 };
 
 export { actionCreators };
