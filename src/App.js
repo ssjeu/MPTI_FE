@@ -15,8 +15,8 @@ import UserInfo from "./pages/UserInfo";
 import KakaoLogin from "./components/KakaoLogin";
 
 function App() {
-  const test = useSelector((state) => state);
-  console.log(test);
+//   const test = useSelector((state) => state);
+//   console.log(test);
   return (
     <div className="App">
       <Header />

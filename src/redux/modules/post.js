@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
 import { communityApi } from "../../shared/api";
+import { produce } from "immer";
 
 // Action Type
 const GET_POST = "GET_POST";

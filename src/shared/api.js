@@ -4,10 +4,9 @@ import instance from "./Request";
 const token = localStorage.getItem("is_login");
 
 export const communityApi = {
-  // community
+  // 게시글
   postList: () => instance.get(`/api/posts/postList`),
   postDetail: (postId) => instance.get(`/api/posts/${postId}`),
-
   postWrite: (content, image, category) =>
     instance.post(
       `/api/posts`,
@@ -20,6 +19,7 @@ export const communityApi = {
       headers: { Authorization: `Bearer ${token}` },
     }),
 
+  // 댓글
   commentWrite: (postId, cmt) =>
     instance.post(
       `/api/comments/${postId}`,
@@ -32,6 +32,24 @@ export const communityApi = {
     }),
   commentDelete: (cmtId) =>
     instance.delete(`/api/comments/${cmtId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+
+  // 좋아요
+  likeList: (postId) =>
+    instance.get(`api/posts/likes/${postId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  likeAdd: (postId) =>
+    instance.post(
+      `api/posts/likes/${postId}`,
+      { countLikes: 1 },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    ),
+  likeDelete: (postId) =>
+    instance.delete(`api/posts/likes/${postId}`, {
       headers: { Authorization: `Bearer ${token}` },
     }),
 };

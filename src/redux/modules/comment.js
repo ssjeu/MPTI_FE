@@ -1,5 +1,4 @@
 import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
 import { communityApi } from "../../shared/api";
 
 // Action Type
