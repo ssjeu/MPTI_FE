@@ -16,6 +16,35 @@ if (localStorage.getItem('is_login'))
     'Authorization'
   ] = `Bearer ${localStorage.getItem('is_login')}`;
 
+export const communityApi = {
+  // 게시글
+  postList: () => instance.get(`/api/posts/postList`),
+  postDetail: (postId) => instance.get(`/api/posts/${postId}`),
+  postWrite: (content, image, category) =>
+    instance.post(`/api/posts`, {
+      postContent: content,
+      postImage: image,
+      postCategory: category,
+    }),
+  postUpdate: (postId) => instance.put(`/api/posts/${postId}`),
+  postDelete: (postId) => instance.delete(`/api/posts/${postId}`),
+
+  // 댓글
+  commentWrite: (postId, cmt) =>
+    instance.post(`/api/comments/${postId}`, { comment: cmt }),
+  commentUpdate: (cmtId) => instance.put(`/api/comments/${cmtId}`),
+  commentDelete: (cmtId) => instance.delete(`/api/comments/${cmtId}`),
+
+  // 좋아요
+  likeList: (postId) =>
+    instance.get(`api/posts/likes/${postId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  likeAdd: (postId) =>
+    instance.post(`api/posts/likes/${postId}`, { countLikes: 1 }),
+  likeDelete: (postId) => instance.delete(`api/posts/likes/${postId}`),
+};
+
 export const authApi = {
   signUp: (email, name, password, passwordCheck) => {
     instance
@@ -28,7 +57,7 @@ export const authApi = {
       .then((res) => {
         console.log(res);
         alert('회원가입에 성공했습니다!');
-        // window.location.href = '/login';
+
         window.location.replace('/login');
       })
       .catch((err) => {
@@ -52,14 +81,10 @@ export const authApi = {
         alert('로그인 되었습니다!');
 
         if (!localStorage.getItem('nickname')) {
-          // window.location.href = '/info';
-
           window.location.replace('/info');
         } else {
           window.location.replace('/');
         }
-
-        // window.location.href = '/info';
       })
       .catch((err) => {
         console.log(err);
@@ -72,8 +97,6 @@ export const authApi = {
       .then((res) => {
         console.log(res);
         alert('로그인 되었습니다!');
-
-        // window.location.href = '/info';
       })
       .catch((err) => {
         console.log(err);

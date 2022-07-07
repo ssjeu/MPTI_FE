@@ -52,12 +52,24 @@ export const kakaoLogin = (code) => {
   };
 };
 
+<<<<<<< HEAD
 export const userInfoDB = (formData) => {
   return function (dispatch) {
     for (let value of formData.values()) {
       console.log(value);
     }
     authApi.userInfo(formData);
+=======
+export const userInfoDB = (
+  nickname,
+  birthday,
+  user_mbti,
+  introduction,
+  userGender
+) => {
+  return function (dispatch) {
+    authApi.userInfo(nickname, birthday, user_mbti, introduction, userGender);
+>>>>>>> e1a6a0b5a0691fe426af907c23f1080b989ca85d
   };
 };
 // export const loadUserDB = () => {
@@ -81,4 +93,8 @@ export default function reducer(state = initialState, action = {}) {
     default:
       return state;
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e1a6a0b5a0691fe426af907c23f1080b989ca85d
