@@ -1,7 +1,20 @@
 import instance from './Request';
+import axios from 'axios';
 
 // 토큰 설정
 const token = localStorage.getItem('is_login');
+
+const ImgApi = axios.create({
+  baseURL: 'http://3.35.170.203',
+  headers: {
+    'Content-type': 'multipart/form-data',
+  },
+});
+
+if (localStorage.getItem('is_login'))
+  ImgApi.defaults.headers.common[
+    'Authorization'
+  ] = `Bearer ${localStorage.getItem('is_login')}`;
 
 export const authApi = {
   signUp: (email, name, password, passwordCheck) => {
@@ -30,8 +43,8 @@ export const authApi = {
         {
           email,
           password,
-        }
-        // { withCredentials: true }
+        },
+        { withCredentials: true }
       )
       .then((res) => {
         console.log(res);
@@ -67,22 +80,10 @@ export const authApi = {
       });
   },
 
-  userInfo: (nickname, birthday, user_mbti, introduction, userGender) => {
-    instance
-      .put(
-        '/api/signup/first',
-        {
-          nickname: nickname,
-          gender: userGender,
-          birthday: birthday,
-          mbti: user_mbti,
-          introduction: introduction,
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
-        // { withCredentials: true }
-      )
+  userInfo: (formData) => {
+    ImgApi.put('/api/signup/first', formData, { withCredentials: true })
       .then((res) => {
-        console.log('성공', res);
+        console.log('성공', res.data);
       })
       .catch((err) => {
         console.log(err);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
@@ -39,8 +39,15 @@ const UserInfo = () => {
   const [userMon, setUserMon] = React.useState('');
   const [userDay, setUserDay] = React.useState('');
 
+  //! 프로필 사진 저장
+  const [profile, setProfile] = React.useState(null);
+  const [imgBase64, setImgBase64] = React.useState([]);
+
   // 디스패치
   const dispatch = useDispatch();
+
+  // 이미지 인풋 파일 ref
+  const imageInput = useRef();
 
   // 유저 mbti 저장 부분
   const user_mbti = first + second + third + fourth;
@@ -65,7 +72,6 @@ const UserInfo = () => {
   };
 
   const birthday = userYear + '-' + birthday_mon() + '-' + birthday_day();
-  console.log(birthday);
 
   // 생년월일 드롭다운 부분
   const now = new Date();
@@ -88,11 +94,27 @@ const UserInfo = () => {
     daySelectList.push(i);
   }
 
-  // 입력 완료 버튼 클릭 시
+  //! 입력 완료 버튼 클릭 시
   const completed = () => {
-    dispatch(
-      userInfoDB(nickname, birthday, user_mbti, introduction, userGender)
-    );
+    if (
+      profile === null ||
+      nickname === '' ||
+      birthday.length < 5 ||
+      introduction === ''
+    ) {
+      alert('프로필과 빈칸을 모두 채워주세요!');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('userImage', profile);
+    formData.append('nickname', nickname);
+    formData.append('gender', userGender);
+    formData.append('birthday', birthday);
+    formData.append('mbti', user_mbti);
+    formData.append('introduction', introduction);
+
+    dispatch(userInfoDB(formData));
   };
 
   // 드롭다운에서 데이터 받아오기
@@ -108,16 +130,50 @@ const UserInfo = () => {
     setUserDay(x);
   };
 
+  //! 프로필 사진 업로드 부분
+  const onClickImageUpload = () => {
+    imageInput.current.click();
+  };
+
+  const handleChangeFile = (e) => {
+    setProfile(e.target.files[0]);
+    setImgBase64([]);
+
+    for (var i = 0; i < e.target.files.length; i++) {
+      let reader = new FileReader();
+      reader.readAsDataURL(e.target.files[i]);
+      reader.onload = () => {
+        const base64 = reader.result;
+
+        if (base64) {
+          var base64Sub = base64.toString();
+          setImgBase64((imgBase64) => [...imgBase64, base64Sub]);
+        }
+      };
+    }
+  };
+
   return (
     <Container className='container'>
       <Header margin='58px 0 49.7px 0' />
 
-      <Profile>
-        <Person />
+      <Profile onClick={onClickImageUpload}>
+        {profile === null ? <Person /> : <img src={imgBase64} alt='' />}
+
+        {/* <Person />
+
+        <img src={imgBase64} alt='' /> */}
 
         <div>
           <Camera />
         </div>
+        <input
+          type='file'
+          accept='image/*'
+          style={{ display: 'none' }}
+          ref={imageInput}
+          onChange={handleChangeFile}
+        />
       </Profile>
 
       <div>
@@ -373,6 +429,13 @@ const Profile = styled.div`
   position: relative;
 
   cursor: pointer;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 49px;
+    object-fit: cover;
+  }
 
   & > div {
     width: 30px;
