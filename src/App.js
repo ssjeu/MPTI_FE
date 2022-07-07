@@ -1,8 +1,7 @@
-import './App.css';
+import './css/App.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import Header from './components/Header';
+
 import Footer from './components/Footer';
 import Main from './pages/Main';
 import Community from './pages/Community';
@@ -13,6 +12,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import UserInfo from './pages/UserInfo';
 import KakaoLogin from './components/KakaoLogin';
+import { Header } from './components/Header';
 
 function App() {
   //   const test = useSelector((state) => state);

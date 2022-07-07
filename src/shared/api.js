@@ -107,6 +107,7 @@ export const authApi = {
     ImgApi.put('/api/signup/first', formData, { withCredentials: true })
       .then((res) => {
         console.log('성공', res.data);
+        window.location.replace('/');
       })
       .catch((err) => {
         console.log(err);

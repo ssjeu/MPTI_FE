@@ -20,8 +20,4 @@ const KakaoLogin = (props) => {
   );
 };
 
-<<<<<<< HEAD
 export default KakaoLogin;
-=======
-export default KakaoLogin;
->>>>>>> e1a6a0b5a0691fe426af907c23f1080b989ca85d

@@ -7,13 +7,13 @@ import { ReactComponent as Person } from '../icons/person.svg';
 import { ReactComponent as Camera } from '../icons/camera_alt.svg';
 import { ReactComponent as Warning } from '../icons/warning.svg';
 
-import Header from '../components/Header';
 import Input01 from '../elements/Input01';
 import Button03 from '../elements/Button03';
 import Button01 from '../elements/Button01';
 import dropdownArrow from '../icons/arrow_drop_down.png';
-import SelectTest from '../elements/SelectTest';
+import Dropdown from '../elements/Dropdown';
 import { userInfoDB } from '../redux/modules/user';
+import { UserInfoHeader } from '../components/Header';
 
 const UserInfo = () => {
   // 버튼 선택지 중 택1 구현
@@ -155,14 +155,10 @@ const UserInfo = () => {
 
   return (
     <Container className='container'>
-      <Header margin='58px 0 49.7px 0' />
+      <UserInfoHeader margin='58px 0 49.7px 0' />
 
       <Profile onClick={onClickImageUpload}>
         {profile === null ? <Person /> : <img src={imgBase64} alt='' />}
-
-        {/* <Person />
-
-        <img src={imgBase64} alt='' /> */}
 
         <div>
           <Camera />
@@ -217,37 +213,33 @@ const UserInfo = () => {
 
           <DropdownList>
             <div>
-              <SelectTest
+              <Dropdown
                 data={yearSelectList}
                 width='83px'
                 height='300px'
                 parent={yearDropdown}
               >
                 년
-              </SelectTest>
+              </Dropdown>
               <span>년</span>
             </div>
 
             <div>
-              <SelectTest
-                data={monSelectList}
-                width='61px'
-                parent={monDropdown}
-              >
+              <Dropdown data={monSelectList} width='61px' parent={monDropdown}>
                 월
-              </SelectTest>
+              </Dropdown>
               <span>월</span>
             </div>
 
             <div>
-              <SelectTest
+              <Dropdown
                 data={daySelectList}
                 width='61px'
                 height='300px'
                 parent={dayDropdown}
               >
                 일
-              </SelectTest>
+              </Dropdown>
               <span>일</span>
             </div>
           </DropdownList>
@@ -389,6 +381,8 @@ const Container = styled.div`
     font-weight: 500;
     letter-spacing: -0.8px;
 
+    text-align: left;
+
     margin-top: 20px;
     margin-bottom: 10px;
   }
@@ -459,45 +453,7 @@ const Buttons = styled.div`
   justify-content: space-between;
 `;
 
-const SelectBox = styled.div`
-  // & > div {
-  //   display: flex;
-  //   flex-flow: row nowrap;
-  // }
-
-  // select {
-  //   border: none;
-  //   border-bottom: 2px solid #64be72;
-  //   margin-right: 4px;
-  //   text-align: center;
-
-  //   -webkit-appearance: none;
-  //   -moz-appearance: none;
-  //   appearance: none;
-  //   background: url(${dropdownArrow}) no-repeat 105% 50%;
-
-  //   outline: none;
-  // }
-
-  // option {
-  //   height: 300px;
-  // }
-
-  // select:nth-of-type(1) {
-  //   width: 83px;
-  // }
-
-  // select:not(:nth-of-type(1)) {
-  //   width: 61px;
-  //   margin-left: 12px;
-  // }
-
-  // span {
-  //   font-size: 16px;
-  //   font-weight: 300;
-  //   letter-spacing: -0.8px;
-  // }
-`;
+const SelectBox = styled.div``;
 
 const DropdownList = styled.div`
   display: flex;

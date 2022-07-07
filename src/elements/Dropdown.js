@@ -2,7 +2,7 @@ import React, { Children, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import dropdownArrow from '../icons/arrow_drop_down.png';
 
-const SelectTest = (props) => {
+const Dropdown = (props) => {
   const { data, width, children, height, parent } = props;
 
   const [display, setDisplay] = React.useState(false);
@@ -128,4 +128,4 @@ const DropdownList = styled.div`
   }
 `;
 
-export default SelectTest;
+export default Dropdown;
