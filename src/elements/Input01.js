@@ -7,7 +7,12 @@ const Input01 = (props) => {
   return (
     <>
       <InputStyle style={{ margin: `${margin}` }}>
-        <input type={type} placeholder={placeholder} onChange={_onChange} ref={_ref} />
+        <input
+          type={type}
+          placeholder={placeholder}
+          onChange={_onChange}
+          ref={_ref}
+        />
       </InputStyle>
     </>
   );

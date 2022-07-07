@@ -1,13 +1,13 @@
 // 하단 네비게이션바
-import React, { useState } from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import Home from "../images/footer/home@3x.png";
-import Community from "../images/footer/people@3x.png";
-import Chat from "../images/footer/chat-bubble-outline@3x.png";
-import Mypage from "../images/footer/person@3x.png";
+import Home from '../images/footer/home@3x.png';
+import Community from '../images/footer/people@3x.png';
+import Chat from '../images/footer/chat-bubble-outline@3x.png';
+import Mypage from '../images/footer/person@3x.png';
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -16,38 +16,39 @@ const Footer = () => {
   const [activeNav, setActiveNav] = useState(1);
 
   const location = useLocation();
-  if (location.pathname === "/login") return null;
-  else if (location.pathname === "/join") return null;
-  else if (location.pathname === "/info") return null;
+  if (location.pathname === '/login') return null;
+  else if (location.pathname === '/join') return null;
+  else if (location.pathname === '/info') return null;
 
   return (
     <FooterWrap>
       <FooterMenu>
         <img
           src={Home}
-          alt="home"
+          alt='home'
           onClick={() => {
             setActiveNav(1);
+            navigate('/');
           }}
         />
         <img
           src={Community}
-          alt="community"
+          alt='community'
           onClick={() => {
             setActiveNav(2);
-            navigate("/community");
+            navigate('/community');
           }}
         />
         <img
           src={Chat}
-          alt="Chat"
+          alt='Chat'
           onClick={() => {
             setActiveNav(3);
           }}
         />
         <img
           src={Mypage}
-          alt="Mypage"
+          alt='Mypage'
           onClick={() => {
             setActiveNav(4);
           }}

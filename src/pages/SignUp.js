@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { signUpDB } from '../redux/modules/user';
 import { useNavigate } from 'react-router-dom';
 
-import logo from '../images/logo@2x.png';
+import logo from '../images/logo/Group 14@2x.png';
 
 import Input01 from '../elements/Input01';
 import Button01 from '../elements/Button01';
@@ -67,7 +67,9 @@ const SignUp = () => {
     }
 
     if (isNext === 3 && !passwordCheck_reg(password)) {
-      alert('비밀번호 형식을 확인해주세요.\n영문, 숫자, 특수문자 포함 8자리 이상입니다!');
+      alert(
+        '비밀번호 형식을 확인해주세요.\n영문, 숫자, 특수문자 포함 8자리 이상입니다!'
+      );
       return;
     }
 
@@ -78,23 +80,6 @@ const SignUp = () => {
 
     console.log(email, name, password, passwordCheck);
     dispatch(signUpDB(email, name, password, passwordCheck));
-    // if (email === '' || name === '' || password === '' || passwordCheck === '') {
-    //   alert('빈칸을 모두 입력해주세요.');
-    //   return;
-    // }
-    // if (!emailCheck_reg(email)) {
-    //   alert('이메일 형식을 확인해주세요.');
-    //   return;
-    // }
-    // if (!passwordCheck_reg(password)) {
-    //   alert('비밀번호 형식을 확인해주세요.');
-    //   return;
-    // }
-    // if (password !== passwordCheck) {
-    //   alert('비밀번호가 다릅니다. 다시 확인해주세요.');
-    //   return;
-    // }
-    // navigate('/login');
   };
 
   return (

@@ -1,39 +1,39 @@
-import instance from "./Request";
+import instance from './Request';
+import axios from 'axios';
 
 // 토큰 설정
-const token = localStorage.getItem("is_login");
+const token = localStorage.getItem('is_login');
+
+const ImgApi = axios.create({
+  baseURL: 'http://3.35.170.203',
+  headers: {
+    'Content-type': 'multipart/form-data',
+  },
+});
+
+if (localStorage.getItem('is_login'))
+  ImgApi.defaults.headers.common[
+    'Authorization'
+  ] = `Bearer ${localStorage.getItem('is_login')}`;
 
 export const communityApi = {
   // 게시글
   postList: () => instance.get(`/api/posts/postList`),
   postDetail: (postId) => instance.get(`/api/posts/${postId}`),
   postWrite: (content, image, category) =>
-    instance.post(
-      `/api/posts`,
-      { postContent: content, postImage: image, postCategory: category },
-      { headers: { Authorization: `Bearer ${token}` } }
-    ),
-  postUpdate: (postId) => instance.put(`/api/posts/${postId}`),
-  postDelete: (postId) =>
-    instance.delete(`/api/posts/${postId}`, {
-      headers: { Authorization: `Bearer ${token}` },
+    instance.post(`/api/posts`, {
+      postContent: content,
+      postImage: image,
+      postCategory: category,
     }),
+  postUpdate: (postId) => instance.put(`/api/posts/${postId}`),
+  postDelete: (postId) => instance.delete(`/api/posts/${postId}`),
 
   // 댓글
   commentWrite: (postId, cmt) =>
-    instance.post(
-      `/api/comments/${postId}`,
-      { comment: cmt },
-      { headers: { Authorization: `Bearer ${token}` } }
-    ),
-  commentUpdate: (cmtId) =>
-    instance.put(`/api/comments/${cmtId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
-  commentDelete: (cmtId) =>
-    instance.delete(`/api/comments/${cmtId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
+    instance.post(`/api/comments/${postId}`, { comment: cmt }),
+  commentUpdate: (cmtId) => instance.put(`/api/comments/${cmtId}`),
+  commentDelete: (cmtId) => instance.delete(`/api/comments/${cmtId}`),
 
   // 좋아요
   likeList: (postId) =>
@@ -41,23 +41,14 @@ export const communityApi = {
       headers: { Authorization: `Bearer ${token}` },
     }),
   likeAdd: (postId) =>
-    instance.post(
-      `api/posts/likes/${postId}`,
-      { countLikes: 1 },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    ),
-  likeDelete: (postId) =>
-    instance.delete(`api/posts/likes/${postId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
+    instance.post(`api/posts/likes/${postId}`, { countLikes: 1 }),
+  likeDelete: (postId) => instance.delete(`api/posts/likes/${postId}`),
 };
 
 export const authApi = {
   signUp: (email, name, password, passwordCheck) => {
     instance
-      .post("/api/signup", {
+      .post('/api/signup', {
         email: email,
         name: name,
         password: password,
@@ -65,9 +56,9 @@ export const authApi = {
       })
       .then((res) => {
         console.log(res);
-        alert("회원가입에 성공했습니다!");
-        // window.location.href = '/login';
-        window.location.replace("/login");
+        alert('회원가입에 성공했습니다!');
+
+        window.location.replace('/login');
       })
       .catch((err) => {
         console.log(err);
@@ -77,27 +68,23 @@ export const authApi = {
   login: (email, password) => {
     instance
       .post(
-        "/api/login",
+        '/api/login',
         {
           email,
           password,
-        }
-        // { withCredentials: true }
+        },
+        { withCredentials: true }
       )
       .then((res) => {
         console.log(res);
-        localStorage.setItem("is_login", res.data.token);
-        alert("로그인 되었습니다!");
+        localStorage.setItem('is_login', res.data.token);
+        alert('로그인 되었습니다!');
 
-        if (!localStorage.getItem("nickname")) {
-          // window.location.href = '/info';
-
-          window.location.replace("/info");
+        if (!localStorage.getItem('nickname')) {
+          window.location.replace('/info');
         } else {
-          window.location.replace("/");
+          window.location.replace('/');
         }
-
-        // window.location.href = '/info';
       })
       .catch((err) => {
         console.log(err);
@@ -109,31 +96,18 @@ export const authApi = {
       .get(`/api/kakao/callback?code=${code}`)
       .then((res) => {
         console.log(res);
-        alert("로그인 되었습니다!");
-
-        // window.location.href = '/info';
+        alert('로그인 되었습니다!');
       })
       .catch((err) => {
         console.log(err);
       });
   },
 
-  userInfo: (nickname, birthday, user_mbti, introduction, userGender) => {
-    instance
-      .put(
-        "/api/signup/first",
-        {
-          nickname: nickname,
-          gender: userGender,
-          birthday: birthday,
-          mbti: user_mbti,
-          introduction: introduction,
-        },
-        { headers: { Authorization: `Bearer ${token}` } }
-        // { withCredentials: true }
-      )
+  userInfo: (formData) => {
+    ImgApi.put('/api/signup/first', formData, { withCredentials: true })
       .then((res) => {
-        console.log("성공", res);
+        console.log('성공', res.data);
+        window.location.replace('/');
       })
       .catch((err) => {
         console.log(err);

@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;500&display=swap');
+
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.App {
+  text-align: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0;
+  /* width: 640px; */
+  /* height: 100%; */
+  color: #333;
+
+  /* --width: 640px; */
+  --maincolor: #64be72;
+  --subcolor: #f9fdf9;
+  --pointcolor: #ff6565;
+  --gray1: #ebebeb;
+  --gray2: #d9d9d9;
+  --gray3: #adadad;
+  --gray4: #979797;
+}

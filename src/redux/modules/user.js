@@ -52,15 +52,12 @@ export const kakaoLogin = (code) => {
   };
 };
 
-export const userInfoDB = (
-  nickname,
-  birthday,
-  user_mbti,
-  introduction,
-  userGender
-) => {
+export const userInfoDB = (formData) => {
   return function (dispatch) {
-    authApi.userInfo(nickname, birthday, user_mbti, introduction, userGender);
+    for (let value of formData.values()) {
+      console.log(value);
+    }
+    authApi.userInfo(formData);
   };
 };
 // export const loadUserDB = () => {

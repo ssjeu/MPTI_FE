@@ -2,10 +2,10 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import '../css/component.css';
-import { ReactComponent as PermIdentity } from '../images/icons/perm_identity.svg';
-import { ReactComponent as Htttps } from '../images/icons/https.svg';
-import character from '../images/character/frame@3x.png';
-import logo from '../images/logo@2x.png'
+import { ReactComponent as PermIdentity } from '../icons/perm_identity.svg';
+import { ReactComponent as Htttps } from '../icons/https.svg';
+import character from '../images/character/Frame.webp';
+import logo from '../images/logo/Group 14@2x.png';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -49,7 +49,8 @@ const SignIn = () => {
       <Logo className='logo' src={logo} alt='' />
       <div style={{ marginBottom: '45px' }}>
         <span className='text-style-kr' style={{ fontWeight: '300' }}>
-          진짜 MBTI 찐친을 만나는 곳, <span style={{ fontWeight: '500' }}>믑티</span>
+          진짜 MBTI 찐친을 만나는 곳,{' '}
+          <span style={{ fontWeight: '500' }}>믑티</span>
         </span>
       </div>
 
@@ -57,13 +58,23 @@ const SignIn = () => {
 
       <div className='width-wrap'>
         <div className='input-area' style={{ marginBottom: '15px' }}>
-          <PermIdentity className='icons' style={{ fill: email === '' ? '#d9d9d9' : '#64be72' }} />
+          <PermIdentity
+            className='icons'
+            style={{ fill: email === '' ? '#d9d9d9' : '#64be72' }}
+          />
           <input type='text' placeholder='이메일' onChange={inputEmail} />
         </div>
 
         <div className='input-area'>
-          <Htttps className='icons' style={{ fill: password === '' ? '#d9d9d9' : '#64be72' }} />
-          <input type='password' placeholder='비밀번호' onChange={inputPassword} />
+          <Htttps
+            className='icons'
+            style={{ fill: password === '' ? '#d9d9d9' : '#64be72' }}
+          />
+          <input
+            type='password'
+            placeholder='비밀번호'
+            onChange={inputPassword}
+          />
         </div>
       </div>
 
@@ -98,7 +109,10 @@ const SignIn = () => {
       >
         카카오 계정으로 로그인
       </Button01>
-      <p>회원가입 시 믑티의 서비스 이용 약관과 개인정보 보호정책에 동의하게 됩니다.</p>
+      <p>
+        회원가입 시 믑티의 서비스 이용 약관과 개인정보 보호정책에 동의하게
+        됩니다.
+      </p>
     </Container>
   );
 };
