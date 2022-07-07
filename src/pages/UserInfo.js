@@ -95,6 +95,7 @@ const UserInfo = () => {
   }
 
   //! 입력 완료 버튼 클릭 시
+  // 지울것
   const completed = () => {
     if (
       profile === null ||
