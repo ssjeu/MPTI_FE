@@ -21,22 +21,25 @@ export const UserInfoHeader = (props) => {
 };
 
 export const Header = () => {
-  const location = useLocation();
   const navigate = useNavigate();
 
-  if (location.pathname === "/login") return null;
-  else if (location.pathname === "/join") return null;
-  else if (location.pathname === "/info") return null;
+  // 공통 헤더 없는 페이지 설정
+  const location = useLocation().pathname;
+  if (location === "/login") return null;
+  else if (location === "/join") return null;
+  else if (location === "/info") return null;
 
   const goBack = () => {
-    if (location.pathname !== "/") navigate(-1);
+    if (location !== "/" && location !== "/community") navigate(-1);
   };
 
   return (
     <HeaderWrap className="container">
       <BackIcon
         onClick={goBack}
-        className={location.pathname === "/" ? "hide" : null}
+        className={
+          location === "/" || location === "/community" ? "hide" : null
+        }
       >
         <img src={Back} alt="logo" width="24px" />
       </BackIcon>
@@ -68,6 +71,7 @@ const BackIcon = styled.div.attrs((props) => ({
     opacity: 0;
   }
 `;
+
 // 스크롤 고정시
 
 // const HeaderWrap = styled.div`

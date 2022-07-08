@@ -1,56 +1,57 @@
 // 하단 네비게이션바
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-import Home from '../images/footer/home@3x.png';
-import Community from '../images/footer/people@3x.png';
-import Chat from '../images/footer/chat-bubble-outline@3x.png';
-import Mypage from '../images/footer/person@3x.png';
+import { ReactComponent as Home } from "../images/footer/home.svg";
+import { ReactComponent as Community } from "../images/footer/people.svg";
+import { ReactComponent as Chat } from "../images/footer/chat-bubble-outline.svg";
+import { ReactComponent as Mypage } from "../images/footer/person.svg";
 
 const Footer = () => {
   const navigate = useNavigate();
 
   // 현재 선택된 아이콘
-  const [activeNav, setActiveNav] = useState(1);
+  const [activeNav, setActiveNav] = useState(0);
 
-  const location = useLocation();
-  if (location.pathname === '/login') return null;
-  else if (location.pathname === '/join') return null;
-  else if (location.pathname === '/info') return null;
+  // 하단 탭 없는 페이지 설정
+  const location = useLocation().pathname;
+  if (location === "/login") return null;
+  else if (location === "/join") return null;
+  else if (location === "/info") return null;
 
   return (
     <FooterWrap>
       <FooterMenu>
-        <img
-          src={Home}
-          alt='home'
+        <Home
+          className="icons"
+          style={{ fill: activeNav === 0 ? "#64be72" : "#adadad" }}
+          onClick={() => {
+            setActiveNav(0);
+            navigate("/");
+          }}
+        />
+        <Community
+          className="icons"
           onClick={() => {
             setActiveNav(1);
-            navigate('/');
+            navigate("/community");
           }}
+          style={{ fill: activeNav === 1 ? "#64be72" : "#adadad" }}
         />
-        <img
-          src={Community}
-          alt='community'
+        <Chat
+          className="icons"
+          style={{ fill: activeNav === 2 ? "#64be72" : "#adadad" }}
           onClick={() => {
             setActiveNav(2);
-            navigate('/community');
           }}
         />
-        <img
-          src={Chat}
-          alt='Chat'
+        <Mypage
+          className="icons"
+          style={{ fill: activeNav === 3 ? "#64be72" : "#adadad" }}
           onClick={() => {
             setActiveNav(3);
-          }}
-        />
-        <img
-          src={Mypage}
-          alt='Mypage'
-          onClick={() => {
-            setActiveNav(4);
           }}
         />
       </FooterMenu>
@@ -62,7 +63,8 @@ const FooterWrap = styled.div`
   background-color: white;
   width: 100%;
   height: 80px;
-  display: table;
+  display: flex;
+  justify-content: center;
   align-items: center;
   position: fixed;
   bottom: 0;
@@ -71,13 +73,15 @@ const FooterWrap = styled.div`
 `;
 
 const FooterMenu = styled.div`
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent !important;
 
-  & img {
+  .icons {
     width: 20px;
-    padding: 15px 15px;
-    margin: 0 15px;
+    padding: 15px 10px;
+    margin: 0 20px;
   }
 
   &:hover {
