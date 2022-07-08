@@ -37,9 +37,7 @@ export const communityApi = {
 
   // 좋아요
   likeList: (postId) =>
-    instance.get(`api/posts/likes/${postId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
+    instance.get(`api/posts/likes/${postId}`),
   likeAdd: (postId) =>
     instance.post(`api/posts/likes/${postId}`, { countLikes: 1 }),
   likeDelete: (postId) => instance.delete(`api/posts/likes/${postId}`),

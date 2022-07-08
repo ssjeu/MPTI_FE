@@ -24,13 +24,12 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  console.log(location);
   if (location.pathname === '/login') return null;
   else if (location.pathname === '/join') return null;
   else if (location.pathname === '/info') return null;
 
   return (
-    <HeaderWrap>
+    <HeaderWrap className="container">
       <div onClick={() => navigate(-1)}>
         <img src={Back} alt='logo' width='24px' />
       </div>
@@ -46,7 +45,7 @@ export const Header = () => {
 
 const HeaderWrap = styled.div`
   background-color: white;
-  margin: 58px 20px 36px 20px;
+  margin: 58px 0 36px 0;
   display: flex;
   justify-content: space-between;
 `;
