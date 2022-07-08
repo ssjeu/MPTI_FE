@@ -1,15 +1,27 @@
 // 메인페이지에서 커뮤니티 목록에 들어가는 게시글 card
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const PostCard = ({ card }) => {
+  const navigate = useNavigate();
+  const toPost = () => {
+    navigate("/posts/" + card.postId);
+  };
+  
   return (
-    <PostCardWrap>
+    <PostCardWrap onClick={toPost}>
       <Card>
         <CardImage>
           <img src={card.postImage[0]} alt="postcard" />
         </CardImage>
-        <CardTitle><span>{card.postContent}</span></CardTitle>
+        <CardTitle>
+          <div>
+            {card.postContent}
+            <br />
+            <span>{card.userId.slice(0, 10)}</span>
+          </div>
+        </CardTitle>
       </Card>
     </PostCardWrap>
   );
@@ -48,12 +60,18 @@ const CardTitle = styled.div`
     rgba(78, 78, 78, 0.53) 59%
   );
   border-radius: 4px;
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
 
-  & span{
-    margin: auto auto 20px 12px;
+  & div {
+    margin: auto auto 12px 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  & span {
+    font-size: 12px;
+    font-weight: normal;
   }
 `;
 export default PostCard;
