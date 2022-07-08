@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { actionCreators as likeActions } from "../../redux/modules/like";
 
+import "../../css/component.css";
 import PostSwiper from "./PostSwiper";
 import Like from "../../images/favorite-border@3x.png";
 import Comment from "../../images/chat-bubble-outline@3x.png";
@@ -37,7 +38,6 @@ const PostList = ({ card }) => {
 
   useEffect(() => {
     dispatch(likeActions.getLikeAC(card.postId));
-    
   }, []);
 
   useEffect(() => {
@@ -57,12 +57,12 @@ const PostList = ({ card }) => {
       dispatch(likeActions.deleteLikeAC(card.postId));
 
     setLikeState(!likeState);
-    console.log("handleLike2",likeState);
+    console.log("handleLike2", likeState);
   };
 
   return (
     <PostListWrap>
-      <PostWrap>
+      <PostWrap className="contents-container">
         <PostInfo>
           <ProfileImage></ProfileImage>
           <PostUser>
@@ -78,6 +78,7 @@ const PostList = ({ card }) => {
         onClick={() => {
           navigate("/posts/" + card.postId);
         }}
+        className="contents-container"
       >
         {card.postContent}
         {card.postImage.length === 1 ? (
@@ -91,17 +92,23 @@ const PostList = ({ card }) => {
         onClick={() => {
           navigate("/posts/" + card.postId);
         }}
+        className="contents-container"
       >
         좋아요 {likeCount} &nbsp;&nbsp; <img src={Comment} alt="comment" />
         댓글 {card.commentCount}
-        <hr />
       </PostAction>
-
-      <PostButton className={likeState === true ? "active" : null}>
+      <hr />
+      <PostButton
+        className={
+          likeState === true
+            ? "contents-container active"
+            : "contents-container"
+        }
+      >
         <img
           src={Like}
           alt="like"
-        //   onClick={handleLike}
+          //   onClick={handleLike}
         />
       </PostButton>
     </PostListWrap>
@@ -110,9 +117,14 @@ const PostList = ({ card }) => {
 
 const PostListWrap = styled.div`
   text-align: left;
-  padding: 20px 20px 12px 20px;
+  padding: 20px 0 12px 0;
   background-color: white;
   margin-bottom: 12px;
+
+  & hr {
+    opacity: 0.1;
+    margin: 12px 0;
+  }
 `;
 
 const PostWrap = styled.div`
@@ -161,11 +173,6 @@ const PostAction = styled.div`
 
   display: flex;
   align-items: center;
-
-  & hr {
-    opacity: 0.1;
-    margin: 12px 0;
-  }
 
   & img {
     width: 16px;

@@ -7,7 +7,7 @@ import MoreButton from "../../elements/MoreButton";
 const Comment = ({ card }) => {
 
   return (
-    <CommentWrap>
+    <CommentWrap className="contents-container">
       <CommentInfo>
         <ProfileImage />
         <PostUser>
@@ -24,7 +24,8 @@ const Comment = ({ card }) => {
 
 const CommentWrap = styled.div`
   text-align: left;
-  padding: 16px 20px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   background-color: white;
   border-bottom: 0.5px solid var(--gray1);
   display: flex;

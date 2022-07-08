@@ -18,15 +18,15 @@ const Main = () => {
           <br /> <span>나의 찐친을 찾아봐요✨</span>
         </div>
       </MainIntro>
-      <MainButtons className="container">
+      <MainButtons className="contents-container">
         <VoiceButton>보이스로 랜덤 상대 MBTI 맞추기</VoiceButton>
         <RandomButton>랜덤 매칭 채팅</RandomButton>
       </MainButtons>
-      <RecommendWrap className="container">
+      <RecommendWrap className="contents-container">
         나와 잘 맞는 MBTI
         <RecommendCard />
       </RecommendWrap>
-      <CommunityWrap className="container">
+      <CommunityWrap className="contents-container">
         <MainCommunity />
       </CommunityWrap>
     </MainWrap>

@@ -34,7 +34,7 @@ export const Header = () => {
   };
 
   return (
-    <HeaderWrap className="container">
+    <HeaderWrap className="contents-container">
       <BackIcon
         onClick={goBack}
         className={

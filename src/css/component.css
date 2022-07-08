@@ -1,4 +1,11 @@
 .container {
+    width: 100vw;
+    height: auto;
+    box-sizing: border-box;
+    padding: 0 10.4%;
+  }
+
+.contents-container {
   width: 100vw;
   height: auto;
   box-sizing: border-box;

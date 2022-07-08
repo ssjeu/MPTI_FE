@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 
+import "../css/component.css";
 import PostList from "../components/community/PostList";
 import PostWrite from "../images/mode@3x.png";
 import Character from "../images/character/frame-main@3x.png";
@@ -78,7 +79,9 @@ const Community = () => {
         })}
       </Category>
       <Notice>
-        <span>필독!</span>커뮤니티 이용 규칙
+        {/* <div className="contents-container"> */}
+          <span>필독!</span>커뮤니티 이용 규칙
+        {/* </div> */}
       </Notice>
       <CommunityList>
         {data.length === 0 ? (
@@ -113,7 +116,7 @@ const CommunityWrap = styled.div`
 `;
 
 const Category = styled.div`
-  height: 40px;
+  height: 30px;
   align-content: center;
   display: flex;
   //   justify-content: flex-start;
@@ -128,7 +131,8 @@ const CategoryAll = styled.div.attrs((props) => ({
   text-align: center;
   width: 44px;
   height: 30px;
-  margin: 0 20px;
+  padding: 0 20px;
+  margin-top: -2px;
 
   &.active {
     color: var(--maincolor);
@@ -143,6 +147,7 @@ const CategoryButton = styled.div.attrs((props) => ({
   text-align: center;
   width: 100px;
   height: 30px;
+  margin-top: -2px;
 
   &.active {
     color: var(--maincolor);

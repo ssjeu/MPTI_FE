@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
 
+import "../../css/component.css";
+
 const CommentWrite = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -22,9 +24,9 @@ const CommentWrite = () => {
   };
 
   return (
-    <CommentWriteWrap>
+    <CommentWriteWrap className="contents-container">
       <CommentInput>
-        <input type="text" placeholder="댓글을 입력하세요." ref={content_ref} />
+        <input type="text" placeholder="댓글을 입력하세요." ref={content_ref}/>
         <InputButton onClick={activeComment}>입력</InputButton>
       </CommentInput>
     </CommentWriteWrap>
@@ -37,7 +39,6 @@ const CommentWriteWrap = styled.div`
   height: 80px;
   width: 100%;
   bottom: 80px;
-  padding: 0 20px;
 `;
 
 const CommentInput = styled.div`
@@ -45,7 +46,6 @@ const CommentInput = styled.div`
   border: 0.5px solid var(--maincolor);
   border-radius: 6px;
   height: 40px;
-  width: 90%;
   margin: 20px 0;
   font-size: 16px;
 
@@ -64,7 +64,6 @@ const CommentInput = styled.div`
   }
 
   & input:focus {
-    // outline-color: var(--maincolor);
     outline: none;
     border: none;
   }
