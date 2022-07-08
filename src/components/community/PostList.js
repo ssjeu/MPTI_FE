@@ -7,7 +7,7 @@ import { actionCreators as likeActions } from "../../redux/modules/like";
 
 import "../../css/component.css";
 import PostSwiper from "./PostSwiper";
-import Like from "../../images/favorite-border@3x.png";
+import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
 import Comment from "../../images/chat-bubble-outline@3x.png";
 import MoreButton from "../../elements/MoreButton";
 import ProfileCharacter from "../../images/character/profile-character.png";
@@ -35,7 +35,7 @@ const PostList = ({ card }) => {
   const likes = useSelector((state) => state.like.like);
   const users = useSelector((state) => state.like.user);
   const [likeCount, setLikeCount] = useState();
-  const [likeState, setLikeState] = useState();
+  const [likeState, setLikeState] = useState(0);
 
   useEffect(() => {
     dispatch(likeActions.getLikeAC(card.postId));
@@ -52,13 +52,11 @@ const PostList = ({ card }) => {
   }, [likes]);
 
   const handleLike = () => {
-    console.log("handleLike!");
     if (likeState === false) dispatch(likeActions.addLikeAC(card.postId));
     else if (likeState === true)
       dispatch(likeActions.deleteLikeAC(card.postId));
 
     setLikeState(!likeState);
-    console.log("handleLike2", likeState);
   };
 
   return (
@@ -99,21 +97,16 @@ const PostList = ({ card }) => {
         }}
         className="contents-container"
       >
-        좋아요 {likeCount} &nbsp;&nbsp; <img src={Comment} alt="comment" />
+        좋아요 {likeCount} &nbsp;&nbsp; 
+        {/* <img src={Comment} alt="comment" /> */}
         댓글 {card.commentCount}
       </PostAction>
       <hr />
-      <PostButton
-        className={
-          likeState === true
-            ? "contents-container active"
-            : "contents-container"
-        }
-      >
-        <img
-          src={Like}
-          alt="like"
-          //   onClick={handleLike}
+      <PostButton className="contents-container">
+        <Like
+          className="icons"
+          style={{ fill: likeState === true ? "#ff6565" : "#adadad" }}
+          onClick={handleLike}
         />
       </PostButton>
     </PostListWrap>
@@ -186,16 +179,9 @@ const PostAction = styled.div`
   }
 `;
 
-const PostButton = styled.div.attrs((props) => ({
-  className: props.className,
-}))`
-  & img {
+const PostButton = styled.div`
+  .icons {
     width: 16px;
-    margin-right: 20px;
-  }
-
-  &.active {
-    border-bottom: 1px solid red;
   }
 `;
 
