@@ -7,6 +7,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
 import PostList from "../components/community/PostList";
 import PostWrite from "../images/mode@3x.png";
+import Character from "../images/character/frame-main@3x.png";
 
 const Community = () => {
   const dispatch = useDispatch();
@@ -80,9 +81,18 @@ const Community = () => {
         <span>필독!</span>커뮤니티 이용 규칙
       </Notice>
       <CommunityList>
-        {data.map((card, index) => (
-          <PostList card={card} key={index} />
-        ))}
+        {data.length === 0 ? (
+          <CommunityNoList>
+            <img src={Character} alt="므팅이" />
+            <div>
+              아직 등록된 게시물이 없어요!
+              <br />
+              가장 먼저 작성해볼까요? ✨
+            </div>
+          </CommunityNoList>
+        ) : (
+          data.map((card, index) => <PostList card={card} key={index} />)
+        )}
       </CommunityList>
       <PostButton
         onClick={() => {
@@ -106,7 +116,7 @@ const Category = styled.div`
   height: 40px;
   align-content: center;
   display: flex;
-//   justify-content: flex-start;
+  //   justify-content: flex-start;
   background-color: white;
   overflow: auto;
   white-space: nowrap;
@@ -159,6 +169,16 @@ const Notice = styled.div`
 `;
 
 const CommunityList = styled.div``;
+
+const CommunityNoList = styled.div`
+  background-color: white;
+  font-weight: 300;
+
+  & img {
+    margin: 100px auto 20px auto;
+    width: 100px;
+  }
+`;
 
 const PostButton = styled.div`
   background-color: var(--maincolor);

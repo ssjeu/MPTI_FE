@@ -23,7 +23,8 @@ const Main = () => {
         <RandomButton>랜덤 매칭 채팅</RandomButton>
       </MainButtons>
       <RecommendWrap className="container">
-        나와 잘 맞는 MBTI<RecommendCard></RecommendCard>
+        나와 잘 맞는 MBTI
+        <RecommendCard />
       </RecommendWrap>
       <CommunityWrap className="container">
         <MainCommunity />
