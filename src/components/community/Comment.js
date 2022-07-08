@@ -3,13 +3,17 @@ import React from "react";
 import styled from "styled-components";
 
 import MoreButton from "../../elements/MoreButton";
+import ProfileCharacter from "../../images/character/profile-character.png";
 
 const Comment = ({ card }) => {
-
   return (
     <CommentWrap className="contents-container">
       <CommentInfo>
-        <ProfileImage />
+        {card.userImage.length ? (
+          <img src={card.userImage[0]} alt="user profile" />
+        ) : (
+          <img src={ProfileCharacter} alt="no profile" />
+        )}
         <PostUser>
           <strong>{card.userId}</strong>
           <span>{card.createdAt}</span>
@@ -17,7 +21,7 @@ const Comment = ({ card }) => {
           <div>{card.comment}</div>
         </PostUser>
       </CommentInfo>
-      <MoreButton id={card.commentId} type={"comment"}/>
+      <MoreButton id={card.commentId} type={"comment"} />
     </CommentWrap>
   );
 };
@@ -34,13 +38,14 @@ const CommentWrap = styled.div`
 
 const CommentInfo = styled.div`
   display: flex;
-`;
 
-const ProfileImage = styled.div`
-  width: 36px;
-  height: 36px;
-  border-radius: 18px;
-  background-color: var(--subcolor);
+  & img {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    background-color: var(--subcolor);
+    border: 1px solid var(--gray1);
+  }
 `;
 
 const PostUser = styled.div`

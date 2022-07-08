@@ -10,6 +10,7 @@ import PostSwiper from "./PostSwiper";
 import Like from "../../images/favorite-border@3x.png";
 import Comment from "../../images/chat-bubble-outline@3x.png";
 import MoreButton from "../../elements/MoreButton";
+import ProfileCharacter from "../../images/character/profile-character.png";
 
 const PostList = ({ card }) => {
   const token = localStorage.getItem("is_login");
@@ -64,7 +65,11 @@ const PostList = ({ card }) => {
     <PostListWrap>
       <PostWrap className="contents-container">
         <PostInfo>
-          <ProfileImage></ProfileImage>
+          {card.userImage.length ? (
+            <img src={card.userImage[0]} alt="user profile" />
+          ) : (
+            <img src={ProfileCharacter} alt="no profile" />
+          )}
           <PostUser>
             {card.userId}
             <br />
@@ -135,13 +140,14 @@ const PostWrap = styled.div`
 const PostInfo = styled.div`
   display: flex;
   align-items: center;
-`;
 
-const ProfileImage = styled.div`
-  width: 36px;
-  height: 36px;
-  border-radius: 18px;
-  background-color: var(--subcolor);
+  & img {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    background-color: var(--subcolor);
+    border: 1px solid var(--gray1);
+  }
 `;
 
 const PostUser = styled.div`
