@@ -1,5 +1,5 @@
 // 하단 네비게이션바
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -11,12 +11,17 @@ import { ReactComponent as Mypage } from "../images/footer/person.svg";
 
 const Footer = () => {
   const navigate = useNavigate();
+  const location = useLocation().pathname;
 
   // 현재 선택된 아이콘
   const [activeNav, setActiveNav] = useState(0);
 
+  useEffect(() => {
+    if (location === "/") setActiveNav(0);
+    if (location === "/community") setActiveNav(1);
+  }, []);
+
   // 하단 탭 없는 페이지 설정
-  const location = useLocation().pathname;
   if (location === "/login") return null;
   else if (location === "/join") return null;
   else if (location === "/info") return null;

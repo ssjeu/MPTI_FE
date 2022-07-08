@@ -22,9 +22,9 @@ export const UserInfoHeader = (props) => {
 
 export const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation().pathname;
 
   // 공통 헤더 없는 페이지 설정
-  const location = useLocation().pathname;
   if (location === "/login") return null;
   else if (location === "/join") return null;
   else if (location === "/info") return null;
