@@ -80,7 +80,7 @@ const Community = () => {
       </Category>
       <Notice>
         {/* <div className="contents-container"> */}
-          <span>필독!</span>커뮤니티 이용 규칙
+        <span>필독!</span>커뮤니티 이용 규칙
         {/* </div> */}
       </Notice>
       <CommunityList>
@@ -191,7 +191,7 @@ const PostButton = styled.div`
   font-size: 12px;
   position: fixed;
   bottom: 100px;
-  margin-left: 80%;
+  right: 3%;
   width: 68px;
   height: 68px;
   border-radius: 34px;
