@@ -31,6 +31,7 @@ const addCommentAC = (postId, text) => {
         // dispatch(addComment(res.data));
       })
       .catch((err) => {
+        window.alert("로그인 후 댓글 작성 가능합니다!");
         console.log("POST addCommentAC Error: ", err);
       });
   };
