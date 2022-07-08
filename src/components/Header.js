@@ -1,43 +1,50 @@
-import React from 'react';
-import styled from 'styled-components';
-import '../css/component.css';
-import logo from '../images/logo/Group 14@2x.png';
+import React, { useState } from "react";
+import styled from "styled-components";
+import "../css/component.css";
+import logo from "../images/logo/Group 14@2x.png";
 
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-import Logo from '../images/logo@2x.png';
-import Alarm from '../images/notifications-none@3x.png';
-import Back from '../images/keyboard-arrow-left@3x.png';
+import Logo from "../images/logo@2x.png";
+import Alarm from "../images/notifications-none@3x.png";
+import Back from "../images/keyboard-arrow-left@3x.png";
 
 export const UserInfoHeader = (props) => {
   const { margin } = props;
 
   return (
     <>
-      <LogoStyle className='logo' src={logo} alt='' margin={margin} />
+      <LogoStyle className="logo" src={logo} alt="" margin={margin} />
     </>
   );
 };
 
 export const Header = () => {
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const location = useLocation();
-  if (location.pathname === '/login') return null;
-  else if (location.pathname === '/join') return null;
-  else if (location.pathname === '/info') return null;
+  if (location.pathname === "/login") return null;
+  else if (location.pathname === "/join") return null;
+  else if (location.pathname === "/info") return null;
+
+  const goBack = () => {
+    if (location.pathname !== "/") navigate(-1);
+  };
 
   return (
     <HeaderWrap className="container">
-      <div onClick={() => navigate(-1)}>
-        <img src={Back} alt='logo' width='24px' />
+      <BackIcon
+        onClick={goBack}
+        className={location.pathname === "/" ? "hide" : null}
+      >
+        <img src={Back} alt="logo" width="24px" />
+      </BackIcon>
+      <div>
+        <img src={Logo} alt="logo" width="85px" />
       </div>
       <div>
-        <img src={Logo} alt='logo' width='85px' />
-      </div>
-      <div>
-        <img src={Alarm} alt='alarm' width='24px' />
+        <img src={Alarm} alt="alarm" width="24px" />
       </div>
     </HeaderWrap>
   );
@@ -54,6 +61,13 @@ const LogoStyle = styled.img`
   margin: ${(props) => props.margin};
 `;
 
+const BackIcon = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
+  &.hide {
+    opacity: 0;
+  }
+`;
 // 스크롤 고정시
 
 // const HeaderWrap = styled.div`
