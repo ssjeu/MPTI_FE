@@ -10,7 +10,6 @@ import { ReactComponent as Warning } from '../icons/warning.svg';
 import Input01 from '../elements/Input01';
 import Button03 from '../elements/Button03';
 import Button01 from '../elements/Button01';
-import dropdownArrow from '../icons/arrow_drop_down.png';
 import Dropdown from '../elements/Dropdown';
 import { userInfoDB } from '../redux/modules/user';
 import { UserInfoHeader } from '../components/Header';
@@ -114,7 +113,7 @@ const UserInfo = () => {
     formData.append('mbti', user_mbti);
     formData.append('introduction', introduction);
 
-    dispatch(userInfoDB(formData));
+    dispatch(userInfoDB(formData, nickname));
   };
 
   // 드롭다운에서 데이터 받아오기

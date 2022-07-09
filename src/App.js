@@ -13,6 +13,7 @@ import SignUp from './pages/SignUp';
 import UserInfo from './pages/UserInfo';
 import KakaoLogin from './components/KakaoLogin';
 import { Header } from './components/Header';
+import Mypage from './pages/Mypage';
 
 function App() {
   //   const test = useSelector((state) => state);
@@ -26,6 +27,7 @@ function App() {
         <Route path='/posts/:index' element={<PostDetail />} />
         <Route path='/postwrite' exact element={<PostWrite />} />
         <Route path='/postupdate' exact element={<PostUpdate />} />
+        <Route path='/my' element={<Mypage />} />
         <Route path='/login' element={<SignIn />} />
         <Route path='/join' element={<SignUp />} />
         <Route path='/info' element={<UserInfo />} />

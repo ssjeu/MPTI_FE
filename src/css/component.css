@@ -6,17 +6,6 @@
   padding: 0 10.4%;
 }
 
-.text-style-kr {
-  letter-spacing: -0.8px;
-}
-
-.text-style-2 {
-  font-weight: 500;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: -0.8px;
-}
-
 .logo {
   width: 85px;
   height: 25.3px;
@@ -47,4 +36,11 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+}
+
+/* 중앙 정렬 */
+.display-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

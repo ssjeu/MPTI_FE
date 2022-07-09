@@ -78,9 +78,10 @@ export const authApi = {
       .then((res) => {
         console.log(res);
         localStorage.setItem('is_login', res.data.token);
+        localStorage.setItem('userNum', res.data.user.userNum);
         alert('로그인 되었습니다!');
 
-        if (!localStorage.getItem('nickname')) {
+        if (res.data.user.nickname === undefined) {
           window.location.replace('/info');
         } else {
           window.location.replace('/');
@@ -103,14 +104,18 @@ export const authApi = {
       });
   },
 
-  userInfo: (formData) => {
+  userInfo: (formData, nickname) => {
     ImgApi.put('/api/signup/first', formData, { withCredentials: true })
       .then((res) => {
-        console.log('성공', res.data);
+        console.log('성공', res);
         window.location.replace('/');
       })
       .catch((err) => {
         console.log(err);
       });
   },
+};
+
+export const userInfoApi = {
+  myUserInfo: (userNum) => instance.get(`/api/mypage/${userNum}`),
 };

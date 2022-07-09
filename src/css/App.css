@@ -4,6 +4,13 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
+/* Thin: 100
+Light: 300
+Regular: 400
+Medium 500
+Bold: 700
+Black: 900 */
+
 .App {
   text-align: center;
   align-items: center;
@@ -21,4 +28,13 @@
   --gray2: #d9d9d9;
   --gray3: #adadad;
   --gray4: #979797;
+}
+
+/* 한국어 영어 공통 자간 */
+.App:lang(ko) {
+  letter-spacing: -0.8px;
+}
+
+.App:lang(en) {
+  letter-spacing: 0;
 }

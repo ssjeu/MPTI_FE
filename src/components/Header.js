@@ -10,6 +10,10 @@ import Logo from '../images/logo@2x.png';
 import Alarm from '../images/notifications-none@3x.png';
 import Back from '../images/keyboard-arrow-left@3x.png';
 
+// svg icons + logo
+import { ReactComponent as LogoSvg } from '../images/logo/Group 15.svg';
+import { ReactComponent as AlarmSvg } from '../images/icons/notifications_none.svg';
+
 export const UserInfoHeader = (props) => {
   const { margin } = props;
 
@@ -20,6 +24,39 @@ export const UserInfoHeader = (props) => {
   );
 };
 
+export const MypageHeader = (props) => {
+  const { margin } = props;
+  return (
+    <>
+      <MypageHeaderStyle margin={margin}>
+        <LogoSvg />
+
+        <div>
+          <AlarmSvg />
+        </div>
+      </MypageHeaderStyle>
+    </>
+  );
+};
+
+const MypageHeaderStyle = styled.div`
+  margin: ${(props) => props.margin};
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  padding: 0 4.8%;
+
+  position: relative;
+
+  div {
+    position: absolute;
+    right: 4.8%;
+  }
+`;
+
 export const Header = () => {
   const navigate = useNavigate();
 
@@ -28,6 +65,7 @@ export const Header = () => {
   if (location.pathname === '/login') return null;
   else if (location.pathname === '/join') return null;
   else if (location.pathname === '/info') return null;
+  else if (location.pathname === '/my') return null;
 
   return (
     <HeaderWrap>

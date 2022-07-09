@@ -51,6 +51,7 @@ const Footer = () => {
           alt='Mypage'
           onClick={() => {
             setActiveNav(4);
+            navigate('/my');
           }}
         />
       </FooterMenu>
