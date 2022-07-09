@@ -1,6 +1,7 @@
 // 하단 네비게이션바
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -14,16 +15,14 @@ const Footer = () => {
   const location = useLocation().pathname;
 
   // 현재 선택된 아이콘
-  const [activeNav, setActiveNav] = useState(0);
-
-  useEffect(() => {
-    if (location === "/") setActiveNav(0);
-    if (location === "/community") setActiveNav(1);
-  }, []);
+  const activeHome = "/";
+  const activeCommunity = "/community";
+  const activeChat = "/chat";
+  const activeMypage = "/login";
 
   // 하단 탭 없는 페이지 설정
-  if (location === "/login") return null;
-  else if (location === "/join") return null;
+  //   if (location === "/login") return null;
+  if (location === "/join") return null;
   else if (location === "/info") return null;
 
   return (
@@ -31,33 +30,25 @@ const Footer = () => {
       <FooterMenu>
         <Home
           className="icons"
-          style={{ fill: activeNav === 0 ? "#64be72" : "#adadad" }}
-          onClick={() => {
-            setActiveNav(0);
-            navigate("/");
-          }}
+          style={{ fill: location === activeHome ? "#64be72" : "#adadad" }}
+          onClick={() => navigate("/")}
         />
         <Community
           className="icons"
-          onClick={() => {
-            setActiveNav(1);
-            navigate("/community");
+          onClick={() => navigate("/community")}
+          style={{
+            fill: location === activeCommunity ? "#64be72" : "#adadad",
           }}
-          style={{ fill: activeNav === 1 ? "#64be72" : "#adadad" }}
         />
         <Chat
           className="icons"
-          style={{ fill: activeNav === 2 ? "#64be72" : "#adadad" }}
-          onClick={() => {
-            setActiveNav(2);
-          }}
+          style={{ fill: location === activeChat ? "#64be72" : "#adadad" }}
+          onClick={() => navigate("/chat")}
         />
         <Mypage
           className="icons"
-          style={{ fill: activeNav === 3 ? "#64be72" : "#adadad" }}
-          onClick={() => {
-            setActiveNav(3);
-          }}
+          style={{ fill: location === activeMypage ? "#64be72" : "#adadad" }}
+          onClick={() => navigate("/login")}
         />
       </FooterMenu>
     </FooterWrap>

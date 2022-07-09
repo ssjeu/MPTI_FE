@@ -6,9 +6,9 @@ import logo from "../images/logo/Group 14@2x.png";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-import Logo from "../images/logo@2x.png";
-import Alarm from "../images/notifications-none@3x.png";
-import Back from "../images/keyboard-arrow-left@3x.png";
+import Logo from "../images/header/logo@2x.png";
+import Alarm from "../images/header/notifications-none@3x.png";
+import Back from "../images/header/keyboard-arrow-left@3x.png";
 
 export const UserInfoHeader = (props) => {
   const { margin } = props;

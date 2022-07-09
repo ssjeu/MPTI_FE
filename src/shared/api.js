@@ -1,9 +1,6 @@
 import instance from './Request';
 import axios from 'axios';
 
-// 토큰 설정
-const token = localStorage.getItem('is_login');
-
 const ImgApi = axios.create({
   baseURL: 'http://3.35.170.203',
   headers: {

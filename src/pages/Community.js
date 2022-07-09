@@ -7,7 +7,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
 import "../css/component.css";
 import PostList from "../components/community/PostList";
-import PostWrite from "../images/mode@3x.png";
+import PostWrite from "../images/icons/mode@3x.png";
 import Character from "../images/character/frame-main@3x.png";
 
 const Community = () => {

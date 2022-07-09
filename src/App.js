@@ -8,6 +8,7 @@ import Community from './pages/Community';
 import PostDetail from './pages/PostDetail';
 import PostWrite from './pages/PostWrite';
 import PostUpdate from './pages/PostUpdate';
+import Chat from './pages/Chat';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import UserInfo from './pages/UserInfo';
@@ -26,6 +27,7 @@ function App() {
         <Route path='/posts/:index' element={<PostDetail />} />
         <Route path='/postwrite' exact element={<PostWrite />} />
         <Route path='/postupdate' exact element={<PostUpdate />} />
+        <Route path='/chat' exact element={<Chat />} />
         <Route path='/login' element={<SignIn />} />
         <Route path='/join' element={<SignUp />} />
         <Route path='/info' element={<UserInfo />} />

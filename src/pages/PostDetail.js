@@ -24,16 +24,15 @@ const PostDetail = () => {
     dispatch(postActions.postDB());
     dispatch(postActions.detailPostDB(id));
   }, []);
-  
+
   const result = posts.find((post) => post.postId === Number(id));
 
   return (
     <PostDetailWrap>
       <PostList card={result} />
       <CommentList>
-        {comments && comments.map((card, index) => (
-          <Comment card={card} key={index} />
-        ))}
+        {comments &&
+          comments.map((card, index) => <Comment card={card} key={index} />)}
       </CommentList>
       <CommentWrite />
     </PostDetailWrap>
