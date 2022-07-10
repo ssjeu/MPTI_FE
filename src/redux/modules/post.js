@@ -55,19 +55,14 @@ const detailPostDB = (postId) => {
 };
 
 // 게시글 작성
-const addPostAC = (post) => {
+const addPostAC = (formData) => {
   return async function (dispatch, getState) {
-    // const config = {
-    // 	headers: {
-    // 		"Content-Type": "multipart/form-data",
-    //      Authorization: `BEARER ${sessionStorage.getItem("token")}`
-    // 	},
-    // { withCredentials: true } // cors Error 방지
-    // };
     await communityApi
-      .postWrite(post.category, post.content,post.imageUrl)
+      .postWrite(formData)
       .then((res) => {
         console.log("addPost response", res);
+        window.alert("게시글 작성 완료!");
+        window.location.replace("/community");
       })
       .catch((err) => {
         if (err.response) {
@@ -75,48 +70,39 @@ const addPostAC = (post) => {
           console.log(err.response.data);
           console.log(err.response.status);
           console.log(err.response.headers);
-        } 
+        }
         console.log(err, err.config);
       });
-
-    // await apis
-    //   .postWrite( {...formData} )
-    //   .then((res) => {
-    //     console.log("addPost response", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err, err.config);
-    //   });
   };
 };
 
 // 게시글 수정
 const updatePostAC = (postId) => {
-    return async function () {
-      await communityApi
-        .postUpdate(postId)
-        .then((res) => {
-          console.log(res.data, "updatePostAC response");
-        })
-        .catch((err) => {
-          console.log("PUT updatePostAC Error: ", err);
-        });
-    };
+  return async function () {
+    await communityApi
+      .postUpdate(postId)
+      .then((res) => {
+        console.log(res.data, "updatePostAC response");
+      })
+      .catch((err) => {
+        console.log("PUT updatePostAC Error: ", err);
+      });
   };
+};
 
 // 게시글 삭제
 const deletePostAC = (postId) => {
-    return async function () {
-      await communityApi
-        .postDelete(postId)
-        .then((res) => {
-          console.log(res.data, "deletePostAC response");
-        })
-        .catch((err) => {
-          console.log("DELETE deletePostAC Error: ", err);
-        });
-    };
+  return async function () {
+    await communityApi
+      .postDelete(postId)
+      .then((res) => {
+        console.log(res.data, "deletePostAC response");
+      })
+      .catch((err) => {
+        console.log("DELETE deletePostAC Error: ", err);
+      });
   };
+};
 
 export default handleActions(
   {
@@ -152,7 +138,7 @@ const actionCreators = {
   updatePost,
   updatePostAC,
   deletePost,
-  deletePostAC
+  deletePostAC,
 };
 
 export { actionCreators };

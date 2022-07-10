@@ -19,7 +19,6 @@ const PostWrite = () => {
   };
 
   // 게시글 내용란 data
-  const formData = new FormData();
   const img_ref = React.useRef();
   const content_ref = React.useRef();
   const [img, setImg] = useState([]);
@@ -27,26 +26,19 @@ const PostWrite = () => {
 
   // 이미지 업로드
   const uploadFile = (e) => {
+    setImg(e.target.files[0]);
     const fileArr = e.target.files;
-    let fileURLs = [];
     let filePreviewURLs = [];
     let filesLength = fileArr.length > 10 ? 10 : fileArr.length;
-
-    // if(e.target.files[0]) {
-    //     let reader = new FileReader();
-    //     reader.readAsDataURL(e.target.files[0])
-    //     setImg([...img, e.target.files[0]])
-    //   }
 
     for (let i = 0; i < filesLength; i++) {
       let file = fileArr[i];
       let reader = new FileReader();
-
+      reader.readAsDataURL(file);
       reader.onload = () => {
         filePreviewURLs[i] = reader.result;
         setPreviewImg([...filePreviewURLs]);
       };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -66,15 +58,12 @@ const PostWrite = () => {
     else if (content_ref.current.value.length < 5)
       alert("최소 5자 이상 입력해주세요!");
     else {
-      dispatch(
-        postActions.addPostAC({
-          category: selected,
-          content: content_ref.current.value,
-          imageUrl: previewImg,
-        })
-      );
-      alert("게시글 작성 완료!");
-      //   navigate("/community");
+      const formData = new FormData();
+      formData.append("postCategory", selected);
+      formData.append("postContent", content_ref.current.value);
+      formData.append("postImage", img);
+
+      dispatch(postActions.addPostAC(formData));
     }
   };
 

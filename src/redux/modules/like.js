@@ -33,7 +33,6 @@ const getLikeAC = (postId) => {
       .then((res) => {
         dispatch(getLike(res.data.likeUsers.length));
         dispatch(getUser(res.data.likeUsers));
-        console.log(res.data.likeUsers);
         console.log(res.data.likeUsers.length, "getLikeAC response");
       })
       .catch((err) => {
@@ -78,7 +77,6 @@ export default handleActions(
     [GET_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
-        console.log("GET_USER 성공");
       }),
   },
   initialState

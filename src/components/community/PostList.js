@@ -45,9 +45,7 @@ const PostList = ({ card }) => {
     setLikeCount(likes);
     if (users) {
       const result = users.find((user) => user === userId);
-      console.log("setLikeCount", result);
       setLikeState(result ? true : false);
-      console.log("setLikeCount2", likeState);
     } else setLikeState(false);
   }, [likes]);
 
@@ -97,7 +95,7 @@ const PostList = ({ card }) => {
         }}
         className="contents-container"
       >
-        좋아요 {likeCount} &nbsp;&nbsp; 
+        좋아요 {likeCount} &nbsp;&nbsp;
         {/* <img src={Comment} alt="comment" /> */}
         댓글 {card.commentCount}
       </PostAction>
@@ -167,11 +165,10 @@ const PostContents = styled.div`
 `;
 
 const PostAction = styled.div`
-  font-size: 14px;
-  color: var(--gray3);
-
   display: flex;
   align-items: center;
+  font-size: 14px;
+  color: var(--gray3);
 
   & img {
     width: 16px;
