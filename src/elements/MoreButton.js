@@ -1,6 +1,7 @@
 // 더보기 버튼 (수정하기, 삭제하기)
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as commentActions } from "../redux/modules/comment";
@@ -10,6 +11,7 @@ import more from "../images/icons/more-horiz@3x.png";
 const MoreButton = ({ id, type }) => {
   // type: post or comment
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const options = ["수정", "삭제"];
   const [selectedIndex, setSelectedIndex] = useState(1);
@@ -27,7 +29,9 @@ const MoreButton = ({ id, type }) => {
   };
 
   // 수정하기 부분
-  const postUpdate = (postId) => {};
+  const postUpdate = (postId) => {
+    navigate("/posts/" + id + "/update");
+  };
 
   const commentUpdate = (cmtId) => {};
 
@@ -56,7 +60,7 @@ const MoreButton = ({ id, type }) => {
         <li>
           <img src={more} alt="more" onClick={activeButton} />
           <Menu openState={open}>
-            <div>수정</div>
+            <div onClick={handleUpdate}>수정</div>
             <div onClick={handleDelete}>삭제</div>
           </Menu>
         </li>

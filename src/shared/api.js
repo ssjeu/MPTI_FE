@@ -17,15 +17,9 @@ export const communityApi = {
   // 게시글
   postList: () => instance.get(`/api/posts/postList`),
   postDetail: (postId) => instance.get(`/api/posts/${postId}`),
-  //   postWrite: (content, image, category) =>
-  //     instance.post(`/api/posts`, {
-  //       postContent: content,
-  //       postImage: image,
-  //       postCategory: category,
-  //     }),
   postWrite: (formData) =>
     ImgApi.post(`/api/posts`, formData, { withCredentials: true }),
-  postUpdate: (postId) => instance.put(`/api/posts/${postId}`),
+  postUpdate: (postId, formData) => instance.put(`/api/posts/${postId}`, formData),
   postDelete: (postId) => instance.delete(`/api/posts/${postId}`),
 
   // 댓글

@@ -28,7 +28,7 @@ function App() {
         <Route path="/community" exact element={<Community />} />
         <Route path="/posts/:index" element={<PostDetail />} />
         <Route path="/postwrite" exact element={<PostWrite />} />
-        <Route path="/postupdate" exact element={<PostUpdate />} />
+        <Route path="/posts/:index/update" exact element={<PostUpdate />} />
         <Route path="/chat" exact element={<Chat />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/join" element={<SignUp />} />

@@ -20,7 +20,7 @@ const deletePost = createAction(DELETE_POST, (postId) => ({ postId }));
 
 const initialState = {
   post: [],
-  detail_post: [],
+  detail_post: ["posts"],
 };
 
 // Middlewares
@@ -65,6 +65,8 @@ const addPostAC = (formData) => {
         window.location.replace("/community");
       })
       .catch((err) => {
+        window.location.replace("/community");
+        window.alert("로그인 후 이용하실 수 있습니다.");
         if (err.response) {
           // 요청이 전송되었고, 서버는 2xx 외의 상태 코드로 응답
           console.log(err.response.data);
@@ -77,14 +79,17 @@ const addPostAC = (formData) => {
 };
 
 // 게시글 수정
-const updatePostAC = (postId) => {
+const updatePostAC = (postId, formData) => {
   return async function () {
     await communityApi
-      .postUpdate(postId)
+      .postUpdate(postId, formData)
       .then((res) => {
-        console.log(res.data, "updatePostAC response");
+        window.location.replace("/community");
+        window.alert("게시글 수정 완료!");
       })
       .catch((err) => {
+        window.location.replace("/community");
+        window.alert("게시글 수정 실패");
         console.log("PUT updatePostAC Error: ", err);
       });
   };
@@ -96,7 +101,8 @@ const deletePostAC = (postId) => {
     await communityApi
       .postDelete(postId)
       .then((res) => {
-        console.log(res.data, "deletePostAC response");
+        window.location.reload();
+        window.alert("게시글 삭제 완료!");
       })
       .catch((err) => {
         console.log("DELETE deletePostAC Error: ", err);

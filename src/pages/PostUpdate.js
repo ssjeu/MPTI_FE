@@ -1,42 +1,55 @@
 // 커뮤니티 게시글 작성
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import uuid from "react-uuid"
 
+import "../css/component.css";
+import UploadButton from "../elements/MainButton";
 import UploadImage from "../images/filter@3x.png";
-import CategoryDown from "../images/expand-more@3x.png";
 
-const PostWrite = () => {
-  const navigate = useNavigate();
+const PostUpdate = () => {
   const dispatch = useDispatch();
 
+  const params = useParams();
+  const id = params.index;
+  const postCategory = useSelector((state) => state.post.detail_post);
+  const postContent = useSelector((state) => state.post.detail_post);
+  const [selected, setSelected] = useState("");
+  const [defaultText, setDefaultText] = useState("");
+
+  useEffect(() => {
+    dispatch(postActions.detailPostDB(id));
+  }, []);
+
+//   useEffect(() => {
+//     setSelected(postCategory.posts.postCategory);
+//   }, [selected]);
+
+//   useEffect(() => {
+//     setDefaultText(postContent.posts.postContent);
+//   }, [defaultText]);
+
   // 카테고리 선택
-  const [selected, setSelected] = useState();
   const handleSelect = (e) => {
     setSelected(e.target.value);
   };
 
   // 게시글 내용란 data
-  const formData = new FormData();
   const img_ref = React.useRef();
   const content_ref = React.useRef();
-  const [img, setImg] = useState([]);
+  const [img, setImg] = useState();
   const [previewImg, setPreviewImg] = useState([]);
 
-  // 이미지 업로드
+  // 이미지 업로드하기
   const uploadFile = (e) => {
+    setImg(e.target.files[0]);
     const fileArr = e.target.files;
-    let fileURLs = [];
+
     let filePreviewURLs = [];
     let filesLength = fileArr.length > 10 ? 10 : fileArr.length;
-
-    // if(e.target.files[0]) {
-    //     let reader = new FileReader();
-    //     reader.readAsDataURL(e.target.files[0])
-    //     setImg([...img, e.target.files[0]])
-    //   }
 
     for (let i = 0; i < filesLength; i++) {
       let file = fileArr[i];
@@ -52,29 +65,23 @@ const PostWrite = () => {
 
   // 프리뷰에서 이미지 삭제
   const deleteImg = (index) => {
-    // const imgArr = img.filter((el, idx) => idx !== index);
     const imgNameArr = previewImg.filter((el, idx) => idx !== index);
-
-    // setImg([...imgArr]);
     setPreviewImg([...imgNameArr]);
   };
 
-  // 게시글 업로드 function
+  // 게시글 수정 function
   const addPost = async () => {
     if (selected === undefined) alert("카테고리를 선택해주세요!");
     else if (content_ref.current.value === "") alert("내용을 입력해주세요!");
     else if (content_ref.current.value.length < 5)
       alert("최소 5자 이상 입력해주세요!");
     else {
-    //   dispatch(
-    //     postActions.addPostAC({
-    //       category: selected,
-    //       content: content_ref.current.value,
-    //       imageUrl: previewImg,
-    //     })
-    //   );
-      alert("게시글 수정 완료!");
-      //   navigate("/community");
+      const formData = new FormData();
+      formData.append("postCategory", selected);
+      formData.append("postContent", content_ref.current.value);
+      formData.append("postImage", img);
+
+      dispatch(postActions.updatePostAC(id, formData));
     }
   };
 
@@ -85,12 +92,8 @@ const PostWrite = () => {
       </Notice>
 
       <SelectWrap>
-        {/* <SelectCategory>
-          카테고리
-          <img src={CategoryDown} alt="categorydown" />
-        </SelectCategory> */}
-        <Select onChange={handleSelect} name="category">
-          <option value="">카테고리</option>
+        <Select onChange={handleSelect} name="category" defaultValue={selected} key={uuid()}>
+          <option value="" disabled>카테고리</option>
           <option value="MBTI">MBTI</option>
           <option value="자유">자유</option>
           <option value="고민상담">고민상담</option>
@@ -113,10 +116,12 @@ const PostWrite = () => {
         </SelectImage>
       </SelectWrap>
 
+      {/* 게시글 작성 내용란 */}
       <TextArea>
         <textarea
           placeholder="최소 5자 이상 입력해 주세요"
           ref={content_ref}
+          defaultValue={defaultText}
         ></textarea>
       </TextArea>
 
@@ -133,7 +138,10 @@ const PostWrite = () => {
         </ImagePreview>
       )}
 
-      <UploadButton onClick={addPost}>수정하기</UploadButton>
+      {/* 게시글 업로드 버튼 */}
+      <div onClick={addPost} className="contents-container">
+        <UploadButton text="수정하기" />
+      </div>
     </PostWriteWrap>
   );
 };
@@ -162,23 +170,6 @@ const SelectWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
-
-const SelectCategory = styled.div`
-  background-color: var(--maincolor);
-  width: 88px;
-  height: 28px;
-  border-radius: 4px;
-  color: white;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  & img {
-    width: 16px;
-    margin-left: 4px;
-  }
 `;
 
 const Select = styled.select`
@@ -220,7 +211,6 @@ const TextArea = styled.div`
     resize: vertical;
     width: 100%;
     height: 25vh;
-    // height: auto;
     border: none;
     font-size: 16px;
     font-weight: 500;
@@ -229,11 +219,6 @@ const TextArea = styled.div`
 
   & textarea::placeholder {
     color: var(--gray2);
-  }
-
-  & textarea:focus {
-    // outline: none;
-    // outline-color: var(--gray4);
   }
 `;
 
@@ -251,16 +236,4 @@ const ImagePreview = styled.div`
   }
 `;
 
-const UploadButton = styled.div`
-  background-color: var(--maincolor);
-  border-radius: 26px;
-  color: white;
-  font-size: 16px;
-  margin: 20px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export default PostWrite;
+export default PostUpdate;

@@ -61,13 +61,13 @@ const PostList = ({ card }) => {
     <PostListWrap>
       <PostWrap className="contents-container">
         <PostInfo>
-          {card.userImage.length ? (
+          {card.userImage.length && card.postCategory !== "익명" ? (
             <img src={card.userImage[0]} alt="user profile" />
           ) : (
             <img src={ProfileCharacter} alt="no profile" />
           )}
           <PostUser>
-            {card.userId}
+            {card.postCategory !== "익명" ? card.userId : "익명"}
             <br />
             <span>{card.createdAt}</span>
           </PostUser>

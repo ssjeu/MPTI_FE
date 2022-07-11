@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import "../css/component.css";
@@ -28,7 +28,7 @@ const ChatProfile = () => {
         </Introduction>
       </ProfileInfoWrap>
       <div className="container" onClick={()=>navigate("/chat")}>
-        <AskChatButton text="대화요청" />
+        <AskChatButton text="대화하기" />
       </div>
     </ChatProfileWrap>
   );

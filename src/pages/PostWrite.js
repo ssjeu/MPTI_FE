@@ -26,22 +26,24 @@ const PostWrite = () => {
   const [img, setImg] = useState([]);
   const [previewImg, setPreviewImg] = useState([]);
 
-  // 이미지 업로드
+  // 이미지 업로드하기
   const uploadFile = (e) => {
     setImg(e.target.files[0]);
     const fileArr = e.target.files;
-    console.log(img, fileArr);
+    console.log(fileArr);
+
     let filePreviewURLs = [];
     let filesLength = fileArr.length > 10 ? 10 : fileArr.length;
 
     for (let i = 0; i < filesLength; i++) {
       let file = fileArr[i];
       let reader = new FileReader();
-      reader.readAsDataURL(file);
+
       reader.onload = () => {
         filePreviewURLs[i] = reader.result;
         setPreviewImg([...filePreviewURLs]);
       };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -56,7 +58,7 @@ const PostWrite = () => {
 
   // 게시글 업로드 function
   const addPost = async () => {
-    if (selected === undefined) alert("카테고리를 선택해주세요!");
+    if (selected === undefined || selected === "") alert("카테고리를 선택해주세요!");
     else if (content_ref.current.value === "") alert("내용을 입력해주세요!");
     else if (content_ref.current.value.length < 5)
       alert("최소 5자 이상 입력해주세요!");
@@ -65,6 +67,7 @@ const PostWrite = () => {
       formData.append("postCategory", selected);
       formData.append("postContent", content_ref.current.value);
       formData.append("postImage", img);
+      console.log("***", img);
 
       dispatch(postActions.addPostAC(formData));
     }
