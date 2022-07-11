@@ -28,6 +28,7 @@ const PostWrite = () => {
   const uploadFile = (e) => {
     setImg(e.target.files[0]);
     const fileArr = e.target.files;
+    console.log(img, fileArr);
     let filePreviewURLs = [];
     let filesLength = fileArr.length > 10 ? 10 : fileArr.length;
 
