@@ -27,7 +27,7 @@ const RecommendCardWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-left: -10px;
-  padding: 20px 0;
+  padding: 12px 0;
 `;
 
 export default MainRecommend;

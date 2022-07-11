@@ -24,6 +24,7 @@ const Footer = () => {
   //   if (location === "/login") return null;
   if (location === "/join") return null;
   else if (location === "/info") return null;
+  else if (location === "/chatprofile") return null;
 
   return (
     <FooterWrap>

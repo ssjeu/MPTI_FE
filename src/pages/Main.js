@@ -90,14 +90,6 @@ const RecommendWrap = styled.div`
   padding-top: 20px;
 `;
 
-// const RecommendCard = styled.div`
-//   margin-top: 20px;
-//   width: 140px;
-//   height: 220px;
-//   background-color: var(--gray1);
-//   border-radius: 4px;
-// `;
-
 const CommunityWrap = styled.div`
   margin-top: 40px;
   margin-bottom: 80px;

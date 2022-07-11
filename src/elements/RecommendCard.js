@@ -7,12 +7,12 @@ import TestImg from "../images/user-profile.jpeg";
 
 const RecommendCard = () => {
   const navigate = useNavigate();
-  const toPost = () => {
-    // navigate("/posts/" + card.postId);
+  const toProfile = () => {
+    navigate("/chatprofile");
   };
 
   return (
-    <RecommendCardWrap onClick={toPost}>
+    <RecommendCardWrap onClick={toProfile}>
       <Card>
         <CardImage>
           <img src={TestImg} alt="recommend card" />
