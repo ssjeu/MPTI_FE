@@ -2,9 +2,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const Chat = () => {
+import ChatWrite from "../components/chat/ChatWrite";
 
-    return(<div><div></div></div>)
-}
+const Chat = () => {
+  return (
+    <div>
+      <ChatWrite />
+    </div>
+  );
+};
 
 export default Chat;

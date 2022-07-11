@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import "../css/component.css";
@@ -6,6 +7,8 @@ import AskChatButton from "../elements/MainButton";
 import TestImg from "../images/user-profile.jpeg";
 
 const ChatProfile = () => {
+  const navigate = useNavigate();
+
   return (
     <ChatProfileWrap>
       <ProfileImageWrap className="contents-container">
@@ -24,7 +27,7 @@ const ChatProfile = () => {
           </div>
         </Introduction>
       </ProfileInfoWrap>
-      <div className="container">
+      <div className="container" onClick={()=>navigate("/chat")}>
         <AskChatButton text="대화요청" />
       </div>
     </ChatProfileWrap>
