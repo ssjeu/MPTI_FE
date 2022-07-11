@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import MainRecommend from "../components/main/MainRecommend";
 import MainCommunity from "../components/main/MainCommunity";
 
 import "../css/component.css";
@@ -18,14 +19,16 @@ const Main = () => {
           <br /> <span>나의 찐친을 찾아봐요✨</span>
         </div>
       </MainIntro>
+
       <MainButtons className="contents-container">
         <VoiceButton>보이스로 랜덤 상대 MBTI 맞추기</VoiceButton>
         <RandomButton>랜덤 매칭 채팅</RandomButton>
       </MainButtons>
+
       <RecommendWrap className="contents-container">
-        나와 잘 맞는 MBTI
-        <RecommendCard />
+        <MainRecommend />
       </RecommendWrap>
+
       <CommunityWrap className="contents-container">
         <MainCommunity />
       </CommunityWrap>
@@ -85,19 +88,15 @@ const RandomButton = styled.div`
 
 const RecommendWrap = styled.div`
   padding-top: 20px;
-  padding-bottom: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: left;
 `;
 
-const RecommendCard = styled.div`
-  margin-top: 20px;
-  width: 140px;
-  height: 220px;
-  background-color: var(--gray1);
-  border-radius: 4px;
-`;
+// const RecommendCard = styled.div`
+//   margin-top: 20px;
+//   width: 140px;
+//   height: 220px;
+//   background-color: var(--gray1);
+//   border-radius: 4px;
+// `;
 
 const CommunityWrap = styled.div`
   margin-top: 40px;

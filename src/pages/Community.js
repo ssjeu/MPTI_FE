@@ -79,9 +79,7 @@ const Community = () => {
         })}
       </Category>
       <Notice>
-        {/* <div className="contents-container"> */}
         <span>필독!</span>커뮤니티 이용 규칙
-        {/* </div> */}
       </Notice>
       <CommunityList>
         {data.length === 0 ? (
@@ -158,7 +156,7 @@ const CategoryButton = styled.div.attrs((props) => ({
 
 const Notice = styled.div`
   background-color: var(--subcolor);
-  width: 100vh;
+  width: 2000px;
   height: 50px;
   font-size: 14px;
   text-align: left;
