@@ -28,8 +28,8 @@ const Mypage = () => {
   console.log(user_data);
 
   React.useEffect(() => {
-    const token = localStorage.getItem('is_login');
-    const userNum = localStorage.getItem('userNum');
+    const token = sessionStorage.getItem('is_login');
+    const userNum = sessionStorage.getItem('userNum');
 
     if (token) {
       setIsLogin(true);

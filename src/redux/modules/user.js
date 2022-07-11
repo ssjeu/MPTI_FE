@@ -87,7 +87,8 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case 'user/LOG_OUT': {
-      localStorage.clear();
+      sessionStorage.clear();
+
       return { is_login: false };
     }
 
