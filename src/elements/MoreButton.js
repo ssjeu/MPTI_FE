@@ -1,14 +1,15 @@
 // 더보기 버튼 (수정하기, 삭제하기)
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as commentActions } from "../redux/modules/comment";
+import { userInfoDB } from "../redux/modules/userInfo";
 
 import more from "../images/icons/more-horiz@3x.png";
 
-const MoreButton = ({ id, type }) => {
+const MoreButton = ({ id, type, user }) => {
   // type: post or comment
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,6 +21,22 @@ const MoreButton = ({ id, type }) => {
     setSelectedIndex(index);
     setOpen(false);
   };
+
+  // 유저 정보 (작성자 일치 여부 확인을 위한)
+  const [isLogin, setIsLogin] = useState(false);
+  const user_data = useSelector((state) => state.userInfo.user);
+  useEffect(() => {
+    const token = localStorage.getItem("is_login");
+    const userNum = localStorage.getItem("userNum");
+
+    if (token) {
+      setIsLogin(true);
+    }
+
+    if (isLogin === true) {
+      dispatch(userInfoDB(userNum));
+    }
+  }, [isLogin]);
 
   // 더보기 버튼 클릭 상태
   const [open, setOpen] = useState(0);
@@ -56,15 +73,17 @@ const MoreButton = ({ id, type }) => {
 
   return (
     <MoreButtonWrap>
-      <MoreDropdown>
-        <li>
-          <img src={more} alt="more" onClick={activeButton} />
-          <Menu openState={open}>
-            <div onClick={handleUpdate}>수정</div>
-            <div onClick={handleDelete}>삭제</div>
-          </Menu>
-        </li>
-      </MoreDropdown>
+      {user_data && user_data.userId === user ? (
+        <MoreDropdown>
+          <li>
+            <img src={more} alt="more" onClick={activeButton} />
+            <Menu openState={open}>
+              <div onClick={handleUpdate}>수정</div>
+              <div onClick={handleDelete}>삭제</div>
+            </Menu>
+          </li>
+        </MoreDropdown>
+      ) : null}
     </MoreButtonWrap>
   );
 };

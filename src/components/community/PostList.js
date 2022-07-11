@@ -84,7 +84,7 @@ const PostList = ({ card }) => {
             <span>{card.createdAt}</span>
           </PostUser>
         </PostInfo>
-        <MoreButton id={card.postId} type={"post"} />
+        <MoreButton id={card.postId} type={"post"} user={card.userId}/>
       </PostWrap>
 
       <PostContents
