@@ -1,10 +1,12 @@
 // 커뮤니티 게시글 작성
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 
+import "../css/component.css";
+import UploadButton from "../elements/MainButton";
 import UploadImage from "../images/filter@3x.png";
 import CategoryDown from "../images/expand-more@3x.png";
 
@@ -103,6 +105,7 @@ const PostWrite = () => {
         </SelectImage>
       </SelectWrap>
 
+      {/* 게시글 작성 내용란 */}
       <TextArea>
         <textarea
           placeholder="최소 5자 이상 입력해 주세요"
@@ -123,7 +126,10 @@ const PostWrite = () => {
         </ImagePreview>
       )}
 
-      <UploadButton onClick={addPost}>업로드</UploadButton>
+      {/* 게시글 업로드 버튼 */}
+      <div onClick={addPost} className="contents-container">
+        <UploadButton text="업로드" />
+      </div>
     </PostWriteWrap>
   );
 };
@@ -239,18 +245,6 @@ const ImagePreview = styled.div`
     border-radius: 6px;
     margin-right: 8px;
   }
-`;
-
-const UploadButton = styled.div`
-  background-color: var(--maincolor);
-  border-radius: 26px;
-  color: white;
-  font-size: 16px;
-  margin: 20px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 export default PostWrite;
