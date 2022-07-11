@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import '../css/component.css';
 import { ReactComponent as PermIdentity } from '../icons/perm_identity.svg';
 import { ReactComponent as Htttps } from '../icons/https.svg';
-import character from '../images/character/Frame.webp';
+import character from '../images/character/frame@3x.png';
 import logo from '../images/logo/Group 14@2x.png';
 
 import { useNavigate } from 'react-router-dom';
@@ -121,6 +121,7 @@ const Container = styled.div`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  margin-top: -120px;
 
   * {
     box-sizing: border-box;

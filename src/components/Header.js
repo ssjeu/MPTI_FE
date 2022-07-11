@@ -10,8 +10,8 @@ import Alarm from "../images/header/notifications-none@3x.png";
 import Back from "../images/header/keyboard-arrow-left@3x.png";
 
 // svg icons + logo
-import { ReactComponent as LogoSvg } from '../images/logo/Group 15.svg';
-import { ReactComponent as AlarmSvg } from '../images/icons/notifications_none.svg';
+import { ReactComponent as LogoSvg } from "../images/logo/Group 15.svg";
+import { ReactComponent as AlarmSvg } from "../images/icons/notifications_none.svg";
 
 export const UserInfoHeader = (props) => {
   const { margin } = props;
@@ -61,10 +61,10 @@ export const Header = () => {
   const location = useLocation().pathname;
 
   // 공통 헤더 없는 페이지 설정
-  if (location === "/login") return null;
-  else if (location === "/join") return null;
+  //   if (location === "/login") return null;
+  if (location === "/join") return null;
   else if (location === "/info") return null;
-  else if (location === '/my') return null;
+  else if (location === "/my") return null;
 
   const goBack = () => {
     if (location !== "/" && location !== "/community") navigate(-1);
@@ -80,12 +80,12 @@ export const Header = () => {
       >
         <img src={Back} alt="logo" width="24px" />
       </BackIcon>
-      <div>
+      <LogoIcon className={location === "/login" ? "hide" : null}>
         <img src={Logo} alt="logo" width="85px" />
-      </div>
-      <div>
+      </LogoIcon>
+      <AlarmIcon className={location === "/login" ? "hide" : null}>
         <img src={Alarm} alt="alarm" width="24px" />
-      </div>
+      </AlarmIcon>
     </HeaderWrap>
   );
 };
@@ -102,6 +102,22 @@ const LogoStyle = styled.img`
 `;
 
 const BackIcon = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
+  &.hide {
+    opacity: 0;
+  }
+`;
+
+const LogoIcon = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
+  &.hide {
+    opacity: 0;
+  }
+`;
+
+const AlarmIcon = styled.div.attrs((props) => ({
   className: props.className,
 }))`
   &.hide {

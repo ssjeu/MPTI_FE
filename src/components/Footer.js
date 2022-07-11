@@ -18,11 +18,11 @@ const Footer = () => {
   const activeHome = "/";
   const activeCommunity = "/community";
   const activeChat = "/chat";
-  const activeMypage = "/login";
+  const activeMypage = "/my";
 
   // 하단 탭 없는 페이지 설정
-  //   if (location === "/login") return null;
-  if (location === "/join") return null;
+  if (location === "/login") return null;
+  else if (location === "/join") return null;
   else if (location === "/info") return null;
   else if (location === "/chatprofile") return null;
 
