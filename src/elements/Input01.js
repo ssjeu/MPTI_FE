@@ -37,14 +37,6 @@ const InputStyle = styled.div`
     line-height: normal;
   }
 
-  input:lang(ko) {
-    letter-spacing: -0.8px;
-  }
-
-  input:lang(en) {
-    letter-spacing: 0;
-  }
-
   input::placeholder {
     color: #d9d9d9;
   }

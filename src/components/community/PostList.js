@@ -13,21 +13,33 @@ import MoreButton from "../../elements/MoreButton";
 import ProfileCharacter from "../../images/character/profile-character.png";
 
 const PostList = ({ card }) => {
-  const token = localStorage.getItem("is_login");
-  const parseJwt = (token) => {
-    var base64Url = token.split(".")[1];
-    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    var jsonPayload = decodeURIComponent(
-      atob(base64)
-        .split("")
-        .map(function (c) {
-          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-        })
-        .join("")
-    );
-    return JSON.parse(jsonPayload);
-  };
-  const userId = parseJwt(token).userId;
+  const [isLogin, setIsLogin] = useState(false);
+  const [userId, setUserId] = useState();
+
+  useEffect(() => {
+    const token = localStorage.getItem("is_login");
+
+    if (token) {
+      setIsLogin(true);
+    }
+
+    if (isLogin === true) {
+      const parseJwt = (token) => {
+        var base64Url = token.split(".")[1];
+        var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        var jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split("")
+            .map(function (c) {
+              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+        );
+        return JSON.parse(jsonPayload);
+      };
+      setUserId(parseJwt(token).userId);
+    }
+  }, [isLogin]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -9,6 +9,10 @@ import Logo from "../images/header/logo@2x.png";
 import Alarm from "../images/header/notifications-none@3x.png";
 import Back from "../images/header/keyboard-arrow-left@3x.png";
 
+// svg icons + logo
+import { ReactComponent as LogoSvg } from '../images/logo/Group 15.svg';
+import { ReactComponent as AlarmSvg } from '../images/icons/notifications_none.svg';
+
 export const UserInfoHeader = (props) => {
   const { margin } = props;
 
@@ -19,6 +23,39 @@ export const UserInfoHeader = (props) => {
   );
 };
 
+export const MypageHeader = (props) => {
+  const { margin } = props;
+  return (
+    <>
+      <MypageHeaderStyle margin={margin}>
+        <LogoSvg />
+
+        <div>
+          <AlarmSvg />
+        </div>
+      </MypageHeaderStyle>
+    </>
+  );
+};
+
+const MypageHeaderStyle = styled.div`
+  margin: ${(props) => props.margin};
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  padding: 0 4.8%;
+
+  position: relative;
+
+  div {
+    position: absolute;
+    right: 4.8%;
+  }
+`;
+
 export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
@@ -27,6 +64,7 @@ export const Header = () => {
   if (location === "/login") return null;
   else if (location === "/join") return null;
   else if (location === "/info") return null;
+  else if (location === '/my') return null;
 
   const goBack = () => {
     if (location !== "/" && location !== "/community") navigate(-1);

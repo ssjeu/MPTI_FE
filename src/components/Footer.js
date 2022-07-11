@@ -49,7 +49,7 @@ const Footer = () => {
         <Mypage
           className="icons"
           style={{ fill: location === activeMypage ? "#64be72" : "#adadad" }}
-          onClick={() => navigate("/login")}
+          onClick={() => navigate("/my")}
         />
       </FooterMenu>
     </FooterWrap>

@@ -88,7 +88,7 @@ const SignUp = () => {
         <img className='logo' src={logo} alt='' />
       </Logo>
 
-      <Title className='text-style-kr'>
+      <Title>
         <p>
           믑티를 빛내주실✨
           <br />
@@ -142,6 +142,7 @@ const SignUp = () => {
 const Container = styled.div`
   display: flex;
   flex-flow: column nowrap;
+  text-align: left;
 
   * {
     box-sizing: border-box;

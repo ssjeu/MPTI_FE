@@ -4,6 +4,7 @@ import { authApi } from '../../shared/api';
 // Actions
 const LOAD_USER = 'user/LOAD_USER';
 const SIGN_IN = 'user/SIGN_IN';
+const LOG_OUT = 'user/LOG_OUT';
 
 const initialState = {
   is_login: false,
@@ -32,6 +33,10 @@ export function signIn(user) {
   return { type: SIGN_IN, user: user };
 }
 
+export function logOut(user) {
+  return { type: LOG_OUT, user: user };
+}
+
 // middlewares
 export const signUpDB = (email, name, password, passwordCheck) => {
   return function (dispatch) {
@@ -52,12 +57,20 @@ export const kakaoLogin = (code) => {
   };
 };
 
-export const userInfoDB = (formData) => {
+export const userInfoDB = (formData, nickname) => {
   return function (dispatch) {
-    for (let value of formData.values()) {
-      console.log(value);
-    }
-    authApi.userInfo(formData);
+    // for (let value of formData.values()) {
+    //   console.log(value);
+    // }
+    authApi.userInfo(formData, nickname);
+  };
+};
+
+export const logOutDB = () => {
+  return function (dispatch) {
+    dispatch(logOut());
+    alert('로그아웃 되었습니다!');
+    window.location.reload();
   };
 };
 // export const loadUserDB = () => {
@@ -71,6 +84,11 @@ export default function reducer(state = initialState, action = {}) {
       console.log(action);
 
       return { is_login: true, email: action.user, user: { ...state.user } };
+    }
+
+    case 'user/LOG_OUT': {
+      localStorage.clear();
+      return { is_login: false };
     }
 
     // case 'user/SIGN_UP': {
