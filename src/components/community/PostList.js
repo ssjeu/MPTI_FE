@@ -13,12 +13,11 @@ import MoreButton from "../../elements/MoreButton";
 import ProfileCharacter from "../../images/character/profile-character.png";
 
 const PostList = ({ card }) => {
+  const token = localStorage.getItem("is_login");
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState();
 
   useEffect(() => {
-    const token = localStorage.getItem("is_login");
-
     if (token) {
       setIsLogin(true);
     }
@@ -84,7 +83,7 @@ const PostList = ({ card }) => {
             <span>{card.createdAt}</span>
           </PostUser>
         </PostInfo>
-        <MoreButton id={card.postId} type={"post"} user={card.userId}/>
+        <MoreButton id={card.postId} type={"post"} user={card.userId} />
       </PostWrap>
 
       <PostContents
@@ -103,7 +102,7 @@ const PostList = ({ card }) => {
 
       <PostAction
         onClick={() => {
-          navigate("/posts/" + card.postId);
+          if (token) navigate("/posts/" + card.postId);
         }}
         className="contents-container"
       >
@@ -116,7 +115,9 @@ const PostList = ({ card }) => {
         <Like
           className="icons"
           style={{ fill: likeState === true ? "#ff6565" : "#adadad" }}
-          onClick={handleLike}
+          onClick={() => {
+            if (token) handleLike();
+          }}
         />
       </PostButton>
     </PostListWrap>

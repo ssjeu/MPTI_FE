@@ -11,6 +11,7 @@ const CommentWrite = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const postId = params.index;
+  const token = localStorage.getItem("is_login");
 
   // 댓글 입력 data
   const content_ref = React.useRef();
@@ -26,8 +27,15 @@ const CommentWrite = () => {
   return (
     <CommentWriteWrap className="contents-container">
       <CommentInput>
-        <input type="text" placeholder="댓글을 입력하세요." ref={content_ref}/>
-        <InputButton onClick={activeComment}>입력</InputButton>
+        <input type="text" placeholder="댓글을 입력하세요." ref={content_ref} />
+        <InputButton
+          onClick={() => {
+            if (token) activeComment();
+            else alert("로그인을 해주세요!");
+          }}
+        >
+          입력
+        </InputButton>
       </CommentInput>
     </CommentWriteWrap>
   );

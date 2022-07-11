@@ -15,6 +15,7 @@ const Community = () => {
   const navigate = useNavigate();
 
   const posts = useSelector((state) => state.post.post);
+  const token = localStorage.getItem("is_login");
 
   // 서버에서 postlist 로드
   useEffect(() => {
@@ -97,7 +98,8 @@ const Community = () => {
       </CommunityList>
       <PostButton
         onClick={() => {
-          navigate("/postwrite");
+          if (token) navigate("/postwrite");
+          else alert("로그인을 해주세요!");
         }}
       >
         <img src={PostWrite} alt="postwrite" />
