@@ -15,7 +15,7 @@ const Comment = ({ card }) => {
           <img src={ProfileCharacter} alt="no profile" />
         )}
         <PostUser>
-          <strong>{card.userId}</strong>
+          <strong>{card.nickname}</strong>
           <span>{card.createdAt}</span>
           <br />
           <div>{card.comment}</div>

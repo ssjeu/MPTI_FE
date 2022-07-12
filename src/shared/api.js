@@ -109,3 +109,8 @@ export const authApi = {
 export const userInfoApi = {
   myUserInfo: (userNum) => instance.get(`/api/mypage/${userNum}`),
 };
+
+export const recommendApi = {
+    // 잘맞는 MBTI 추천
+    recommendList: () => instance.get(`/api/suggest`)
+};

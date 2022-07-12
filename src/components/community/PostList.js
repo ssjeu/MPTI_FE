@@ -78,7 +78,7 @@ const PostList = ({ card }) => {
             <img src={ProfileCharacter} alt="no profile" />
           )}
           <PostUser>
-            {card.postCategory !== "익명" ? card.userId : "익명"}
+            {card.postCategory !== "익명" ? card.nickname : "익명"}
             <br />
             <span>{card.createdAt}</span>
           </PostUser>

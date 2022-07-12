@@ -11,6 +11,7 @@ import post from './modules/post';
 import comment from './modules/comment';
 import like from './modules/like';
 import userInfo from './modules/userInfo';
+import recommend from './modules/recommend';
 
 const middlewares = [thunk];
 const enhancer = applyMiddleware(...middlewares);
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   comment,
   like,
   userInfo,
+  recommend,
 });
 const store = createStore(rootReducer, enhancer);
 

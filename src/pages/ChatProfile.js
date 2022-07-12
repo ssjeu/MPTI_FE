@@ -1,33 +1,38 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import "../css/component.css";
 import AskChatButton from "../elements/MainButton";
-import TestImg from "../images/user-profile.jpeg";
 
 const ChatProfile = () => {
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state.data;
 
   return (
     <ChatProfileWrap>
       <ProfileImageWrap className="contents-container">
-        <img src={TestImg} alt="profile"></img>
+        <img src={data.userImage} alt="profile"></img>
       </ProfileImageWrap>
       <ProfileInfoWrap className="container">
         <User>
-          지은 <span>22</span>
+          {data.nickname}
+          <span></span>
         </User>
-        <MBTI>ENFP</MBTI>
+        <MBTI>{data.mbti}</MBTI>
         <Introduction>
           <h4>자기소개</h4>
           <div>
-            안녕하세요! 저는 식물 키우는걸 좋아하고,평소에 책 읽는걸 좋아해요.
-            서울 강남역 근처 거주하고 있습니다😃
+            {/* 안녕하세요! 저는 식물 키우는걸 좋아하고,평소에 책 읽는걸 좋아해요.
+            서울 강남역 근처 거주하고 있습니다😃 */}
+            {data.introduction}
           </div>
         </Introduction>
       </ProfileInfoWrap>
-      <div className="container" onClick={()=>navigate("/chat")}>
+      {/* <div className="container" onClick={()=>navigate("/chat")}> */}
+      <div className="container">
         <AskChatButton text="대화하기" />
       </div>
     </ChatProfileWrap>

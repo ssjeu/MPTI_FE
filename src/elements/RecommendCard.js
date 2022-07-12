@@ -1,30 +1,25 @@
 // 메인페이지에서 MBTI 추천에 나타나는 유저 card
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import TestImg from "../images/user-profile.jpeg";
-
-const RecommendCard = () => {
-  const navigate = useNavigate();
-  const toProfile = () => {
-    navigate("/chatprofile");
-  };
-
+const RecommendCard = ({ card }) => {
   return (
-    <RecommendCardWrap onClick={toProfile}>
-      <Card>
-        <CardImage>
-          <img src={TestImg} alt="recommend card" />
-        </CardImage>
-        <CardTitle>
-          <div>
-            지은, 22
-            <br />
-            <span>ENFP</span>
-          </div>
-        </CardTitle>
-      </Card>
+    <RecommendCardWrap>
+      <Link to="/chatprofile" state={{ data: card }}>
+        <Card>
+          <CardImage>
+            <img src={card.userImage} alt="recommend card" />
+          </CardImage>
+          <CardTitle>
+            <div>
+              {card.nickname}
+              <br />
+              <span>{card.mbti}</span>
+            </div>
+          </CardTitle>
+        </Card>
+      </Link>
     </RecommendCardWrap>
   );
 };
