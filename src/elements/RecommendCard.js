@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 const RecommendCard = ({ card }) => {
   return (
-    <RecommendCardWrap>
-      <Link to="/chatprofile" state={{ data: card }}>
+    <Link to="/chatprofile" state={{ data: card }}>
+      <RecommendCardWrap>
         <Card>
           <CardImage>
             <img src={card.userImage} alt="recommend card" />
@@ -19,8 +19,8 @@ const RecommendCard = ({ card }) => {
             </div>
           </CardTitle>
         </Card>
-      </Link>
-    </RecommendCardWrap>
+      </RecommendCardWrap>
+    </Link>
   );
 };
 
@@ -30,10 +30,10 @@ const Card = styled.div`
   margin: 10px;
   display: flex;
   align-items: flex-end;
+  position: relative;
 `;
 
 const CardImage = styled.div`
-  position: relative;
   width: 140px;
   height: 220px;
   & img {

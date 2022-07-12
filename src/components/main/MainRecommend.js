@@ -51,9 +51,9 @@ const RecommendTitle = styled.div`
 
 const RecommendCardWrap = styled.div`
   display: flex;
-  flex-wrap: wrap;
   margin-left: -10px;
   padding: 12px 0;
+  overflow-x: scroll;
 `;
 
 const NoCard = styled.div`
