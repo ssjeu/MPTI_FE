@@ -54,6 +54,7 @@ const Mypage = () => {
         {isLogin === true && user_data.userImage !== undefined ? (
           <Profile
             className='display-center'
+            onClick={() => navigate('/info/change')}
             style={{ backgroundImage: `url(${user_data?.userImage[0]})` }}
           >
             <div className='display-center'>

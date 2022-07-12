@@ -14,6 +14,7 @@ import UserInfo from './pages/UserInfo';
 import KakaoLogin from './components/KakaoLogin';
 import { Header } from './components/Header';
 import Mypage from './pages/Mypage';
+import UserInfoChange from './pages/UserInfoChange';
 
 function App() {
   //   const test = useSelector((state) => state);
@@ -31,6 +32,7 @@ function App() {
         <Route path='/login' element={<SignIn />} />
         <Route path='/join' element={<SignUp />} />
         <Route path='/info' element={<UserInfo />} />
+        <Route path='/info/change' element={<UserInfoChange />} />
         <Route path='/api/kakao/callback' element={<KakaoLogin />} />
       </Routes>
       <Footer />
