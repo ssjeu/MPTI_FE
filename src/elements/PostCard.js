@@ -19,7 +19,7 @@ const PostCard = ({ card }) => {
           <div>
             {card.postContent}
             <br />
-            <span>{card.userId.slice(0, 10)}</span>
+            <span>{card.nickname}</span>
           </div>
         </CardTitle>
       </Card>

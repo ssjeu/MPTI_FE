@@ -2,7 +2,6 @@ import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import { recommendApi } from '../../shared/api';
 
-
 // Action type
 const GET_RECOMMEND = 'GET_RECOMMEND';
 
@@ -14,7 +13,7 @@ const initialState = {
 };
 
 // Middlewares
-// 마이페이지 유저 정보
+// 나와 잘 맞는 MBTI 추천
 export const recommendDB = () => {
   return async function (dispatch, getState) {
     await recommendApi
@@ -35,7 +34,6 @@ export default handleActions(
     [GET_RECOMMEND]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.data;
-        // console.log("GET_RECOMMEND", draft.list);
       }),
   },
   initialState

@@ -1,13 +1,11 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import "../css/component.css";
 import AskChatButton from "../elements/MainButton";
 
 const ChatProfile = () => {
-  //   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state.data;
 
@@ -24,17 +22,18 @@ const ChatProfile = () => {
         <MBTI>{data.mbti}</MBTI>
         <Introduction>
           <h4>자기소개</h4>
-          <div>
-            {/* 안녕하세요! 저는 식물 키우는걸 좋아하고,평소에 책 읽는걸 좋아해요.
-            서울 강남역 근처 거주하고 있습니다😃 */}
-            {data.introduction}
-          </div>
+          <div>{data.introduction}</div>
         </Introduction>
       </ProfileInfoWrap>
-      {/* <div className="container" onClick={()=>navigate("/chat")}> */}
-      <div className="container">
-        <AskChatButton text="대화하기" />
-      </div>
+      <Link
+        to="/chat"
+        state={{ data: data }}
+        style={{ textDecoration: "none" }}
+      >
+        <div className="container">
+          <AskChatButton text="대화하기" />
+        </div>
+      </Link>
     </ChatProfileWrap>
   );
 };
