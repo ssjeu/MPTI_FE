@@ -1,6 +1,6 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { Link, useLocation } from "react-router-dom";
 
 import "../css/component.css";
 import AskChatButton from "../elements/MainButton";
