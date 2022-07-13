@@ -20,7 +20,7 @@ const MainRecommend = () => {
   }, []);
 
   // 유저 정보
-  const token = localStorage.getItem("is_login");
+  const token = sessionStorage.getItem("is_login");
 
   // 나와 잘 맞는 MBTI 유저 list
   const users = useSelector((state) => state.recommend.list);

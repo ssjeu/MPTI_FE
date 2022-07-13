@@ -16,7 +16,7 @@ const PostList = ({ card }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const token = localStorage.getItem("is_login");
+  const token = sessionStorage.getItem("is_login");
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState();
 

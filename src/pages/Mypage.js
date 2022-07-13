@@ -28,8 +28,8 @@ const Mypage = () => {
   console.log(user_data);
 
   React.useEffect(() => {
-    const token = localStorage.getItem("is_login");
-    const userNum = localStorage.getItem("userNum");
+    const token = sessionStorage.getItem('is_login');
+    const userNum = sessionStorage.getItem('userNum');
 
     if (token) {
       setIsLogin(true);
@@ -53,7 +53,8 @@ const Mypage = () => {
 
         {isLogin === true && user_data.userImage !== undefined ? (
           <Profile
-            className="display-center"
+            className='display-center'
+            onClick={() => navigate('/info/change')}
             style={{ backgroundImage: `url(${user_data?.userImage[0]})` }}
           >
             <div className="display-center">

@@ -37,6 +37,7 @@ const Footer = () => {
   if (location === "/login") return null;
   else if (location === "/join") return null;
   else if (location === "/info") return null;
+  else if (location.pathname === '/info/change') return null;
   else if (location === "/chatprofile") return null;
 
   return (

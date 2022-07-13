@@ -16,12 +16,12 @@ const Chat = () => {
   console.log(user2);
 
   // 내 정보
-  const token = localStorage.getItem("is_login");
+  const token = sessionStorage.getItem("is_login");
   const user1 = useSelector((state) => state.userInfo.user);
   console.log(user1);
 
   useEffect(() => {
-    const userNum = localStorage.getItem("userNum");
+    const userNum = sessionStorage.getItem("userNum");
 
     if (token) dispatch(userInfoDB(userNum));
   }, []);

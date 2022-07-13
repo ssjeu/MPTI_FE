@@ -64,6 +64,7 @@ export const Header = () => {
   //   if (location === "/login") return null;
   if (location === "/join") return null;
   else if (location === "/info") return null;
+  else if (location.pathname === '/info/change') return null;
   else if (location === "/my") return null;
 
   const goBack = () => {

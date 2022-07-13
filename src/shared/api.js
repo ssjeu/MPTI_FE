@@ -1,5 +1,8 @@
-import instance from "./Request";
-import axios from "axios";
+import instance from './Request';
+import axios from 'axios';
+
+// 토큰 설정
+const token = sessionStorage.getItem('is_login');
 
 const ImgApi = axios.create({
   baseURL: "http://3.35.170.203",
@@ -8,10 +11,10 @@ const ImgApi = axios.create({
   },
 });
 
-if (localStorage.getItem("is_login"))
+if (sessionStorage.getItem('is_login'))
   ImgApi.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${localStorage.getItem("is_login")}`;
+    'Authorization'
+  ] = `Bearer ${sessionStorage.getItem('is_login')}`;
 
 export const communityApi = {
   // 게시글
@@ -67,8 +70,10 @@ export const authApi = {
       )
       .then((res) => {
         console.log(res);
-        localStorage.setItem('is_login', res.data.token);
-        localStorage.setItem('userNum', res.data.user.userNum);
+        // localStorage.setItem('is_login', res.data.token);
+        // localStorage.setItem('userNum', res.data.user.userNum);
+        sessionStorage.setItem('is_login', res.data.token);
+        sessionStorage.setItem('userNum', res.data.user.userNum);
         alert('로그인 되었습니다!');
 
         if (res.data.user.nickname === undefined) {
