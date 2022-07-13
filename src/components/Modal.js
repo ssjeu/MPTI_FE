@@ -30,7 +30,7 @@ const CreateModal = styled.div`
   & > div {
     display: inline-block;
     position: relative;
-    padding: 32px 28px 20px 28px;
+    padding: 32px 24px 20px 24px;
     max-width: 200px;
     font-size: 12px;
     font-weight: 300;

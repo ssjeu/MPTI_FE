@@ -41,8 +41,7 @@ const MainRecommend = () => {
             style={{ margin: "630px 0 0 170px", width: "13.8vh" }}
             children={
               <div>
-                MBTI 궁합표에 의해
-                <br /> 추천되는 데이터입니다.
+                MBTI 궁합표에 의해 추천되는 데이터입니다.
               </div>
             }
           />
