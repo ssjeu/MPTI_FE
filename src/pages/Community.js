@@ -43,7 +43,6 @@ const Community = () => {
 
     const filteredData = posts.filter((item) => item.postCategory === btn);
     setData(filteredData);
-    console.log(btn, filteredData);
     return data;
   };
 

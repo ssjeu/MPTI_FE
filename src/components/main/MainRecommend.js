@@ -1,14 +1,23 @@
 // 메인페이지에서 나와 잘맞는 MBTI 추천
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as recommendActions } from "../../redux/modules/recommend";
 
 import RecommendCard from "../../elements/RecommendCard";
+import Information from "../../images/icons/info_FILL0_wght400_GRAD0_opsz48.png";
+import Modal from "../Modal";
 
 const MainRecommend = () => {
   const dispatch = useDispatch();
+
+  // info 모달창
+  const [showInfo, setShowInfo] = useState(false);
+
+  const onClickInfo = useCallback(() => {
+    setShowInfo((prev) => !prev);
+  }, []);
 
   // 유저 정보
   const token = localStorage.getItem("is_login");
@@ -17,14 +26,28 @@ const MainRecommend = () => {
   const users = useSelector((state) => state.recommend.list);
 
   useEffect(() => {
-    if (token) {
-      dispatch(recommendActions.recommendDB());
-    }
+    if (token) dispatch(recommendActions.recommendDB());
   }, []);
 
   return (
     <MainRecommendWrap>
-      <RecommendTitle>나와 잘 맞는 MBTI</RecommendTitle>
+      <RecommendTitle>
+        나와 잘 맞는 MBTI{" "}
+        <img src={Information} alt="info" onClick={onClickInfo} />
+        {showInfo && (
+          <Modal
+            show={showInfo}
+            onCloseModal={onClickInfo}
+            style={{ margin: "630px 0 0 170px", width: "13.8vh" }}
+            children={
+              <div>
+                MBTI 궁합표에 의해
+                <br /> 추천되는 데이터입니다.
+              </div>
+            }
+          />
+        )}
+      </RecommendTitle>
 
       <RecommendCardWrap>
         {token && users ? (
@@ -47,6 +70,14 @@ const RecommendTitle = styled.div`
   font-size: 18px;
   font-weight: bold;
   text-align: left;
+  display: flex;
+  align-items: flex-end;
+
+  & img {
+    height: 18px;
+    opacity: 0.5;
+    margin: 0 0 2px 6px;
+  }
 `;
 
 const RecommendCardWrap = styled.div`

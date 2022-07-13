@@ -13,9 +13,17 @@ import MoreButton from "../../elements/MoreButton";
 import ProfileCharacter from "../../images/character/profile-character.png";
 
 const PostList = ({ card }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const token = localStorage.getItem("is_login");
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState();
+
+  const likes = useSelector((state) => state.like.like);
+  const users = useSelector((state) => state.like.user);
+  const [likeCount, setLikeCount] = useState();
+  const [likeState, setLikeState] = useState(0);
 
   useEffect(() => {
     if (token) {
@@ -39,14 +47,6 @@ const PostList = ({ card }) => {
       setUserId(parseJwt(token).userId);
     }
   }, [isLogin]);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const likes = useSelector((state) => state.like.like);
-  const users = useSelector((state) => state.like.user);
-  const [likeCount, setLikeCount] = useState();
-  const [likeState, setLikeState] = useState(0);
 
   useEffect(() => {
     dispatch(likeActions.getLikeAC(card.postId));
