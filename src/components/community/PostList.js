@@ -7,10 +7,10 @@ import { actionCreators as likeActions } from "../../redux/modules/like";
 
 import "../../css/component.css";
 import PostSwiper from "./PostSwiper";
-import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
-import Comment from "../../images/chat-bubble-outline@3x.png";
+import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 import MoreButton from "../../elements/MoreButton";
 import ProfileCharacter from "../../images/character/profile-character.png";
+import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
 
 const PostList = ({ card }) => {
   const dispatch = useDispatch();

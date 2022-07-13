@@ -8,7 +8,7 @@ import uuid from "react-uuid"
 
 import "../css/component.css";
 import UploadButton from "../elements/MainButton";
-import UploadImage from "../images/filter@3x.png";
+import UploadImage from "../images/icons/filter@3x.png";
 
 const PostUpdate = () => {
   const dispatch = useDispatch();

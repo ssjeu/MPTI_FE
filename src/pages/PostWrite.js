@@ -7,8 +7,8 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
 import "../css/component.css";
 import UploadButton from "../elements/MainButton";
-import UploadImage from "../images/filter@3x.png";
-import CategoryDown from "../images/expand-more@3x.png";
+import UploadImage from "../images/icons/filter@3x.png";
+import CategoryDown from "../images/icons/expand-more@3x.png";
 
 const PostWrite = () => {
   const navigate = useNavigate();
