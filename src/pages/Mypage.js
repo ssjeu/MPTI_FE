@@ -1,21 +1,21 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logOutDB } from "../redux/modules/user";
+import { userInfoDB } from "../redux/modules/userInfo";
 
 // css
-import '../css/component.css';
+import "../css/component.css";
 
 // components & elements
-import Button02 from '../elements/Button02';
+import Button02 from "../elements/Button02";
 
 // svg icons
-import { ReactComponent as Person } from '../icons/person.svg';
-import { ReactComponent as Camera } from '../icons/camera_alt.svg';
-import { ReactComponent as ArrowForward } from '../images/icons/arrow_forward_ios.svg';
-import { MypageHeader } from '../components/Header';
-import { logOutDB } from '../redux/modules/user';
-import { userInfoDB } from '../redux/modules/userInfo';
+import { ReactComponent as Person } from "../images/icons/person.svg";
+import { ReactComponent as Camera } from "../images/icons/camera_alt.svg";
+import { ReactComponent as ArrowForward } from "../images/icons/arrow_forward_ios.svg";
+import { MypageHeader } from "../components/Header";
 
 const Mypage = () => {
   const [isLogin, setIsLogin] = React.useState(false);
@@ -28,8 +28,8 @@ const Mypage = () => {
   console.log(user_data);
 
   React.useEffect(() => {
-    const token = localStorage.getItem('is_login');
-    const userNum = localStorage.getItem('userNum');
+    const token = localStorage.getItem("is_login");
+    const userNum = localStorage.getItem("userNum");
 
     if (token) {
       setIsLogin(true);
@@ -47,24 +47,24 @@ const Mypage = () => {
 
   return (
     <>
-      <MypageHeader margin='58px 0 0 0' />
+      <MypageHeader margin="58px 0 0 0" />
       <Container>
         <BackgroundColor />
 
         {isLogin === true && user_data.userImage !== undefined ? (
           <Profile
-            className='display-center'
+            className="display-center"
             style={{ backgroundImage: `url(${user_data?.userImage[0]})` }}
           >
-            <div className='display-center'>
-              <Camera width='16px' height='16px' />
+            <div className="display-center">
+              <Camera width="16px" height="16px" />
             </div>
           </Profile>
         ) : (
-          <Profile className='display-center'>
-            <Person width='40px' height='40px' />
-            <div className='display-center'>
-              <Camera width='16px' height='16px' />
+          <Profile className="display-center">
+            <Person width="40px" height="40px" />
+            <div className="display-center">
+              <Camera width="16px" height="16px" />
             </div>
           </Profile>
         )}
@@ -73,26 +73,26 @@ const Mypage = () => {
           <span>
             {user_data && isLogin === true
               ? `안녕하세요! ${user_data?.name}님`
-              : '가입하고, 찐친을 만나보세요!'}
+              : "가입하고, 찐친을 만나보세요!"}
           </span>
 
           {isLogin === true ? (
-            <div className='display-center' style={{ marginBottom: '5.5px' }}>
+            <div className="display-center" style={{ marginBottom: "5.5px" }}>
               <h3>{user_data.nickname}</h3>
               <button>내 프로필 완성하기</button>
             </div>
           ) : (
-            <div className='display-center' style={{ marginBottom: '5.5px' }}>
+            <div className="display-center" style={{ marginBottom: "5.5px" }}>
               <div
-                style={{ padding: '0', display: 'flex', alignItems: 'center' }}
-                onClick={() => navigate('/login')}
+                style={{ padding: "0", display: "flex", alignItems: "center" }}
+                onClick={() => navigate("/login")}
               >
-                <h3 style={{ color: 'var(--maincolor)', fontWeight: '500' }}>
+                <h3 style={{ color: "var(--maincolor)", fontWeight: "500" }}>
                   로그인 및 회원가입하기
                 </h3>
-                <ArrowForward style={{ margin: '2px 0 0 5px' }} />
+                <ArrowForward style={{ margin: "2px 0 0 5px" }} />
               </div>
-              <button style={{ display: 'none' }}>내 프로필 완성하기</button>
+              <button style={{ display: "none" }}>내 프로필 완성하기</button>
             </div>
           )}
 
@@ -108,7 +108,7 @@ const Mypage = () => {
             <p>성별</p>
             {isLogin === true ? (
               <SpanStyle>
-                {user_data.gender === 'Female' ? '여성' : '남성'}
+                {user_data.gender === "Female" ? "여성" : "남성"}
               </SpanStyle>
             ) : null}
           </div>
@@ -140,7 +140,7 @@ const Mypage = () => {
         </Box>
 
         {isLogin === true ? (
-          <Button02 text='로그아웃' margin='10px 0 0 0' _onClick={logOut} />
+          <Button02 text="로그아웃" margin="10px 0 0 0" _onClick={logOut} />
         ) : null}
       </Container>
     </>

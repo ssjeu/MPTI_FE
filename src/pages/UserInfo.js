@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 // svg icons
-import { ReactComponent as Person } from '../icons/person.svg';
-import { ReactComponent as Camera } from '../icons/camera_alt.svg';
-import { ReactComponent as Warning } from '../icons/warning.svg';
+import { ReactComponent as Person } from '../images/icons/person.svg';
+import { ReactComponent as Camera } from '../images/icons/camera_alt.svg';
+import { ReactComponent as Warning } from '../images/icons/warning.svg';
 
 import Input01 from '../elements/Input01';
 import Button03 from '../elements/Button03';

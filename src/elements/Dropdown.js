@@ -1,6 +1,6 @@
 import React, { Children, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
-import dropdownArrow from '../icons/arrow_drop_down.png';
+import dropdownArrow from '../images/icons/arrow_drop_down.png';
 
 const Dropdown = (props) => {
   const { data, width, children, height, parent } = props;

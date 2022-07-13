@@ -1,15 +1,15 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-
-import '../css/component.css';
-import { ReactComponent as PermIdentity } from '../icons/perm_identity.svg';
-import { ReactComponent as Htttps } from '../icons/https.svg';
-import character from '../images/character/frame@3x.png';
-import logo from '../images/logo/Group 14@2x.png';
-
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signInDB } from '../redux/modules/user';
+
+import '../css/component.css';
+import { ReactComponent as PermIdentity } from '../images/icons/perm_identity.svg';
+import { ReactComponent as Htttps } from '../images/icons/https.svg';
+import character from '../images/character/frame@3x.png';
+import logo from '../images/logo/Group 14@2x.png';
+
 import Button01 from '../elements/Button01';
 import Button02 from '../elements/Button02';
 import HorizontalLine from '../elements/HorizonLine';
