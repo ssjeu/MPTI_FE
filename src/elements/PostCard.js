@@ -8,20 +8,17 @@ const PostCard = ({ card }) => {
   const toPost = () => {
     navigate("/posts/" + card.postId);
   };
-  
+
   return (
     <PostCardWrap onClick={toPost}>
       <Card>
         <CardImage>
           <img src={card.postImage[0]} alt="postcard" />
         </CardImage>
-        <CardTitle>
-          <div>
-            {card.postContent}
-            <br />
-            <span>{card.nickname}</span>
-          </div>
-        </CardTitle>
+        <CardContent>
+          <Title>{card.postContent}</Title>
+          <User>{card.nickname}</User>
+        </CardContent>
       </Card>
     </PostCardWrap>
   );
@@ -47,12 +44,12 @@ const CardImage = styled.div`
   }
 `;
 
-const CardTitle = styled.div`
+const CardContent = styled.div`
   position: absolute;
   display: flex;
   align-items: flex-end;
   width: 160px;
-  height: 88px;
+  height: 80px;
   background-blend-mode: multiply;
   background: linear-gradient(
     to bottom,
@@ -60,18 +57,28 @@ const CardTitle = styled.div`
     rgba(78, 78, 78, 0.53) 59%
   );
   border-radius: 4px;
+  flex-wrap: wrap;
 
   & div {
-    margin: auto auto 12px 8px;
+    width: 160px;
+    margin-left: 8px;
     color: white;
-    font-size: 14px;
-    font-weight: bold;
     text-align: left;
   }
+`;
 
-  & span {
-    font-size: 12px;
-    font-weight: normal;
-  }
+const Title = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 20px;
+`;
+
+const User = styled.div`
+  font-size: 12px;
+  font-weight: normal;
+  margin: -28px auto 12px auto;
 `;
 export default PostCard;
