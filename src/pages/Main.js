@@ -25,7 +25,7 @@ const Main = () => {
         <RandomButton>랜덤 매칭 채팅</RandomButton>
       </MainButtons>
 
-      <RecommendWrap className="contents-container">
+      <RecommendWrap>
         <MainRecommend />
       </RecommendWrap>
 

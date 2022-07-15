@@ -1,16 +1,16 @@
 // 게시글 카드 목록
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as likeActions } from "../../redux/modules/like";
 
 import "../../css/component.css";
 import PostSwiper from "./PostSwiper";
-import MoreButton from "../../elements/MoreButton";
 import ProfileCharacter from "../../images/character/profile-character.png";
-import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
+import MoreButton from "../../elements/MoreButton";
 import Comment from "../../images/icons/chat-bubble-outline@3x.png";
+import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
 
 const PostList = ({ card }) => {
   const dispatch = useDispatch();

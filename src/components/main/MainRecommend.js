@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as recommendActions } from "../../redux/modules/recommend";
 
+import "../../css/component.css";
 import RecommendCard from "../../elements/RecommendCard";
 import Information from "../../images/icons/info_FILL0_wght400_GRAD0_opsz48.png";
 import Modal from "../Modal";
@@ -31,7 +32,7 @@ const MainRecommend = () => {
 
   return (
     <MainRecommendWrap>
-      <RecommendTitle>
+      <RecommendTitle  className="contents-container">
         나와 잘 맞는 MBTI{" "}
         <img src={Information} alt="info" onClick={onClickInfo} />
         {showInfo && (
@@ -82,7 +83,7 @@ const RecommendTitle = styled.div`
 const RecommendCardWrap = styled.div`
   display: flex;
   margin-left: -10px;
-  padding: 12px 0;
+  padding: 12px 5%;
   overflow-x: scroll;
 `;
 
