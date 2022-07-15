@@ -32,7 +32,7 @@ const MainRecommend = () => {
 
   return (
     <MainRecommendWrap>
-      <RecommendTitle  className="contents-container">
+      <RecommendTitle className="contents-container">
         나와 잘 맞는 MBTI{" "}
         <img src={Information} alt="info" onClick={onClickInfo} />
         {showInfo && (
@@ -40,11 +40,7 @@ const MainRecommend = () => {
             show={showInfo}
             onCloseModal={onClickInfo}
             style={{ margin: "630px 0 0 170px", width: "13.8vh" }}
-            children={
-              <div>
-                MBTI 궁합표에 의해 추천되는 데이터입니다.
-              </div>
-            }
+            children={<div>MBTI 궁합표에 의해 추천되는 데이터입니다.</div>}
           />
         )}
       </RecommendTitle>
@@ -52,6 +48,10 @@ const MainRecommend = () => {
       <RecommendCardWrap>
         {token && users ? (
           users.map((card, index) => <RecommendCard card={card} key={index} />)
+        ) : token ? (
+          <NoCard>
+            아직 찾지 못했어요😥 <span>랜덤 매칭</span>은 어떠신가요?
+          </NoCard>
         ) : (
           <Link to="/login" style={{ textDecoration: "none" }}>
             <NoCard>

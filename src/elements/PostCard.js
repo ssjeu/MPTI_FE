@@ -30,10 +30,10 @@ const Card = styled.div`
   margin: 10px;
   display: flex;
   align-items: flex-end;
+  position: relative;
 `;
 
 const CardImage = styled.div`
-  position: relative;
   width: 160px;
   height: 160px;
   & img {
