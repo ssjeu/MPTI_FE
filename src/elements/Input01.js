@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Input01 = (props) => {
-  const { placeholder, _onChange, _ref, margin, type } = props;
+  const { placeholder, _onChange, _ref, margin, type, color, _value } = props;
 
   return (
     <>
@@ -12,6 +12,7 @@ const Input01 = (props) => {
           placeholder={placeholder}
           onChange={_onChange}
           ref={_ref}
+          color={color}
         />
       </InputStyle>
     </>

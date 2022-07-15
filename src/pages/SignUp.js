@@ -84,10 +84,6 @@ const SignUp = () => {
 
   return (
     <Container className='container'>
-      <Logo>
-        <img className='logo' src={logo} alt='' />
-      </Logo>
-
       <Title>
         <p>
           믑티를 빛내주실✨
