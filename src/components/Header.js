@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -61,14 +61,17 @@ export const Header = () => {
   const location = useLocation().pathname;
 
   // 공통 헤더 없는 페이지 설정
-  //   if (location === "/login") return null;
-  if (location === "/join") return null;
-  else if (location === "/info") return null;
-  else if (location.pathname === '/info/change') return null;
+  if (location === "/info") return null;
+  else if (location.pathname === "/info/change") return null;
   else if (location === "/my") return null;
 
   const goBack = () => {
-    if (location !== "/" && location !== "/community") navigate(-1);
+    if (
+      location !== "/" &&
+      location !== "/community" &&
+      location !== "/chatlist"
+    )
+      navigate(-1);
   };
 
   return (
@@ -76,7 +79,11 @@ export const Header = () => {
       <BackIcon
         onClick={goBack}
         className={
-          location === "/" || location === "/community" ? "hide" : null
+          location === "/" ||
+          location === "/community" ||
+          location === "/chatlist"
+            ? "hide"
+            : null
         }
       >
         <img src={Back} alt="logo" width="24px" />
@@ -84,7 +91,11 @@ export const Header = () => {
       <LogoIcon className={location === "/login" ? "hide" : null}>
         <img src={Logo} alt="logo" width="85px" />
       </LogoIcon>
-      <AlarmIcon className={location === "/login" ? "hide" : null}>
+      <AlarmIcon
+        className={
+          location === "/login" || location === "/join" ? "hide" : null
+        }
+      >
         <img src={Alarm} alt="alarm" width="24px" />
       </AlarmIcon>
     </HeaderWrap>
