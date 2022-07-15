@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 // svg icons
 import { ReactComponent as Person } from '../images/icons/person.svg';
@@ -14,7 +15,12 @@ import { userInfoDB } from '../redux/modules/user';
 import { UserInfoHeader } from '../components/Header';
 
 const UserInfoChange = () => {
+  const [profile, setProfile] = React.useState();
+
   const imageInput = useRef();
+
+  const user_data = useSelector((state) => state.userInfo.user);
+  console.log(user_data);
 
   const onClickImageUpload = () => {
     imageInput.current.click();
@@ -22,11 +28,12 @@ const UserInfoChange = () => {
 
   return (
     <Container className='container'>
-      <UserInfoHeader margin='58px 0 49.7px 0' />
+      {/* <UserInfoHeader margin='58px 0 49.7px 0' /> */}
 
-      <Profile onClick={onClickImageUpload}>
-        {/* {profile === null ? <Person /> : <img src={imgBase64} alt='' />} */}
-
+      <Profile
+        onClick={onClickImageUpload}
+        style={{ backgroundImage: `url(${user_data?.userImage[0]})` }}
+      >
         <div>
           <Camera />
         </div>
@@ -44,10 +51,14 @@ const UserInfoChange = () => {
           <p>닉네임</p>
           <Input01
             placeholder='닉네임을 입력해주세요.'
+            color='#64be72'
+            _value={user_data.nickname}
             _onChange={(e) => {
               // setNickname(e.target.value);
             }}
-          />
+          >
+            하이
+          </Input01>
         </div>
 
         <div>
@@ -164,6 +175,9 @@ const Profile = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background-position: center;
+  background-size: cover;
 
   position: relative;
 

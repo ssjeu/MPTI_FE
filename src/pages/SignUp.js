@@ -83,7 +83,7 @@ const SignUp = () => {
   };
 
   return (
-    <Container className="container">
+    <Container className='container'>
       <Title>
         <p>
           믑티를 빛내주실✨

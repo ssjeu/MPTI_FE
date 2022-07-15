@@ -1,69 +1,19 @@
-import React from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import "../css/component.css";
-import logo from "../images/logo/Group 14@2x.png";
-import Logo from "../images/header/logo@2x.png";
-import Alarm from "../images/header/notifications-none@3x.png";
-import Back from "../images/header/keyboard-arrow-left@3x.png";
+import '../css/component.css';
+import Logo from '../images/header/logo@2x.png';
+import Back from '../images/header/keyboard-arrow-left@3x.png';
 
 // svg icons + logo
-import { ReactComponent as LogoSvg } from "../images/logo/Group 15.svg";
-import { ReactComponent as AlarmSvg } from "../images/icons/notifications_none.svg";
-
-export const UserInfoHeader = (props) => {
-  const { margin } = props;
-
-  return (
-    <>
-      <LogoStyle className="logo" src={logo} alt="" margin={margin} />
-    </>
-  );
-};
-
-export const MypageHeader = (props) => {
-  const { margin } = props;
-  return (
-    <>
-      <MypageHeaderStyle margin={margin}>
-        <LogoSvg />
-
-        <div>
-          <AlarmSvg />
-        </div>
-      </MypageHeaderStyle>
-    </>
-  );
-};
-
-const MypageHeaderStyle = styled.div`
-  margin: ${(props) => props.margin};
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
-
-  box-sizing: border-box;
-  padding: 0 4.8%;
-
-  position: relative;
-
-  div {
-    position: absolute;
-    right: 4.8%;
-  }
-`;
+import { ReactComponent as LogoSvg } from '../images/logo/Group 15.svg';
+import { ReactComponent as AlarmSvg } from '../images/icons/notifications_none.svg';
+import { ReactComponent as CloseSvg } from '../images/header/close.svg';
 
 export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
-
-  // 공통 헤더 없는 페이지 설정
-  if (location === "/info") return null;
-  else if (location.pathname === "/info/change") return null;
-  else if (location === "/my") return null;
 
   const goBack = () => {
     if (
@@ -74,36 +24,79 @@ export const Header = () => {
       navigate(-1);
   };
 
+  const close = () => {
+    navigate(-1);}
+
   return (
-    <HeaderWrap className="contents-container">
+    <HeaderWrap className='contents-container'>
       <BackIcon
         onClick={goBack}
         className={
-          location === "/" ||
-          location === "/community" ||
-          location === "/chatlist"
-            ? "hide"
+          location === '/' ||
+          location === '/community' ||
+          location === '/login' ||
+          location === '/join' ||
+          location === '/info' ||
+          location === '/info/change' ||
+          location === '/my' ||
+          location === '/my/profile'
+            ? 'hide'
             : null
         }
       >
-        <img src={Back} alt="logo" width="24px" />
+        <img src={Back} alt='logo' width='24px' />
       </BackIcon>
-      <LogoIcon className={location === "/login" ? "hide" : null}>
-        <img src={Logo} alt="logo" width="85px" />
+      <LogoIcon className={location === '/login' ? 'hide' : null}>
+        {location === '/my' ? (
+          <LogoSvg />
+        ) : (
+          <img src={Logo} alt='logo' width='85px' />
+        )}
+        {/* <img src={Logo} alt='logo' width='85px' /> */}
       </LogoIcon>
       <AlarmIcon
         className={
-          location === "/login" || location === "/join" ? "hide" : null
+          location === '/login' ||
+          location === '/join' ||
+          location === '/info' ||
+          location === '/info/change'
+            ? 'hide'
+            : null
         }
+        style={{
+          display:
+            location === '/login' ||
+            location === '/join' ||
+            location === '/info/change' ||
+            location === '/my/profile'
+              ? 'none'
+              : null,
+        }}
       >
-        <img src={Alarm} alt="alarm" width="24px" />
+        {/* <img src={Alarm} alt='alarm' width='24px' /> */}
+        <AlarmSvg style={{ fill: location === '/my' ? '#fff' : '#323232' }} />
       </AlarmIcon>
+
+      <CloseIcon
+        onClick={close}
+        style={{
+          display:
+            location === '/login' ||
+            location === '/join' ||
+            location === '/info/change' ||
+            location === '/my/profile'
+              ? null
+              : 'none',
+        }}
+      >
+        <CloseSvg />
+      </CloseIcon>
     </HeaderWrap>
   );
 };
 
 const HeaderWrap = styled.div`
-  background-color: white;
+  // background-color: white;
   margin: 58px 0 36px 0;
   display: flex;
   justify-content: space-between;
@@ -130,6 +123,14 @@ const LogoIcon = styled.div.attrs((props) => ({
 `;
 
 const AlarmIcon = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
+  &.hide {
+    opacity: 0;
+  }
+`;
+
+const CloseIcon = styled.div.attrs((props) => ({
   className: props.className,
 }))`
   &.hide {

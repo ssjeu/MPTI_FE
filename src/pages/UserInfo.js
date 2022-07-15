@@ -12,7 +12,6 @@ import Button03 from '../elements/Button03';
 import Button01 from '../elements/Button01';
 import Dropdown from '../elements/Dropdown';
 import { userInfoDB } from '../redux/modules/user';
-import { UserInfoHeader } from '../components/Header';
 import MbtiSelect from '../components/MbtiSelect';
 
 const UserInfo = () => {
@@ -150,8 +149,6 @@ const UserInfo = () => {
 
   return (
     <Container className='container'>
-      <UserInfoHeader margin='58px 0 49.7px 0' />
-
       <Profile onClick={onClickImageUpload}>
         {profile === null ? <Person /> : <img src={imgBase64} alt='' />}
 
