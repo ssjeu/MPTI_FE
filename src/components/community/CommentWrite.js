@@ -11,7 +11,7 @@ const CommentWrite = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const postId = params.index;
-  const token = localStorage.getItem("is_login");
+  const token = sessionStorage.getItem("is_login");
 
   // 댓글 입력 data
   const content_ref = React.useRef();

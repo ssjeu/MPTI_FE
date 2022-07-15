@@ -15,7 +15,7 @@ const Community = () => {
   const navigate = useNavigate();
 
   const posts = useSelector((state) => state.post.post);
-  const token = localStorage.getItem("is_login");
+  const token = sessionStorage.getItem("is_login");
 
   // 서버에서 postlist 로드
   useEffect(() => {
@@ -157,7 +157,7 @@ const CategoryButton = styled.div.attrs((props) => ({
 
 const Notice = styled.div`
   background-color: var(--subcolor);
-  width: 2000px;
+  width: 100vw;
   height: 50px;
   font-size: 14px;
   text-align: left;
