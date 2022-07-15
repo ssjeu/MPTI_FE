@@ -1,33 +1,20 @@
 # 믑티(MPTI) Front-End
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## MPTI 소개
 
-In the project directory, you can run:
+당신과 성향이 비슷한 사람 또는 반대의 매력을 지닌
+다양한 MBTI 유형의 사람들과 자유롭게 소통해보세요!
 
 ## 핵심 기능
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
 ## 프로젝트 소개
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### 프로젝트 기간
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### Front-End 팀원
 
