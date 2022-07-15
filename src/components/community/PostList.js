@@ -7,10 +7,10 @@ import { actionCreators as likeActions } from "../../redux/modules/like";
 
 import "../../css/component.css";
 import PostSwiper from "./PostSwiper";
-import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 import MoreButton from "../../elements/MoreButton";
 import ProfileCharacter from "../../images/character/profile-character.png";
 import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
+import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 
 const PostList = ({ card }) => {
   const dispatch = useDispatch();
@@ -106,20 +106,19 @@ const PostList = ({ card }) => {
         }}
         className="contents-container"
       >
-        좋아요 {likeCount} &nbsp;&nbsp;
-        {/* <img src={Comment} alt="comment" /> */}
+        <PostButton>
+          <Like
+            className="icons"
+            style={{ fill: likeState === true ? "#ff6565" : "#adadad" }}
+            onClick={() => {
+              if (token) handleLike();
+            }}
+          />
+        </PostButton>
+        좋아요 {likeCount}
+        <img src={Comment} alt="comment" />
         댓글 {card.commentCount}
       </PostAction>
-      <hr />
-      <PostButton className="contents-container">
-        <Like
-          className="icons"
-          style={{ fill: likeState === true ? "#ff6565" : "#adadad" }}
-          onClick={() => {
-            if (token) handleLike();
-          }}
-        />
-      </PostButton>
     </PostListWrap>
   );
 };
@@ -182,16 +181,18 @@ const PostAction = styled.div`
   align-items: center;
   font-size: 14px;
   color: var(--gray3);
+  margin-bottom: 16px;
 
   & img {
     width: 16px;
-    margin: 0 8px;
+    margin: 0 7px 0 20px;
   }
 `;
 
 const PostButton = styled.div`
   .icons {
     width: 16px;
+    margin: 2px 4px 0 0;
   }
 `;
 
