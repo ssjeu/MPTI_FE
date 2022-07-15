@@ -43,11 +43,8 @@ const MoreButton = ({ id, type, user }) => {
     navigate("/posts/" + id + "/update");
   };
 
-  const commentUpdate = (cmtId) => {};
-
   const handleUpdate = () => {
     if (type === "post") postUpdate(id);
-    else if (type === "comment") commentUpdate(id);
   };
 
   // 삭제하기 부분
@@ -76,8 +73,14 @@ const MoreButton = ({ id, type, user }) => {
               ref={outSection}
             />
             <Menu openState={open}>
-              <div onClick={handleUpdate}>수정</div>
-              <div onClick={handleDelete}>삭제</div>
+              {type === "comment" ? (
+                <div onClick={handleDelete}>삭제</div>
+              ) : (
+                <div>
+                  <div onClick={handleUpdate}>수정</div>
+                  <div onClick={handleDelete}>삭제</div>
+                </div>
+              )}
             </Menu>
           </li>
         </MoreDropdown>
