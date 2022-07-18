@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+
 import AddImgBtn from '../../elements/AddImgBtn';
 
-import AddImg from '../../elements/AddImgBtn';
-
 const ProfileImg = (props) => {
-  const { margin } = props;
+  const { margin, parent, data } = props;
+
   const imageInput = useRef();
 
   //! 서버에 보낼 이미지 데이터
@@ -31,7 +31,16 @@ const ProfileImg = (props) => {
 
   React.useEffect(() => {
     imageInput.current.value = '';
+    parent(fileImage);
   }, [fileImage]);
+
+  React.useEffect(() => {
+    if (data) {
+      setFileImage(data);
+      setPreImage(data);
+      console.log(data);
+    }
+  }, [data]);
 
   return (
     <>
@@ -127,6 +136,7 @@ const ProfileImg = (props) => {
         style={{ display: 'none' }}
         ref={imageInput}
         onChange={addFileImage}
+        // multiple
       />
     </>
   );

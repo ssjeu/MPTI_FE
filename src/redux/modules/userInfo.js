@@ -28,6 +28,24 @@ export const userInfoDB = (userNum) => {
   };
 };
 
+// 내 프로필 완성하기
+export const userProfileDB = (userNum, formData) => {
+  return function (dispatch, getState) {
+    // for (let value of formData.values()) {
+    //   console.log(value);
+    // }
+
+    userInfoApi
+      .userProfile(userNum, formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 // reduers
 export default handleActions(
   {

@@ -59,23 +59,24 @@ export const kakaoLogin = (code) => {
 
 export const userInfoDB = (formData, nickname) => {
   return function (dispatch) {
-    // for (let value of formData.values()) {
-    //   console.log(value);
-    // }
+    for (let value of formData.values()) {
+      console.log(value);
+    }
     authApi.userInfo(formData, nickname);
   };
 };
 
 export const logOutDB = () => {
   return function (dispatch) {
+    authApi
+      .logOut()
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
     dispatch(logOut());
     alert('로그아웃 되었습니다!');
     window.location.reload();
   };
 };
-// export const loadUserDB = () => {
-//   return function (dispatch) {};
-// };
 
 // Reducer
 export default function reducer(state = initialState, action = {}) {

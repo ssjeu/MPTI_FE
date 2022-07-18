@@ -5,9 +5,9 @@ import axios from 'axios';
 const token = sessionStorage.getItem('is_login');
 
 const ImgApi = axios.create({
-  baseURL: "http://3.35.170.203",
+  baseURL: 'http://3.35.170.203',
   headers: {
-    "Content-type": "multipart/form-data",
+    'Content-type': 'multipart/form-data',
   },
 });
 
@@ -22,7 +22,8 @@ export const communityApi = {
   postDetail: (postId) => instance.get(`/api/posts/${postId}`),
   postWrite: (formData) =>
     ImgApi.post(`/api/posts`, formData, { withCredentials: true }),
-  postUpdate: (postId, formData) => instance.put(`/api/posts/${postId}`, formData),
+  postUpdate: (postId, formData) =>
+    instance.put(`/api/posts/${postId}`, formData),
   postDelete: (postId) => instance.delete(`/api/posts/${postId}`),
 
   // 댓글
@@ -41,7 +42,7 @@ export const communityApi = {
 export const authApi = {
   signUp: (email, name, password, passwordCheck) => {
     instance
-      .post("/api/signup", {
+      .post('/api/signup', {
         email: email,
         name: name,
         password: password,
@@ -49,9 +50,9 @@ export const authApi = {
       })
       .then((res) => {
         console.log(res);
-        alert("회원가입에 성공했습니다!");
+        alert('회원가입에 성공했습니다!');
 
-        window.location.replace("/login");
+        window.location.replace('/login');
       })
       .catch((err) => {
         console.log(err);
@@ -61,7 +62,7 @@ export const authApi = {
   login: (email, password) => {
     instance
       .post(
-        "/api/login",
+        '/api/login',
         {
           email,
           password,
@@ -79,7 +80,7 @@ export const authApi = {
         if (res.data.user.nickname === undefined) {
           window.location.replace('/info');
         } else {
-          window.location.replace("/");
+          window.location.replace('/');
         }
       })
       .catch((err) => {
@@ -92,12 +93,14 @@ export const authApi = {
       .get(`/api/kakao/callback?code=${code}`)
       .then((res) => {
         console.log(res);
-        alert("로그인 되었습니다!");
+        alert('로그인 되었습니다!');
       })
       .catch((err) => {
         console.log(err);
       });
   },
+
+  logOut: () => instance.post('/api/logout'),
 
   userInfo: (formData, nickname) => {
     ImgApi.put('/api/signup/first', formData, { withCredentials: true })
@@ -113,9 +116,11 @@ export const authApi = {
 
 export const userInfoApi = {
   myUserInfo: (userNum) => instance.get(`/api/mypage/${userNum}`),
+  userProfile: (userNum, formData) =>
+    ImgApi.put(`/api/mypage/profile/${userNum}`, formData),
 };
 
 export const recommendApi = {
-    // 잘맞는 MBTI 추천
-    recommendList: () => instance.get(`/api/suggest`)
+  // 잘맞는 MBTI 추천
+  recommendList: () => instance.get(`/api/suggest`),
 };
