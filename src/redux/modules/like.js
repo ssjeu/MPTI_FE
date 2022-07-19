@@ -21,7 +21,7 @@ const deleteLike = createAction(DELETE_LIKE, (like) => ({
 }));
 
 const initialState = {
-  like: null,
+  like: 0,
   user: [],
 };
 

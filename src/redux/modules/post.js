@@ -60,7 +60,6 @@ const addPostAC = (formData) => {
     await communityApi
       .postWrite(formData)
       .then((res) => {
-        console.log("addPost response", res);
         window.alert("게시글 작성 완료!");
         window.location.replace("/community");
       })
@@ -84,8 +83,8 @@ const updatePostAC = (postId, formData) => {
     await communityApi
       .postUpdate(postId, formData)
       .then((res) => {
-        window.location.replace("/community");
         window.alert("게시글 수정 완료!");
+        window.location.replace("/community");
       })
       .catch((err) => {
         window.location.replace("/community");
@@ -101,8 +100,8 @@ const deletePostAC = (postId) => {
     await communityApi
       .postDelete(postId)
       .then((res) => {
-        window.location.reload();
         window.alert("게시글 삭제 완료!");
+        window.location.replace("/community");
       })
       .catch((err) => {
         console.log("DELETE deletePostAC Error: ", err);
