@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import { userInfoDB } from "../redux/modules/userInfo";
 
 import "../css/component.css";
 import PostList from "../components/community/PostList";
@@ -14,17 +15,25 @@ const Community = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const posts = useSelector((state) => state.post.post);
+  // 유저 정보
   const token = sessionStorage.getItem("is_login");
+  const user = useSelector((state) => state.userInfo.user);
+  const [loginUser, setLoginUser] = useState([]);
 
   // 서버에서 postlist 로드
+  const posts = useSelector((state) => state.post.post);
+
   useEffect(() => {
+    const userNum = sessionStorage.getItem("userNum");
+
     dispatch(postActions.postDB());
+    dispatch(userInfoDB(userNum));
   }, []);
 
   useEffect(() => {
     setData(posts);
-  }, [posts]);
+    setLoginUser(user);
+  }, [posts, user]);
 
   // 카테고리 목록
   const categories = ["전체", "MBTI", "자유", "고민상담", "익명"];
@@ -78,9 +87,11 @@ const Community = () => {
             );
         })}
       </Category>
-      <Notice>
+
+      <Notice onClick={() => navigate("/community/notice")}>
         <span>필독!</span>커뮤니티 이용 규칙
       </Notice>
+
       <CommunityList>
         {data.length === 0 ? (
           <CommunityNoList>
@@ -92,7 +103,9 @@ const Community = () => {
             </div>
           </CommunityNoList>
         ) : (
-          data.map((card, index) => <PostList card={card} key={index} />)
+          data.map((card, index) => (
+            <PostList card={card} user={loginUser} key={index} />
+          ))
         )}
       </CommunityList>
       <PostButton
@@ -163,6 +176,7 @@ const Notice = styled.div`
   text-align: left;
   display: table-cell;
   vertical-align: middle;
+  color: #333333;
 
   & span {
     color: var(--pointcolor);

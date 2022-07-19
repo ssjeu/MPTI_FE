@@ -58,7 +58,8 @@ const PostWrite = () => {
 
   // 게시글 업로드 function
   const addPost = async () => {
-    if (selected === undefined || selected === "") alert("카테고리를 선택해주세요!");
+    if (selected === undefined || selected === "")
+      alert("카테고리를 선택해주세요!");
     else if (content_ref.current.value === "") alert("내용을 입력해주세요!");
     else if (content_ref.current.value.length < 5)
       alert("최소 5자 이상 입력해주세요!");
@@ -75,7 +76,7 @@ const PostWrite = () => {
 
   return (
     <PostWriteWrap>
-      <Notice>
+      <Notice onClick={()=>navigate("/community/notice")}>
         <span>필독!</span>커뮤니티 이용 규칙
       </Notice>
 

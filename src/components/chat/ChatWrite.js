@@ -3,12 +3,11 @@ import React, { useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
 import autosize from "autosize";
 
 import "../../css/component.css";
 
-const ChatWrite = ({ chat, onChangeChat, onSubmitForm, placeholder, data }) => {
+const ChatWrite = ({ chat, onChangeChat, onSubmitForm, data }) => {
   const dispatch = useDispatch();
 
   // 채팅 입력 data
@@ -25,7 +24,6 @@ const ChatWrite = ({ chat, onChangeChat, onSubmitForm, placeholder, data }) => {
     (e) => {
       if (e.key === "Enter") {
         if (!e.shiftKey) {
-          textareaRef.current.value = "";
           e.preventDefault();
           onSubmitForm(e);
         }
@@ -38,7 +36,6 @@ const ChatWrite = ({ chat, onChangeChat, onSubmitForm, placeholder, data }) => {
   const activeChat = (e) => {
     if (textareaRef.current.value !== "") {
       //   dispatch(commentActions.addCommentAC(postId, content_ref.current.value));
-      textareaRef.current.value = "";
       onSubmitForm(e);
     }
   };

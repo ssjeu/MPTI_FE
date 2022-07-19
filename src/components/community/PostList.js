@@ -1,64 +1,45 @@
 // 게시글 카드 목록
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as likeActions } from "../../redux/modules/like";
+import { userInfoDB } from "../../redux/modules/userInfo";
 
 import "../../css/component.css";
 import PostSwiper from "./PostSwiper";
-import ProfileCharacter from "../../images/character/profile-character.png";
 import MoreButton from "../../elements/MoreButton";
+
+import ProfileCharacter from "../../images/character/profile-character.png";
 import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
 
-const PostList = ({ card }) => {
+const PostList = ({ card, user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const token = sessionStorage.getItem("is_login");
-  const [isLogin, setIsLogin] = useState(false);
-  const [userId, setUserId] = useState();
-
   const likes = useSelector((state) => state.like.like);
   const users = useSelector((state) => state.like.user);
-  const [likeCount, setLikeCount] = useState();
-  const [likeState, setLikeState] = useState(0);
+  const [likeCount, setLikeCount] = useState(card.countLikes);
+  const [likeState, setLikeState] = useState(true);
 
-  useEffect(() => {
-    if (token) {
-      setIsLogin(true);
-    }
-
-    if (isLogin === true) {
-      const parseJwt = (token) => {
-        var base64Url = token.split(".")[1];
-        var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-        var jsonPayload = decodeURIComponent(
-          atob(base64)
-            .split("")
-            .map(function (c) {
-              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-            })
-            .join("")
-        );
-        return JSON.parse(jsonPayload);
-      };
-      setUserId(parseJwt(token).userId);
-    }
-  }, [isLogin]);
+  const userInfo = useSelector((state) => state.userInfo.user);
+  const [postUser, setPostUser] = useState();
 
   useEffect(() => {
     dispatch(likeActions.getLikeAC(card.postId));
+    dispatch(userInfoDB(card.userNum));
+
+    if (users) {
+      const result = users.find((user) => user === user.userId);
+      setLikeState(result ? true : false);
+    } else setLikeState(false);
   }, []);
 
   useEffect(() => {
-    setLikeCount(likes);
-    if (users) {
-      const result = users.find((user) => user === userId);
-      setLikeState(result ? true : false);
-    } else setLikeState(false);
-  }, [likes]);
+    setPostUser(userInfo);
+
+  },[userInfo])
 
   const handleLike = () => {
     if (likeState === false) dispatch(likeActions.addLikeAC(card.postId));
@@ -73,7 +54,16 @@ const PostList = ({ card }) => {
       <PostWrap className="contents-container">
         <PostInfo>
           {card.userImage.length && card.postCategory !== "익명" ? (
-            <img src={card.userImage[0]} alt="user profile" />
+            <img
+              src={card.userImage[0]}
+              alt="user profile"
+              onClick={() => {
+                if (card.userNum !== user.userNum)
+                  navigate("/chatprofile/" + card.userNum, {
+                    state: { data: postUser },
+                  });
+              }}
+            />
           ) : (
             <img src={ProfileCharacter} alt="no profile" />
           )}
@@ -83,6 +73,7 @@ const PostList = ({ card }) => {
             <span>{card.createdAt}</span>
           </PostUser>
         </PostInfo>
+
         <MoreButton id={card.postId} type={"post"} user={card.userId} />
       </PostWrap>
 
@@ -102,7 +93,7 @@ const PostList = ({ card }) => {
 
       <PostAction
         onClick={() => {
-          if (token) navigate("/posts/" + card.postId);
+          if (user) navigate("/posts/" + card.postId);
         }}
         className="contents-container"
       >
@@ -111,7 +102,7 @@ const PostList = ({ card }) => {
             className="icons"
             style={{ fill: likeState === true ? "#ff6565" : "#adadad" }}
             onClick={() => {
-              if (token) handleLike();
+              if (user) handleLike();
             }}
           />
         </PostButton>
