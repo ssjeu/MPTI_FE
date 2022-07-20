@@ -1,7 +1,7 @@
 // 커뮤니티 탭
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { userInfoDB } from "../redux/modules/userInfo";
@@ -33,7 +33,7 @@ const Community = () => {
   useEffect(() => {
     setData(posts);
     setLoginUser(user);
-  }, [posts, user]);
+  }, [posts]);
 
   // 카테고리 목록
   const categories = ["전체", "MBTI", "자유", "고민상담", "익명"];
@@ -104,10 +104,18 @@ const Community = () => {
           </CommunityNoList>
         ) : (
           data.map((card, index) => (
-            <PostList card={card} user={loginUser} key={index} />
+            <Link
+              to={"/posts/" + card.postId}
+              state={{ data: card, user: loginUser }}
+              style={{ textDecoration: "none" }}
+              key={index}
+            >
+              <PostList card={card} user={loginUser} />
+            </Link>
           ))
         )}
       </CommunityList>
+
       <PostButton
         onClick={() => {
           if (token) navigate("/postwrite");

@@ -9,15 +9,16 @@ import { actionCreators as chatActions } from "../redux/modules/chat";
 import ChatWrite from "../components/chat/ChatWrite";
 
 import "../css/component.css";
-import { ReactComponent as BlockSvg } from "../images/icons/flag.svg";
+import ChatNotice from "../elements/ChatNotice";
 import { ReactComponent as ExitSvg } from "../images/icons/exit_to_app_FILL0_wght400_GRAD0_opsz20.svg";
-
-// import io from "socket.io-client";
-// const socket = io.connect("http://localhost:3001");
 
 const Chat = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const room = location.state.room;
+  const recevierUser = location.state.data;
+
+  const token = sessionStorage.getItem("is_login");
 
   // 채팅 메세지
   const [chat, onChangeChat, setChat] = useInput("");
@@ -25,8 +26,7 @@ const Chat = () => {
     (e) => {
       e.preventDefault();
       if (chat?.trim()) {
-        dispatch(chatActions.sendMessageAC(chat));
-        // socket.emit("send_message", { chat, room });
+        dispatch(chatActions.sendMessageAC(room.roomId, chat));
         setChat("");
         console.log("submit");
       }
@@ -34,27 +34,40 @@ const Chat = () => {
     [chat]
   );
 
-  // 상대방 정보
-  const user2 = location.state.data;
+  const exitRoom = async () => {
+    dispatch(chatActions.exitRoomAC(room.roomId));
+  };
 
-  // Room State
-  const [room, setRoom] = useState(user2.userNum);
   const [messageReceived, setMessageReceived] = useState("");
 
-  // 내 정보 -> token 넘겨주면 서버에서 처리
-  //   const userNum = sessionStorage.getItem("userNum");
-  //   const user1 = useSelector((state) => state.userInfo.user);
-
-  const chats = useSelector((state) => state.chat.list);
-  console.log(chats);
-
   useEffect(() => {
-    // socket.emit("join_room", room);
-    dispatch(chatActions.getMessageDB());
+    const eventSource = new EventSource(
+      `http://3.35.170.203/api/message/` + room.roomId,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      },
+      { withCredentials: true } 
+    );
 
-    // socket.on("receive_message", (data) => {
-    //   setMessageReceived(data.message);
-    // });
+    // dispatch(chatActions.getMessageAC(room.roomId));
+    // 서버로부터 데이터가 오면
+    eventSource.addEventListener("message", function (e) {
+      console.log(e.data);
+    });
+
+    // connection되면
+    eventSource.addEventListener("open", function (e) {
+      // Connection was opened.
+    });
+
+    // error 나면
+    eventSource.addEventListener("error", function (e) {
+      if (e.readyState == EventSource.CLOSED) {
+        // Connection was closed.
+      }
+    });
   }, []);
 
   return (
@@ -62,17 +75,19 @@ const Chat = () => {
       <BackgroundColor />
       <ChatWithTitle className="contents-container">
         <div style={{ width: "16px" }} />
-        {user2.nickname}{" "}
+        {recevierUser.nickname}{" "}
         <ExitSvg
           style={{
             fill: "var(--gray4)",
           }}
+          onClick={exitRoom}
         />
       </ChatWithTitle>
-      {messageReceived}
-      {/* {chats &&
-        chats.map((data, index) => <div key={index}>{data.message}</div>)} */}
-      {/* <ChatArea /> */}
+
+      {room.members.length === 1 ? (
+        <ChatNotice text="상대방이 채팅방을 나갔습니다." />
+      ) : null}
+
       <ChatWrite
         chat={chat}
         onChangeChat={onChangeChat}

@@ -1,7 +1,7 @@
 // 게시글 카드 목록
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as likeActions } from "../../redux/modules/like";
 import { userInfoDB } from "../../redux/modules/userInfo";
@@ -15,6 +15,7 @@ import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
 
 const PostList = ({ card, user }) => {
+  console.log("****", user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,21 +26,21 @@ const PostList = ({ card, user }) => {
 
   const userInfo = useSelector((state) => state.userInfo.user);
   const [postUser, setPostUser] = useState();
+  console.log("####", postUser);
 
   useEffect(() => {
     dispatch(likeActions.getLikeAC(card.postId));
     dispatch(userInfoDB(card.userNum));
-
-    if (users) {
-      const result = users.find((user) => user === user.userId);
-      setLikeState(result ? true : false);
-    } else setLikeState(false);
   }, []);
 
   useEffect(() => {
     setPostUser(userInfo);
 
-  },[userInfo])
+    if (users) {
+      const result = users.find((user) => user === user.userId);
+      setLikeState(result ? true : false);
+    } else setLikeState(false);
+  }, [userInfo]);
 
   const handleLike = () => {
     if (likeState === false) dispatch(likeActions.addLikeAC(card.postId));
@@ -77,12 +78,7 @@ const PostList = ({ card, user }) => {
         <MoreButton id={card.postId} type={"post"} user={card.userId} />
       </PostWrap>
 
-      <PostContents
-        onClick={() => {
-          navigate("/posts/" + card.postId);
-        }}
-        className="contents-container"
-      >
+      <PostContents className="contents-container">
         {card.postContent}
         {card.postImage.length === 1 ? (
           <img src={card.postImage.toString()} alt="postImage" />
@@ -91,12 +87,7 @@ const PostList = ({ card, user }) => {
         ) : null}
       </PostContents>
 
-      <PostAction
-        onClick={() => {
-          if (user) navigate("/posts/" + card.postId);
-        }}
-        className="contents-container"
-      >
+      <PostAction className="contents-container">
         <PostButton>
           <Like
             className="icons"
@@ -119,6 +110,7 @@ const PostListWrap = styled.div`
   padding: 20px 0 12px 0;
   background-color: white;
   margin-bottom: 12px;
+  color: #333333;
 
   & hr {
     opacity: 0.1;

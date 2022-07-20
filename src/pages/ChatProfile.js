@@ -1,39 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { createRoomAC } from "../redux/modules/chat";
 
 import "../css/component.css";
 import AskChatButton from "../elements/MainButton";
+import { ReactComponent as FlagSvg } from "../images/icons/flag.svg";
 
 const ChatProfile = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const data = location.state.data;
+
+  const [activeFlag, setActiveFlag] = useState(0);
+
+  const createRoom = async () => {
+    dispatch(createRoomAC(data.userNum));
+    navigate("/chat", { state: { data: data } });
+    console.log(data);
+  };
+
+  const blockUser = () => {
+    setActiveFlag(!activeFlag);
+  };
 
   return (
     <ChatProfileWrap>
       <ProfileImageWrap className="contents-container">
         <img src={data.userImage} alt="profile"></img>
       </ProfileImageWrap>
+
       <ProfileInfoWrap className="container">
         <User>
-          {data.nickname}
-          <span></span>
+          <div>{data.nickname}</div>
+          <FlagSvg
+            style={{ fill: activeFlag ? "#64be72" : "#adadad" }}
+            onClick={blockUser}
+          />
         </User>
         <MBTI>{data.mbti}</MBTI>
         <Introduction>
-          <h4>자기소개</h4>
+          <h3>자기소개</h3>
           <div>{data.introduction}</div>
         </Introduction>
       </ProfileInfoWrap>
-      <Link
-        to="/chat"
-        state={{ data: data }}
-        style={{ textDecoration: "none" }}
-      >
-        <div className="container">
-          <AskChatButton text="대화하기" />
-        </div>
-      </Link>
+
+      <div className="container" onClick={createRoom}>
+        <AskChatButton text="대화하기" />
+      </div>
     </ChatProfileWrap>
   );
 };
@@ -58,11 +74,9 @@ const ProfileInfoWrap = styled.div`
 const User = styled.div`
   font-weight: 700;
   font-size: 26px;
-
-  & span {
-    font-weight: 400;
-    font-size: 22px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const MBTI = styled.div`
@@ -81,4 +95,5 @@ const Introduction = styled.div`
   font-size: 14px;
   line-height: 21px;
 `;
+
 export default ChatProfile;

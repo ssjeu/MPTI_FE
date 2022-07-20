@@ -29,7 +29,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/chatprofile/:index" exact element={<ChatProfile />} />
+        <Route path="/chatprofile" exact element={<ChatProfile />} />
         <Route path="/chat" exact element={<Chat />} />
         <Route path="/chatlist" exact element={<ChatList />} />
         <Route path="/community" exact element={<Community />} />

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+
 import MainRecommend from "../components/main/MainRecommend";
 import MainCommunity from "../components/main/MainCommunity";
 
@@ -8,7 +8,6 @@ import "../css/component.css";
 import character from "../images/character/frame-main@3x.png";
 
 const Main = () => {
-  const navigate = useNavigate();
 
   return (
     <MainWrap>

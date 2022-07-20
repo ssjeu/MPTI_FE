@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 
 const RecommendCard = ({ card }) => {
   return (
-    <Link to={"/chatprofile/"+card.userNum} state={{ data: card }}>
+    // <Link to={"/chatprofile/"+card.userNum} state={{ data: card }}>
+    <Link to="/chatprofile" state={{ data: card }}>
       <RecommendCardWrap>
         <Card>
           <CardImage>
