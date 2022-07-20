@@ -116,11 +116,21 @@ export const authApi = {
 
 export const userInfoApi = {
   myUserInfo: (userNum) => instance.get(`/api/mypage/${userNum}`),
-  userProfile: (userNum, formData) =>
-    ImgApi.put(`/api/mypage/profile/${userNum}`, formData),
+  userProfile: (userNum, userIntroduction, profileImages) =>
+    instance.put(`/api/mypage/profile/${userNum}`, {
+      introduction: userIntroduction,
+      profileImages: profileImages,
+    }),
+  userInfoChange: (userNum, formData) =>
+    ImgApi.put(`/api/mypage/${userNum}`, formData),
 };
 
 export const recommendApi = {
   // 잘맞는 MBTI 추천
   recommendList: () => instance.get(`/api/suggest`),
+};
+
+//이미지 url 받아오기
+export const imageApi = {
+  userImage: (formData) => ImgApi.post('/api/images', formData),
 };

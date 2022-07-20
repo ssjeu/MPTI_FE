@@ -59,9 +59,6 @@ export const kakaoLogin = (code) => {
 
 export const userInfoDB = (formData, nickname) => {
   return function (dispatch) {
-    for (let value of formData.values()) {
-      console.log(value);
-    }
     authApi.userInfo(formData, nickname);
   };
 };

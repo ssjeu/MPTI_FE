@@ -17,8 +17,8 @@ import UserInfo from './pages/UserInfo';
 import KakaoLogin from './components/KakaoLogin';
 import { Header } from './components/Header';
 import Mypage from './pages/Mypage';
-import UserInfoChange from './pages/UserInfoChange';
 import Myprofile from './pages/Myprofile';
+import UserInfoChange from './pages/UserInfoChange';
 
 function App() {
   //   const test = useSelector((state) => state);

@@ -5,13 +5,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProfileImg from '../components/myprofile/ProfileImg';
 import Button01 from '../elements/Button01';
 import { userInfoDB, userProfileDB } from '../redux/modules/userInfo';
+import ProfileSwiper from '../components/myprofile/ProfileSwiper';
 
 const Myprofile = () => {
   const [active, setActive] = React.useState(1);
   const [userIntroduction, setUserIntroduction] = React.useState('');
+
+  // 서버에 보내는 유저 프로필 이미지
   const [profileImages, setProfileImages] = React.useState();
 
-  const [userProfiles, setUserProfiles] = React.useState([]);
+  // 서버에서 받아오는 유저 프로필 이미지
+  const [userProfiles, setUserProfiles] = React.useState();
 
   const dispatch = useDispatch();
 
@@ -24,12 +28,12 @@ const Myprofile = () => {
     }
   };
 
-  const userNum = sessionStorage.getItem('userNum');
-
   // 유저 정보
+  const userNum = sessionStorage.getItem('userNum');
   const user_data = useSelector((state) => state.userInfo.user);
   console.log(user_data);
 
+  // 서버에서 데이터 받아오기
   React.useEffect(() => {
     dispatch(userInfoDB(userNum));
 
@@ -54,22 +58,14 @@ const Myprofile = () => {
     setProfileImages(x);
   };
 
+  // 유저 나이 구하기
+  const birthday = user_data.birthday && user_data.birthday.slice(0, 4);
+  const today = new Date();
+  const user_age = today.getFullYear() - birthday + 1;
+
   //! 입력 완료 버튼 클릭 시
   const completed = () => {
-    const formData = new FormData();
-    formData.append('introduction', userIntroduction);
-
-    profileImages.map((item, idx) => {
-      if (item) {
-        return formData.append('profileImages', item);
-      }
-    });
-
-    for (let value of formData.values()) {
-      console.log(value);
-    }
-
-    dispatch(userProfileDB(userNum, formData));
+    dispatch(userProfileDB(userNum, userIntroduction, profileImages));
   };
 
   return (
@@ -116,7 +112,16 @@ const Myprofile = () => {
         </Container>
       ) : (
         <Container>
-          <div>사진들어감</div>
+          <ProfileSwiper images={userProfiles} />
+          <UserInfoArea>
+            <div>
+              <h3>{user_data && user_data.nickname}</h3>
+              <span>{user_age}</span>
+            </div>
+            <span>{user_data && user_data.mbti}</span>
+            <p>자기소개</p>
+            <p>{user_data && user_data.introduction}</p>
+          </UserInfoArea>
         </Container>
       )}
     </>
@@ -184,6 +189,57 @@ const Introduction = styled.div`
     &::placeholder {
       color: #d9d9d9;
     }
+  }
+`;
+
+const UserInfoArea = styled.div`
+  box-sizing: border-box;
+  padding: 0 5%;
+  text-align: left;
+
+  * {
+    margin: 0;
+  }
+
+  & > div {
+    margin-top: 20px;
+    margin-bottom: 7px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    gap: 7px;
+
+    h3 {
+      font-size: 26px;
+      font-weight: 700;
+    }
+    span {
+      font-size: 22px;
+      font-weight: 400;
+    }
+  }
+
+  & > span {
+    color: var(--maincolor);
+    border: 1px solid var(--maincolor);
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 12px;
+    margin-top: 7px;
+  }
+
+  & > p:nth-of-type(1) {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 37px;
+    margin-bottom: 12px;
+  }
+
+  & > p:nth-of-type(2) {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 57px;
   }
 `;
 
