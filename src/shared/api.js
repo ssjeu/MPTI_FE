@@ -134,3 +134,14 @@ export const recommendApi = {
 export const imageApi = {
   userImage: (formData) => ImgApi.post('/api/images', formData),
 };
+
+// 약식 mbti 테스트
+export const mbtiTestApi = {
+  mbtiTest: (first, second, third, fourth) =>
+    instance.post('/api/mbtitest', {
+      first: first,
+      second: second,
+      third: third,
+      fourth: fourth,
+    }),
+};

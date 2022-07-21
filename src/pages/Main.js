@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import MainRecommend from "../components/main/MainRecommend";
-import MainCommunity from "../components/main/MainCommunity";
+import React from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import MainRecommend from '../components/main/MainRecommend';
+import MainCommunity from '../components/main/MainCommunity';
 
-import "../css/component.css";
-import character from "../images/character/frame-main@3x.png";
+import '../css/component.css';
+import character from '../images/character/frame-main@3x.png';
 
 const Main = () => {
   const navigate = useNavigate();
@@ -13,23 +13,28 @@ const Main = () => {
   return (
     <MainWrap>
       <MainIntro>
-        <img src={character} alt="므팅이" />
+        <img src={character} alt='므팅이' />
         <div>
           다양한 MBTI 중에
           <br /> <span>나의 찐친을 찾아봐요✨</span>
         </div>
       </MainIntro>
 
-      <MainButtons className="contents-container">
+      <MainButtons className='contents-container'>
         <VoiceButton>보이스로 랜덤 상대 MBTI 맞추기</VoiceButton>
-        <RandomButton>랜덤 매칭 채팅</RandomButton>
+        <BottomBtns>
+          <RandomButton onClick={() => navigate('/mbtitest')}>
+            MBTI 약식 테스트
+          </RandomButton>
+          <RandomButton>다양한 MBTI 친구들</RandomButton>
+        </BottomBtns>
       </MainButtons>
 
       <RecommendWrap>
         <MainRecommend />
       </RecommendWrap>
 
-      <CommunityWrap className="contents-container">
+      <CommunityWrap className='contents-container'>
         <MainCommunity />
       </CommunityWrap>
     </MainWrap>
@@ -65,7 +70,7 @@ const MainButtons = styled.div`
   & div {
     height: 60px;
     border-radius: 10px;
-    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.06);
+    // box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.06);
     font-size: 16px;
     font-weight: 500;
     letter-spacing: -0.8px;
@@ -80,10 +85,17 @@ const VoiceButton = styled.div`
   color: white;
 `;
 
+const BottomBtns = styled.div`
+  display: flex;
+  flex-flow: row;
+  gap: 10px;
+  margin-top: 16px;
+`;
+
 const RandomButton = styled.div`
+  width: 100%;
   color: var(--maincolor);
   border: 1px solid var(--maincolor);
-  margin-top: 16px;
 `;
 
 const RecommendWrap = styled.div`

@@ -19,6 +19,7 @@ import { Header } from './components/Header';
 import Mypage from './pages/Mypage';
 import Myprofile from './pages/Myprofile';
 import UserInfoChange from './pages/UserInfoChange';
+import MBTITest from './pages/MBTITest';
 
 function App() {
   //   const test = useSelector((state) => state);
@@ -35,6 +36,7 @@ function App() {
         <Route path='/posts/:index' element={<PostDetail />} />
         <Route path='/postwrite' exact element={<PostWrite />} />
         <Route path='/posts/:index/update' exact element={<PostUpdate />} />
+        <Route path='/mbtitest' exact element={<MBTITest />} />
         <Route path='/my' element={<Mypage />} />
         <Route path='/login' element={<SignIn />} />
         <Route path='/join' element={<SignUp />} />
