@@ -33,48 +33,55 @@ const ChatArea = ({ room }) => {
       console.log(message);
 
       const chatArea = document.getElementById("chat-content");
-      const onList = document.createElement("li");
+      const onWrapDiv = document.createElement("div");
+      const onTextDiv = document.createElement("div");
+      const onTimeDiv = document.createElement("div");
 
       //   chatArea.html('');
       //   chatArea.removeChild();
 
       message.forEach((a) => {
-        // chatArea.append(`${a.content}`);
-        // chatArea.appendChild(`${a.content}`);
-        onList.innerHTML = a.content;
-        onList.classList.add("common");
+        onTextDiv.innerHTML = a.content;
+        onTimeDiv.innerHTML = a.messageTime.substring(13, 19);
+
+        onWrapDiv.classList.add("commonArea");
+        onTextDiv.classList.add("common");
+        onTimeDiv.classList.add("time");
+
         if (Number(a.userNum) === Number(userNum)) {
-          onList.classList.add("sender");
+          onWrapDiv.classList.add("senderArea");
+          onTextDiv.classList.add("sender");
         } else {
-          onList.classList.add("receiver");
+          onWrapDiv.classList.add("receiverArea");
+          onTextDiv.classList.add("receiver");
         }
 
-        chatArea.appendChild(onList);
+        onWrapDiv.appendChild(onTextDiv);
+        onWrapDiv.appendChild(onTimeDiv);
+
+        chatArea.appendChild(onWrapDiv);
       });
     });
   }, []);
 
   return (
     <ChatAreaWrap className="contents-container">
-      <ul id="chat-content"></ul>
+      <Container id="chat-content"></Container>
     </ChatAreaWrap>
   );
 };
 
 const ChatAreaWrap = styled.div`
   overflow-y: scroll;
-margin-bottom: 200px;
-height: auto;
+  margin-bottom: 200px;
+  height: auto;
+`;
 
-
-
-  & ul{
-    // display:inline;
-    display: flex;
-    align-content: stretch;
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
+const Container = styled.div`
+  display: flex;
+  align-content: stretch;
+  flex-direction: column;
+  flex-wrap: wrap;
 `;
 
 export default ChatArea;
