@@ -9,6 +9,9 @@ const GET_USER_INFO = "GET_USER_INFO";
 const SEND_MESSAGE = "SEND_MESSAGE";
 const GET_MESSAGE = "GET_MESSAGE";
 
+const USER_BLOCK = "USER_BLOCK";
+const USER_UNBLOCK = "USER_UNBLOCK";
+
 // Action creator
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const getChatList = createAction(GET_CHAT_LIST, (rooms) => ({ rooms }));
@@ -16,11 +19,15 @@ const getUserInfo = createAction(GET_USER_INFO, (userInfo) => ({ userInfo }));
 const sendMessage = createAction(SEND_MESSAGE, (data) => ({ data }));
 const getMessage = createAction(GET_MESSAGE, (data) => ({ data }));
 
+const userBlock = createAction(USER_BLOCK, (blocked) => ({ blocked }));
+const userUnblock = createAction(USER_UNBLOCK, (blocked) => ({ blocked }));
+
 const initialState = {
   room: [], // 생성된 채팅방
   rooms: [], // 전체 채팅방 목록
   userInfo: [], // 채팅방 목록에서 로그인한 유저 기준 상대방 정보
   data: [], // 메세지
+  blocked: 0, // 차단 상태
 };
 
 // Middlewares
@@ -100,6 +107,36 @@ export const exitRoomAC = (roomId) => {
   };
 };
 
+// 상대방 차단
+export const blockUserAC = (userNum) => {
+  return async function (dispatch) {
+    await chatApi
+      .blockUser(userNum)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(userBlock(1));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+// 상대방 차단 해제
+export const unblockUserAC = (userNum) => {
+  return async function (dispatch) {
+    await chatApi
+      .unblockUser(userNum)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(userUnblock(0));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 // Reducers
 export default handleActions(
   {
@@ -126,6 +163,17 @@ export default handleActions(
         draft.data = action.payload.data;
         console.log("GET_MESSAGE");
       }),
+
+    [USER_BLOCK]: (state, action) =>
+      produce(state, (draft) => {
+        draft.blocked = action.payload.blocked;
+        console.log("USER_BLOCK");
+      }),
+    [USER_UNBLOCK]: (state, action) =>
+      produce(state, (draft) => {
+        draft.blocked = action.payload.blocked;
+        console.log("USER_UNBLOCK");
+      }),
   },
   initialState
 );
@@ -141,6 +189,10 @@ const actionCreators = {
   sendMessageAC,
   getMessage,
   getMessageAC,
+  userBlock,
+  blockUserAC,
+  userUnblock,
+  unblockUserAC,
 };
 
 export { actionCreators };

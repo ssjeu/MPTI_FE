@@ -129,4 +129,8 @@ export const chatApi = {
   sendMessage: (roomId, content) =>
     instance.post(`/api/message/${roomId}`, { content: content }),
   getMessage: (roomId) => instance.get(`/api/message/${roomId}`),
+
+  // 차단
+  blockUser: (userNum) => instance.put(`/api/block`, { userNum: userNum }),
+  unblockUser: (userNum) => instance.put(`/api/unblock`, { userNum: userNum }),
 };

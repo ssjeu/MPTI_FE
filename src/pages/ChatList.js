@@ -39,7 +39,10 @@ const ChatList = () => {
           <NoUser>
             <img src={Character} alt="므팅이" />
             <Title>실시간 채팅</Title>
-            <Text>다양한 MBTI 사람들과 대화해보세요!</Text>
+            <Text>
+              다양한 MBTI 사람들과 대화해보세요!
+              <div>개설된 방이 없습니다.</div>
+            </Text>
           </NoUser>
         )
       ) : (
@@ -80,10 +83,16 @@ const Title = styled.div`
 const Text = styled.div`
   font-weight: 300;
   margin-bottom: 40px;
+
+  & div {
+    font-size: 12px;
+    margin-top: 12px;
+  }
 `;
 
 const ToLogin = styled.div`
   font-size: 12px;
   color: var(--maincolor);
 `;
+
 export default ChatList;

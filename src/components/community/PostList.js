@@ -15,7 +15,6 @@ import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
 
 const PostList = ({ card, user }) => {
-  console.log("****", user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -50,6 +49,14 @@ const PostList = ({ card, user }) => {
     setLikeState(!likeState);
   };
 
+  const showProfile = (userNum) => {
+    if (user.userNum !== userNum) {
+      navigate("/chatprofile/", {
+        state: { data: postUser, from: "postlist" },
+      });
+    }
+  };
+
   return (
     <PostListWrap>
       <PostWrap className="contents-container">
@@ -58,12 +65,7 @@ const PostList = ({ card, user }) => {
             <img
               src={card.userImage[0]}
               alt="user profile"
-              onClick={() => {
-                if (card.userNum !== user.userNum)
-                  navigate("/chatprofile/" + card.userNum, {
-                    state: { data: postUser },
-                  });
-              }}
+              onClick={() => showProfile(card.userNum)}
             />
           ) : (
             <img src={ProfileCharacter} alt="no profile" />

@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as chatActions } from "../redux/modules/chat";
 import { chatApi } from "../shared/api";
 
 import "../css/component.css";
 import AskChatButton from "../elements/MainButton";
-import { ReactComponent as FlagSvg } from "../images/icons/flag.svg";
+import { ReactComponent as BlockSvg } from "../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg";
 
 const ChatProfile = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state.data;
+  const from = location.state.from;
 
-  const room = useSelector((state) => state.chat.room);
-  console.log("chatProfile", room);
-
-  const [activeFlag, setActiveFlag] = useState(0);
+  const blocked = useSelector((state) => state.chat.blocked);
+  const [activeBlock, setActiveBlock] = useState();
 
   const createRoom = async () => {
     await chatApi
@@ -27,14 +28,23 @@ const ChatProfile = () => {
         });
       })
       .catch((err) => {
-        navigate("/chat", {
-          state: { data: data, room: err.response.data.Room },
-        });
+        if (err.response.data.blocked === "blocked") {
+          alert("차단 상태");
+        } else {
+          navigate("/chat", {
+            state: { data: data, room: err.response.data.Room },
+          });
+        }
       });
   };
 
   const blockUser = () => {
-    setActiveFlag(!activeFlag);
+    if (!activeBlock) {
+      dispatch(chatActions.blockUserAC(data.userNum));
+    } else {
+      dispatch(chatActions.unblockUserAC(data.userNum));
+    }
+    setActiveBlock(!activeBlock);
   };
 
   return (
@@ -46,8 +56,8 @@ const ChatProfile = () => {
       <ProfileInfoWrap className="container">
         <User>
           <div>{data.nickname}</div>
-          <FlagSvg
-            style={{ fill: activeFlag ? "#64be72" : "#adadad" }}
+          <BlockSvg
+            style={{ fill: activeBlock ? "#ff6565" : "#adadad" }}
             onClick={blockUser}
           />
         </User>
@@ -58,9 +68,11 @@ const ChatProfile = () => {
         </Introduction>
       </ProfileInfoWrap>
 
-      <div className="container" onClick={createRoom}>
-        <AskChatButton text="대화하기" />
-      </div>
+      {from === "recommend" ? (
+        <div className="container" onClick={createRoom}>
+          <AskChatButton text="대화하기" />
+        </div>
+      ) : null}
     </ChatProfileWrap>
   );
 };

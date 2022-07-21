@@ -27,7 +27,11 @@ const addCommentAC = (postId, text) => {
         window.alert("댓글 작성 완료");
       })
       .catch((err) => {
-        window.alert("로그인 후 댓글 작성 가능합니다!");
+        if (err.response.data.blocked === "blocked") {
+          window.alert("차단된 사용자는 댓글을 작성할 수 없습니다.");
+        } else {
+          window.alert("로그인 후 댓글 작성 가능합니다!");
+        }
         console.log("POST addCommentAC Error: ", err);
       });
   };

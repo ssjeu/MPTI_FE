@@ -15,7 +15,7 @@ const ChatWrite = ({ chat, onChangeChat, onSubmitForm, data }) => {
 
   useEffect(() => {
     if (textareaRef.current) {
-      autosize(textareaRef.current);
+    //   autosize(textareaRef.current);
     }
   }, [textareaRef.current]);
 

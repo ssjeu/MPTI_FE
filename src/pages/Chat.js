@@ -1,10 +1,9 @@
 // 1:1 실시간 채팅
 import React, { useCallback, useEffect, useState, createElement } from "react";
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
-import { userInfoDB } from "../redux/modules/userInfo";
 
 import useInput from "../hooks/useInput";
 import ChatArea from "../components/chat/ChatArea";
@@ -16,6 +15,7 @@ import { ReactComponent as ExitSvg } from "../images/icons/exit_to_app_FILL0_wgh
 
 const Chat = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const room = location.state.room;
   const recevierUser = location.state.data;
@@ -26,6 +26,7 @@ const Chat = () => {
     (e) => {
       e.preventDefault();
       if (room && chat?.trim()) {
+        setChat(chat.replace(/(?:\r\n|\r|\n)/g, '<br>'));
         dispatch(chatActions.sendMessageAC(room.roomId, chat));
         setChat("");
         console.log("submit");
@@ -43,7 +44,15 @@ const Chat = () => {
       <BackgroundColor />
       <ChatWithTitle className="contents-container">
         <div style={{ width: "16px" }} />
-        {recevierUser.nickname}{" "}
+        <ChatUser
+          onClick={() =>
+            navigate("/chatprofile", {
+              state: { data: recevierUser, from: "chatarea" },
+            })
+          }
+        >
+          {recevierUser.nickname}
+        </ChatUser>
         <Icon>
           <ExitSvg
             style={{
@@ -88,6 +97,12 @@ const ChatWithTitle = styled.div`
   font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.8px;
+`;
+
+const ChatUser = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Icon = styled.div`
