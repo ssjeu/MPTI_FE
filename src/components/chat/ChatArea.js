@@ -8,12 +8,12 @@ import "../../css/chat.css";
 
 const ChatArea = ({ room }) => {
   const token = sessionStorage.getItem("is_login");
+  const userNum = sessionStorage.getItem("userNum");
 
   const EventSource = NativeEventSource || EventSourcePolyfill;
   global.EventSource = NativeEventSource || EventSourcePolyfill;
 
   useEffect(() => {
-    const userNum = sessionStorage.getItem("userNum");
     // EventSource 생성
     // var eventSourceInitDict = { headers: { Authorization: "Bearer " + token } };
     const evtSource = new EventSource(
@@ -36,6 +36,7 @@ const ChatArea = ({ room }) => {
       const onWrapDiv = document.createElement("div");
       const onTextDiv = document.createElement("div");
       const onTimeDiv = document.createElement("div");
+      const onImgDiv = document.createElement("img");
 
       //   chatArea.html('');
       //   chatArea.removeChild();
@@ -54,6 +55,10 @@ const ChatArea = ({ room }) => {
         } else {
           onWrapDiv.classList.add("receiverArea");
           onTextDiv.classList.add("receiver");
+
+          onImgDiv.src = a.userImage[0];
+          onImgDiv.classList.add("img");
+          onWrapDiv.appendChild(onImgDiv);
         }
 
         onWrapDiv.appendChild(onTextDiv);
