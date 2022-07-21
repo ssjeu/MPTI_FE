@@ -3,18 +3,21 @@ import { produce } from "immer";
 import { chatApi } from "../../shared/api";
 
 // Action type
+const CREATE_ROOM = "CREATE_ROOM";
 const GET_CHAT_LIST = "GET_CHAT_LIST";
 const GET_USER_INFO = "GET_USER_INFO";
 const SEND_MESSAGE = "SEND_MESSAGE";
 const GET_MESSAGE = "GET_MESSAGE";
 
 // Action creator
+const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const getChatList = createAction(GET_CHAT_LIST, (rooms) => ({ rooms }));
 const getUserInfo = createAction(GET_USER_INFO, (userInfo) => ({ userInfo }));
 const sendMessage = createAction(SEND_MESSAGE, (data) => ({ data }));
 const getMessage = createAction(GET_MESSAGE, (data) => ({ data }));
 
 const initialState = {
+  room: [], // 생성된 채팅방
   rooms: [], // 전체 채팅방 목록
   userInfo: [], // 채팅방 목록에서 로그인한 유저 기준 상대방 정보
   data: [], // 메세지
@@ -23,14 +26,17 @@ const initialState = {
 // Middlewares
 // 채팅방 생성
 export const createRoomAC = (receiverNum) => {
-  return async function () {
+  return async function (dispatch) {
     await chatApi
       .createRoom(receiverNum)
       .then((res) => {
-        console.log(res.data);
+        dispatch(createRoom(res.data.Room));
+        console.log(res.data.Room);
       })
       .catch((err) => {
         console.log(err);
+        window.location.replace("/chatlist");
+        alert("이미 개설된 방이 있습니다");
       });
   };
 };
@@ -97,6 +103,12 @@ export const exitRoomAC = (roomId) => {
 // Reducers
 export default handleActions(
   {
+    [CREATE_ROOM]: (state, action) =>
+      produce(state, (draft) => {
+        draft.room = action.payload.room;
+        console.log("CREATE_ROOM");
+      }),
+
     [GET_CHAT_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.rooms = action.payload.rooms;
@@ -119,6 +131,7 @@ export default handleActions(
 );
 
 const actionCreators = {
+  createRoom,
   createRoomAC,
   getChatList,
   getUserInfo,

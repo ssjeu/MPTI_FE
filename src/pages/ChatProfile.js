@@ -1,25 +1,36 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { createRoomAC } from "../redux/modules/chat";
+import { useSelector } from "react-redux";
+import { chatApi } from "../shared/api";
 
 import "../css/component.css";
 import AskChatButton from "../elements/MainButton";
 import { ReactComponent as FlagSvg } from "../images/icons/flag.svg";
 
 const ChatProfile = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state.data;
 
+  const room = useSelector((state) => state.chat.room);
+  console.log("chatProfile", room);
+
   const [activeFlag, setActiveFlag] = useState(0);
 
   const createRoom = async () => {
-    dispatch(createRoomAC(data.userNum));
-    navigate("/chat", { state: { data: data } });
-    console.log(data);
+    await chatApi
+      .createRoom(data.userNum)
+      .then((res) => {
+        navigate("/chat", {
+          state: { data: data, room: res.data.Room },
+        });
+      })
+      .catch((err) => {
+        navigate("/chat", {
+          state: { data: data, room: err.response.data.Room },
+        });
+      });
   };
 
   const blockUser = () => {

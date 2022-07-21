@@ -22,18 +22,26 @@ const ChatList = () => {
 
   return (
     <ChatListWrap>
-      {token && rooms ? (
-        rooms.map((room, index) => (
-          <div
-            onClick={() => {
-              navigate("/chat", { state: { data: info[index], room: room } });
-            }}
-            key={index}
-          >
-            <ChatListCard data={room} info={info[index]} />
-            <hr />
-          </div>
-        ))
+      {token ? (
+        rooms.length !== 0 ? (
+          rooms.map((room, index) => (
+            <div
+              onClick={() => {
+                navigate("/chat", { state: { data: info[index], room: room } });
+              }}
+              key={index}
+            >
+              <ChatListCard data={room} info={info[index]} />
+              <hr />
+            </div>
+          ))
+        ) : (
+          <NoUser>
+            <img src={Character} alt="므팅이" />
+            <Title>실시간 채팅</Title>
+            <Text>다양한 MBTI 사람들과 대화해보세요!</Text>
+          </NoUser>
+        )
       ) : (
         <NoUser>
           <img src={Character} alt="므팅이" />
