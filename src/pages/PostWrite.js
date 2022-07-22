@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import imageCompression from "browser-image-compression";
 
 import "../css/component.css";
 import UploadButton from "../elements/MainButton";
@@ -11,32 +12,51 @@ import UploadImage from "../images/icons/filter@3x.png";
 import CategoryDown from "../images/icons/expand-more@3x.png";
 
 const PostWrite = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // 카테고리 선택
+  // 카테고리
   const [selected, setSelected] = useState();
   const handleSelect = (e) => {
     setSelected(e.target.value);
   };
 
-  // 게시글 내용란 data
+  // 이미지
   const img_ref = React.useRef();
-  const content_ref = React.useRef();
   const [img, setImg] = useState([]);
   const [previewImg, setPreviewImg] = useState([]);
 
-  // 이미지 업로드하기
-  const uploadFile = (e) => {
-    setImg(e.target.files[0]);
-    const fileArr = e.target.files;
-    console.log(fileArr);
+  // 게시글 내용
+  const content_ref = React.useRef();
+
+  // 이미지 압축
+  const compressImage = async (image) => {
+    try {
+      const options = {
+        maxSizeMb: 0.2,
+        maxWidthOrHeight: 600,
+      };
+      return await imageCompression(image, options);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // 이미지 업로드
+  const uploadFile = async (e) => {
+    const files = e.target.files;
+
+    if (files && files[0]) {
+      const originalImg = files[0];
+      const compressedImg = await compressImage(originalImg);
+      setImg(compressedImg);
+    }
 
     let filePreviewURLs = [];
-    let filesLength = fileArr.length > 10 ? 10 : fileArr.length;
+    let filesLength = files.length > 10 ? 10 : files.length;
 
     for (let i = 0; i < filesLength; i++) {
-      let file = fileArr[i];
+      let file = files[i];
       let reader = new FileReader();
 
       reader.onload = () => {
@@ -68,7 +88,6 @@ const PostWrite = () => {
       formData.append("postCategory", selected);
       formData.append("postContent", content_ref.current.value);
       formData.append("postImage", img);
-      console.log("***", img);
 
       dispatch(postActions.addPostAC(formData));
     }
@@ -76,7 +95,7 @@ const PostWrite = () => {
 
   return (
     <PostWriteWrap>
-      <Notice onClick={()=>navigate("/community/notice")}>
+      <Notice onClick={() => navigate("/community/notice")}>
         <span>필독!</span>커뮤니티 이용 규칙
       </Notice>
 
@@ -109,7 +128,6 @@ const PostWrite = () => {
         </SelectImage>
       </SelectWrap>
 
-      {/* 게시글 작성 내용란 */}
       <TextArea>
         <textarea
           placeholder="최소 5자 이상 입력해 주세요"
@@ -117,7 +135,6 @@ const PostWrite = () => {
         ></textarea>
       </TextArea>
 
-      {/* 이미지 프리뷰 */}
       {previewImg && (
         <ImagePreview>
           {" "}
@@ -130,7 +147,6 @@ const PostWrite = () => {
         </ImagePreview>
       )}
 
-      {/* 게시글 업로드 버튼 */}
       <div onClick={addPost} className="contents-container">
         <UploadButton text="업로드" />
       </div>
