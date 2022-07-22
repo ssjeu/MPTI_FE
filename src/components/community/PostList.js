@@ -1,7 +1,7 @@
 // 게시글 카드 목록
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as likeActions } from "../../redux/modules/like";
 import { userInfoDB } from "../../redux/modules/userInfo";
@@ -14,32 +14,52 @@ import ProfileCharacter from "../../images/character/profile-character.png";
 import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
 
-const PostList = ({ card, user }) => {
+const PostList = ({ card, click }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // 로그인 user
+  const token = sessionStorage.getItem("is_login");
+  const userNum = sessionStorage.getItem("userNum");
+
+  // 게시글 작성 user
+  const postUser = useSelector((state) => state.userInfo.user);
+  console.log(postUser);
 
   const likes = useSelector((state) => state.like.like);
   const users = useSelector((state) => state.like.user);
   const [likeCount, setLikeCount] = useState(card.countLikes);
   const [likeState, setLikeState] = useState(true);
 
-  const userInfo = useSelector((state) => state.userInfo.user);
-  const [postUser, setPostUser] = useState();
-  console.log("####", postUser);
-
   useEffect(() => {
-    dispatch(likeActions.getLikeAC(card.postId));
     dispatch(userInfoDB(card.userNum));
+
+    dispatch(likeActions.getLikeAC(card.postId));
   }, []);
 
-  useEffect(() => {
-    setPostUser(userInfo);
+  //   useEffect(() => {
+  // setPostUser(userInfo);
 
-    if (users) {
-      const result = users.find((user) => user === user.userId);
-      setLikeState(result ? true : false);
-    } else setLikeState(false);
-  }, [userInfo]);
+  // if (users) {
+  //   const result = users.find((user) => user === user.userId);
+  //   setLikeState(result ? true : false);
+  // } else setLikeState(false);
+  //   }, [userInfo]);
+
+  // 유저 프로필 보기
+  const showProfile = () => {
+    navigate("/chatprofile", {
+      state: { data: postUser, from: "postlist" },
+    });
+  };
+
+  // 커뮤니티 탭에서 post 클릭 시 상세보기
+  const showPost = (postId) => {
+    if (click === "yes")
+      navigate("/posts/" + postId, {
+        state: { data: card },
+      });
+  };
 
   // 좋아요
   const handleLike = () => {
@@ -50,20 +70,6 @@ const PostList = ({ card, user }) => {
     setLikeState(!likeState);
   };
 
-  // 유저 프로필 보기
-  const showProfile = (userNum) => {
-    if (user.userNum !== userNum) {
-      navigate("/chatprofile", {
-        state: { data: postUser, from: "postlist" },
-      });
-    } else {
-      // 자신의 프로필에서는 1:1 채팅하기 버튼 제외 구분하기 위해 다른 값 전달
-      navigate("/chatprofile", {
-        state: { data: postUser, from: "postlist-my" },
-      });
-    }
-  };
-
   return (
     <PostListWrap>
       <PostWrap className="contents-container">
@@ -72,7 +78,7 @@ const PostList = ({ card, user }) => {
             <img
               src={card.userImage[0]}
               alt="user profile"
-              onClick={() => showProfile(card.userNum)}
+              onClick={() => showProfile()}
             />
           ) : (
             <img src={ProfileCharacter} alt="no profile" />
@@ -84,10 +90,15 @@ const PostList = ({ card, user }) => {
           </PostUser>
         </PostInfo>
 
-        <MoreButton id={card.postId} type={"post"} user={card.userId} />
+        {Number(card.userNum) === Number(userNum) ? (
+          <MoreButton id={card.postId} type={"post"} user={card.userId} />
+        ) : null}
       </PostWrap>
 
-      <PostContents className="contents-container">
+      <PostContents
+        className="contents-container"
+        onClick={() => showPost(card.postId)}
+      >
         {card.postContent}
         {card.postImage.length === 1 ? (
           <img src={card.postImage.toString()} alt="postImage" />
@@ -102,7 +113,7 @@ const PostList = ({ card, user }) => {
             className="icons"
             style={{ fill: likeState === true ? "#ff6565" : "#adadad" }}
             onClick={() => {
-              if (user) handleLike();
+              //   if (user) handleLike();
             }}
           />
         </PostButton>

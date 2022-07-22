@@ -10,11 +10,10 @@ import Comment from "../components/community/Comment";
 import CommentWrite from "../components/community/CommentWrite";
 
 const PostDetail = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const data = location.state.data;
-  const user = location.state.user;
-
-  const dispatch = useDispatch();
+  
   const comments = useSelector(
     (state) => state.post.detail_post.existingComment
   );
@@ -26,7 +25,7 @@ const PostDetail = () => {
 
   return (
     <PostDetailWrap>
-      <PostList card={data} user={user}/>
+      <PostList card={data} />
       <CommentList>
         {comments &&
           comments.map((card, index) => <Comment card={card} key={index} />)}
