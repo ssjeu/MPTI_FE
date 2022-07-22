@@ -41,6 +41,7 @@ const PostList = ({ card, user }) => {
     } else setLikeState(false);
   }, [userInfo]);
 
+  // 좋아요
   const handleLike = () => {
     if (likeState === false) dispatch(likeActions.addLikeAC(card.postId));
     else if (likeState === true)
@@ -49,10 +50,16 @@ const PostList = ({ card, user }) => {
     setLikeState(!likeState);
   };
 
+  // 유저 프로필 보기
   const showProfile = (userNum) => {
     if (user.userNum !== userNum) {
-      navigate("/chatprofile/", {
+      navigate("/chatprofile", {
         state: { data: postUser, from: "postlist" },
+      });
+    } else {
+      // 자신의 프로필에서는 1:1 채팅하기 버튼 제외 구분하기 위해 다른 값 전달
+      navigate("/chatprofile", {
+        state: { data: postUser, from: "postlist-my" },
       });
     }
   };

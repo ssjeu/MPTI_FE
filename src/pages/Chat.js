@@ -64,6 +64,7 @@ const Chat = () => {
       </ChatWithTitle>
 
       <ChatArea room={room} />
+      
       {room && room.members.length === 1 ? (
         <ChatNotice text="상대방이 채팅방을 나갔습니다." />
       ) : null}

@@ -13,9 +13,14 @@ const ChatProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  // 프로필 사용자 정보
   const data = location.state.data;
+
+  // 페이지에 따른 채팅 프로필 구분
   const from = location.state.from;
 
+  // 차단 상태
   const blocked = useSelector((state) => state.chat.blocked);
   const [activeBlock, setActiveBlock] = useState();
 
@@ -68,7 +73,7 @@ const ChatProfile = () => {
         </Introduction>
       </ProfileInfoWrap>
 
-      {from === "recommend" ? (
+      {from === "recommend" || from === "postlist" ? (
         <div className="container" onClick={createRoom}>
           <AskChatButton text="대화하기" />
         </div>

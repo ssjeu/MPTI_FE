@@ -1,17 +1,25 @@
 // 1:1 실시간 채팅 대화내역
 import React, { useEffect, useState, createElement } from "react";
 import styled from "styled-components";
+// import "eventsource";
 import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
 
 import "../../css/component.css";
 import "../../css/chat.css";
+// import {EventSource} from "eventsource";
+
+// 기본적으로 제공되는 eventsource 가 아닌 추가로 설치한 eventsource 를 사용
+// const EventSource = require("eventsource");
+// const EventSourcee = EventSource;
+// const EventSource = NativeEventSource || EventSourcePolyfill;
+// global.EventSource = NativeEventSource || EventSourcePolyfill;
 
 const ChatArea = ({ room }) => {
   // const [listening, setListening] = useState(false);
   const [data, setData] = useState([]);
 
-  const EventSource = NativeEventSource || EventSourcePolyfill;
-  global.EventSource = NativeEventSource || EventSourcePolyfill;
+  //   const EventSource = NativeEventSource || EventSourcePolyfill;
+  //   global.EventSource = NativeEventSource || EventSourcePolyfill;
 
   useEffect(() => {
     const token = sessionStorage.getItem("is_login");
@@ -24,18 +32,31 @@ const ChatArea = ({ room }) => {
       console.log("evtSource closed");
     }
 
-    // EventSource 생성
-    // var eventSourceInitDict = { headers: { Authorization: "Bearer " + token } };
+    // Server Sent Event 요청시 header 에 auth-user 를 설정하는 부분
+    const eventSourceInitDict = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+
+    // EventSource 로 Server Sent Event 를 호출하는 부분
     evtSource = new EventSource(
       `http://3.35.170.203/api/message/` + room.roomId,
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
-      //   { withCredentials: true }
-      //   eventSourceInitDict
+      eventSourceInitDict
     );
+
+    // EventSource 생성
+    // var eventSourceInitDict = { headers: { Authorization: "Bearer " + token } };
+    // evtSource = new EventSource(
+    //   `http://3.35.170.203/api/message/` + room.roomId,
+    //   {
+    //     headers: {
+    //       Authorization: "Bearer " + token,
+    //     },
+    //   }
+    //   { withCredentials: true }
+    //   eventSourceInitDict
+    // );
 
     // 실시간 채팅 메세지 뷰에 추가
     evtSource.addEventListener("test", function (e) {
@@ -79,6 +100,10 @@ const ChatArea = ({ room }) => {
         chatArea.appendChild(onWrapDiv);
       });
     });
+
+    // Server Sent Event 가 종료되는 경우 연결된 EventSource 를 close 하는 부분
+    // evtSource.addEventListener("close", () => evtSource.close());
+    // return () => evtSource.close();
   }, []);
 
   return (
