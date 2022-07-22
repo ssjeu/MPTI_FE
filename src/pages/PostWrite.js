@@ -147,9 +147,9 @@ const PostWrite = () => {
         </ImagePreview>
       )}
 
-      <div onClick={addPost} className="contents-container">
+      <Upload onClick={addPost} className="contents-container">
         <UploadButton text="업로드" />
-      </div>
+      </Upload>
     </PostWriteWrap>
   );
 };
@@ -265,6 +265,14 @@ const ImagePreview = styled.div`
     border-radius: 6px;
     margin-right: 8px;
   }
+`;
+
+const Upload = styled.div`
+  width: 100%;
+  height: 92px;
+  position: fixed;
+  bottom: 0;
+  box-shadow: 0 0 1px 0 var(--gray4);
 `;
 
 export default PostWrite;
