@@ -13,7 +13,7 @@ const ChatListCard = ({ data, info }) => {
   useEffect(() => {
     if (dataTime) {
       setDate(dataTime.substring(0, 12));
-      setTime(dataTime.substring(14, 19));
+      setTime(dataTime.substring(13, 19));
 
       const year = Number(today.split(".")[0]);
       let month = Number(today.split(".")[1].trim());
@@ -119,6 +119,7 @@ const Alarm = styled.div`
   font-size: 12px;
   font-weight: 500;
   text-align: center;
+  opacity: 0;
 `;
 
 export default ChatListCard;

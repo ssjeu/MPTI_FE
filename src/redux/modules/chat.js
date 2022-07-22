@@ -100,6 +100,7 @@ export const exitRoomAC = (roomId) => {
       .exitRoom(roomId)
       .then((res) => {
         window.location.replace("/chatlist");
+        window.alert("채팅방에서 퇴장하셨습니다.");
       })
       .catch((err) => {
         console.log("PUT updatePostAC Error: ", err);

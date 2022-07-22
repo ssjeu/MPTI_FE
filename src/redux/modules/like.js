@@ -33,7 +33,7 @@ const getLikeAC = (postId) => {
       .then((res) => {
         dispatch(getLike(res.data.likeUsers.length));
         dispatch(getUser(res.data.likeUsers));
-        console.log(res.data.likeUsers.length, "getLikeAC response");
+        console.log(res.data, "getLikeAC response");
       })
       .catch((err) => {
         console.log("GET getLikeAC Error: ", err);

@@ -6,13 +6,13 @@ import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
 
 import "../../css/component.css";
 import "../../css/chat.css";
-// import {EventSource} from "eventsource";
+// import eventSource from "eventsource";
 
 // 기본적으로 제공되는 eventsource 가 아닌 추가로 설치한 eventsource 를 사용
 // const EventSource = require("eventsource");
-// const EventSourcee = EventSource;
-// const EventSource = NativeEventSource || EventSourcePolyfill;
-// global.EventSource = NativeEventSource || EventSourcePolyfill;
+// const EventSource = eventSource;
+const EventSource = NativeEventSource || EventSourcePolyfill;
+global.EventSource = NativeEventSource || EventSourcePolyfill;
 
 const ChatArea = ({ room }) => {
   // const [listening, setListening] = useState(false);
@@ -85,6 +85,7 @@ const ChatArea = ({ room }) => {
         if (Number(a.userNum) === Number(userNum)) {
           onWrapDiv.classList.add("senderArea");
           onTextDiv.classList.add("sender");
+          console.log("did");
         } else {
           onWrapDiv.classList.add("receiverArea");
           onTextDiv.classList.add("receiver");
@@ -96,6 +97,7 @@ const ChatArea = ({ room }) => {
 
         onWrapDiv.appendChild(onTextDiv);
         onWrapDiv.appendChild(onTimeDiv);
+        console.log("did");
 
         chatArea.appendChild(onWrapDiv);
       });
@@ -104,7 +106,7 @@ const ChatArea = ({ room }) => {
     // Server Sent Event 가 종료되는 경우 연결된 EventSource 를 close 하는 부분
     // evtSource.addEventListener("close", () => evtSource.close());
     // return () => evtSource.close();
-  }, []);
+  }, [data]);
 
   return (
     <ChatAreaWrap className="contents-container">

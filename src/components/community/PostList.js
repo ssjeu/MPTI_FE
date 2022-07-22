@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as likeActions } from "../../redux/modules/like";
 import { userInfoDB } from "../../redux/modules/userInfo";
+import { actionCreators as likeActions } from "../../redux/modules/like";
 
 import "../../css/component.css";
 import PostSwiper from "./PostSwiper";
@@ -24,27 +24,28 @@ const PostList = ({ card, click }) => {
 
   // 게시글 작성 user
   const postUser = useSelector((state) => state.userInfo.user);
-  console.log(postUser);
+  //   console.log(postUser);
 
+  // 좋아요
   const likes = useSelector((state) => state.like.like);
-  const users = useSelector((state) => state.like.user);
-  const [likeCount, setLikeCount] = useState(card.countLikes);
-  const [likeState, setLikeState] = useState(true);
+  const likeUsers = useSelector((state) => state.like.user);
+  let [likeState, setLikeState] = useState();
+  console.log(likes);
+  console.log(likeUsers);
+  console.log(likeState);
 
   useEffect(() => {
     dispatch(userInfoDB(card.userNum));
-
     dispatch(likeActions.getLikeAC(card.postId));
   }, []);
 
-  //   useEffect(() => {
-  // setPostUser(userInfo);
-
-  // if (users) {
-  //   const result = users.find((user) => user === user.userId);
-  //   setLikeState(result ? true : false);
-  // } else setLikeState(false);
-  //   }, [userInfo]);
+  useEffect(() => {
+    if (likeUsers) {
+      let res = likeUsers.find((user) => Number(userNum) === Number(user));
+      console.log(res);
+      setLikeState(res ? true : false);
+    } else setLikeState(false);
+  }, []);
 
   // 유저 프로필 보기
   const showProfile = () => {
@@ -63,9 +64,8 @@ const PostList = ({ card, click }) => {
 
   // 좋아요
   const handleLike = () => {
-    if (likeState === false) dispatch(likeActions.addLikeAC(card.postId));
-    else if (likeState === true)
-      dispatch(likeActions.deleteLikeAC(card.postId));
+    if (likeState) dispatch(likeActions.deleteLikeAC(card.postId));
+    else dispatch(likeActions.addLikeAC(card.postId));
 
     setLikeState(!likeState);
   };
@@ -108,16 +108,17 @@ const PostList = ({ card, click }) => {
       </PostContents>
 
       <PostAction className="contents-container">
-        <PostButton>
+        <PostButton
+          onClick={() => {
+            if (token) handleLike();
+          }}
+        >
           <Like
             className="icons"
             style={{ fill: likeState === true ? "#ff6565" : "#adadad" }}
-            onClick={() => {
-              //   if (user) handleLike();
-            }}
           />
         </PostButton>
-        좋아요 {likeCount}
+        좋아요 {card.countLikes}
         <img src={Comment} alt="comment" />
         댓글 {card.commentCount}
       </PostAction>

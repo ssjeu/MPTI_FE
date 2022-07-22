@@ -1,10 +1,9 @@
 // 커뮤니티 탭
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { userInfoDB } from "../redux/modules/userInfo";
 
 import "../css/component.css";
 import PostList from "../components/community/PostList";
@@ -17,32 +16,26 @@ const Community = () => {
 
   // 유저 정보
   const token = sessionStorage.getItem("is_login");
-  const user = useSelector((state) => state.userInfo.user);
-  const [loginUser, setLoginUser] = useState([]);
 
   // 서버에서 postlist 로드
   const posts = useSelector((state) => state.post.post);
-
-  useEffect(() => {
-    const userNum = sessionStorage.getItem("userNum");
-
-    dispatch(postActions.postDB());
-    dispatch(userInfoDB(userNum));
-  }, []);
-
-  useEffect(() => {
-    setData(posts);
-    setLoginUser(user);
-  }, [posts]);
 
   // 카테고리 목록
   const categories = ["전체", "MBTI", "자유", "고민상담", "익명"];
   const [activeCat, setActiveCat] = useState(categories);
   const [activeCatState, setActiveCatState] = useState(0);
-
-  // 해당 카테고리 게시물 목록을 보여주기 위한 객체
+  // 해당 카테고리 게시물 목록
   const [data, setData] = useState([]);
 
+  useEffect(() => {
+    dispatch(postActions.postDB());
+  }, []);
+
+  useEffect(() => {
+    setData(posts);
+  }, [posts]);
+
+  // 카테고리 별 게시글 보여주기
   const activeCategory = (btn) => {
     if (btn === "전체") {
       setData(posts);
@@ -53,6 +46,12 @@ const Community = () => {
     const filteredData = posts.filter((item) => item.postCategory === btn);
     setData(filteredData);
     return data;
+  };
+
+  // 게시글 작성하기 버튼
+  const postWrite = () => {
+    if (token) navigate("/postwrite");
+    else alert("로그인을 해주세요!");
   };
 
   return (
@@ -104,24 +103,12 @@ const Community = () => {
           </CommunityNoList>
         ) : (
           data.map((card, index) => (
-            <Link
-              to={"/posts/" + card.postId}
-              state={{ data: card, user: loginUser }}
-              style={{ textDecoration: "none" }}
-              key={index}
-            >
-              <PostList card={card} user={loginUser} />
-            </Link>
+            <PostList card={card} key={index} click="yes" />
           ))
         )}
       </CommunityList>
 
-      <PostButton
-        onClick={() => {
-          if (token) navigate("/postwrite");
-          else alert("로그인을 해주세요!");
-        }}
-      >
+      <PostButton onClick={() => postWrite()}>
         <img src={PostWrite} alt="postwrite" />
         <br />
         글작성

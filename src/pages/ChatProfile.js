@@ -14,6 +14,9 @@ const ChatProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // 내 정보
+  const userNum = sessionStorage.getItem("userNum");
+
   // 프로필 사용자 정보
   const data = location.state.data;
 
@@ -61,10 +64,12 @@ const ChatProfile = () => {
       <ProfileInfoWrap className="container">
         <User>
           <div>{data.nickname}</div>
-          <BlockSvg
-            style={{ fill: activeBlock ? "#ff6565" : "#adadad" }}
-            onClick={blockUser}
-          />
+          {Number(data.userNum) !== Number(userNum) ? (
+            <BlockSvg
+              style={{ fill: activeBlock ? "#ff6565" : "#adadad" }}
+              onClick={blockUser}
+            />
+          ) : null}
         </User>
         <MBTI>{data.mbti}</MBTI>
         <Introduction>
@@ -73,11 +78,11 @@ const ChatProfile = () => {
         </Introduction>
       </ProfileInfoWrap>
 
-      {from === "recommend" || from === "postlist" ? (
+      {from === "chat" || Number(data.userNum) === Number(userNum) ? null : (
         <div className="container" onClick={createRoom}>
           <AskChatButton text="대화하기" />
         </div>
-      ) : null}
+      )}
     </ChatProfileWrap>
   );
 };
