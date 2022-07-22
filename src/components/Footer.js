@@ -40,7 +40,7 @@ const Footer = () => {
   else if (location === '/info/change') return null;
   else if (location === '/chatprofile') return null;
   else if (location === '/my/profile') return null;
-  else if (location === '/mbtitest') return null;
+  else if (location === '/test') return null;
 
   return (
     <FooterWrap>

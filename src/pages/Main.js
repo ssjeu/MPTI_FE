@@ -23,7 +23,7 @@ const Main = () => {
       <MainButtons className='contents-container'>
         <VoiceButton>보이스로 랜덤 상대 MBTI 맞추기</VoiceButton>
         <BottomBtns>
-          <RandomButton onClick={() => navigate('/mbtitest')}>
+          <RandomButton onClick={() => navigate('/test')}>
             MBTI 약식 테스트
           </RandomButton>
           <RandomButton>다양한 MBTI 친구들</RandomButton>
