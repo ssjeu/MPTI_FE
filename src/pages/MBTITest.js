@@ -1,10 +1,10 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Pagination from '../components/mbti_test/Pagination';
 import Button01 from '../elements/Button01';
 import { mbtiTestApi } from '../shared/api';
 
-import { answer_top, answer_bottom, answer } from '../shared/mbti_question';
+import { answer } from '../shared/mbti_question';
 
 const MBTITest = () => {
   const [isActive, setIsActive] = React.useState(0);

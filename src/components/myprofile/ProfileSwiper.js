@@ -11,6 +11,12 @@ import 'swiper/css/pagination';
 const ProfileSwiper = ({ images }) => {
   SwiperCore.use([Navigation, Pagination]);
 
+  let elements = document.getElementsByClassName('swiper-slide');
+  let swiperElements = elements[1];
+  if (swiperElements) {
+    swiperElements.style.width = '100%';
+  }
+
   return (
     <>
       <StyledSwiper pagination={{ clickable: true }} loop>
