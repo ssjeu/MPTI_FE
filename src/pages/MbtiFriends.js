@@ -19,11 +19,27 @@ const MbtiFriends = () => {
 
   // 필터로 선택한 MBTI
   const [filter, setFilter] = useState(null);
+  console.log(filter);
+
+  const searchStr = (mbti, str) => {
+    // if (mbti.indexOf(str) !== -1) return true;
+    // const result = students.find((student) => student.score === 90);
+    // const res =  mbti.find((string) => string === str);
+    // const string = [...mbti];
+    // console.log(typeof(mbti),string, str);
+    // for(let i of mbti) {
+        // if(i === str) return true;
+    // }
+    console.log(mbti.toString(),mbti[0]);
+    // console.log(res)
+    // if(res) return true;
+  };
+
 
   useEffect(() => {
     dispatch(recommendActions.mbtiFriendDB());
 
-    if (location.state !== null) {
+    if (location.state) {
       setFilter(location.state.selected);
     }
   }, []);
@@ -39,13 +55,14 @@ const MbtiFriends = () => {
       </Top>
       <FriendWrap>
         <div className="contents-container">
-          {users && filter !== null
+          {filter === null || filter.length === 0
+            ? users.map((card, index) => <FriendCard card={card} key={index} />)
+            : null}
+          {filter && filter.length === 4
             ? users
                 .filter((user) => user.mbti === filter)
                 .map((card, index) => <FriendCard card={card} key={index} />)
-            : users.map((card, index) => (
-                <FriendCard card={card} key={index} />
-              ))}
+            : null}
         </div>
       </FriendWrap>
     </MbtiFriendsWrap>

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 import "../css/component.css";
-import MbtiSelect from "../components/MbtiSelect";
+import MbtiSelect from "../components/MbtiFilterSelect";
 import MainButton from "../elements/MainButton";
 
 const MbtiFilter = () => {
@@ -17,6 +17,7 @@ const MbtiFilter = () => {
 
   const completed = () => {
     navigate("/mbtifriends", { state: { selected: mbti } });
+    console.log(mbti);
   };
 
   return (
