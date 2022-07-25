@@ -4,11 +4,11 @@ import { Link, useLocation } from 'react-router-dom';
 
 import AskChatButton from '../elements/MainButton';
 import ProfileSwiper from '../components/myprofile/ProfileSwiper';
+import Button01 from '../elements/Button01';
 
 const ChatProfile = () => {
   const location = useLocation();
   const data = location.state.data;
-  console.log(data);
 
   // 유저 나이 구하기
   const birthday = data.birthday && data.birthday.slice(0, 4);
@@ -26,14 +26,22 @@ const ChatProfile = () => {
         <span>{data && data.mbti}</span>
         <p>자기소개</p>
         <p>{data && data.introduction}</p>
-        <Link
-          to='/chat'
-          state={{ data: data }}
-          style={{ textDecoration: 'none' }}
-        >
-          <AskChatButton text='대화하기' />
-        </Link>
       </UserInfoArea>
+      <Link
+        to='/chat'
+        state={{ data: data }}
+        style={{ textDecoration: 'none' }}
+      >
+        <ButtonStyled>
+          <Button01
+            backgroundColor='var(--maincolor)'
+            color='#fff'
+            margin='0 0 67px 0'
+          >
+            대화하기
+          </Button01>
+        </ButtonStyled>
+      </Link>
     </Container>
 
     // <ChatProfileWrap>
@@ -73,7 +81,6 @@ const UserInfoArea = styled.div`
   box-sizing: border-box;
   padding: 0 5%;
   text-align: left;
-  margin-bottom: 67px;
 
   * {
     margin: 0;
@@ -119,6 +126,12 @@ const UserInfoArea = styled.div`
     font-weight: 400;
     margin-bottom: 57px;
   }
+`;
+
+const ButtonStyled = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 3.2%;
 `;
 
 // const ChatProfileWrap = styled.div`
