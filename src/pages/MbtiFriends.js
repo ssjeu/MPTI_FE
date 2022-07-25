@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as recommendActions } from "../redux/modules/recommend";
 
 import "../css/component.css";
+import FriendCard from "../elements/FriendCard";
 import FilterIcon from "../images/icons/filter-alt@3x.png";
 
 const MbtiFriends = () => {
@@ -14,8 +15,7 @@ const MbtiFriends = () => {
 
   // 다양한 MBTI 친구들
   const users = useSelector((state) => state.recommend.mbti);
-  console.log(users);
-  
+
   useEffect(() => {
     dispatch(recommendActions.mbtiFriendDB());
   }, []);
@@ -29,6 +29,12 @@ const MbtiFriends = () => {
           필터
         </FilterBtn>
       </Top>
+      <FriendWrap>
+        <div className="contents-container">
+          {users &&
+            users.map((card, index) => <FriendCard card={card} key={index} />)}
+        </div>
+      </FriendWrap>
     </MbtiFriendsWrap>
   );
 };
@@ -59,6 +65,11 @@ const FilterBtn = styled.div`
     height: 16px;
     margin-right: 4px;
   }
+`;
+
+const FriendWrap = styled.div`
+  border-top: 1px solid var(--gray1);
+  margin: 20px 0 100px 0;
 `;
 
 export default MbtiFriends;

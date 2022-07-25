@@ -58,7 +58,7 @@ const ChatProfile = () => {
   return (
     <ChatProfileWrap>
       <ProfileImageWrap className="contents-container">
-        <img src={data.userImage} alt="profile"></img>
+        <img src={data.userImage[0]} alt="profile"></img>
       </ProfileImageWrap>
 
       <ProfileInfoWrap className="container">
