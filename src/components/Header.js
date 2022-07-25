@@ -15,17 +15,20 @@ export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
 
+  const isLogin = sessionStorage.getItem('is_login');
+
   const goBack = () => {
     if (
-      location !== "/" &&
-      location !== "/community" &&
-      location !== "/chatlist"
+      location !== '/' &&
+      location !== '/community' &&
+      location !== '/chatlist'
     )
       navigate(-1);
   };
 
   const close = () => {
-    navigate(-1);}
+    navigate(-1);
+  };
 
   return (
     <HeaderWrap className='contents-container'>
@@ -54,12 +57,14 @@ export const Header = () => {
         )}
         {/* <img src={Logo} alt='logo' width='85px' /> */}
       </LogoIcon>
+
       <AlarmIcon
         className={
           location === '/login' ||
           location === '/join' ||
           location === '/info' ||
-          location === '/info/change'
+          location === '/info/change' ||
+          isLogin === null
             ? 'hide'
             : null
         }
@@ -100,10 +105,6 @@ const HeaderWrap = styled.div`
   margin: 58px 0 36px 0;
   display: flex;
   justify-content: space-between;
-`;
-
-const LogoStyle = styled.img`
-  margin: ${(props) => props.margin};
 `;
 
 const BackIcon = styled.div.attrs((props) => ({
