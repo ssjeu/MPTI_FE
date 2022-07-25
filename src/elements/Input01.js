@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
+
+import { ReactComponent as Edit } from '../images/icons/edit.svg';
 
 const Input01 = (props) => {
-  const { placeholder, _onChange, _ref, margin, type, color, _value } = props;
+  const { placeholder, _onChange, _ref, margin, type, _color, _value } = props;
+  const location = useLocation().pathname;
 
   return (
     <>
@@ -12,8 +16,14 @@ const Input01 = (props) => {
           placeholder={placeholder}
           onChange={_onChange}
           ref={_ref}
-          color={color}
           value={_value}
+          style={{ color: `${_color}` }}
+        />
+        <Edit
+          style={{
+            fill: _value === '' ? '#d9d9d9' : '#64be72',
+            display: location === '/info/change' ? null : 'none',
+          }}
         />
       </InputStyle>
     </>

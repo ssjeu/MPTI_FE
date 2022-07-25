@@ -24,7 +24,6 @@ const Mypage = () => {
 
   // 유저 정보
   const user_data = useSelector((state) => state.userInfo.user);
-  console.log(user_data);
 
   React.useEffect(() => {
     const token = sessionStorage.getItem('is_login');
