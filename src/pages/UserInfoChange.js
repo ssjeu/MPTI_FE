@@ -1,38 +1,82 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // svg icons
-import { ReactComponent as Person } from '../images/icons/person.svg';
 import { ReactComponent as Camera } from '../images/icons/camera_alt.svg';
-import { ReactComponent as Warning } from '../images/icons/warning.svg';
 
 import Input01 from '../elements/Input01';
-import Button03 from '../elements/Button03';
 import Button01 from '../elements/Button01';
-import Dropdown from '../elements/Dropdown';
-import { userInfoDB } from '../redux/modules/user';
-import { UserInfoHeader } from '../components/Header';
+
+import { userInfoChangeDB, userInfoDB } from '../redux/modules/userInfo';
 
 const UserInfoChange = () => {
-  const [profile, setProfile] = React.useState();
+  const [userInfo, setUserInfo] = React.useState();
+  const [userNickname, setUserNickname] = React.useState();
+  const [userImage, setUserImage] = React.useState();
+  const [preUserImage, setPreUserImage] = React.useState();
+
+  console.log(userInfo);
+  console.log(preUserImage);
 
   const imageInput = useRef();
+  const dispatch = useDispatch();
 
+  // 유저 정보
+  const userNum = sessionStorage.getItem('userNum');
   const user_data = useSelector((state) => state.userInfo.user);
-  console.log(user_data);
 
+  // 서버에서 데이터 받아오기
+  React.useEffect(() => {
+    dispatch(userInfoDB(userNum));
+
+    if (user_data) {
+      setUserInfo(user_data);
+      setUserImage(user_data.userImage[0]);
+    }
+  }, []);
+
+  // 유저 닉네임 설정
+  React.useEffect(() => {
+    if (user_data) {
+      setUserNickname(user_data.nickname);
+    }
+  }, []);
+
+  const userNicknameChange = useCallback((e) => {
+    setUserNickname(e.target.value);
+  }, []);
+
+  // 클릭 시 input file 연결
   const onClickImageUpload = () => {
     imageInput.current.click();
   };
 
-  return (
-    <Container className='container'>
-      {/* <UserInfoHeader margin='58px 0 49.7px 0' /> */}
+  // 유저 이미지 데이터 및 미리보기 설정
+  const userImageChange = (e) => {
+    setPreUserImage(URL.createObjectURL(e.target.files[0]));
+    setUserImage(e.target.files[0]);
+  };
 
+  // 완료 버튼 클릭 시
+  const completed = () => {
+    const formData = new FormData();
+    formData.append('nickname', userNickname);
+    formData.append('userImage', userImage);
+
+    dispatch(userInfoChangeDB(userNum, formData));
+  };
+
+  return (
+    <Container>
       <Profile
         onClick={onClickImageUpload}
-        style={{ backgroundImage: `url(${user_data?.userImage[0]})` }}
+        style={{
+          backgroundImage:
+            userImage && preUserImage === undefined
+              ? `url(${userImage})`
+              : `url(${preUserImage})`,
+        }}
       >
         <div>
           <Camera />
@@ -42,87 +86,68 @@ const UserInfoChange = () => {
           accept='image/*'
           style={{ display: 'none' }}
           ref={imageInput}
-          // onChange={handleChangeFile}
+          onChange={userImageChange}
         />
       </Profile>
 
-      <div>
+      <Wrap>
         <div>
           <p>닉네임</p>
           <Input01
             placeholder='닉네임을 입력해주세요.'
             color='#64be72'
-            _value={user_data.nickname}
-            _onChange={(e) => {
-              // setNickname(e.target.value);
+            _value={userNickname}
+            _onChange={userNicknameChange}
+          />
+        </div>
+
+        <UserInfoArea>
+          <p style={{ marginTop: '36px' }}>유저 정보</p>
+
+          <div
+            style={{
+              display: 'flex',
+              flexFlow: 'row nowrap',
+              textAlign: 'left',
+              gap: '25px',
             }}
           >
-            하이
-          </Input01>
-        </div>
-
-        <div>
-          <p>성별</p>
-
-          <Buttons>
-            <Button03>남성</Button03>
-            <Button03>여성</Button03>
-          </Buttons>
-        </div>
-
-        <SelectBox>
-          <p>생년월일</p>
-          {/* 
-          <DropdownList>
             <div>
-              <Dropdown>년</Dropdown>
-              <span>년</span>
+              <span>이름</span>
+              <span>성별</span>
+              <span>생년월일</span>
+              <span>MBTI</span>
             </div>
 
             <div>
-              <Dropdown>월</Dropdown>
-              <span>월</span>
+              <span>{userInfo && userInfo.name}</span>
+              <span>
+                {userInfo && userInfo.gender === 'Female' ? '여성' : '남성'}
+              </span>
+              <span>{userInfo && userInfo.birthday}</span>
+              <span>{userInfo && userInfo.mbti}</span>
             </div>
-
-            <div>
-              <Dropdown>일</Dropdown>
-              <span>일</span>
-            </div>
-          </DropdownList> */}
-        </SelectBox>
-
-        <div>
-          <p style={{ marginBottom: '4px' }}>MBTI</p>
-
-          <Buttons>
-            <Button03 margin='0 0 20px 0'>E (외향)</Button03>
-            <Button03 margin='0 0 20px 0'>I (내향)</Button03>
-
-            <Button03 margin='0 0 20px 0'>S (감각)</Button03>
-            <Button03 margin='0 0 20px 0'>N (직관)</Button03>
-
-            <Button03 margin='0 0 20px 0'>T (사고)</Button03>
-            <Button03 margin='0 0 20px 0'>F (감정)</Button03>
-
-            <Button03 margin='0 0 20px 0'>J (판단)</Button03>
-            <Button03 margin='0 0 20px 0'>P (인식)</Button03>
-          </Buttons>
-        </div>
-
-        <div>
-          <p>유저님에 대해 알려주세요 :)</p>
-          <textarea />
-        </div>
-
-        <Button01 color='#fff' backgroundColor='#64be72' margin='0 0 77px 0'>
-          입력 완료
-        </Button01>
-      </div>
+          </div>
+        </UserInfoArea>
+      </Wrap>
+      <Button01
+        color='#fff'
+        backgroundColor='#64be72'
+        margin='36px 0 0 0'
+        _onClick={completed}
+      >
+        완료
+      </Button01>
     </Container>
   );
 };
 
 const Container = styled.div`
+  width: 100vw;
+  height: auto;
+  box-sizing: border-box;
+  padding: 0 5.9%;
+
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -141,27 +166,6 @@ const Container = styled.div`
 
     margin-top: 20px;
     margin-bottom: 10px;
-  }
-
-  textarea {
-    width: 100%;
-    min-height: 160px;
-    margin-bottom: 43px;
-
-    box-sizing: border-box;
-    padding: 15px 19px;
-    border-radius: 14px;
-    border: solid 1px #c0c9c2;
-
-    resize: none;
-
-    &:focus {
-      outline: 0.5px solid #64be72;
-    }
-
-    &::placeholder {
-      color: #d9d9d9;
-    }
   }
 `;
 
@@ -183,13 +187,6 @@ const Profile = styled.div`
 
   cursor: pointer;
 
-  & > img {
-    width: 100%;
-    height: 100%;
-    border-radius: 49px;
-    object-fit: cover;
-  }
-
   & > div {
     width: 30px;
     height: 30px;
@@ -206,39 +203,31 @@ const Profile = styled.div`
   }
 `;
 
-const Buttons = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
+const Wrap = styled.div`
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 4.5%;
 `;
 
-const SelectBox = styled.div``;
-
-const DropdownList = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-
-  & > div {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-end;
-  }
-
-  span {
+const UserInfoArea = styled.div`
+  div {
+    color: #434343;
     font-size: 16px;
-    font-weight: 300;
-    letter-spacing: -0.8px;
-    margin-left: 4px;
-    margin-right: 12px;
   }
-`;
 
-const WaringBox = styled.div`
-  & > span {
-    font-size: 10px;
-    letter-spacing: -0.5px;
-    font-weight: 300;
-    color: #ff6565;
+  div:nth-of-type(1) {
+    font-weight: 400;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 7px;
+  }
+
+  div:nth-of-type(2) {
+    font-weight: 500;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 7px;
   }
 `;
 

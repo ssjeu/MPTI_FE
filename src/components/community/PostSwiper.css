@@ -1,15 +1,15 @@
 .swiper-pagination-bullet {
-    width: 10px;
-    height: 10px;
-    background: transparent;
-    border: 1px solid var(--maincolor);
-    opacity: 1;
+  width: 10px;
+  height: 10px;
+  background: transparent;
+  border: 1px solid var(--maincolor);
+  opacity: 1;
 }
 
 .swiper-pagination-bullet-active {
-    width: 20px;
-    transition: width .5s;
-    border-radius: 5px;
-    background: var(--maincolor);
-    border: 1px solid transparent;
+  width: 20px;
+  transition: width 0.5s;
+  border-radius: 5px;
+  background: var(--maincolor);
+  border: 1px solid transparent;
 }

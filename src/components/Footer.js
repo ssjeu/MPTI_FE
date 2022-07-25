@@ -42,6 +42,8 @@ const Footer = () => {
   else if (location === '/my/profile') return null;
   else if (location === '/postwrite') return null;
   else if (location === '/mbtifilter') return null;
+  else if (location === '/test') return null;
+  else if (location === '/test/mbti') return null;
 
   return (
     <FooterWrap>

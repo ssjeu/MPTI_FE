@@ -100,6 +100,8 @@ export const authApi = {
       });
   },
 
+  logOut: () => instance.post("/api/logout"),
+
   userInfo: (formData, nickname) => {
     ImgApi.put("/api/signup/first", formData, { withCredentials: true })
       .then((res) => {
@@ -114,6 +116,13 @@ export const authApi = {
 
 export const userInfoApi = {
   myUserInfo: (userNum) => instance.get(`/api/mypage/${userNum}`),
+  userProfile: (userNum, userIntroduction, profileImages) =>
+    instance.put(`/api/mypage/profile/${userNum}`, {
+      introduction: userIntroduction,
+      profileImages: profileImages,
+    }),
+  userInfoChange: (userNum, formData) =>
+    ImgApi.put(`/api/mypage/${userNum}`, formData),
 };
 
 export const recommendApi = {
@@ -136,4 +145,20 @@ export const chatApi = {
   // 차단
   blockUser: (userNum) => instance.put(`/api/block`, { userNum: userNum }),
   unblockUser: (userNum) => instance.put(`/api/unblock`, { userNum: userNum }),
+};
+
+//이미지 url 받아오기
+export const imageApi = {
+  userImage: (formData) => ImgApi.post("/api/images", formData),
+};
+
+// 약식 mbti 테스트
+export const mbtiTestApi = {
+  mbtiTest: (first, second, third, fourth) =>
+    instance.post("/api/mbtitest", {
+      first: first,
+      second: second,
+      third: third,
+      fourth: fourth,
+    }),
 };

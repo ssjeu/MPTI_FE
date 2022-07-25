@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { userInfoApi } from '../../shared/api';
+import { imageApi, userInfoApi } from '../../shared/api';
 import { produce } from 'immer';
 
 // Action type
@@ -13,14 +13,40 @@ const initialState = {
 };
 
 // Middlewares
-// 마이페이지 유저 정보
+// 마이페이지 유저 정보 불러오기
 export const userInfoDB = (userNum) => {
   return async function (dispatch, getState) {
     await userInfoApi
       .myUserInfo(userNum)
       .then((res) => {
-        // console.log(res);
         dispatch(getUserInfo(res.data.existingUser));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+// 마이페이지 유저 정보 수정하기
+export const userInfoChangeDB = (userNum, formData) => {
+  return function (dispatch, getState) {
+    userInfoApi
+      .userInfoChange(userNum, formData)
+      .then((res) => {
+        alert('수정이 완료되었습니다!');
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+// 내 프로필 완성하기
+export const userProfileDB = (userNum, userIntroduction, profileImages) => {
+  return function (dispatch, getState) {
+    userInfoApi
+      .userProfile(userNum, userIntroduction, profileImages)
+      .then((res) => {
+        console.log(res);
+        alert('프로필 수정이 완료되었어요!');
       })
       .catch((err) => {
         console.log(err);

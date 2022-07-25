@@ -1,12 +1,12 @@
 // 이미지 다중 슬라이드
-import React from "react";
-import styled from "styled-components";
-import { Swiper, SwiperSlide } from "swiper/react"; // basic
-import SwiperCore, { Navigation, Pagination } from "swiper";
-import "swiper/css"; //basic
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "./PostSwiper.css";
+import React from 'react';
+import styled from 'styled-components';
+import { Swiper, SwiperSlide } from 'swiper/react'; // basic
+import SwiperCore, { Navigation, Pagination } from 'swiper';
+import 'swiper/css'; //basic
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import './PostSwiper.css';
 
 const PostSwiper = ({ card }) => {
   SwiperCore.use([Navigation, Pagination]);
@@ -15,7 +15,7 @@ const PostSwiper = ({ card }) => {
       <StyledSwiper pagination={{ clickable: true }}>
         {card.postImage.map((card, index) => (
           <SwiperSlide key={index}>
-            <SwiperImg src={card.toString()} alt="postImage" />
+            <SwiperImg src={card.toString()} alt='postImage' />
           </SwiperSlide>
         ))}
       </StyledSwiper>
