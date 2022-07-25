@@ -21,18 +21,20 @@ const MbtiFriends = () => {
   const [filter, setFilter] = useState(null);
 
   const searchStr = (mbti, str) => {
+    //    let res = mbti;
+    // console.log(mbti, typeof mbti);
     let string;
-
+    // if (mbti !== undefined)
     if (str === "E")
       string = ["ESFP", "ESFJ", "ESTP", "ESTJ", "ENFP", "ENFJ", "ENTP", "ENTJ"];
-    else if (str === "I")
-      string = ["ISFP", "ISFJ", "ISTP", "ISTJ", "INFP", "INFJ", "INTP", "INTJ"];
     else if (str === "ES") string = ["ESFP", "ESFJ", "ESTP", "ESTJ"];
     else if (str === "EN") string = ["ENFP", "ENFJ", "ENTP", "ENTJ"];
     else if (str === "EST") string = ["ESTP", "ESTJ"];
     else if (str === "ESF") string = ["ESFP", "ESFJ"];
     else if (str === "ENT") string = ["ENTP", "ENTJ"];
     else if (str === "ENF") string = ["ENFP", "ENFJ"];
+    else if (str === "I")
+      string = ["ISFP", "ISFJ", "ISTP", "ISTJ", "INFP", "INFJ", "INTP", "INTJ"];
 
     if (string.includes(mbti)) return true;
   };
