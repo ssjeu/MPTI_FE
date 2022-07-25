@@ -40,10 +40,14 @@ export const Header = () => {
           location === "/info" ||
           location === "/info/change" ||
           location === "/my" ||
-          location === "/my/profile"
+          location === "/my/profile" ||
+          location === "/mbtifilter"
             ? "hide"
             : null
         }
+        style={{
+          display: location === "/mbtifilter" ? "none" : null,
+        }}
       >
         <BackSvg
           style={{
@@ -52,7 +56,21 @@ export const Header = () => {
         />
       </BackIcon>
 
-      <LogoIcon className={location === "/login" ? "hide" : null}>
+      <FilterIcon
+        onClick={goBack}
+        className={location === "/mbtifilter" ? null : "hide"}
+        style={{
+          display: location === "/mbtifilter" ? null : "none",
+        }}
+      >
+        필터
+      </FilterIcon>
+
+      <LogoIcon
+        className={
+          location === "/login" || location === "/mbtifilter" ? "hide" : null
+        }
+      >
         {location === "/my" || location === "/chat" ? (
           <LogoSvg />
         ) : (
@@ -74,7 +92,8 @@ export const Header = () => {
             location === "/login" ||
             location === "/join" ||
             location === "/info/change" ||
-            location === "/my/profile"
+            location === "/my/profile" ||
+            location === "/mbtifilter"
               ? "none"
               : null,
         }}
@@ -94,7 +113,8 @@ export const Header = () => {
             location === "/login" ||
             location === "/join" ||
             location === "/info/change" ||
-            location === "/my/profile"
+            location === "/my/profile" ||
+            location === "/mbtifilter"
               ? null
               : "none",
         }}
@@ -143,6 +163,19 @@ const AlarmIcon = styled.div.attrs((props) => ({
 const CloseIcon = styled.div.attrs((props) => ({
   className: props.className,
 }))`
+  &.hide {
+    opacity: 0;
+  }
+`;
+
+const FilterIcon = styled.div.attrs((props) => ({
+  className: props.className,
+}))`
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.8px;
+  margin-left: 5.4%;
+
   &.hide {
     opacity: 0;
   }

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import MainRecommend from "../components/main/MainRecommend";
 import MainCommunity from "../components/main/MainCommunity";
@@ -8,6 +9,7 @@ import "../css/component.css";
 import character from "../images/character/frame-main@3x.png";
 
 const Main = () => {
+  const navigate = useNavigate();
 
   return (
     <MainWrap>
@@ -21,7 +23,9 @@ const Main = () => {
 
       <MainButtons className="contents-container">
         <VoiceButton>보이스로 랜덤 상대 MBTI 맞추기</VoiceButton>
-        <RandomButton>랜덤 매칭 채팅</RandomButton>
+        <RandomButton onClick={() => navigate("/mbtifriends")}>
+          랜덤 매칭 채팅
+        </RandomButton>
       </MainButtons>
 
       <RecommendWrap>

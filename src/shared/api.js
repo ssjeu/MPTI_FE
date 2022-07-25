@@ -119,6 +119,9 @@ export const userInfoApi = {
 export const recommendApi = {
   // 잘맞는 MBTI 추천
   recommendList: () => instance.get(`/api/suggest`),
+
+  // 다양한 MBTI 친구들 추천
+  mbtiFriendList: () => instance.get(`/api/userList`),
 };
 
 export const chatApi = {

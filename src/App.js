@@ -5,6 +5,8 @@ import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import Footer from "./components/Footer";
 import Main from "./pages/Main";
+import MbtiFriends from "./pages/MbtiFriends";
+import MbtiFilter from "./pages/MbtiFilter";
 import ChatProfile from "./pages/ChatProfile";
 import Chat from "./pages/Chat";
 import ChatList from "./pages/ChatList";
@@ -29,6 +31,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/mbtifriends" element={<MbtiFriends />} />
+        <Route path="/mbtifilter" element={<MbtiFilter />} />
         <Route path="/chatprofile" exact element={<ChatProfile />} />
         <Route path="/chat" exact element={<Chat />} />
         <Route path="/chatlist" exact element={<ChatList />} />

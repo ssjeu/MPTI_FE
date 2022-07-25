@@ -42,10 +42,11 @@ const getLikeAC = (postId) => {
 };
 
 const addLikeAC = (postId) => {
-  return async function (dispatch, getState) {
+  return async function (dispatch) {
     await communityApi
       .likeAdd(postId)
       .then((res) => {
+        //   dispatch(addLike(like+1));
         console.log(res.data, "addLikeAC response");
       })
       .catch((err) => {
@@ -78,6 +79,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = action.payload.user;
       }),
+    // [ADD_LIKE]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     draft.user = action.payload.user;
+    //   }),
   },
   initialState
 );
