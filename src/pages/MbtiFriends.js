@@ -19,22 +19,23 @@ const MbtiFriends = () => {
 
   // 필터로 선택한 MBTI
   const [filter, setFilter] = useState(null);
-  console.log(filter);
 
   const searchStr = (mbti, str) => {
-    // if (mbti.indexOf(str) !== -1) return true;
-    // const result = students.find((student) => student.score === 90);
-    // const res =  mbti.find((string) => string === str);
-    // const string = [...mbti];
-    // console.log(typeof(mbti),string, str);
-    // for(let i of mbti) {
-        // if(i === str) return true;
-    // }
-    console.log(mbti.toString(),mbti[0]);
-    // console.log(res)
-    // if(res) return true;
-  };
+    let string;
 
+    if (str === "E")
+      string = ["ESFP", "ESFJ", "ESTP", "ESTJ", "ENFP", "ENFJ", "ENTP", "ENTJ"];
+    else if (str === "I")
+      string = ["ISFP", "ISFJ", "ISTP", "ISTJ", "INFP", "INFJ", "INTP", "INTJ"];
+    else if (str === "ES") string = ["ESFP", "ESFJ", "ESTP", "ESTJ"];
+    else if (str === "EN") string = ["ENFP", "ENFJ", "ENTP", "ENTJ"];
+    else if (str === "EST") string = ["ESTP", "ESTJ"];
+    else if (str === "ESF") string = ["ESFP", "ESFJ"];
+    else if (str === "ENT") string = ["ENTP", "ENTJ"];
+    else if (str === "ENF") string = ["ENFP", "ENFJ"];
+
+    if (string.includes(mbti)) return true;
+  };
 
   useEffect(() => {
     dispatch(recommendActions.mbtiFriendDB());
@@ -62,6 +63,12 @@ const MbtiFriends = () => {
             ? users
                 .filter((user) => user.mbti === filter)
                 .map((card, index) => <FriendCard card={card} key={index} />)
+            : null}
+          {filter && filter.length !== 4
+            ? users.map((card, index) => {
+                if (searchStr(card.mbti, filter))
+                  return <FriendCard card={card} key={index} />;
+              })
             : null}
         </div>
       </FriendWrap>

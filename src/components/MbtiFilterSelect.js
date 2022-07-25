@@ -7,10 +7,10 @@ import Button03 from "../elements/Button03";
 const MbtiFilterSelect = (props) => {
   const { parent } = props;
 
-  const [ei, setEi] = useState([false, false]);
-  const [sn, setSn] = useState([false, false]);
-  const [tf, setTf] = useState([false, false]);
-  const [jp, setJp] = useState([false, false]);
+  const [ei, setEi] = useState([0, 0]);
+  const [sn, setSn] = useState([0, 0]);
+  const [tf, setTf] = useState([0, 0]);
+  const [jp, setJp] = useState([0, 0]);
 
   const [first, setFirst] = useState("");
   const [second, setSecond] = useState("");
@@ -28,8 +28,13 @@ const MbtiFilterSelect = (props) => {
       <Button03
         state={ei[0]}
         _onClick={() => {
-          setEi([true, false]);
-          setFirst("E");
+          if (ei[0] === 0) {
+            setEi([1, 0]);
+            setFirst("E");
+          } else {
+            setEi([0, 0]);
+            setFirst("");
+          }
         }}
         margin="0 0 20px 0"
       >
@@ -38,8 +43,13 @@ const MbtiFilterSelect = (props) => {
       <Button03
         state={ei[1]}
         _onClick={() => {
-          setEi([false, true]);
-          setFirst("I");
+          if (ei[1] === 0) {
+            setEi([0, 1]);
+            setFirst("I");
+          } else {
+            setEi([0, 0]);
+            setFirst("");
+          }
         }}
         margin="0 0 20px 0"
       >
@@ -49,8 +59,13 @@ const MbtiFilterSelect = (props) => {
       <Button03
         state={sn[0]}
         _onClick={() => {
-          setSn([true, false]);
-          setSecond("S");
+          if (sn[0] === 0) {
+            setSn([1, 0]);
+            setSecond("S");
+          } else {
+            setSn([0, 0]);
+            setSecond("");
+          }
         }}
         margin="0 0 20px 0"
       >
@@ -59,8 +74,13 @@ const MbtiFilterSelect = (props) => {
       <Button03
         state={sn[1]}
         _onClick={() => {
-          setSn([false, true]);
-          setSecond("N");
+          if (sn[1] === 0) {
+            setSn([0, 1]);
+            setSecond("N");
+          } else {
+            setSn([0, 0]);
+            setSecond("");
+          }
         }}
         margin="0 0 20px 0"
       >
@@ -70,8 +90,13 @@ const MbtiFilterSelect = (props) => {
       <Button03
         state={tf[0]}
         _onClick={() => {
-          setTf([true, false]);
-          setThird("T");
+          if (tf[0] === 0) {
+            setTf([1, 0]);
+            setThird("T");
+          } else {
+            setTf([0, 0]);
+            setThird("");
+          }
         }}
         margin="0 0 20px 0"
       >
@@ -80,8 +105,13 @@ const MbtiFilterSelect = (props) => {
       <Button03
         state={tf[1]}
         _onClick={() => {
-          setTf([false, true]);
-          setThird("F");
+          if (tf[1] === 0) {
+            setTf([0, 1]);
+            setThird("F");
+          } else {
+            setTf([0, 0]);
+            setThird("");
+          }
         }}
         margin="0 0 20px 0"
       >
@@ -91,8 +121,13 @@ const MbtiFilterSelect = (props) => {
       <Button03
         state={jp[0]}
         _onClick={() => {
-          setJp([true, false]);
-          setFourth("J");
+          if (jp[0] === 0) {
+            setJp([1, 0]);
+            setFourth("J");
+          } else {
+            setJp([0, 0]);
+            setFourth("");
+          }
         }}
         margin="0 0 20px 0"
       >
@@ -101,8 +136,13 @@ const MbtiFilterSelect = (props) => {
       <Button03
         state={jp[1]}
         _onClick={() => {
-          setJp([false, true]);
-          setFourth("P");
+          if (jp[1] === 0) {
+            setJp([0, 1]);
+            setFourth("P");
+          } else {
+            setJp([0, 0]);
+            setFourth("");
+          }
         }}
         margin="0 0 20px 0"
       >
