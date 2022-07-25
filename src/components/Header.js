@@ -41,6 +41,7 @@ export const Header = () => {
           location === "/info/change" ||
           location === "/my" ||
           location === "/my/profile" ||
+          location === "/mbtifriends" ||
           location === "/mbtifilter"
             ? "hide"
             : null

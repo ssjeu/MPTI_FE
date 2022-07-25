@@ -1,7 +1,7 @@
 // 다양한 MBTI 친구들
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as recommendActions } from "../redux/modules/recommend";
 
@@ -12,12 +12,20 @@ import FilterIcon from "../images/icons/filter-alt@3x.png";
 const MbtiFriends = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // 다양한 MBTI 친구들
   const users = useSelector((state) => state.recommend.mbti);
 
+  // 필터로 선택한 MBTI
+  const [filter, setFilter] = useState(null);
+
   useEffect(() => {
     dispatch(recommendActions.mbtiFriendDB());
+
+    if (location.state !== null) {
+      setFilter(location.state.selected);
+    }
   }, []);
 
   return (
@@ -31,8 +39,13 @@ const MbtiFriends = () => {
       </Top>
       <FriendWrap>
         <div className="contents-container">
-          {users &&
-            users.map((card, index) => <FriendCard card={card} key={index} />)}
+          {users && filter !== null
+            ? users
+                .filter((user) => user.mbti === filter)
+                .map((card, index) => <FriendCard card={card} key={index} />)
+            : users.map((card, index) => (
+                <FriendCard card={card} key={index} />
+              ))}
         </div>
       </FriendWrap>
     </MbtiFriendsWrap>
