@@ -15,6 +15,7 @@ const ChatProfile = () => {
   const location = useLocation();
 
   // 내 정보
+  const token = sessionStorage.getItem("is_login");
   const userNum = sessionStorage.getItem("userNum");
 
   // 프로필 사용자 정보
@@ -28,22 +29,24 @@ const ChatProfile = () => {
   const [activeBlock, setActiveBlock] = useState();
 
   const createRoom = async () => {
-    await chatApi
-      .createRoom(data.userNum)
-      .then((res) => {
-        navigate("/chat", {
-          state: { data: data, room: res.data.Room },
-        });
-      })
-      .catch((err) => {
-        if (err.response.data.blocked === "blocked") {
-          alert("차단 상태");
-        } else {
+    if (token) {
+      await chatApi
+        .createRoom(data.userNum)
+        .then((res) => {
           navigate("/chat", {
-            state: { data: data, room: err.response.data.Room },
+            state: { data: data, room: res.data.Room },
           });
-        }
-      });
+        })
+        .catch((err) => {
+          if (err.response.data.blocked === "blocked") {
+            alert("차단 상태");
+          } else {
+            navigate("/chat", {
+              state: { data: data, room: err.response.data.Room },
+            });
+          }
+        });
+    } else alert("로그인 후 이용가능합니다.");
   };
 
   const blockUser = () => {
