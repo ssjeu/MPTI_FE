@@ -1,39 +1,99 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as chatActions } from "../redux/modules/chat";
+import { chatApi } from "../shared/api";
 
 import "../css/component.css";
+import ProfileSwiper from "../components/myprofile/ProfileSwiper";
 import AskChatButton from "../elements/MainButton";
+import { ReactComponent as BlockSvg } from "../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg";
 
 const ChatProfile = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
+
+  // 내 정보
+  const token = sessionStorage.getItem("is_login");
+  const userNum = sessionStorage.getItem("userNum");
+
+  // 프로필 사용자 정보
   const data = location.state.data;
+  console.log(data);
+
+  // 페이지에 따른 채팅 프로필 구분
+  const from = location.state.from;
+
+  // 차단 상태
+  const blocked = useSelector((state) => state.chat.blocked);
+  const [activeBlock, setActiveBlock] = useState();
+
+  const createRoom = async () => {
+    if (token) {
+      await chatApi
+        .createRoom(data.userNum)
+        .then((res) => {
+          navigate("/chat", {
+            state: { data: data, room: res.data.Room },
+          });
+        })
+        .catch((err) => {
+          if (err.response.data.blocked === "blocked") {
+            alert("차단 상태");
+          } else {
+            navigate("/chat", {
+              state: { data: data, room: err.response.data.Room },
+            });
+          }
+        });
+    } else alert("로그인 후 이용가능합니다.");
+  };
+
+  const blockUser = () => {
+    if (!activeBlock) {
+      dispatch(chatActions.blockUserAC(data.userNum));
+    } else {
+      dispatch(chatActions.unblockUserAC(data.userNum));
+    }
+    setActiveBlock(!activeBlock);
+  };
 
   return (
     <ChatProfileWrap>
       <ProfileImageWrap className="contents-container">
-        <img src={data.userImage} alt="profile"></img>
+        {data.profileImages.length === 0 ? (
+          <img src={data.userImage[0]} alt="profile" />
+        ) : data.profileImages.length === 1 ? (
+          <ProfileSwiper images={[data.userImage[0], data.profileImages]} />
+        ) : (
+          <ProfileSwiper images={data.profileImages} />
+        )}
       </ProfileImageWrap>
+
       <ProfileInfoWrap className="container">
         <User>
-          {data.nickname}
-          <span></span>
+          <div>{data.nickname}</div>
+          {Number(data.userNum) !== Number(userNum) ? (
+            <BlockSvg
+              style={{ fill: activeBlock ? "#ff6565" : "#adadad" }}
+              onClick={blockUser}
+            />
+          ) : null}
         </User>
         <MBTI>{data.mbti}</MBTI>
         <Introduction>
-          <h4>자기소개</h4>
+          <h3>자기소개</h3>
           <div>{data.introduction}</div>
         </Introduction>
       </ProfileInfoWrap>
-      <Link
-        to="/chat"
-        state={{ data: data }}
-        style={{ textDecoration: "none" }}
-      >
-        <div className="container">
+
+      {from === "chat" || Number(data.userNum) === Number(userNum) ? null : (
+        <div className="container" onClick={createRoom}>
           <AskChatButton text="대화하기" />
         </div>
-      </Link>
+      )}
     </ChatProfileWrap>
   );
 };
@@ -58,11 +118,9 @@ const ProfileInfoWrap = styled.div`
 const User = styled.div`
   font-weight: 700;
   font-size: 26px;
-
-  & span {
-    font-weight: 400;
-    font-size: 22px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const MBTI = styled.div`
@@ -81,4 +139,5 @@ const Introduction = styled.div`
   font-size: 14px;
   line-height: 21px;
 `;
+
 export default ChatProfile;

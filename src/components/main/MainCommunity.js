@@ -1,9 +1,10 @@
 // 메인페이지에서 커뮤니티 목록
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../../redux/modules/post";
+import { userInfoDB } from "../../redux/modules/userInfo";
 
 import PostCard from "../../elements/PostCard";
 import arrow from "../../images/icons/arrow-forward-ios@3x.png";
@@ -12,11 +13,13 @@ const MainCommunity = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const user = useSelector((state) => state.userInfo.user);
   const posts = useSelector((state) => state.post.post);
 
-  // 서버에서 postlist 로드
   useEffect(() => {
+    const userNum = sessionStorage.getItem("userNum");
     dispatch(postActions.postDB());
+    dispatch(userInfoDB(userNum));
   }, []);
 
   return (
@@ -31,7 +34,14 @@ const MainCommunity = () => {
       </CommunnityTitle>
       <CommunityCardWrap>
         {posts.slice(0, 6).map((card, index) => (
-          <PostCard card={card} key={index} />
+          <Link
+            to={"/posts/" + card.postId}
+            state={{ data: card, user: user }}
+            style={{ textDecoration: "none" }}
+            key={index}
+          >
+            <PostCard card={card} key={index} />
+          </Link>
         ))}
       </CommunityCardWrap>
     </MainCommunityWrap>

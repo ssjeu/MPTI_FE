@@ -1,18 +1,50 @@
 // 1:1 채팅 목록
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { chatListAC } from "../redux/modules/chat";
 
+import ChatListCard from "../elements/ChatListCard";
 import Character from "../images/character/frame-main@3x.png";
 
 const ChatList = () => {
-  // 유저 정보
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const token = sessionStorage.getItem("is_login");
+  const rooms = useSelector((state) => state.chat.rooms);
+  const info = useSelector((state) => state.chat.userInfo);
+
+  useEffect(() => {
+    dispatch(chatListAC());
+  }, []);
 
   return (
     <ChatListWrap>
       {token ? (
-        <div></div>
+        rooms.length !== 0 ? (
+          rooms.map((room, index) => (
+            <div
+              onClick={() => {
+                navigate("/chat", { state: { data: info[index], room: room } });
+              }}
+              key={index}
+            >
+              <ChatListCard data={room} info={info[index]} />
+              <hr />
+            </div>
+          ))
+        ) : (
+          <NoUser>
+            <img src={Character} alt="므팅이" />
+            <Title>실시간 채팅</Title>
+            <Text>
+              다양한 MBTI 사람들과 대화해보세요!
+              <div>개설된 방이 없습니다.</div>
+            </Text>
+          </NoUser>
+        )
       ) : (
         <NoUser>
           <img src={Character} alt="므팅이" />
@@ -27,8 +59,11 @@ const ChatList = () => {
   );
 };
 
-const ChatListWrap = styled.div``;
-
+const ChatListWrap = styled.div`
+  & hr {
+    opacity: 0.16;
+  }
+`;
 const NoUser = styled.div`
   background-color: white;
   margin-top: 120px;
@@ -48,10 +83,16 @@ const Title = styled.div`
 const Text = styled.div`
   font-weight: 300;
   margin-bottom: 40px;
+
+  & div {
+    font-size: 12px;
+    margin-top: 12px;
+  }
 `;
 
 const ToLogin = styled.div`
   font-size: 12px;
   color: var(--maincolor);
 `;
+
 export default ChatList;

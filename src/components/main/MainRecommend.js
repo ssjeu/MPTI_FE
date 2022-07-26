@@ -13,21 +13,21 @@ import Modal from "../Modal";
 const MainRecommend = () => {
   const dispatch = useDispatch();
 
-  // info 모달창
-  const [showInfo, setShowInfo] = useState(false);
-
-  const onClickInfo = useCallback(() => {
-    setShowInfo((prev) => !prev);
-  }, []);
-
   // 유저 정보
   const token = sessionStorage.getItem("is_login");
 
   // 나와 잘 맞는 MBTI 유저 list
   const users = useSelector((state) => state.recommend.list);
 
+  // info 모달창
+  const [showInfo, setShowInfo] = useState(false);
+
   useEffect(() => {
     if (token) dispatch(recommendActions.recommendDB());
+  }, []);
+
+  const onClickInfo = useCallback(() => {
+    setShowInfo((prev) => !prev);
   }, []);
 
   return (

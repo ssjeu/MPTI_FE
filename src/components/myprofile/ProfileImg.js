@@ -1,20 +1,18 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import AddImgBtn from '../../elements/AddImgBtn';
+import { useDispatch } from 'react-redux';
 
-import AddImg from '../../elements/AddImgBtn';
+import AddImgBtn from '../../elements/AddImgBtn';
+import { imageApi } from '../../shared/api';
 
 const ProfileImg = (props) => {
-  const { margin } = props;
+  const { margin, parent, data } = props;
+
   const imageInput = useRef();
+  const dispatch = useDispatch();
 
-  //! 서버에 보낼 이미지 데이터
-  const [fileImage, setFileImage] = React.useState([]);
-  console.log(fileImage);
-
-  //! 미리보기 이미지 데이터
-  const [preImage, setPreImage] = React.useState([]);
-  console.log(preImage);
+  const [profileFile, setProfileFile] = React.useState(null);
+  const [userProfileImages, setUserProfileImages] = React.useState([]);
 
   // 이미지 추가 버튼 누를 시, input 연결 부분
   const imageUpload = () => {
@@ -22,101 +20,170 @@ const ProfileImg = (props) => {
   };
 
   const addFileImage = (e) => {
-    setPreImage((preImage) => [
-      ...preImage,
-      URL.createObjectURL(e.target.files[0]),
-    ]);
-    setFileImage((fileImage) => [...fileImage, e.target.files[0]]);
+    setProfileFile(e.target.files[0]);
   };
+
+  // s3 url 받아오는 api 연결 부분
+  React.useEffect(() => {
+    if (profileFile) {
+      const formData = new FormData();
+      formData.append('profileImages', profileFile);
+
+      imageApi
+        .userImage(formData)
+        .then((res) => {
+          setUserProfileImages((userProfileImages) => [
+            ...userProfileImages,
+            res.data.profileImages,
+          ]);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [profileFile]);
 
   React.useEffect(() => {
     imageInput.current.value = '';
-  }, [fileImage]);
+    parent(userProfileImages);
+  }, [userProfileImages]);
+
+  React.useEffect(() => {
+    if (data) {
+      setUserProfileImages(data);
+    }
+  }, [data]);
 
   return (
     <>
       <ProfileArea margin={margin}>
-        <div style={{ backgroundImage: preImage && `url(${preImage[0]})` }}>
+        <div
+          style={{
+            backgroundImage:
+              userProfileImages && `url(${userProfileImages[0]})`,
+          }}
+        >
           <AddImgBtn
             _onClick={
-              preImage[0] === undefined
+              userProfileImages[0] === undefined
                 ? imageUpload
                 : () => {
-                    setFileImage(fileImage.filter((e) => e !== fileImage[0]));
-                    setPreImage(preImage.filter((e) => e !== preImage[0]));
+                    setUserProfileImages(
+                      userProfileImages.filter(
+                        (e) => e !== userProfileImages[0]
+                      )
+                    );
                   }
             }
-            state={preImage[0]}
+            state={userProfileImages[0]}
           />
         </div>
 
-        <div style={{ backgroundImage: preImage && `url(${preImage[1]})` }}>
+        <div
+          style={{
+            backgroundImage:
+              userProfileImages && `url(${userProfileImages[1]})`,
+          }}
+        >
           <AddImgBtn
             _onClick={
-              preImage[1] === undefined
+              userProfileImages[1] === undefined
                 ? imageUpload
                 : () => {
-                    setFileImage(fileImage.filter((e) => e !== fileImage[1]));
-                    setPreImage(preImage.filter((e) => e !== preImage[1]));
+                    setUserProfileImages(
+                      userProfileImages.filter(
+                        (e) => e !== userProfileImages[1]
+                      )
+                    );
                   }
             }
-            state={preImage[1]}
+            state={userProfileImages[1]}
           />
         </div>
 
-        <div style={{ backgroundImage: preImage && `url(${preImage[2]})` }}>
+        <div
+          style={{
+            backgroundImage:
+              userProfileImages && `url(${userProfileImages[2]})`,
+          }}
+        >
           <AddImgBtn
             _onClick={
-              preImage[2] === undefined
+              userProfileImages[2] === undefined
                 ? imageUpload
                 : () => {
-                    setFileImage(fileImage.filter((e) => e !== fileImage[2]));
-                    setPreImage(preImage.filter((e) => e !== preImage[2]));
+                    setUserProfileImages(
+                      userProfileImages.filter(
+                        (e) => e !== userProfileImages[2]
+                      )
+                    );
                   }
             }
-            state={preImage[2]}
+            state={userProfileImages[2]}
           />
         </div>
 
-        <div style={{ backgroundImage: preImage && `url(${preImage[3]})` }}>
+        <div
+          style={{
+            backgroundImage:
+              userProfileImages && `url(${userProfileImages[3]})`,
+          }}
+        >
           <AddImgBtn
             _onClick={
-              preImage[3] === undefined
+              userProfileImages[3] === undefined
                 ? imageUpload
                 : () => {
-                    setFileImage(fileImage.filter((e) => e !== fileImage[3]));
-                    setPreImage(preImage.filter((e) => e !== preImage[3]));
+                    setUserProfileImages(
+                      userProfileImages.filter(
+                        (e) => e !== userProfileImages[3]
+                      )
+                    );
                   }
             }
-            state={preImage[3]}
+            state={userProfileImages[3]}
           />
         </div>
 
-        <div style={{ backgroundImage: preImage && `url(${preImage[4]})` }}>
+        <div
+          style={{
+            backgroundImage:
+              userProfileImages && `url(${userProfileImages[4]})`,
+          }}
+        >
           <AddImgBtn
             _onClick={
-              preImage[4] === undefined
+              userProfileImages[4] === undefined
                 ? imageUpload
                 : () => {
-                    setFileImage(fileImage.filter((e) => e !== fileImage[4]));
-                    setPreImage(preImage.filter((e) => e !== preImage[4]));
+                    setUserProfileImages(
+                      userProfileImages.filter(
+                        (e) => e !== userProfileImages[4]
+                      )
+                    );
                   }
             }
-            state={preImage[4]}
+            state={userProfileImages[4]}
           />
         </div>
 
-        <div style={{ backgroundImage: preImage && `url(${preImage[5]})` }}>
+        <div
+          style={{
+            backgroundImage:
+              userProfileImages && `url(${userProfileImages[5]})`,
+          }}
+        >
           <AddImgBtn
             _onClick={
-              preImage[5] === undefined
+              userProfileImages[5] === undefined
                 ? imageUpload
                 : () => {
-                    setFileImage(fileImage.filter((e) => e !== fileImage[5]));
-                    setPreImage(preImage.filter((e) => e !== preImage[5]));
+                    setUserProfileImages(
+                      userProfileImages.filter(
+                        (e) => e !== userProfileImages[5]
+                      )
+                    );
                   }
             }
-            state={preImage[5]}
+            state={userProfileImages[5]}
           />
         </div>
       </ProfileArea>

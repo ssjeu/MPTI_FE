@@ -13,6 +13,7 @@ const Input01 = (props) => {
           onChange={_onChange}
           ref={_ref}
           color={color}
+          value={_value}
         />
       </InputStyle>
     </>

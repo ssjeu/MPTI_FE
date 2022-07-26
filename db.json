@@ -1,0 +1,31 @@
+{
+  "chat": [
+    {
+      "id": 0,
+      "room": 0,
+      "postUser": "",
+      "getUser": "",
+      "message": "hi"
+    },
+    {
+      "message": "hello",
+      "id": 1
+    },
+    {
+      "message": "hello",
+      "id": 2
+    },
+    {
+      "message": "모야",
+      "id": 3
+    },
+    {
+      "message": "하잉",
+      "id": 4
+    },
+    {
+      "message": "아아아ㅏㅇ",
+      "id": 5
+    }
+  ]
+}

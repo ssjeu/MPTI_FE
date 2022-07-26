@@ -1,8 +1,8 @@
-import instance from './Request';
-import axios from 'axios';
+import instance from "./Request";
+import axios from "axios";
 
 // 토큰 설정
-const token = sessionStorage.getItem('is_login');
+const token = sessionStorage.getItem("is_login");
 
 const ImgApi = axios.create({
   baseURL: "http://3.35.170.203",
@@ -11,10 +11,10 @@ const ImgApi = axios.create({
   },
 });
 
-if (sessionStorage.getItem('is_login'))
+if (sessionStorage.getItem("is_login"))
   ImgApi.defaults.headers.common[
-    'Authorization'
-  ] = `Bearer ${sessionStorage.getItem('is_login')}`;
+    "Authorization"
+  ] = `Bearer ${sessionStorage.getItem("is_login")}`;
 
 export const communityApi = {
   // 게시글
@@ -22,7 +22,8 @@ export const communityApi = {
   postDetail: (postId) => instance.get(`/api/posts/${postId}`),
   postWrite: (formData) =>
     ImgApi.post(`/api/posts`, formData, { withCredentials: true }),
-  postUpdate: (postId, formData) => instance.put(`/api/posts/${postId}`, formData),
+  postUpdate: (postId, formData) =>
+    instance.put(`/api/posts/${postId}`, formData),
   postDelete: (postId) => instance.delete(`/api/posts/${postId}`),
 
   // 댓글
@@ -72,12 +73,12 @@ export const authApi = {
         console.log(res);
         // localStorage.setItem('is_login', res.data.token);
         // localStorage.setItem('userNum', res.data.user.userNum);
-        sessionStorage.setItem('is_login', res.data.token);
-        sessionStorage.setItem('userNum', res.data.user.userNum);
-        alert('로그인 되었습니다!');
+        sessionStorage.setItem("is_login", res.data.token);
+        sessionStorage.setItem("userNum", res.data.user.userNum);
+        alert("로그인 되었습니다!");
 
         if (res.data.user.nickname === undefined) {
-          window.location.replace('/info');
+          window.location.replace("/info");
         } else {
           window.location.replace("/");
         }
@@ -99,11 +100,13 @@ export const authApi = {
       });
   },
 
+  logOut: () => instance.post("/api/logout"),
+
   userInfo: (formData, nickname) => {
-    ImgApi.put('/api/signup/first', formData, { withCredentials: true })
+    ImgApi.put("/api/signup/first", formData, { withCredentials: true })
       .then((res) => {
-        console.log('성공', res);
-        window.location.replace('/');
+        console.log("성공", res);
+        window.location.replace("/");
       })
       .catch((err) => {
         console.log(err);
@@ -113,9 +116,49 @@ export const authApi = {
 
 export const userInfoApi = {
   myUserInfo: (userNum) => instance.get(`/api/mypage/${userNum}`),
+  userProfile: (userNum, userIntroduction, profileImages) =>
+    instance.put(`/api/mypage/profile/${userNum}`, {
+      introduction: userIntroduction,
+      profileImages: profileImages,
+    }),
+  userInfoChange: (userNum, formData) =>
+    ImgApi.put(`/api/mypage/${userNum}`, formData),
 };
 
 export const recommendApi = {
-    // 잘맞는 MBTI 추천
-    recommendList: () => instance.get(`/api/suggest`)
+  // 잘맞는 MBTI 추천
+  recommendList: () => instance.get(`/api/suggest`),
+
+  // 다양한 MBTI 친구들 추천
+  mbtiFriendList: () => instance.get(`/api/userList`),
+};
+
+export const chatApi = {
+  // 채팅
+  chatList: () => instance.get(`/api/chatList`),
+  createRoom: (userNum) => instance.post(`/api/chat`, { userNum: userNum }),
+  exitRoom: (roomId) => instance.put(`/api/chat/${roomId}`),
+  sendMessage: (roomId, content) =>
+    instance.post(`/api/message/${roomId}`, { content: content }),
+  getMessage: (roomId) => instance.get(`/api/message/${roomId}`),
+
+  // 차단
+  blockUser: (userNum) => instance.put(`/api/block`, { userNum: userNum }),
+  unblockUser: (userNum) => instance.put(`/api/unblock`, { userNum: userNum }),
+};
+
+//이미지 url 받아오기
+export const imageApi = {
+  userImage: (formData) => ImgApi.post("/api/images", formData),
+};
+
+// 약식 mbti 테스트
+export const mbtiTestApi = {
+  mbtiTest: (first, second, third, fourth) =>
+    instance.post("/api/mbtitest", {
+      first: first,
+      second: second,
+      third: third,
+      fourth: fourth,
+    }),
 };

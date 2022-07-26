@@ -1,15 +1,14 @@
 // 더보기 버튼 (수정하기, 삭제하기)
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as commentActions } from "../redux/modules/comment";
-import { userInfoDB } from "../redux/modules/userInfo";
 
 import more from "../images/icons/more-horiz@3x.png";
 
-const MoreButton = ({ id, type, user }) => {
+const MoreButton = ({ id, type }) => {
   // type: post or comment
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,28 +25,16 @@ const MoreButton = ({ id, type, user }) => {
     setOpen(!open);
   };
 
-  // 유저 정보 (작성자 일치 여부 확인을 위한)
-  const [isLogin, setIsLogin] = useState(false);
-  const user_data = useSelector((state) => state.userInfo.user);
-
-  useEffect(() => {
-    const token = localStorage.getItem("is_login");
-    const userNum = localStorage.getItem("userNum");
-
-    if (token) setIsLogin(true);
-    if (isLogin === true) dispatch(userInfoDB(userNum));
-  }, [isLogin]);
-
-  // 수정하기 부분
+  // 수정하기 버튼
   const postUpdate = (postId) => {
-    navigate("/posts/" + id + "/update");
+    navigate("/posts/" + postId + "/update");
   };
 
   const handleUpdate = () => {
     if (type === "post") postUpdate(id);
   };
 
-  // 삭제하기 부분
+  // 삭제하기 버튼
   const postDelete = (postId) => {
     dispatch(postActions.deletePostAC(postId));
   };
@@ -63,28 +50,21 @@ const MoreButton = ({ id, type, user }) => {
 
   return (
     <MoreButtonWrap>
-      {user_data && user_data.userId === user ? (
-        <MoreDropdown>
-          <li>
-            <img
-              src={more}
-              alt="more"
-              onClick={activeButton}
-              ref={outSection}
-            />
-            <Menu openState={open}>
-              {type === "comment" ? (
+      <MoreDropdown>
+        <li>
+          <img src={more} alt="more" onClick={activeButton} ref={outSection} />
+          <Menu openState={open}>
+            {type === "comment" ? (
+              <div onClick={handleDelete}>삭제</div>
+            ) : (
+              <div>
+                <div onClick={handleUpdate}>수정</div>
                 <div onClick={handleDelete}>삭제</div>
-              ) : (
-                <div>
-                  <div onClick={handleUpdate}>수정</div>
-                  <div onClick={handleDelete}>삭제</div>
-                </div>
-              )}
-            </Menu>
-          </li>
-        </MoreDropdown>
-      ) : null}
+              </div>
+            )}
+          </Menu>
+        </li>
+      </MoreDropdown>
     </MoreButtonWrap>
   );
 };

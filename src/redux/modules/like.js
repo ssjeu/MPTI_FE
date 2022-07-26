@@ -21,7 +21,7 @@ const deleteLike = createAction(DELETE_LIKE, (like) => ({
 }));
 
 const initialState = {
-  like: null,
+  like: 0,
   user: [],
 };
 
@@ -33,7 +33,7 @@ const getLikeAC = (postId) => {
       .then((res) => {
         dispatch(getLike(res.data.likeUsers.length));
         dispatch(getUser(res.data.likeUsers));
-        console.log(res.data.likeUsers.length, "getLikeAC response");
+        console.log(res.data, "getLikeAC response");
       })
       .catch((err) => {
         console.log("GET getLikeAC Error: ", err);
@@ -42,10 +42,11 @@ const getLikeAC = (postId) => {
 };
 
 const addLikeAC = (postId) => {
-  return async function (dispatch, getState) {
+  return async function (dispatch) {
     await communityApi
       .likeAdd(postId)
       .then((res) => {
+        //   dispatch(addLike(like+1));
         console.log(res.data, "addLikeAC response");
       })
       .catch((err) => {
@@ -78,6 +79,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = action.payload.user;
       }),
+    // [ADD_LIKE]: (state, action) =>
+    //   produce(state, (draft) => {
+    //     draft.user = action.payload.user;
+    //   }),
   },
   initialState
 );
