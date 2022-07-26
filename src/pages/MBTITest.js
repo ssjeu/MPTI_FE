@@ -97,7 +97,7 @@ const MBTITest = () => {
                         secondNewArray[idx] = 'S';
                         setSecond(secondNewArray);
                       }}
-                      style={first[idx] === 'S' ? activeBtn : normalBtn}
+                      style={second[idx] === 'S' ? activeBtn : normalBtn}
                     >
                       {list[0]}
                     </button>
@@ -106,7 +106,7 @@ const MBTITest = () => {
                         secondNewArray[idx] = 'N';
                         setSecond(secondNewArray);
                       }}
-                      style={first[idx] === 'N' ? activeBtn : normalBtn}
+                      style={second[idx] === 'N' ? activeBtn : normalBtn}
                     >
                       {list[1]}
                     </button>
@@ -130,7 +130,7 @@ const MBTITest = () => {
                         thirdNewArray[idx] = 'T';
                         setThird(thirdNewArray);
                       }}
-                      style={first[idx] === 'T' ? activeBtn : normalBtn}
+                      style={third[idx] === 'T' ? activeBtn : normalBtn}
                     >
                       {list[0]}
                     </button>
@@ -139,7 +139,7 @@ const MBTITest = () => {
                         thirdNewArray[idx] = 'F';
                         setThird(thirdNewArray);
                       }}
-                      style={first[idx] === 'F' ? activeBtn : normalBtn}
+                      style={third[idx] === 'F' ? activeBtn : normalBtn}
                     >
                       {list[1]}
                     </button>
@@ -163,7 +163,7 @@ const MBTITest = () => {
                         fourthNewArray[idx] = 'J';
                         setFourth(fourthNewArray);
                       }}
-                      style={first[idx] === 'J' ? activeBtn : normalBtn}
+                      style={fourth[idx] === 'J' ? activeBtn : normalBtn}
                     >
                       {list[0]}
                     </button>
@@ -172,7 +172,7 @@ const MBTITest = () => {
                         fourthNewArray[idx] = 'P';
                         setFourth(fourthNewArray);
                       }}
-                      style={first[idx] === 'P' ? activeBtn : normalBtn}
+                      style={fourth[idx] === 'P' ? activeBtn : normalBtn}
                     >
                       {list[1]}
                     </button>
