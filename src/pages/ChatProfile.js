@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { userInfoDB } from '../redux/modules/userInfo';
-import { actionCreators as chatActions } from '../redux/modules/chat';
-import { chatApi } from '../shared/api';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userInfoDB } from "../redux/modules/userInfo";
+import { actionCreators as chatActions } from "../redux/modules/chat";
+import { chatApi } from "../shared/api";
 
-import '../css/component.css';
-import ProfileSwiper from '../components/myprofile/ProfileSwiper';
-import AskChatButton from '../elements/MainButton';
-import { ReactComponent as BlockSvg } from '../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg';
-import Button01 from '../elements/Button01';
+import "../css/component.css";
+import ProfileSwiper from "../components/myprofile/ProfileSwiper";
+import AskChatButton from "../elements/MainButton";
+import { ReactComponent as BlockSvg } from "../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg";
+import Button01 from "../elements/Button01";
 
 const ChatProfile = () => {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ const ChatProfile = () => {
   const location = useLocation();
 
   // 내 정보
-  const token = sessionStorage.getItem('is_login');
-  const userNum = sessionStorage.getItem('userNum');
+  const token = sessionStorage.getItem("is_login");
+  const userNum = sessionStorage.getItem("userNum");
   const loginUser = useSelector((state) => state.userInfo.user);
 
   // 프로필 사용자 정보
@@ -47,28 +47,33 @@ const ChatProfile = () => {
       await chatApi
         .createRoom(data.userNum)
         .then((res) => {
-          navigate('/chat', {
+          navigate("/chat", {
             state: { data: data, room: res.data.Room },
           });
         })
         .catch((err) => {
-          if (err.response.data.blocked === 'blocked') {
-            alert('차단 상태');
+          if (err.response.data.blocked === "blocked") {
+            alert("차단 상태");
           } else {
-            navigate('/chat', {
+            navigate("/chat", {
               state: { data: data, room: err.response.data.Room },
             });
           }
         });
-    } else alert('로그인 후 이용가능합니다.');
+    } else alert("로그인 후 이용가능합니다.");
   };
 
   const blockUser = () => {
+    if (!token) {
+      alert("로그인 후  이용가능합니다.");
+      return;
+    }
+
     if (!activeBlock) {
       dispatch(chatActions.blockUserAC(data.userNum));
-      if (from === 'chatarea') {
-        alert('상대방을 차단하여 채팅방에서 대화하실 수 없습니다.');
-        navigate('/chatlist');
+      if (from === "chatarea") {
+        alert("상대방을 차단하여 채팅방에서 대화하실 수 없습니다.");
+        navigate("/chatlist");
       }
     } else {
       dispatch(chatActions.unblockUserAC(data.userNum));
@@ -83,9 +88,9 @@ const ChatProfile = () => {
 
   return (
     <ChatProfileWrap>
-      <ProfileImageWrap className='contents-container'>
+      <ProfileImageWrap className="contents-container">
         {data.profileImages === undefined || data.profileImages.length === 0 ? (
-          <img src={data.userImage[0]} alt='profile' />
+          <img src={data.userImage[0]} alt="profile" />
         ) : data.profileImages.length === 1 ? (
           <ProfileSwiper images={[data.userImage[0], data.profileImages]} />
         ) : (
@@ -93,13 +98,13 @@ const ChatProfile = () => {
         )}
       </ProfileImageWrap>
 
-      <ProfileInfoWrap className='container'>
+      <ProfileInfoWrap className="container">
         <User>
           <div
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyItems: 'center',
+              display: "flex",
+              alignItems: "center",
+              justifyItems: "center",
             }}
           >
             <div>{data.nickname}</div>
@@ -107,7 +112,7 @@ const ChatProfile = () => {
           </div>
           {Number(data.userNum) !== Number(userNum) ? (
             <BlockSvg
-              style={{ fill: activeBlock ? '#ff6565' : '#adadad' }}
+              style={{ fill: activeBlock ? "#ff6565" : "#adadad" }}
               onClick={blockUser}
             />
           ) : null}
@@ -119,16 +124,18 @@ const ChatProfile = () => {
         </Introduction>
       </ProfileInfoWrap>
 
-      {from === 'chat' || Number(data.userNum) === Number(userNum) ? null : (
+      {from === "chat" || Number(data.userNum) === Number(userNum) ? (
+        <div style={{ height: "52px" }} />
+      ) : (
         <div
-          className='container'
+          className="container"
           onClick={createRoom}
-          style={{ width: '100%' }}
+          style={{ width: "100%" }}
         >
           <Button01
-            backgroundColor='var(--maincolor)'
-            color='#fff'
-            margin='0 0 50px 0'
+            backgroundColor="var(--maincolor)"
+            color="#fff"
+            margin="0 0 60px 0"
           >
             대화하기
           </Button01>
@@ -137,6 +144,28 @@ const ChatProfile = () => {
     </ChatProfileWrap>
   );
 };
+
+const ChatProfileWrap = styled.div`
+  margin-bottom: 60px;
+  letter-spacing: -0.05em;
+  width: 100%;
+  background-color: white;
+`;
+
+const ProfileImageWrap = styled.div`
+  width: 100%;
+
+  & img {
+    width: 100%;
+    border-radius: 4px;
+  }
+`;
+
+const ProfileInfoWrap = styled.div`
+  text-align: left;
+  margin: 20px 0 40px 0;
+  width: 100%;
+`;
 
 const User = styled.div`
   font-weight: 700;
@@ -150,26 +179,6 @@ const User = styled.div`
     font-weight: 400;
     margin-left: 7px;
   }
-`;
-
-const ChatProfileWrap = styled.div`
-  margin-bottom: 60px;
-  letter-spacing: -0.05em;
-  width: 100%;
-  height: 100%;
-`;
-
-const ProfileImageWrap = styled.div`
-  width: 100%;
-  & img {
-    width: 100%;
-    border-radius: 4px;
-  }
-`;
-
-const ProfileInfoWrap = styled.div`
-  text-align: left;
-  margin: 20px 0 40px 0;
 `;
 
 const MBTI = styled.div`

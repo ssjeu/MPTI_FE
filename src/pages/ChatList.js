@@ -60,13 +60,15 @@ const ChatList = () => {
 };
 
 const ChatListWrap = styled.div`
+  background-color: white;
+  height: 100vh;
   & hr {
     opacity: 0.16;
   }
 `;
 const NoUser = styled.div`
   background-color: white;
-  margin-top: 120px;
+  padding-top: 120px;
   font-size: 16px;
 
   & img {

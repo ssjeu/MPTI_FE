@@ -45,7 +45,7 @@ const CommentWriteWrap = styled.div`
   position: fixed;
   background-color: var(--subcolor);
   height: 80px;
-  width: 100%;
+  width: 100vw;
   bottom: 80px;
 `;
 

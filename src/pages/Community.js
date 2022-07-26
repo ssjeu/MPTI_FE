@@ -121,6 +121,7 @@ const CommunityWrap = styled.div`
   background-color: var(--gray1);
   margin-bottom: 80px;
   width: 100%;
+  height: 100%;
 `;
 
 const Category = styled.div`
@@ -189,6 +190,7 @@ const CommunityList = styled.div`
 const CommunityNoList = styled.div`
   background-color: white;
   font-weight: 300;
+  height: 100vh;
 
   & img {
     margin: 100px auto 20px auto;

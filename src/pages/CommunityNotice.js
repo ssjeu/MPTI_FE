@@ -46,7 +46,7 @@ const CommunityNotice = () => {
 
 const CommunityNoticeWrap = styled.div`
   width: 100%;
-  margin: 20px 0 140px 0;
+  padding: 20px auto 140px auto;
   text-align: left;
   color: #242424;
   font-size: 14px;

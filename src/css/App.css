@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;500&display=swap');
 
 * {
-  font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 /* Thin: 100
@@ -12,68 +12,55 @@ Bold: 700
 Black: 900 */
 
 .App {
-  width: 100vw;
-  height: 100vh;
+    width: 100vw;
+    height: 100vh;
 
-  text-align: center;
-  align-items: center;
-  margin: 0 auto;
-  padding: 0;
-  /* width: 640px; */
-  /* height: 100%; */
-  color: #333;
-  --maincolor: #64be72;
-  --subcolor: #f9fdf9;
-  --pointcolor: #ff6565;
-  --gray1: #ebebeb;
-  --gray2: #d9d9d9;
-  --gray3: #adadad;
-  --gray4: #979797;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+    padding-bottom: 80px;
 
-  /* 텍스트 드래그 및 드래그 포인트 방지 */
-  -ms-user-select: none;
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
+    color: #333;
+    --maincolor: #64be72;
+    --subcolor: #f9fdf9;
+    --pointcolor: #ff6565;
+    --gray1: #ebebeb;
+    --gray2: #d9d9d9;
+    --gray3: #adadad;
+    --gray4: #979797;
+
+    /* 텍스트 드래그 및 드래그 포인트 방지 */
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* 한국어 영어 공통 자간 */
 .App:lang(ko) {
-  letter-spacing: -0.8px;
+    letter-spacing: -0.8px;
 }
 
 .App:lang(en) {
-  letter-spacing: 0;
+    letter-spacing: 0;
 }
 
 .wrap {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-}
-
-@media only screen and (min-width: 821px) {
-  .wrap {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    padding: 0 20%;
-  }
+}
 
-  .wrap > * {
-    background-color: #fff;
-  }
+@media only screen and (min-width: 821px) {
+    .wrap {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 0 20%;
+    }
 
-  /* .App:not(.Footer) {
-    width: 100vw;
-    height: 100vh;
-    background-color: #eee;
-    box-sizing: border-box;
-    padding: 0 20%;
-  }
-
-  .App > * {
-    background-color: #fff;
-  } */
+    .wrap>* {
+        background-color: #fff;
+    }
 }

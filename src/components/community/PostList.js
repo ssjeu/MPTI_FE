@@ -132,6 +132,7 @@ const PostListWrap = styled.div`
   background-color: white;
   margin-bottom: 12px;
   color: #333333;
+  width: 100%;
 
   & hr {
     opacity: 0.1;
@@ -142,6 +143,7 @@ const PostListWrap = styled.div`
 const PostWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
 `;
 
 const PostInfo = styled.div`

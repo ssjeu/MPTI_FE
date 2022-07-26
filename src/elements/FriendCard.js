@@ -31,6 +31,8 @@ const FriendCardWrap = styled.div`
   padding: 20px 0;
   border-bottom: 1px solid var(--gray1);
   display: flex;
+  width: 100%;
+//   background-color: yellow;
 `;
 
 const CardImage = styled.div`

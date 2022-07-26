@@ -150,7 +150,9 @@ const PostWrite = () => {
   );
 };
 
-const PostWriteWrap = styled.div``;
+const PostWriteWrap = styled.div`
+  height: 100%;
+`;
 
 const Notice = styled.div`
   background-color: var(--subcolor);
