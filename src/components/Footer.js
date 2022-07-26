@@ -29,7 +29,6 @@ const Footer = () => {
   const [activeCommunity, setActiveCommunity] = useState([
     "/community",
     "/posts/:index",
-    "/community/notice",
   ]);
   const [activeChat, setActiveChat] = useState(["/chatlist", "/chat"]);
   const [activeMypage, setActiveMypage] = useState("/my");
@@ -45,6 +44,7 @@ const Footer = () => {
   else if (location === "/mbtifilter") return null;
   else if (location === "/test") return null;
   else if (location === "/test/mbti") return null;
+  else if (location === "/community/notice") return null;
 
   return (
     <FooterWrap>
@@ -59,9 +59,7 @@ const Footer = () => {
           onClick={() => navigate("/community")}
           style={{
             fill:
-              location === activeCommunity[0] ||
-              location === activeCommunity[1] ||
-              location === activeCommunity[2]
+              location === activeCommunity[0] || location === activeCommunity[1]
                 ? "#64be72"
                 : "#adadad",
           }}
