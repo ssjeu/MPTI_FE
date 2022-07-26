@@ -47,7 +47,7 @@ Black: 900 */
   letter-spacing: 0;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 821px) {
   .App {
     width: 100vw;
     height: 100vh;
