@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { userInfoDB } from "../redux/modules/userInfo";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { chatApi } from "../shared/api";
 
@@ -18,6 +19,7 @@ const ChatProfile = () => {
   // 내 정보
   const token = sessionStorage.getItem("is_login");
   const userNum = sessionStorage.getItem("userNum");
+  const loginUser = useSelector((state) => state.userInfo.user);
 
   // 프로필 사용자 정보
   const data = location.state.data;
@@ -27,8 +29,17 @@ const ChatProfile = () => {
   const from = location.state.from;
 
   // 차단 상태
-  const blocked = useSelector((state) => state.chat.blocked);
   const [activeBlock, setActiveBlock] = useState();
+
+  useEffect(() => {
+    if (token) {
+      dispatch(userInfoDB(userNum));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (loginUser.blockedUsers.includes(data.userNum)) setActiveBlock(1);
+  }, [loginUser]);
 
   const createRoom = async () => {
     if (token) {
@@ -54,6 +65,10 @@ const ChatProfile = () => {
   const blockUser = () => {
     if (!activeBlock) {
       dispatch(chatActions.blockUserAC(data.userNum));
+      if(from === "chatarea"){
+          alert("상대방을 차단하여 채팅방에서 대화하실 수 없습니다.");
+          navigate("/chatlist");
+      }
     } else {
       dispatch(chatActions.unblockUserAC(data.userNum));
     }
