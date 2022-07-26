@@ -6,6 +6,9 @@ import MoreButton from "../../elements/MoreButton";
 import ProfileCharacter from "../../images/character/profile-character.png";
 
 const Comment = ({ card }) => {
+  // 로그인 user
+  const userNum = sessionStorage.getItem("userNum");
+
   return (
     <CommentWrap className="contents-container">
       <CommentInfo>
@@ -21,7 +24,10 @@ const Comment = ({ card }) => {
           <div>{card.comment}</div>
         </PostUser>
       </CommentInfo>
-      <MoreButton id={card.commentId} type={"comment"} user={card.userId}/>
+
+      {Number(card.userNum) === Number(userNum) ? (
+        <MoreButton id={card.commentId} type={"comment"} user={card.userId} />
+      ) : null}
     </CommentWrap>
   );
 };

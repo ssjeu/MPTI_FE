@@ -1,11 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import MainRecommend from '../components/main/MainRecommend';
-import MainCommunity from '../components/main/MainCommunity';
+import React from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-import '../css/component.css';
-import character from '../images/character/frame-main@3x.png';
+import MainRecommend from "../components/main/MainRecommend";
+import MainCommunity from "../components/main/MainCommunity";
+
+import "../css/component.css";
+import character from "../images/character/frame-main@3x.png";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -13,20 +14,22 @@ const Main = () => {
   return (
     <MainWrap>
       <MainIntro>
-        <img src={character} alt='므팅이' />
+        <img src={character} alt="므팅이" />
         <div>
           다양한 MBTI 중에
           <br /> <span>나의 찐친을 찾아봐요✨</span>
         </div>
       </MainIntro>
 
-      <MainButtons className='contents-container'>
+      <MainButtons className="contents-container">
         <VoiceButton>보이스로 랜덤 상대 MBTI 맞추기</VoiceButton>
         <BottomBtns>
-          <RandomButton onClick={() => navigate('/test')}>
+          <RandomButton onClick={() => navigate("/test")}>
             MBTI 약식 테스트
           </RandomButton>
-          <RandomButton>다양한 MBTI 친구들</RandomButton>
+          <RandomButton onClick={() => navigate("/mbtifriends")}>
+            다양한 MBTI 친구들
+          </RandomButton>
         </BottomBtns>
       </MainButtons>
 
@@ -34,7 +37,7 @@ const Main = () => {
         <MainRecommend />
       </RecommendWrap>
 
-      <CommunityWrap className='contents-container'>
+      <CommunityWrap className="contents-container">
         <MainCommunity />
       </CommunityWrap>
     </MainWrap>

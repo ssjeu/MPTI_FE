@@ -32,7 +32,7 @@ const activeStyle = css`
 `;
 
 const ButtonStyle = styled.button`
-  ${(props) => (props.state === true ? `${activeStyle}` : `${normalStyle}`)}
+  ${(props) => (props.state ? `${activeStyle}` : `${normalStyle}`)}
 
   background-color: #fff;
 

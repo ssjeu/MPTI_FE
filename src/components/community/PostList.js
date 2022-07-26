@@ -3,67 +3,69 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { userInfoDB } from "../../redux/modules/userInfo";
 import { actionCreators as likeActions } from "../../redux/modules/like";
 
 import "../../css/component.css";
 import PostSwiper from "./PostSwiper";
-import ProfileCharacter from "../../images/character/profile-character.png";
 import MoreButton from "../../elements/MoreButton";
+
+import ProfileCharacter from "../../images/character/profile-character.png";
 import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
 
-const PostList = ({ card }) => {
+const PostList = ({ card, click }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // 로그인 user
   const token = sessionStorage.getItem("is_login");
-  const [isLogin, setIsLogin] = useState(false);
-  const [userId, setUserId] = useState();
+  const userNum = sessionStorage.getItem("userNum");
 
+  // 게시글 작성 user
+  const postUser = useSelector((state) => state.userInfo.user);
+  //   console.log(postUser);
+
+  // 좋아요
   const likes = useSelector((state) => state.like.like);
-  const users = useSelector((state) => state.like.user);
-  const [likeCount, setLikeCount] = useState();
-  const [likeState, setLikeState] = useState(0);
+  const likeUsers = useSelector((state) => state.like.user);
+  let [likeState, setLikeState] = useState();
+  console.log(likes);
+  console.log(likeUsers);
+  console.log(likeState);
 
   useEffect(() => {
-    if (token) {
-      setIsLogin(true);
-    }
-
-    if (isLogin === true) {
-      const parseJwt = (token) => {
-        var base64Url = token.split(".")[1];
-        var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-        var jsonPayload = decodeURIComponent(
-          atob(base64)
-            .split("")
-            .map(function (c) {
-              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-            })
-            .join("")
-        );
-        return JSON.parse(jsonPayload);
-      };
-      setUserId(parseJwt(token).userId);
-    }
-  }, [isLogin]);
-
-  useEffect(() => {
+    dispatch(userInfoDB(card.userNum));
     dispatch(likeActions.getLikeAC(card.postId));
   }, []);
 
   useEffect(() => {
-    setLikeCount(likes);
-    if (users) {
-      const result = users.find((user) => user === userId);
-      setLikeState(result ? true : false);
+    if (likeUsers) {
+      let res = likeUsers.find((user) => Number(userNum) === Number(user));
+      console.log(res);
+      setLikeState(res ? true : false);
     } else setLikeState(false);
-  }, [likes]);
+  }, []);
 
+  // 유저 프로필 보기
+  const showProfile = () => {
+    navigate("/chatprofile", {
+      state: { data: postUser, from: "postlist" },
+    });
+  };
+
+  // 커뮤니티 탭에서 post 클릭 시 상세보기
+  const showPost = (postId) => {
+    if (click === "yes")
+      navigate("/posts/" + postId, {
+        state: { data: card },
+      });
+  };
+
+  // 좋아요
   const handleLike = () => {
-    if (likeState === false) dispatch(likeActions.addLikeAC(card.postId));
-    else if (likeState === true)
-      dispatch(likeActions.deleteLikeAC(card.postId));
+    if (likeState) dispatch(likeActions.deleteLikeAC(card.postId));
+    else dispatch(likeActions.addLikeAC(card.postId));
 
     setLikeState(!likeState);
   };
@@ -73,7 +75,11 @@ const PostList = ({ card }) => {
       <PostWrap className="contents-container">
         <PostInfo>
           {card.userImage.length && card.postCategory !== "익명" ? (
-            <img src={card.userImage[0]} alt="user profile" />
+            <img
+              src={card.userImage[0]}
+              alt="user profile"
+              onClick={() => showProfile()}
+            />
           ) : (
             <img src={ProfileCharacter} alt="no profile" />
           )}
@@ -83,14 +89,15 @@ const PostList = ({ card }) => {
             <span>{card.createdAt}</span>
           </PostUser>
         </PostInfo>
-        <MoreButton id={card.postId} type={"post"} user={card.userId} />
+
+        {Number(card.userNum) === Number(userNum) ? (
+          <MoreButton id={card.postId} type={"post"} user={card.userId} />
+        ) : null}
       </PostWrap>
 
       <PostContents
-        onClick={() => {
-          navigate("/posts/" + card.postId);
-        }}
         className="contents-container"
+        onClick={() => showPost(card.postId)}
       >
         {card.postContent}
         {card.postImage.length === 1 ? (
@@ -100,22 +107,18 @@ const PostList = ({ card }) => {
         ) : null}
       </PostContents>
 
-      <PostAction
-        onClick={() => {
-          if (token) navigate("/posts/" + card.postId);
-        }}
-        className="contents-container"
-      >
-        <PostButton>
+      <PostAction className="contents-container">
+        <PostButton
+          onClick={() => {
+            if (token) handleLike();
+          }}
+        >
           <Like
             className="icons"
             style={{ fill: likeState === true ? "#ff6565" : "#adadad" }}
-            onClick={() => {
-              if (token) handleLike();
-            }}
           />
         </PostButton>
-        좋아요 {likeCount}
+        좋아요 {card.countLikes}
         <img src={Comment} alt="comment" />
         댓글 {card.commentCount}
       </PostAction>
@@ -128,6 +131,7 @@ const PostListWrap = styled.div`
   padding: 20px 0 12px 0;
   background-color: white;
   margin-bottom: 12px;
+  color: #333333;
 
   & hr {
     opacity: 0.1;

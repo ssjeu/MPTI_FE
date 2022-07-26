@@ -16,6 +16,7 @@ const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-tap-highlight-color : transparent;
 `;
 
 export default MainButton;

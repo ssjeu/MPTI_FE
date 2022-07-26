@@ -3,14 +3,10 @@ import { communityApi } from "../../shared/api";
 
 // Action Type
 const ADD_COMMENT = "ADD_COMMENT";
-const UPDATE_COMMENT = "UPDATE_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
 
 // Action Creator
 const addComment = createAction(ADD_COMMENT, (comment) => ({
-  comment,
-}));
-const updateComment = createAction(UPDATE_COMMENT, (comment) => ({
   comment,
 }));
 const deleteComment = createAction(DELETE_COMMENT, (comment) => ({
@@ -27,25 +23,16 @@ const addCommentAC = (postId, text) => {
     await communityApi
       .commentWrite(postId, text)
       .then((res) => {
-        console.log(res.data, "addCommentAC response");
-        // dispatch(addComment(res.data));
+        window.location.reload();
+        window.alert("댓글 작성 완료");
       })
       .catch((err) => {
-        window.alert("로그인 후 댓글 작성 가능합니다!");
+        if (err.response.data.blocked === "blocked") {
+          window.alert("차단된 사용자는 댓글을 작성할 수 없습니다.");
+        } else {
+          window.alert("로그인 후 댓글 작성 가능합니다!");
+        }
         console.log("POST addCommentAC Error: ", err);
-      });
-  };
-};
-
-const updateCommentAC = (commentId) => {
-  return async function () {
-    await communityApi
-      .updateDelete(commentId)
-      .then((res) => {
-        console.log(res.data, "updateCommentAC response");
-      })
-      .catch((err) => {
-        console.log("PUT updateCommentAC Error: ", err);
       });
   };
 };
@@ -55,7 +42,8 @@ const deleteCommentAC = (commentId) => {
     await communityApi
       .commentDelete(commentId)
       .then((res) => {
-        console.log(res.data, "deleteCommentAC response");
+        window.location.reload();
+        window.alert("댓글 삭제 완료");
       })
       .catch((err) => {
         console.log("DELETE deleteCommentAC Error: ", err);
@@ -70,8 +58,6 @@ const actionCreators = {
   addCommentAC,
   deleteComment,
   deleteCommentAC,
-  updateComment,
-  updateCommentAC,
 };
 
 export { actionCreators };

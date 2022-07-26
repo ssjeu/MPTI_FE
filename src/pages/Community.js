@@ -14,10 +14,19 @@ const Community = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const posts = useSelector((state) => state.post.post);
+  // 유저 정보
   const token = sessionStorage.getItem("is_login");
 
   // 서버에서 postlist 로드
+  const posts = useSelector((state) => state.post.post);
+
+  // 카테고리 목록
+  const categories = ["전체", "MBTI", "자유", "고민상담", "익명"];
+  const [activeCat, setActiveCat] = useState(categories);
+  const [activeCatState, setActiveCatState] = useState(0);
+  // 해당 카테고리 게시물 목록
+  const [data, setData] = useState([]);
+
   useEffect(() => {
     dispatch(postActions.postDB());
   }, []);
@@ -26,14 +35,7 @@ const Community = () => {
     setData(posts);
   }, [posts]);
 
-  // 카테고리 목록
-  const categories = ["전체", "MBTI", "자유", "고민상담", "익명"];
-  const [activeCat, setActiveCat] = useState(categories);
-  const [activeCatState, setActiveCatState] = useState(0);
-
-  // 해당 카테고리 게시물 목록을 보여주기 위한 객체
-  const [data, setData] = useState([]);
-
+  // 카테고리 별 게시글 보여주기
   const activeCategory = (btn) => {
     if (btn === "전체") {
       setData(posts);
@@ -44,6 +46,12 @@ const Community = () => {
     const filteredData = posts.filter((item) => item.postCategory === btn);
     setData(filteredData);
     return data;
+  };
+
+  // 게시글 작성하기 버튼
+  const postWrite = () => {
+    if (token) navigate("/postwrite");
+    else alert("로그인을 해주세요!");
   };
 
   return (
@@ -78,9 +86,11 @@ const Community = () => {
             );
         })}
       </Category>
-      <Notice>
+
+      <Notice onClick={() => navigate("/community/notice")}>
         <span>필독!</span>커뮤니티 이용 규칙
       </Notice>
+
       <CommunityList>
         {data.length === 0 ? (
           <CommunityNoList>
@@ -92,15 +102,13 @@ const Community = () => {
             </div>
           </CommunityNoList>
         ) : (
-          data.map((card, index) => <PostList card={card} key={index} />)
+          data.map((card, index) => (
+            <PostList card={card} key={index} click="yes" />
+          ))
         )}
       </CommunityList>
-      <PostButton
-        onClick={() => {
-          if (token) navigate("/postwrite");
-          else alert("로그인을 해주세요!");
-        }}
-      >
+
+      <PostButton onClick={() => postWrite()}>
         <img src={PostWrite} alt="postwrite" />
         <br />
         글작성
@@ -163,6 +171,7 @@ const Notice = styled.div`
   text-align: left;
   display: table-cell;
   vertical-align: middle;
+  color: #333333;
 
   & span {
     color: var(--pointcolor);
