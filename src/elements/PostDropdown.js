@@ -1,30 +1,31 @@
-import React, { Children, useState } from 'react';
-import styled, { keyframes, css } from 'styled-components';
-import dropdownArrow from '../icons/arrow_drop_down.png';
+import React, { useEffect, useState } from "react";
+import styled, { css } from "styled-components";
+import CategoryDown from "../images/icons/expand-more@3x.png";
 
-const Dropdown = (props) => {
+const PostDropdown = (props) => {
   const { data, width, children, height, parent } = props;
 
-  const [display, setDisplay] = React.useState(false);
-  const [listData, setListData] = React.useState('');
+  const [display, setDisplay] = useState(false);
+  const [listData, setListData] = useState("");
 
   const dropdownClick = () => {
     setDisplay(!display);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     parent(listData);
+  }, [listData]);
+
+  useEffect(() => {
+    if (listData === "" && children) setListData(children);
   }, [listData]);
 
   return (
     <>
       <Container>
-        <ButtonStyle
-          onClick={dropdownClick}
-          width={width}
-          style={{ color: listData ? '#000' : 'transparent' }}
-        >
-          {listData !== '' ? listData : children}
+        <ButtonStyle onClick={dropdownClick} width={width}>
+          <div>{listData === "" ? children : listData}</div>
+          <img src={CategoryDown} alt="down" />
         </ButtonStyle>
         <DropdownList _display={display} width={width} height={height}>
           <ul>
@@ -35,6 +36,10 @@ const Dropdown = (props) => {
                   onClick={() => {
                     setDisplay(false);
                     setListData(list);
+                  }}
+                  style={{
+                    color: listData === list ? "#64be72" : null,
+                    fontWeight: listData === list ? "bold" : null,
                   }}
                 >
                   {list}
@@ -65,67 +70,60 @@ const dropdownFadeIn = css`
   }
 `;
 
-const ButtonStyle = styled.button`
+const ButtonStyle = styled.div`
   width: ${(props) => props.width};
+  height: 28px;
+  background-color: var(--maincolor);
+  color: white;
+  text-align: left;
+  font-size: 14px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  // 고정 값
-  background-color: transparent;
-  border: none;
-  border-bottom: 2px solid #64be72;
+  & div {
+    margin: 0 8px;
+    line-height: 28px;
+  }
 
-  background: url(${dropdownArrow}) no-repeat 105% 50%;
+  & img {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+  }
 `;
 
 const DropdownList = styled.div`
-  display: ${(props) => (props._display === true ? 'flex' : 'none')};
+  display: ${(props) => (props._display === true ? "flex" : "none")};
   width: ${(props) => props.width};
-  height: ${(props) => (props.height ? props.height : 'auto')};
+  height: ${(props) => (props.height ? props.height : "auto")};
   ${(props) => (props._display === true ? `${dropdownFadeIn}` : null)}
 
-  overflow-y: ${(props) => (props.height ? 'scroll' : 'hidden')};
-
-  // 고정 값
-  background-color: #fff;
-
-  margin-top: 7px;
+  background-color: white;
   position: absolute;
   z-index: 1;
-
-  // 스크롤바 스타일
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    border-radius: 6px;
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(100, 190, 114, 0.5);
-    border-radius: 6px;
-  }
-
-  &::-webkit-scrollbar-button {
-    width: 6px;
-    height: 6px;
-  }
-
-  box-shadow: 0px 0px 10px 1px rgba(21, 78, 30, 0.2);
-  border-radius: 10px;
+  box-shadow: 0 0 6px 0 rgba(156, 156, 156, 0.4);
+  border-radius: 4px;
 
   ul {
     width: 100%;
     list-style: none;
     margin: 0;
     padding: 0;
-    text-align: center;
+    text-align: left;
+    font-size: 13px;
+    color: var(--gray4);
+    letter-spacing: -0.6px;
   }
 
   ul > li {
-    margin: 1px 0;
+    margin: 8px;
   }
 
   ul > li:hover {
-    background-color: #ecf9ee;
+    color: var(--maincolor);
   }
 `;
 
-export default Dropdown;
+export default PostDropdown;
