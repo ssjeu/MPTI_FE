@@ -1,27 +1,28 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import '../css/component.css';
-import Logo from '../images/header/logo@2x.png';
+import "../css/component.css";
+import Logo from "../images/header/logo@2x.png";
 
 // svg icons + logo
-import { ReactComponent as BackSvg } from '../images/header/keyboard-arrow-left.svg';
-import { ReactComponent as LogoSvg } from '../images/logo/Group 15.svg';
-import { ReactComponent as AlarmSvg } from '../images/header/notifications_none.svg';
-import { ReactComponent as CloseSvg } from '../images/header/close.svg';
+import { ReactComponent as BackSvg } from "../images/header/keyboard-arrow-left.svg";
+import { ReactComponent as LogoSvg } from "../images/logo/Group 15.svg";
+import { ReactComponent as AlarmSvg } from "../images/header/notifications_none.svg";
+import { ReactComponent as CloseSvg } from "../images/header/close.svg";
 
 export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
 
-  const isLogin = sessionStorage.getItem('is_login');
+  const isLogin = sessionStorage.getItem("is_login");
 
   const goBack = () => {
     if (
-      location !== '/' &&
-      location !== '/community' &&
-      location !== '/chatlist'
+      location !== "/" &&
+      location !== "/community" &&
+      location !== "/chatlist" &&
+      location !== "/mbtifriends"
     )
       navigate(-1);
   };
@@ -32,41 +33,42 @@ export const Header = () => {
 
   return (
     <HeaderWrap
-      className='contents-container'
-      style={{ backgroundColor: location !== '/my' ? '#fff' : 'transparent' }}
+      className="contents-container"
+      style={{ backgroundColor: location !== "/my" ? "#fff" : "transparent" }}
     >
       <BackIcon
         onClick={goBack}
         className={
-          location === '/' ||
-          location === '/community' ||
-          location === '/login' ||
-          location === '/join' ||
-          location === '/info' ||
-          location === '/info/change' ||
-          location === '/my' ||
-          location === '/my/profile' ||
-          location === '/mbtifriends' ||
-          location === '/mbtifilter'
-            ? 'hide'
+          location === "/" ||
+          location === "/community" ||
+          location === "/login" ||
+          location === "/join" ||
+          location === "/info" ||
+          location === "/info/change" ||
+          location === "/my" ||
+          location === "/my/profile" ||
+          location === "/mbtifriends" ||
+          location === "/mbtifilter" ||
+          location === "/chatlist"
+            ? "hide"
             : null
         }
         style={{
-          display: location === '/mbtifilter' ? 'none' : null,
+          display: location === "/mbtifilter" ? "none" : null,
         }}
       >
         <BackSvg
           style={{
-            fill: location === '/chat' ? '#fff' : '#323232',
+            fill: location === "/chat" ? "#fff" : "#323232",
           }}
         />
       </BackIcon>
 
       <FilterIcon
         onClick={goBack}
-        className={location === '/mbtifilter' ? null : 'hide'}
+        className={location === "/mbtifilter" ? null : "hide"}
         style={{
-          display: location === '/mbtifilter' ? null : 'none',
+          display: location === "/mbtifilter" ? null : "none",
         }}
       >
         필터
@@ -74,41 +76,41 @@ export const Header = () => {
 
       <LogoIcon
         className={
-          location === '/login' || location === '/mbtifilter' ? 'hide' : null
+          location === "/login" || location === "/mbtifilter" ? "hide" : null
         }
       >
-        {location === '/my' || location === '/chat' ? (
+        {location === "/my" || location === "/chat" ? (
           <LogoSvg />
         ) : (
-          <img src={Logo} alt='logo' width='85px' />
+          <img src={Logo} alt="logo" width="85px" />
         )}
       </LogoIcon>
 
       <AlarmIcon
         className={
-          location === '/login' ||
-          location === '/join' ||
-          location === '/info' ||
-          location === '/info/change' ||
+          location === "/login" ||
+          location === "/join" ||
+          location === "/info" ||
+          location === "/info/change" ||
           isLogin === null
-            ? 'hide'
+            ? "hide"
             : null
         }
         style={{
           display:
-            location === '/login' ||
-            location === '/join' ||
-            location === '/info/change' ||
-            location === '/my/profile' ||
-            location === '/mbtifilter'
-              ? 'none'
+            location === "/login" ||
+            location === "/join" ||
+            location === "/info/change" ||
+            location === "/my/profile" ||
+            location === "/mbtifilter"
+              ? "none"
               : null,
         }}
       >
         <AlarmSvg
           style={{
             fill:
-              location === '/my' || location === '/chat' ? '#fff' : '#323232',
+              location === "/my" || location === "/chat" ? "#fff" : "#323232",
           }}
         />
       </AlarmIcon>
@@ -117,13 +119,13 @@ export const Header = () => {
         onClick={close}
         style={{
           display:
-            location === '/login' ||
-            location === '/join' ||
-            location === '/info/change' ||
-            location === '/my/profile' ||
-            location === '/mbtifilter'
+            location === "/login" ||
+            location === "/join" ||
+            location === "/info/change" ||
+            location === "/my/profile" ||
+            location === "/mbtifilter"
               ? null
-              : 'none',
+              : "none",
         }}
       >
         <CloseSvg />

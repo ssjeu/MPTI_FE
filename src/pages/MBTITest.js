@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import Pagination from '../components/mbti_test/Pagination';
-import Button01 from '../elements/Button01';
-import { mbtiTestApi } from '../shared/api';
+import React from "react";
+import styled from "styled-components";
+import Pagination from "../components/mbti_test/Pagination";
+import Button01 from "../elements/Button01";
+import { mbtiTestApi } from "../shared/api";
 
-import { answer } from '../shared/mbti_question';
+import { answer } from "../shared/mbti_question";
 
 const MBTITest = () => {
   const [isActive, setIsActive] = React.useState(0);
@@ -20,10 +20,23 @@ const MBTITest = () => {
 
   const onNext = () => {
     if (3 > isActive) {
+      if (
+        (isActive === 0 && first.includes(null)) ||
+        (isActive === 1 && second.includes(null)) ||
+        (isActive === 2 && third.includes(null))
+      ) {
+        alert("답변을 모두 선택해주세요!");
+        return;
+      }
       setIsActive(isActive + 1);
     }
 
     if (isActive === 3) {
+      if (isActive === 3 && fourth.includes(null)) {
+        alert("답변을 모두 선택해주세요!");
+        return;
+      }
+
       mbtiTestApi
         .mbtiTest(first, second, third, fourth)
         .then((res) => console.log(res))
@@ -32,14 +45,14 @@ const MBTITest = () => {
   };
 
   const normalBtn = {
-    backgroundColor: '#f9fdf9',
-    border: '0.5px solid var(--maincolor)',
+    backgroundColor: "#f9fdf9",
+    border: "0.5px solid var(--maincolor)",
   };
 
   const activeBtn = {
-    backgroundColor: 'var(--maincolor)',
-    border: 'none',
-    color: '#fff',
+    backgroundColor: "var(--maincolor)",
+    border: "none",
+    color: "#fff",
   };
 
   return (
@@ -61,19 +74,19 @@ const MBTITest = () => {
                   <QuestionBtns>
                     <button
                       onClick={() => {
-                        firstNewArray[idx] = 'E';
+                        firstNewArray[idx] = "E";
                         setFirst(firstNewArray);
                       }}
-                      style={first[idx] === 'E' ? activeBtn : normalBtn}
+                      style={first[idx] === "E" ? activeBtn : normalBtn}
                     >
                       {list[0]}
                     </button>
                     <button
                       onClick={() => {
-                        firstNewArray[idx] = 'I';
+                        firstNewArray[idx] = "I";
                         setFirst(firstNewArray);
                       }}
-                      style={first[idx] === 'I' ? activeBtn : normalBtn}
+                      style={first[idx] === "I" ? activeBtn : normalBtn}
                     >
                       {list[1]}
                     </button>
@@ -94,19 +107,19 @@ const MBTITest = () => {
                   <QuestionBtns>
                     <button
                       onClick={() => {
-                        secondNewArray[idx] = 'S';
+                        secondNewArray[idx] = "S";
                         setSecond(secondNewArray);
                       }}
-                      style={second[idx] === 'S' ? activeBtn : normalBtn}
+                      style={second[idx] === "S" ? activeBtn : normalBtn}
                     >
                       {list[0]}
                     </button>
                     <button
                       onClick={() => {
-                        secondNewArray[idx] = 'N';
+                        secondNewArray[idx] = "N";
                         setSecond(secondNewArray);
                       }}
-                      style={second[idx] === 'N' ? activeBtn : normalBtn}
+                      style={second[idx] === "N" ? activeBtn : normalBtn}
                     >
                       {list[1]}
                     </button>
@@ -127,19 +140,19 @@ const MBTITest = () => {
                   <QuestionBtns>
                     <button
                       onClick={() => {
-                        thirdNewArray[idx] = 'T';
+                        thirdNewArray[idx] = "T";
                         setThird(thirdNewArray);
                       }}
-                      style={third[idx] === 'T' ? activeBtn : normalBtn}
+                      style={third[idx] === "T" ? activeBtn : normalBtn}
                     >
                       {list[0]}
                     </button>
                     <button
                       onClick={() => {
-                        thirdNewArray[idx] = 'F';
+                        thirdNewArray[idx] = "F";
                         setThird(thirdNewArray);
                       }}
-                      style={third[idx] === 'F' ? activeBtn : normalBtn}
+                      style={third[idx] === "F" ? activeBtn : normalBtn}
                     >
                       {list[1]}
                     </button>
@@ -160,19 +173,19 @@ const MBTITest = () => {
                   <QuestionBtns>
                     <button
                       onClick={() => {
-                        fourthNewArray[idx] = 'J';
+                        fourthNewArray[idx] = "J";
                         setFourth(fourthNewArray);
                       }}
-                      style={fourth[idx] === 'J' ? activeBtn : normalBtn}
+                      style={fourth[idx] === "J" ? activeBtn : normalBtn}
                     >
                       {list[0]}
                     </button>
                     <button
                       onClick={() => {
-                        fourthNewArray[idx] = 'P';
+                        fourthNewArray[idx] = "P";
                         setFourth(fourthNewArray);
                       }}
-                      style={fourth[idx] === 'P' ? activeBtn : normalBtn}
+                      style={fourth[idx] === "P" ? activeBtn : normalBtn}
                     >
                       {list[1]}
                     </button>
@@ -187,11 +200,11 @@ const MBTITest = () => {
       <ButtonWrap>
         <Button01
           _onClick={onNext}
-          backgroundColor='var(--maincolor)'
-          color='#fff'
-          margin='0 0 30px 0'
+          backgroundColor="var(--maincolor)"
+          color="#fff"
+          margin="0 0 30px 0"
         >
-          {isActive === 3 ? '완료하기' : '다음으로'}
+          {isActive === 3 ? "완료하기" : "다음으로"}
         </Button01>
       </ButtonWrap>
     </div>
