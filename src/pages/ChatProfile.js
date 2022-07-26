@@ -146,7 +146,6 @@ const ChatProfile = () => {
 };
 
 const ChatProfileWrap = styled.div`
-  margin-bottom: 60px;
   letter-spacing: -0.05em;
   width: 100%;
   background-color: white;

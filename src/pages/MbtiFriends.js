@@ -70,7 +70,6 @@ const MbtiFriends = () => {
 const MbtiFriendsWrap = styled.div``;
 
 const Top = styled.div`
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -98,7 +97,7 @@ const FilterBtn = styled.div`
 
 const FriendWrap = styled.div`
   border-top: 1px solid var(--gray1);
-  margin: 20px 0 100px 0;
+  margin: 20px 0 80px 0;
 `;
 
 export default MbtiFriends;

@@ -96,11 +96,14 @@ const PostWrite = () => {
 
   return (
     <PostWriteWrap>
-      <Notice onClick={() => navigate("/community/notice")}>
+      <Notice
+        onClick={() => navigate("/community/notice")}
+        className="contents-container"
+      >
         <span>필독!</span>커뮤니티 이용 규칙
       </Notice>
 
-      <SelectWrap>
+      <SelectWrap className="contents-container">
         <PostDropdown
           data={categoryList}
           width="88px"
@@ -124,7 +127,7 @@ const PostWrite = () => {
         </SelectImage>
       </SelectWrap>
 
-      <TextArea>
+      <TextArea className="contents-container">
         <textarea
           placeholder="최소 5자 이상 입력해 주세요"
           ref={content_ref}
@@ -132,7 +135,7 @@ const PostWrite = () => {
       </TextArea>
 
       {previewImg && (
-        <ImagePreview>
+        <ImagePreview className="contents-container">
           {" "}
           {previewImg.map((data, index) => (
             <div key={index}>
@@ -166,19 +169,20 @@ const Notice = styled.div`
   & span {
     color: var(--pointcolor);
     font-weight: bold;
-    margin-left: 20px;
     margin-right: 10px;
   }
 `;
 
 const SelectWrap = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
 const SelectImage = styled.div`
+  margin-right: -16px;
+
   & img {
     width: 24px;
     height: 24px;
@@ -192,7 +196,7 @@ const SelectImage = styled.div`
 `;
 
 const TextArea = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   text-align: left;
 
   & textarea {
@@ -217,11 +221,12 @@ const TextArea = styled.div`
 `;
 
 const ImagePreview = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   padding-bottom: 20px;
   text-algin: left;
   display: flex;
   overflow: auto;
+  min-height: 240px;
 
   & img {
     height: 160px;
@@ -233,9 +238,7 @@ const ImagePreview = styled.div`
 const Upload = styled.div`
   width: 100%;
   height: 92px;
-  position: fixed;
-  bottom: 0;
-  box-shadow: 0 0 1px 0 var(--gray4);
+  //   box-shadow: 0 0 1px 0 var(--gray4);
 `;
 
 export default PostWrite;

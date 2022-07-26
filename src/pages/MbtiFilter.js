@@ -45,7 +45,7 @@ const MbtiFilter = () => {
 
 const MbtiFilterWrap = styled.div`
   background-color: white;
-  height: 100%;
+  padding-bottom: 60px;
 `;
 
 const Intro = styled.div`
@@ -60,16 +60,14 @@ const Detail = styled.div`
   letter-spacing: -0.8px;
   text-align: left;
   padding: 40px auto;
+  word-break: keep-all;
 `;
 
 const MbtiSelectWrap = styled.div`
   margin-top: 40px;
-//   min-height: 220px;
-padding: auto;
+  padding: auto;
 `;
 
-const MbtiButtonWrap = styled.div`
- width: 100%;
-`;
+const MbtiButtonWrap = styled.div``;
 
 export default MbtiFilter;

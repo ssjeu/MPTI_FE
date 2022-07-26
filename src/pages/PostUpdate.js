@@ -101,11 +101,14 @@ const PostUpdate = () => {
 
   return (
     <PostWriteWrap>
-      <Notice onClick={() => navigate("/community/notice")}>
+      <Notice
+        onClick={() => navigate("/community/notice")}
+        className="contents-container"
+      >
         <span>필독!</span>커뮤니티 이용 규칙
       </Notice>
 
-      <SelectWrap>
+      <SelectWrap className="contents-container">
         <PostDropdown
           data={categoryList}
           width="88px"
@@ -129,7 +132,7 @@ const PostUpdate = () => {
         </SelectImage>
       </SelectWrap>
 
-      <TextArea>
+      <TextArea className="contents-container">
         <textarea
           placeholder="최소 5자 이상 입력해 주세요"
           ref={content_ref}
@@ -138,7 +141,7 @@ const PostUpdate = () => {
       </TextArea>
 
       {previewImg && (
-        <ImagePreview>
+        <ImagePreview className="contents-container">
           {" "}
           {previewImg.map((data, index) => (
             <div key={index}>
@@ -156,7 +159,9 @@ const PostUpdate = () => {
   );
 };
 
-const PostWriteWrap = styled.div``;
+const PostWriteWrap = styled.div`
+  height: 100%;
+`;
 
 const Notice = styled.div`
   background-color: var(--subcolor);
@@ -170,19 +175,20 @@ const Notice = styled.div`
   & span {
     color: var(--pointcolor);
     font-weight: bold;
-    margin-left: 20px;
     margin-right: 10px;
   }
 `;
 
 const SelectWrap = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
 const SelectImage = styled.div`
+  margin-right: -16px;
+
   & img {
     width: 24px;
     height: 24px;
@@ -196,7 +202,7 @@ const SelectImage = styled.div`
 `;
 
 const TextArea = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   text-align: left;
 
   & textarea {
@@ -215,11 +221,12 @@ const TextArea = styled.div`
 `;
 
 const ImagePreview = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   padding-bottom: 20px;
   text-algin: left;
   display: flex;
   overflow: auto;
+  min-height: 240px;
 
   & img {
     height: 160px;

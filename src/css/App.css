@@ -12,13 +12,13 @@ Bold: 700
 Black: 900 */
 
 .App {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 
     text-align: center;
     align-items: center;
     margin: 0 auto;
-    padding-bottom: 80px;
+    /* padding-bottom: 80px; */
 
     color: #333;
     --maincolor: #64be72;
