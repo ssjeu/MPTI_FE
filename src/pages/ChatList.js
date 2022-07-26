@@ -62,10 +62,14 @@ const ChatList = () => {
 const ChatListWrap = styled.div`
   background-color: white;
   height: 100vh;
+  margin-top: -16px;
+  padding-top: 16px;
+
   & hr {
     opacity: 0.16;
   }
 `;
+
 const NoUser = styled.div`
   background-color: white;
   padding-top: 120px;

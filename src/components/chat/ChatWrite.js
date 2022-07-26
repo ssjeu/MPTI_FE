@@ -62,11 +62,10 @@ const ChatWrite = ({ chat, onChangeChat, onSubmitForm, data }) => {
 };
 
 const ChatWriteWrap = styled.div`
-  position: fixed;
+  position: sticky;
   background-color: var(--subcolor);
   min-height: 80px;
-  width: 100%;
-  bottom: 80px;
+  max-height: 200px;
 `;
 
 const Form = styled.form`
@@ -97,7 +96,7 @@ const Form = styled.form`
 
 const ChatInput = styled.div`
   min-height: 32px;
-  margin: 20px 0;
+  padding: 20px 0;
   font-size: 16px;
   position: relative;
 
@@ -123,7 +122,7 @@ const ChatInput = styled.div`
 
 const InputButton = styled.div`
   position: absolute;
-  bottom: 12px;
+  bottom: 32px;
   right: 12px;
   width: auto;
   color: var(--maincolor);
