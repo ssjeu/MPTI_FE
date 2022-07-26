@@ -118,6 +118,9 @@ const SignIn = () => {
 };
 
 const Container = styled.div`
+  width: 100%;
+  height: 100%;
+
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -175,7 +178,7 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
-  margin-top: 108px;
+  margin-top: 125px;
   margin-bottom: 13.7px;
 `;
 
