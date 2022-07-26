@@ -185,9 +185,7 @@ const Notice = styled.div`
   }
 `;
 
-const CommunityList = styled.div`
-  width: 100%;
-`;
+const CommunityList = styled.div``;
 
 const CommunityNoList = styled.div`
   background-color: white;
