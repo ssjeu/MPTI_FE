@@ -152,11 +152,14 @@ const Mypage = () => {
 };
 
 const Container = styled.div`
+  background-color: #fff;
   box-sizing: border-box;
   padding: 0 4.8%;
   margin-top: -40px;
   width: 100%;
   height: 100%;
+
+  position: relative;
 `;
 
 const BackgroundColor = styled.div`
@@ -165,10 +168,10 @@ const BackgroundColor = styled.div`
   width: 100%;
   height: 318px;
 
-  z-index: -1;
+  z-index: 0;
 
   position: absolute;
-  top: 0;
+  top: -85px;
   left: 0;
 `;
 
@@ -177,6 +180,9 @@ const Profile = styled.div`
   width: 90px;
   height: 90px;
   margin: 0 auto;
+
+  position: inherit;
+  z-index: 2;
 
   background-position: center;
   background-size: cover;
@@ -212,6 +218,8 @@ const InfoBox = styled.div`
   box-sizing: border-box;
   padding-top: 86px;
   margin-bottom: 20px;
+
+  position: inherit;
 
   p {
     margin: 0;

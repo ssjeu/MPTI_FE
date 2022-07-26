@@ -1,14 +1,14 @@
 // 커뮤니티 공지사항
-import React, { useState } from "react";
-import styled from "styled-components";
-import NoticeList from "../shared/notice.json";
-import "../css/component.css";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import NoticeList from '../shared/notice.json';
+import '../css/component.css';
 
 const CommunityNotice = () => {
   const [data, setData] = useState([...NoticeList]);
 
   return (
-    <CommunityNoticeWrap className="contents-container">
+    <CommunityNoticeWrap className='contents-container'>
       <Title>커뮤니티 이용 규칙</Title>
       <Pre>
         커뮤니티는 믑티 사용자들이 글로 소통할 수 있는 공간이에요.
@@ -45,6 +45,7 @@ const CommunityNotice = () => {
 };
 
 const CommunityNoticeWrap = styled.div`
+  width: 100%;
   margin: 20px 0 140px 0;
   text-align: left;
   color: #242424;

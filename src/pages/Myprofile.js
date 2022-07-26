@@ -70,60 +70,66 @@ const Myprofile = () => {
 
   return (
     <>
-      <TabMenu active={active}>
-        <button
-          onClick={activeChange}
-          style={{ color: active === 1 ? 'var(--maincolor)' : 'var(--gray3)' }}
-        >
-          프로필 수정
-        </button>
-        <div>|</div>
-        <button
-          onClick={activeChange}
-          style={{ color: active === 2 ? 'var(--maincolor)' : 'var(--gray3)' }}
-        >
-          내 프로필 미리보기
-        </button>
-      </TabMenu>
-
-      {active === 1 ? (
-        <Container>
-          <ProfileImg
-            margin='0 0 51.5px 0'
-            parent={userProfileImages}
-            data={userProfiles}
-          />
-
-          <Introduction>
-            <p>자기소개</p>
-            <textarea
-              value={userIntroduction}
-              onChange={userIntroductionChange}
-            />
-          </Introduction>
-          <Button01
-            backgroundColor='var(--maincolor)'
-            color='#fff'
-            margin='0 0 30px 0'
-            _onClick={completed}
+      <div style={{ width: '100%', height: '100%' }}>
+        <TabMenu active={active}>
+          <button
+            onClick={activeChange}
+            style={{
+              color: active === 1 ? 'var(--maincolor)' : 'var(--gray3)',
+            }}
           >
-            완료
-          </Button01>
-        </Container>
-      ) : (
-        <Container>
-          <ProfileSwiper images={userProfiles} />
-          <UserInfoArea>
-            <div>
-              <h3>{user_data && user_data.nickname}</h3>
-              <span>{user_age}</span>
-            </div>
-            <span>{user_data && user_data.mbti}</span>
-            <p>자기소개</p>
-            <p>{user_data && user_data.introduction}</p>
-          </UserInfoArea>
-        </Container>
-      )}
+            프로필 수정
+          </button>
+          <div>|</div>
+          <button
+            onClick={activeChange}
+            style={{
+              color: active === 2 ? 'var(--maincolor)' : 'var(--gray3)',
+            }}
+          >
+            내 프로필 미리보기
+          </button>
+        </TabMenu>
+
+        {active === 1 ? (
+          <Container>
+            <ProfileImg
+              margin='0 0 51.5px 0'
+              parent={userProfileImages}
+              data={userProfiles}
+            />
+
+            <Introduction>
+              <p>자기소개</p>
+              <textarea
+                value={userIntroduction}
+                onChange={userIntroductionChange}
+              />
+            </Introduction>
+            <Button01
+              backgroundColor='var(--maincolor)'
+              color='#fff'
+              margin='0 0 30px 0'
+              _onClick={completed}
+            >
+              완료
+            </Button01>
+          </Container>
+        ) : (
+          <Container>
+            <ProfileSwiper images={userProfiles} />
+            <UserInfoArea>
+              <div>
+                <h3>{user_data && user_data.nickname}</h3>
+                <span>{user_age}</span>
+              </div>
+              <span>{user_data && user_data.mbti}</span>
+              <p>자기소개</p>
+              <p>{user_data && user_data.introduction}</p>
+            </UserInfoArea>
+          </Container>
+        )}
+      </div>
     </>
   );
 };

@@ -31,7 +31,10 @@ export const Header = () => {
   };
 
   return (
-    <HeaderWrap className='contents-container'>
+    <HeaderWrap
+      className='contents-container'
+      style={{ backgroundColor: location !== '/my' ? '#fff' : 'transparent' }}
+    >
       <BackIcon
         onClick={goBack}
         className={
@@ -130,10 +133,14 @@ export const Header = () => {
 };
 
 const HeaderWrap = styled.div`
-  // background-color: white;
-  margin: 58px 0 36px 0;
+  // background-color: #fff;
+  padding: 58px 5% 36px 5%;
+  // margin: 58px 0 36px 0;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  position: relative;
+  z-index: 99;
 `;
 
 const BackIcon = styled.div.attrs((props) => ({

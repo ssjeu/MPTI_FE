@@ -143,8 +143,8 @@ const UserInfoChange = () => {
 };
 
 const Container = styled.div`
-  width: 100vw;
-  height: auto;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   padding: 0 5.9%;
 
@@ -205,7 +205,7 @@ const Profile = styled.div`
 
 const Wrap = styled.div`
   width: 100%;
-  height: 100%;
+
   box-sizing: border-box;
   padding: 0 4.5%;
 `;

@@ -43,7 +43,7 @@ const MBTITest = () => {
   };
 
   return (
-    <>
+    <div>
       <Wrap>
         <Pagination state={isActive} />
         <h3>
@@ -189,11 +189,12 @@ const MBTITest = () => {
           _onClick={onNext}
           backgroundColor='var(--maincolor)'
           color='#fff'
+          margin='0 0 30px 0'
         >
           {isActive === 3 ? '완료하기' : '다음으로'}
         </Button01>
       </ButtonWrap>
-    </>
+    </div>
   );
 };
 
@@ -201,6 +202,8 @@ const Wrap = styled.div`
   box-sizing: border-box;
   padding: 0 10.7%;
   text-align: left;
+
+  width: 100%;
 
   & > h3 {
     font-size: 20px;

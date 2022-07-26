@@ -120,7 +120,11 @@ const ChatProfile = () => {
       </ProfileInfoWrap>
 
       {from === 'chat' || Number(data.userNum) === Number(userNum) ? null : (
-        <div className='container' onClick={createRoom}>
+        <div
+          className='container'
+          onClick={createRoom}
+          style={{ width: '100%' }}
+        >
           <Button01
             backgroundColor='var(--maincolor)'
             color='#fff'
@@ -151,9 +155,12 @@ const User = styled.div`
 const ChatProfileWrap = styled.div`
   margin-bottom: 60px;
   letter-spacing: -0.05em;
+  width: 100%;
+  height: 100%;
 `;
 
 const ProfileImageWrap = styled.div`
+  width: 100%;
   & img {
     width: 100%;
     border-radius: 4px;
