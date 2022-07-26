@@ -6,6 +6,7 @@ import { actionCreators as chatActions } from "../redux/modules/chat";
 import { chatApi } from "../shared/api";
 
 import "../css/component.css";
+import ProfileSwiper from "../components/myprofile/ProfileSwiper";
 import AskChatButton from "../elements/MainButton";
 import { ReactComponent as BlockSvg } from "../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg";
 
@@ -20,6 +21,7 @@ const ChatProfile = () => {
 
   // 프로필 사용자 정보
   const data = location.state.data;
+  console.log(data);
 
   // 페이지에 따른 채팅 프로필 구분
   const from = location.state.from;
@@ -61,7 +63,13 @@ const ChatProfile = () => {
   return (
     <ChatProfileWrap>
       <ProfileImageWrap className="contents-container">
-        <img src={data.userImage[0]} alt="profile"></img>
+        {data.profileImages.length === 0 ? (
+          <img src={data.userImage[0]} alt="profile" />
+        ) : data.profileImages.length === 1 ? (
+          <ProfileSwiper images={[data.userImage[0], data.profileImages]} />
+        ) : (
+          <ProfileSwiper images={data.profileImages} />
+        )}
       </ProfileImageWrap>
 
       <ProfileInfoWrap className="container">

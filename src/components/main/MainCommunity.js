@@ -13,13 +13,9 @@ const MainCommunity = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // 유저 정보
-  const token = sessionStorage.getItem("is_login");
   const user = useSelector((state) => state.userInfo.user);
-
   const posts = useSelector((state) => state.post.post);
 
-  // 서버에서 postlist 로드
   useEffect(() => {
     const userNum = sessionStorage.getItem("userNum");
     dispatch(postActions.postDB());
