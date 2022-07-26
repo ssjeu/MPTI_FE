@@ -1,5 +1,5 @@
 // 커뮤니티 게시글 작성
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -7,9 +7,9 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import imageCompression from "browser-image-compression";
 
 import "../css/component.css";
+import PostDropdown from "../elements/PostDropdown";
 import UploadButton from "../elements/MainButton";
 import UploadImage from "../images/icons/filter@3x.png";
-import CategoryDown from "../images/icons/expand-more@3x.png";
 
 const PostWrite = () => {
   const dispatch = useDispatch();
@@ -17,17 +17,18 @@ const PostWrite = () => {
 
   // 카테고리
   const [selected, setSelected] = useState();
-  const handleSelect = (e) => {
-    setSelected(e.target.value);
-  };
-
-  // 이미지
-  const img_ref = React.useRef();
-  const [img, setImg] = useState([]);
-  const [previewImg, setPreviewImg] = useState([]);
+  const categoryList = ["MBTI", "자유", "고민상담", "익명"];
 
   // 게시글 내용
-  const content_ref = React.useRef();
+  const img_ref = useRef();
+  const [img, setImg] = useState([]);
+  const [previewImg, setPreviewImg] = useState([]);
+  const content_ref = useRef();
+
+  // 카테고리 선택
+  const categoryDrop = (x) => {
+    setSelected(x);
+  };
 
   // 이미지 압축
   const compressImage = async (image) => {
@@ -100,18 +101,13 @@ const PostWrite = () => {
       </Notice>
 
       <SelectWrap>
-        {/* <SelectCategory>
-          카테고리
-          <img src={CategoryDown} alt="categorydown" />
-        </SelectCategory> */}
-        <Select onChange={handleSelect} name="category">
-          <option value="">카테고리</option>
-          <option value="MBTI">MBTI</option>
-          <option value="자유">자유</option>
-          <option value="고민상담">고민상담</option>
-          <option value="익명">익명</option>
-        </Select>
-
+        <PostDropdown
+          data={categoryList}
+          width="88px"
+          height="auto"
+          parent={categoryDrop}
+          children="카테고리"
+        />
         <SelectImage>
           <label>
             <img src={UploadImage} alt="uploadimage" />
@@ -178,41 +174,6 @@ const SelectWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
-
-const SelectCategory = styled.div`
-  background-color: var(--maincolor);
-  width: 88px;
-  height: 28px;
-  border-radius: 4px;
-  color: white;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  & img {
-    width: 16px;
-    margin-left: 4px;
-  }
-`;
-
-const Select = styled.select`
-  background-color: var(--maincolor);
-  width: 88px;
-  height: 28px;
-  border-radius: 4px;
-  color: white;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px 4px;
-  border: none;
-  &: focus {
-    border: none;
-  }
 `;
 
 const SelectImage = styled.div`
