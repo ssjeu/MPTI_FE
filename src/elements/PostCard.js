@@ -1,4 +1,4 @@
-// 메인페이지에서 커뮤니티 목록에 들어가는 게시글 card
+// 메인페이지 MBTI 커뮤니티 게시글 card
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -36,6 +36,7 @@ const Card = styled.div`
 const CardImage = styled.div`
   width: 160px;
   height: 160px;
+
   & img {
     width: 160px;
     height: 160px;
@@ -60,7 +61,7 @@ const CardContent = styled.div`
   flex-wrap: wrap;
 
   & div {
-    width: 160px;
+    width: 144px;
     margin-left: 8px;
     color: white;
     text-align: left;
@@ -81,4 +82,5 @@ const User = styled.div`
   font-weight: normal;
   margin: -28px auto 12px auto;
 `;
+
 export default PostCard;
