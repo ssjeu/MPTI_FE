@@ -1,37 +1,37 @@
 // 댓글 작성하기 컴포넌트
-import React from "react";
-import styled from "styled-components";
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { actionCreators as commentActions } from "../../redux/modules/comment";
+import React from 'react';
+import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { actionCreators as commentActions } from '../../redux/modules/comment';
 
-import "../../css/component.css";
+import '../../css/component.css';
 
-const CommentWrite = () => {
+const CommentWrite = ({ _width }) => {
   const dispatch = useDispatch();
   const params = useParams();
   const postId = params.index;
-  const token = sessionStorage.getItem("is_login");
+  const token = sessionStorage.getItem('is_login');
 
   // 댓글 입력 data
   const content_ref = React.useRef();
 
   const activeComment = () => {
-    if (content_ref.current.value === "") alert("내용을 입력해주세요!");
+    if (content_ref.current.value === '') alert('내용을 입력해주세요!');
     else {
       dispatch(commentActions.addCommentAC(postId, content_ref.current.value));
-      content_ref.current.value = "";
+      content_ref.current.value = '';
     }
   };
 
   return (
-    <CommentWriteWrap className="contents-container">
+    <CommentWriteWrap className='contents-container'>
       <CommentInput>
-        <input type="text" placeholder="댓글을 입력하세요." ref={content_ref} />
+        <input type='text' placeholder='댓글을 입력하세요.' ref={content_ref} />
         <InputButton
           onClick={() => {
             if (token) activeComment();
-            else alert("로그인을 해주세요!");
+            else alert('로그인을 해주세요!');
           }}
         >
           입력
@@ -42,11 +42,12 @@ const CommentWrite = () => {
 };
 
 const CommentWriteWrap = styled.div`
-  position: fixed;
+  position: sticky;
   background-color: var(--subcolor);
   height: 80px;
-  width: 100vw;
+  width: 100%;
   bottom: 80px;
+  display: flex;
 `;
 
 const CommentInput = styled.div`
@@ -56,6 +57,7 @@ const CommentInput = styled.div`
   height: 40px;
   margin: 20px 0;
   font-size: 16px;
+  width: 100%;
 
   &:hover {
     border: 1px solid var(--maincolor);
