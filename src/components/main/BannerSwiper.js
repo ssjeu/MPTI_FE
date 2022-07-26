@@ -3,19 +3,19 @@ import styled from 'styled-components';
 
 // swiper 관련
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Pagination } from 'swiper';
+import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const BannerSwiper = ({ images }) => {
-  SwiperCore.use([Navigation, Pagination]);
+  SwiperCore.use([Navigation, Pagination, Autoplay]);
 
   return (
     <>
       <StyledSwiper
         pagination={{ clickable: true }}
-        autoplay={{ delay: 1000 }}
+        autoplay={{ delay: 4000 }}
         loop
       >
         {images &&
