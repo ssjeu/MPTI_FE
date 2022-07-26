@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as recommendActions } from "../redux/modules/recommend";
+import { useInView } from "react-intersection-observer";
 
 import "../css/component.css";
 import FriendCard from "../elements/FriendCard";
@@ -20,23 +21,16 @@ const MbtiFriends = () => {
   // 필터로 선택한 MBTI
   const [filter, setFilter] = useState(null);
 
-  const searchStr = (mbti, str) => {
-    //    let res = mbti;
-    // console.log(mbti, typeof mbti);
-    let string;
-    // if (mbti !== undefined)
-    if (str === "E")
-      string = ["ESFP", "ESFJ", "ESTP", "ESTJ", "ENFP", "ENFJ", "ENTP", "ENTJ"];
-    else if (str === "ES") string = ["ESFP", "ESFJ", "ESTP", "ESTJ"];
-    else if (str === "EN") string = ["ENFP", "ENFJ", "ENTP", "ENTJ"];
-    else if (str === "EST") string = ["ESTP", "ESTJ"];
-    else if (str === "ESF") string = ["ESFP", "ESFJ"];
-    else if (str === "ENT") string = ["ENTP", "ENTJ"];
-    else if (str === "ENF") string = ["ENFP", "ENFJ"];
-    else if (str === "I")
-      string = ["ISFP", "ISFJ", "ISTP", "ISTJ", "INFP", "INFJ", "INTP", "INTJ"];
+  // 유저 목록 무한 스크롤
+  // ref를 div 에 걸어주면 해당 요소가 보이면 inView가 true 로, 안 보이면 false로 자동으로 변경
+  const [ref, inView] = useInView();
 
-    if (string.includes(mbti)) return true;
+  const searchStr = (mbti, str) => {
+    let res = 0;
+    for (let s of str) {
+      if ([...mbti].includes(s)) res += 1;
+    }
+    if (res === str.length) return true;
   };
 
   useEffect(() => {
@@ -61,12 +55,7 @@ const MbtiFriends = () => {
           {filter === null || filter.length === 0
             ? users.map((card, index) => <FriendCard card={card} key={index} />)
             : null}
-          {filter && filter.length === 4
-            ? users
-                .filter((user) => user.mbti === filter)
-                .map((card, index) => <FriendCard card={card} key={index} />)
-            : null}
-          {filter && filter.length !== 4
+          {filter && filter.length !== 0
             ? users.map((card, index) => {
                 if (searchStr(card.mbti, filter))
                   return <FriendCard card={card} key={index} />;
