@@ -46,7 +46,7 @@ const Main = () => {
 
 const MainWrap = styled.div`
   width: 100%;
-  padding-top: 10px;
+  padding: 10px 0 2px 0;
 `;
 
 const MainIntro = styled.div`

@@ -66,6 +66,7 @@ const ChatWriteWrap = styled.div`
   background-color: var(--subcolor);
   min-height: 80px;
   max-height: 200px;
+  bottom: 80px;
 `;
 
 const Form = styled.form`

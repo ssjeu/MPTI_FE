@@ -24,6 +24,7 @@ const Community = () => {
   const categories = ["전체", "MBTI", "자유", "고민상담", "익명"];
   const [activeCat, setActiveCat] = useState(categories);
   const [activeCatState, setActiveCatState] = useState(0);
+
   // 해당 카테고리 게시물 목록
   const [data, setData] = useState([]);
 
@@ -122,9 +123,10 @@ const Community = () => {
 
 const CommunityWrap = styled.div`
   background-color: var(--gray1);
-  margin-bottom: 80px;
   width: 100%;
-  height: 100%;
+  padding-bottom: 68px;
+  height: auto;
+//   height: calc(100% + 68px);
 `;
 
 const Category = styled.div`

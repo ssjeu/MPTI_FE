@@ -78,8 +78,7 @@ const ChatArea = ({ room }) => {
 
 const ChatAreaWrap = styled.div`
   overflow-y: scroll;
-  margin-bottom: 200px;
-  height: auto;
+  height: calc(100vh - 204px);
 `;
 
 const Container = styled.div`
