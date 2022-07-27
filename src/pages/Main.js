@@ -7,9 +7,15 @@ import MainCommunity from '../components/main/MainCommunity';
 
 import '../css/component.css';
 import character from '../images/character/frame-main@3x.png';
+import BannerSwiper from '../components/main/BannerSwiper';
 
 const Main = () => {
   const navigate = useNavigate();
+
+  const [bannerTest, setBannerTest] = React.useState([
+    'https://d2v80xjmx68n4w.cloudfront.net/gigs/fcRew1619443814.jpg',
+    'https://miricanvas.zendesk.com/hc/article_attachments/360049191951/__________._1.png',
+  ]);
 
   return (
     <MainWrap>
@@ -40,13 +46,17 @@ const Main = () => {
       <CommunityWrap className='contents-container'>
         <MainCommunity />
       </CommunityWrap>
+      <BannerSwiper images={bannerTest} />
     </MainWrap>
   );
 };
 
 const MainWrap = styled.div`
   width: 100%;
-  padding: 10px 0 2px 0;
+  padding-top: 10px;
+
+  // 나중에 삭제
+  padding-bottom: 100px;
 `;
 
 const MainIntro = styled.div`
@@ -114,7 +124,7 @@ const CommunityWrap = styled.div`
   margin-bottom: 80px;
   background-color: var(--subcolor);
   padding-top: 40px;
-  padding-bottom: 60px;
+  padding-bottom: 80px;
 `;
 
 export default Main;
