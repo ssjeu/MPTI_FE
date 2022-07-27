@@ -14,7 +14,7 @@ const Main = () => {
 
   const [bannerTest, setBannerTest] = React.useState([
     "https://d3g3p5loxgntj5.cloudfront.net/bikes/1631178475273847.jpg?d=900x600",
-   "https://d3g3p5loxgntj5.cloudfront.net/bikes/1631178475273847.jpg?d=900x600"
+    "https://d3g3p5loxgntj5.cloudfront.net/bikes/1631178475273847.jpg?d=900x600",
   ]);
 
   return (
@@ -28,15 +28,12 @@ const Main = () => {
       </MainIntro>
 
       <MainButtons className="contents-container">
-        <VoiceButton>보이스로 랜덤 상대 MBTI 맞추기</VoiceButton>
-        <BottomBtns>
-          <RandomButton onClick={() => navigate("/test")}>
-            MBTI 약식 테스트
-          </RandomButton>
-          <RandomButton onClick={() => navigate("/mbtifriends")}>
-            다양한 MBTI 친구들
-          </RandomButton>
-        </BottomBtns>
+        <FriendsButton onClick={() => navigate("/mbtifriends")}>
+          다양한 MBTI 친구들 만나기
+        </FriendsButton>
+        <TestButton onClick={() => navigate("/test")}>
+          내 MBTI 테스트하러 가기
+        </TestButton>
       </MainButtons>
 
       <RecommendWrap>
@@ -96,22 +93,16 @@ const MainButtons = styled.div`
   }
 `;
 
-const VoiceButton = styled.div`
+const FriendsButton = styled.div`
   background-color: var(--maincolor);
   color: white;
 `;
 
-const BottomBtns = styled.div`
-  display: flex;
-  flex-flow: row;
-  gap: 10px;
-  margin-top: 16px;
-`;
-
-const RandomButton = styled.div`
+const TestButton = styled.div`
   width: 100%;
   color: var(--maincolor);
   border: 1px solid var(--maincolor);
+  margin-top: 16px;
 `;
 
 const RecommendWrap = styled.div`
@@ -121,11 +112,10 @@ const RecommendWrap = styled.div`
 
 const CommunityWrap = styled.div`
   width: 100%;
-  margin-top: 40px;
-  margin-bottom: 80px;
+  margin: 20px auto 80px auto;
   background-color: var(--subcolor);
   padding-top: 40px;
-  padding-bottom: 80px;
+  padding-bottom: 60px;
 `;
 
 const BannerWrap = styled.div``;

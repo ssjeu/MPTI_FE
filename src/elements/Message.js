@@ -21,8 +21,6 @@ const Message = ({ type, data }) => {
   );
 };
 
-const MessageWrap = styled.div``;
-
 const SenderWrap = styled.div`
   display: flex;
   align-items: flex-end;

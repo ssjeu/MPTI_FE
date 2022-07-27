@@ -1,33 +1,27 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { logOutDB } from '../redux/modules/user';
-import { userInfoDB } from '../redux/modules/userInfo';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logOutDB } from "../redux/modules/user";
+import { userInfoDB } from "../redux/modules/userInfo";
 
-// css
-import '../css/component.css';
+import "../css/component.css";
+import Button02 from "../elements/Button02";
 
-// components & elements
-import Button02 from '../elements/Button02';
-
-// svg icons
-import { ReactComponent as Person } from '../images/icons/person.svg';
-import { ReactComponent as Camera } from '../images/icons/camera_alt.svg';
-import { ReactComponent as ArrowForward } from '../images/icons/arrow_forward_ios.svg';
+import { ReactComponent as Person } from "../images/icons/person.svg";
+import { ReactComponent as Camera } from "../images/icons/camera_alt.svg";
+import { ReactComponent as ArrowForward } from "../images/icons/arrow_forward_ios.svg";
 
 const Mypage = () => {
-  const [isLogin, setIsLogin] = React.useState(false);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // 유저 정보
+  const [isLogin, setIsLogin] = useState(false);
   const user_data = useSelector((state) => state.userInfo.user);
 
-  React.useEffect(() => {
-    const token = sessionStorage.getItem('is_login');
-    const userNum = sessionStorage.getItem('userNum');
+  useEffect(() => {
+    const token = sessionStorage.getItem("is_login");
+    const userNum = sessionStorage.getItem("userNum");
 
     if (token) {
       setIsLogin(true);
@@ -38,116 +32,103 @@ const Mypage = () => {
     }
   }, [isLogin]);
 
-  // 로그아웃 버튼 누를 시
   const logOut = () => {
     dispatch(logOutDB());
   };
 
   return (
-    <>
-      <Container>
-        <BackgroundColor />
+    <Container>
+      <BackgroundColor />
 
-        {isLogin === true && user_data.userImage !== undefined ? (
-          <Profile
-            className='display-center'
-            onClick={() => navigate('/info/change')}
-            style={{ backgroundImage: `url(${user_data?.userImage[0]})` }}
-          >
-            <div className='display-center'>
-              <Camera width='16px' height='16px' />
-            </div>
-          </Profile>
+      {isLogin && user_data.userImage !== undefined ? (
+        <Profile
+          className="display-center"
+          onClick={() => navigate("/info/change")}
+          style={{ backgroundImage: `url(${user_data?.userImage[0]})` }}
+        >
+          <div className="display-center">
+            <Camera width="16px" height="16px" />
+          </div>
+        </Profile>
+      ) : (
+        <Profile className="display-center">
+          <Person width="40px" height="40px" />
+          <div className="display-center">
+            <Camera width="16px" height="16px" />
+          </div>
+        </Profile>
+      )}
+
+      <InfoBox>
+        <span>
+          {user_data && isLogin === true
+            ? `안녕하세요! ${user_data?.name}님`
+            : "가입하고, 찐친을 만나보세요!"}
+        </span>
+
+        {isLogin ? (
+          <div className="display-center" style={{ marginBottom: "8px" }}>
+            <h3>{user_data.nickname}</h3>
+            <button onClick={() => navigate("/info/change")}>
+              회원정보 수정
+            </button>
+          </div>
         ) : (
-          <Profile className='display-center'>
-            <Person width='40px' height='40px' />
-            <div className='display-center'>
-              <Camera width='16px' height='16px' />
+          <div className="display-center" style={{ marginBottom: "8px" }}>
+            <div
+              style={{ padding: "0", display: "flex", alignItems: "center" }}
+              onClick={() => navigate("/login")}
+            >
+              <h3 style={{ color: "var(--maincolor)", fontWeight: "500" }}>
+                로그인 및 회원가입하기
+              </h3>
+              <ArrowForward style={{ margin: "2px 0 0 4px" }} />
             </div>
-          </Profile>
+          </div>
         )}
 
-        <InfoBox>
-          <span>
-            {user_data && isLogin === true
-              ? `안녕하세요! ${user_data?.name}님`
-              : '가입하고, 찐친을 만나보세요!'}
-          </span>
+        <hr />
 
-          {isLogin === true ? (
-            <div className='display-center' style={{ marginBottom: '5.5px' }}>
-              <h3>{user_data.nickname}</h3>
-              <button onClick={() => navigate('/my/profile')}>
-                내 프로필 완성하기
-              </button>
-            </div>
-          ) : (
-            <div className='display-center' style={{ marginBottom: '5.5px' }}>
-              <div
-                style={{ padding: '0', display: 'flex', alignItems: 'center' }}
-                onClick={() => navigate('/login')}
-              >
-                <h3 style={{ color: 'var(--maincolor)', fontWeight: '500' }}>
-                  로그인 및 회원가입하기
-                </h3>
-                <ArrowForward style={{ margin: '2px 0 0 5px' }} />
-              </div>
-              <button style={{ display: 'none' }}>내 프로필 완성하기</button>
-            </div>
-          )}
+        <div>
+          <p>나의 MBTI</p>
+          {isLogin ? <SpanStyle>{user_data.mbti}</SpanStyle> : null}
+        </div>
+        <hr />
 
-          <hr />
-
-          <div>
-            <p>나의 MBTI</p>
-            {isLogin === true ? <SpanStyle>{user_data.mbti}</SpanStyle> : null}
-          </div>
-          <hr />
-
-          <div>
-            <p>성별</p>
-            {isLogin === true ? (
-              <SpanStyle>
-                {user_data.gender === 'Female' ? '여성' : '남성'}
-              </SpanStyle>
-            ) : null}
-          </div>
-          <hr />
-
-          <div>
-            <p>이메일</p>
-            {isLogin === true ? <span>{user_data.email}</span> : null}
-          </div>
-          <hr />
-
-          <div>
-            <p>생년월일</p>
-            {isLogin === true ? <span>{user_data.birthday}</span> : null}
-          </div>
-          <hr />
-
-          {isLogin === true ? (
-            <button onClick={() => navigate('/info/change')}>
-              회원정보 수정하기
-            </button>
+        <div>
+          <p>성별</p>
+          {isLogin ? (
+            <SpanStyle>
+              {user_data.gender === "Female" ? "여성" : "남성"}
+            </SpanStyle>
           ) : null}
-        </InfoBox>
+        </div>
+        <hr />
 
-        <Box>
-          <p>매너 점수</p>
-          {isLogin === true ? <span>{user_data.mannerScore}점</span> : null}
-        </Box>
+        <div>
+          <p>이메일</p>
+          {isLogin ? <span>{user_data.email}</span> : null}
+        </div>
+        <hr />
 
-        <Box>
-          <p>나의 포인트</p>
-          {isLogin === true ? <span>{user_data.point}점</span> : null}
-        </Box>
+        <div>
+          <p>생년월일</p>
+          {isLogin ? <span>{user_data.birthday}</span> : null}
+        </div>
+        <hr />
+      </InfoBox>
 
-        {isLogin === true ? (
-          <Button02 text='로그아웃' margin='10px 0 0 0' _onClick={logOut} />
+      <Box>
+        <p>나만의 프로필 만들기</p>
+        {isLogin ? (
+          <button onClick={() => navigate("/my/profile")}>프로필 수정</button>
         ) : null}
-      </Container>
-    </>
+      </Box>
+
+      {isLogin ? (
+        <Button02 text="로그아웃" margin="10px 0 0 0" _onClick={logOut} />
+      ) : null}
+    </Container>
   );
 };
 
@@ -177,8 +158,8 @@ const BackgroundColor = styled.div`
 
 const Profile = styled.div`
   background-color: #e3e3e3;
-  width: 90px;
-  height: 90px;
+  width: 92px;
+  height: 92px;
   margin: 0 auto;
 
   position: inherit;
@@ -202,13 +183,17 @@ const Profile = styled.div`
     right: -5px;
     bottom: -5px;
   }
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const InfoBox = styled.div`
   background-color: #fff;
 
   width: 100%;
-  height: 342px;
+  height: 340px;
   text-align: left;
 
   border-radius: 6px;
@@ -249,7 +234,7 @@ const InfoBox = styled.div`
   }
 
   & > div > span {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     color: #434343;
   }
@@ -261,32 +246,22 @@ const InfoBox = styled.div`
     margin: 0;
   }
 
-  div:nth-of-type(1) {
-    button {
-      width: 119px;
-      background-color: var(--maincolor);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 500;
-      border-radius: 20px;
-      border: none;
-      padding: 4px 0;
-    }
-  }
-
-  & > button {
+  button {
     background-color: transparent;
     border: none;
     color: var(--maincolor);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     display: flex;
-    margin: 0 auto;
+  }
+
+  button:hover {
+    cursor: pointer;
   }
 `;
 
 const SpanStyle = styled.span`
-  width: 54px;
+  width: 52px;
   padding: 2px 0;
   border: 0.5px solid #434343;
   border-radius: 30px;
@@ -304,7 +279,7 @@ const Box = styled.div`
 
   margin-bottom: 20px;
   box-sizing: border-box;
-  padding: 22px;
+  padding: 20px;
 
   display: inline-flex;
   flex-flow: row nowrap;
@@ -321,6 +296,24 @@ const Box = styled.div`
   span {
     font-size: 14px;
     font-weight: 700;
+  }
+
+  button {
+    font-size: 12px;
+    font-weight: 500;
+    width: 88px;
+    height: 28px;
+    border-radius: 20px;
+    border: 1px solid var(--maincolor);
+    background-color: var(--subcolor);
+    color: var(--maincolor);
+  }
+
+  button:hover {
+    border: none;
+    background-color: var(--maincolor);
+    color: white;
+    cursor: pointer;
   }
 `;
 
