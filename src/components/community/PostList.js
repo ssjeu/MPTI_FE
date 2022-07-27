@@ -130,7 +130,7 @@ const PostListWrap = styled.div`
   text-align: left;
   padding: 20px 0 12px 0;
   background-color: white;
-  margin-bottom: 12px;
+  border-bottom: 12px solid var(--gray1);
   color: #333333;
   width: 100%;
 

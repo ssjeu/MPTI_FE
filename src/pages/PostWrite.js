@@ -239,6 +239,10 @@ const Upload = styled.div`
   width: 100%;
   height: 92px;
   //   box-shadow: 0 0 1px 0 var(--gray4);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default PostWrite;

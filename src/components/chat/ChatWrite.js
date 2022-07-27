@@ -1,21 +1,17 @@
 // 채팅 입력 컴포넌트
 import React, { useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import autosize from "autosize";
 
 import "../../css/component.css";
 
-const ChatWrite = ({ chat, onChangeChat, onSubmitForm, data }) => {
-  const dispatch = useDispatch();
-
+const ChatWrite = ({ chat, onChangeChat, onSubmitForm }) => {
   // 채팅 입력 data
   const textareaRef = useRef();
 
   useEffect(() => {
     if (textareaRef.current) {
-    //   autosize(textareaRef.current);
+      //   autosize(textareaRef.current);
     }
   }, [textareaRef.current]);
 
@@ -35,7 +31,6 @@ const ChatWrite = ({ chat, onChangeChat, onSubmitForm, data }) => {
   // 전송 버튼 눌렀을 때 전송
   const activeChat = (e) => {
     if (textareaRef.current.value !== "") {
-      //   dispatch(commentActions.addCommentAC(postId, content_ref.current.value));
       onSubmitForm(e);
     }
   };
@@ -69,31 +64,7 @@ const ChatWriteWrap = styled.div`
   bottom: 80px;
 `;
 
-const Form = styled.form`
-  //   background-color: #f8f8f8;
-  //   min-height: 32px;
-  //   margin: 20px 0;
-  //   font-size: 16px;
-  //   position: relative;
-
-  //   & textarea {
-  //     width: calc(100% - 64px);
-  //     font-size: 16px;
-  //     border: 1px solid var(--maincolor);
-  //     border-radius: 6px;
-  //     padding: 10px 48px 10px 16px;
-  //     background-color: #f8f8f8;
-  //   }
-
-  //   & textarea:focus {
-  //     outline: none;
-  //     border: 2px solid var(--maincolor);
-  //   }
-
-  //   & textarea::placeholder {
-  //     color: var(--gray2);
-  //   }
-`;
+const Form = styled.form``;
 
 const ChatInput = styled.div`
   min-height: 32px;

@@ -8,9 +8,8 @@ import { chatApi } from "../shared/api";
 
 import "../css/component.css";
 import ProfileSwiper from "../components/myprofile/ProfileSwiper";
-import AskChatButton from "../elements/MainButton";
-import { ReactComponent as BlockSvg } from "../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg";
 import Button01 from "../elements/Button01";
+import { ReactComponent as BlockSvg } from "../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg";
 
 const ChatProfile = () => {
   const dispatch = useDispatch();
@@ -32,6 +31,11 @@ const ChatProfile = () => {
   // 차단 상태
   const [activeBlock, setActiveBlock] = useState();
 
+  // 유저 나이 구하기
+  const birthday = data.birthday && data.birthday.slice(0, 4);
+  const today = new Date();
+  const user_age = today.getFullYear() - birthday + 1;
+
   useEffect(() => {
     if (token) {
       dispatch(userInfoDB(userNum));
@@ -39,9 +43,11 @@ const ChatProfile = () => {
   }, []);
 
   useEffect(() => {
-    if (loginUser.blockedUsers.includes(data.userNum)) setActiveBlock(1);
+    if (loginUser.length !== 0 && loginUser.blockedUsers.includes(data.userNum))
+      setActiveBlock(1);
   }, [loginUser]);
 
+  // 1:1 대화하기 (방 생성)
   const createRoom = async () => {
     if (token) {
       await chatApi
@@ -63,6 +69,7 @@ const ChatProfile = () => {
     } else alert("로그인 후 이용가능합니다.");
   };
 
+  // 유저 차단하기
   const blockUser = () => {
     if (!token) {
       alert("로그인 후  이용가능합니다.");
@@ -80,11 +87,6 @@ const ChatProfile = () => {
     }
     setActiveBlock(!activeBlock);
   };
-
-  // 유저 나이 구하기
-  const birthday = data.birthday && data.birthday.slice(0, 4);
-  const today = new Date();
-  const user_age = today.getFullYear() - birthday + 1;
 
   return (
     <ChatProfileWrap>

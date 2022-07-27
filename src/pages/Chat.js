@@ -47,7 +47,7 @@ const Chat = () => {
         <ChatUser
           onClick={() =>
             navigate("/chatprofile", {
-              state: { data: recevierUser, from: "chatarea" },
+              state: { data: recevierUser, from: "chat" },
             })
           }
         >

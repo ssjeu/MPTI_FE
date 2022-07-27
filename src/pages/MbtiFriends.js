@@ -67,7 +67,9 @@ const MbtiFriends = () => {
   );
 };
 
-const MbtiFriendsWrap = styled.div``;
+const MbtiFriendsWrap = styled.div`
+  padding-bottom: 20px;
+`;
 
 const Top = styled.div`
   display: flex;

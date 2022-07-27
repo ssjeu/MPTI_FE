@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 // swiper 관련
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const BannerSwiper = ({ images }) => {
   SwiperCore.use([Navigation, Pagination, Autoplay]);
@@ -22,7 +22,7 @@ const BannerSwiper = ({ images }) => {
           images.map((list, idx) => {
             return (
               <SwiperSlide key={idx}>
-                <IMG src={list} alt='' key={idx} />
+                <IMG src={list} alt="banner" key={idx} />
               </SwiperSlide>
             );
           })}
@@ -33,15 +33,14 @@ const BannerSwiper = ({ images }) => {
 
 const StyledSwiper = styled(Swiper)`
   width: 100%;
-  height: 300px;
+  height: 240px;
   border-radius: 4px;
 
   .swiper-horizontal > .swiper-pagination-bullets,
   .swiper-pagination-bullets.swiper-pagination-horizontal,
   .swiper-pagination-custom,
   .swiper-pagination-fraction {
-    bottom: 95%;
-    left: 0;
+    bottom: 90%;
     width: 100%;
   }
 

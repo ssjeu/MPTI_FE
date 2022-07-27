@@ -1,39 +1,39 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-import MainRecommend from '../components/main/MainRecommend';
-import MainCommunity from '../components/main/MainCommunity';
+import MainRecommend from "../components/main/MainRecommend";
+import MainCommunity from "../components/main/MainCommunity";
 
-import '../css/component.css';
-import character from '../images/character/frame-main@3x.png';
-import BannerSwiper from '../components/main/BannerSwiper';
+import "../css/component.css";
+import character from "../images/character/frame-main@3x.png";
+import BannerSwiper from "../components/main/BannerSwiper";
 
 const Main = () => {
   const navigate = useNavigate();
 
   const [bannerTest, setBannerTest] = React.useState([
-    'https://d2v80xjmx68n4w.cloudfront.net/gigs/fcRew1619443814.jpg',
-    'https://miricanvas.zendesk.com/hc/article_attachments/360049191951/__________._1.png',
+    "https://d3g3p5loxgntj5.cloudfront.net/bikes/1631178475273847.jpg?d=900x600",
+   "https://d3g3p5loxgntj5.cloudfront.net/bikes/1631178475273847.jpg?d=900x600"
   ]);
 
   return (
     <MainWrap>
       <MainIntro>
-        <img src={character} alt='므팅이' />
+        <img src={character} alt="므팅이" />
         <div>
           다양한 MBTI 중에
           <br /> <span>나의 찐친을 찾아봐요✨</span>
         </div>
       </MainIntro>
 
-      <MainButtons className='contents-container'>
+      <MainButtons className="contents-container">
         <VoiceButton>보이스로 랜덤 상대 MBTI 맞추기</VoiceButton>
         <BottomBtns>
-          <RandomButton onClick={() => navigate('/test')}>
+          <RandomButton onClick={() => navigate("/test")}>
             MBTI 약식 테스트
           </RandomButton>
-          <RandomButton onClick={() => navigate('/mbtifriends')}>
+          <RandomButton onClick={() => navigate("/mbtifriends")}>
             다양한 MBTI 친구들
           </RandomButton>
         </BottomBtns>
@@ -43,20 +43,20 @@ const Main = () => {
         <MainRecommend />
       </RecommendWrap>
 
-      <CommunityWrap className='contents-container'>
+      <CommunityWrap className="contents-container">
         <MainCommunity />
       </CommunityWrap>
-      <BannerSwiper images={bannerTest} />
+
+      <BannerWrap className="contents-container">
+        {/* <BannerSwiper images={bannerTest} /> */}
+      </BannerWrap>
     </MainWrap>
   );
 };
 
 const MainWrap = styled.div`
   width: 100%;
-  padding-top: 10px;
-
-  // 나중에 삭제
-  padding-bottom: 100px;
+  padding: 10px 0 2px 0;
 `;
 
 const MainIntro = styled.div`
@@ -82,6 +82,7 @@ const MainButtons = styled.div`
   width: 100%;
   margin: 30px auto 20px auto;
   padding-bottom: 20px;
+
   & div {
     height: 60px;
     border-radius: 10px;
@@ -126,5 +127,7 @@ const CommunityWrap = styled.div`
   padding-top: 40px;
   padding-bottom: 80px;
 `;
+
+const BannerWrap = styled.div``;
 
 export default Main;

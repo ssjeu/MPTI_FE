@@ -7,7 +7,7 @@ const CREATE_ROOM = "CREATE_ROOM";
 const GET_CHAT_LIST = "GET_CHAT_LIST";
 const GET_USER_INFO = "GET_USER_INFO";
 const SEND_MESSAGE = "SEND_MESSAGE";
-const GET_MESSAGE = "GET_MESSAGE";
+const GET_MESSAGES = "GET_MESSAGES";
 
 const USER_BLOCK = "USER_BLOCK";
 const USER_UNBLOCK = "USER_UNBLOCK";
@@ -17,7 +17,7 @@ const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const getChatList = createAction(GET_CHAT_LIST, (rooms) => ({ rooms }));
 const getUserInfo = createAction(GET_USER_INFO, (userInfo) => ({ userInfo }));
 const sendMessage = createAction(SEND_MESSAGE, (data) => ({ data }));
-const getMessage = createAction(GET_MESSAGE, (data) => ({ data }));
+const getMessages = createAction(GET_MESSAGES, (data) => ({ data }));
 
 const userBlock = createAction(USER_BLOCK, (blocked) => ({ blocked }));
 const userUnblock = createAction(USER_UNBLOCK, (blocked) => ({ blocked }));
@@ -79,13 +79,12 @@ export const sendMessageAC = (roomId, content) => {
 };
 
 // 채팅방 메세지 get
-export const getMessageAC = (roomId) => {
+export const getMessagesAC = (roomId) => {
   return async function (dispatch) {
     await chatApi
-      .getMessage(roomId)
+      .getMessages(roomId)
       .then((res) => {
-        dispatch(getMessage(res.data));
-        console.log(res.data);
+        dispatch(getMessages(res.data.messages));
       })
       .catch((err) => {
         console.log(err);
@@ -159,7 +158,7 @@ export default handleActions(
         console.log("GET_USER_INFO");
       }),
 
-    [GET_MESSAGE]: (state, action) =>
+    [GET_MESSAGES]: (state, action) =>
       produce(state, (draft) => {
         draft.data = action.payload.data;
         console.log("GET_MESSAGE");
@@ -188,8 +187,8 @@ const actionCreators = {
   exitRoomAC,
   sendMessage,
   sendMessageAC,
-  getMessage,
-  getMessageAC,
+  getMessages,
+  getMessagesAC,
   userBlock,
   blockUserAC,
   userUnblock,
