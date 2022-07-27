@@ -1,0 +1,19 @@
+.swal2-popup {
+  width: 25em;
+}
+
+.swal2-actions {
+  width: 90%;
+}
+
+.swal2-styled.swal2-confirm {
+  width: 100%;
+}
+
+.swal2-styled.swal2-default-outline:focus {
+  box-shadow: none;
+}
+
+.swal2-styled.swal2-confirm:focus {
+  box-shadow: none;
+}
