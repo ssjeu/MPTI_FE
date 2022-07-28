@@ -3,7 +3,7 @@ import axios from 'axios';
 const instance = axios.create({
   // 요청을 www.aa.com/user로 보낸다면, www.aa.com까지 기록
 
-  // baseURL: 'http://localhost:5001',
+  // baseURL: 'http://localhost:3000',
   baseURL: 'http://3.35.170.203',
   headers: {
     'Content-type': 'application/json;charset=utf-8',

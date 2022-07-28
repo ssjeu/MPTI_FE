@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { imageApi, userInfoApi } from '../../shared/api';
 import { produce } from 'immer';
+import SweetAlert from '../../components/sweetAlert/SweetAlert';
 
 // Action type
 const GET_USERINFO = 'GET_USERINFO';
@@ -45,8 +46,7 @@ export const userProfileDB = (userNum, userIntroduction, profileImages) => {
     userInfoApi
       .userProfile(userNum, userIntroduction, profileImages)
       .then((res) => {
-        console.log(res);
-        alert('프로필 수정이 완료되었어요!');
+        SweetAlert({ icon: 'success', text: '프로필 수정이 완료되었어요!' });
       })
       .catch((err) => {
         console.log(err);

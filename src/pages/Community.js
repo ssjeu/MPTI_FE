@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import Swal from "sweetalert2";
 
 import "../css/component.css";
 import PostList from "../components/community/PostList";
@@ -52,7 +53,7 @@ const Community = () => {
   // 게시글 작성하기 버튼
   const postWrite = () => {
     if (token) navigate("/postwrite");
-    else alert("로그인을 해주세요!");
+    else Swal.fire("게시글 작성 불가", "로그인을 해주세요!", "warning");
   };
 
   return (
@@ -150,10 +151,6 @@ const CategoryAll = styled.div.attrs((props) => ({
     font-weight: bold;
     border-bottom: 2px solid var(--maincolor);
   }
-
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 const CategoryButton = styled.div.attrs((props) => ({
@@ -168,10 +165,6 @@ const CategoryButton = styled.div.attrs((props) => ({
     color: var(--maincolor);
     font-weight: bold;
     border-bottom: 2px solid var(--maincolor);
-  }
-
-  &:hover {
-    cursor: pointer;
   }
 `;
 
@@ -189,10 +182,6 @@ const Notice = styled.div`
     color: var(--pointcolor);
     font-weight: bold;
     margin-right: 10px;
-  }
-
-  &:hover {
-    cursor: pointer;
   }
 `;
 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userInfoDB } from "../redux/modules/userInfo";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { chatApi } from "../shared/api";
+import Swal from "sweetalert2";
 
 import "../css/component.css";
 import ProfileSwiper from "../components/myprofile/ProfileSwiper";
@@ -59,20 +60,20 @@ const ChatProfile = () => {
         })
         .catch((err) => {
           if (err.response.data.blocked === "blocked") {
-            alert("차단 상태");
+            Swal.fire("차단 상태", "채팅방 생성이 불가합니다.", "error");
           } else {
             navigate("/chat", {
               state: { data: data, room: err.response.data.Room },
             });
           }
         });
-    } else alert("로그인 후 이용가능합니다.");
+    } else Swal.fire("1:1 채팅하기", "로그인을 해주세요!", "warning");
   };
 
   // 유저 차단하기
   const blockUser = () => {
     if (!token) {
-      alert("로그인 후  이용가능합니다.");
+      Swal.fire("사용자 차단하기", "로그인을 해주세요!", "warning");
       return;
     }
 

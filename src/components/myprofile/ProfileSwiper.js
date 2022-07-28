@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ReactComponent as Character } from '../../images/character/Frame_single.svg';
 
 // swiper 관련
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -19,16 +20,29 @@ const ProfileSwiper = ({ images }) => {
 
   return (
     <>
-      <StyledSwiper pagination={{ clickable: true }} loop>
-        {images &&
-          images.map((list, idx) => {
-            return (
-              <SwiperSlide key={idx}>
-                <IMG src={list} alt='' key={idx} />
-              </SwiperSlide>
-            );
-          })}
-      </StyledSwiper>
+      {images && images.length > 0 ? (
+        <StyledSwiper pagination={{ clickable: true }} loop>
+          {images &&
+            images.map((list, idx) => {
+              return (
+                <SwiperSlide key={idx}>
+                  <IMG src={list} alt='' key={idx} />
+                </SwiperSlide>
+              );
+            })}
+        </StyledSwiper>
+      ) : (
+        <NoImage>
+          <div>
+            <Character />
+            <p>
+              아직 등록된 프로필이 없어요!
+              <br />
+              프로필을 등록해보세요✨
+            </p>
+          </div>
+        </NoImage>
+      )}
     </>
   );
 };
@@ -65,6 +79,26 @@ const IMG = styled.img`
   height: 100%;
   object-fit: cover;
   object-position: center;
+`;
+
+const NoImage = styled.div`
+  background-color: #fff;
+  width: 100%;
+  height: 500px;
+  border-radius: 4px;
+  border: 0.5px solid var(--gray1);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > div {
+    margin-bottom: 20px;
+  }
+
+  & > p {
+    font-weight: 300;
+  }
 `;
 
 export default ProfileSwiper;

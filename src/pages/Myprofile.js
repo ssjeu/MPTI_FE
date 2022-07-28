@@ -6,6 +6,7 @@ import ProfileImg from '../components/myprofile/ProfileImg';
 import Button01 from '../elements/Button01';
 import { userInfoDB, userProfileDB } from '../redux/modules/userInfo';
 import ProfileSwiper from '../components/myprofile/ProfileSwiper';
+import Swal from 'sweetalert2';
 
 const Myprofile = () => {
   const [active, setActive] = React.useState(1);
@@ -21,8 +22,28 @@ const Myprofile = () => {
 
   const activeChange = () => {
     if (active === 1) {
+      if (
+        profileImages.length > 0 ||
+        userIntroduction !== user_data.introduction
+      ) {
+        Swal.fire({
+          text: '지금 페이지를 이동하면 정보가 저장되지 않아요!',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#64be72',
+          confirmButtonText: '이동할래요',
+          cancelButtonText: '앗, 남을래요',
+          cancleButtonColor: '#d9d9d9',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setActive(2);
+          }
+        });
+        return;
+      }
       setActive(2);
     }
+
     if (active === 2) {
       setActive(1);
     }
@@ -31,7 +52,6 @@ const Myprofile = () => {
   // 유저 정보
   const userNum = sessionStorage.getItem('userNum');
   const user_data = useSelector((state) => state.userInfo.user);
-  console.log(user_data);
 
   // 서버에서 데이터 받아오기
   React.useEffect(() => {

@@ -37,7 +37,8 @@ const ButtonStyle = styled.button`
   background-color: #fff;
 
   margin: ${(props) => props.margin};
-  width: 141px;
+  // width: 141px;
+  width: 100%;
   height: 45px;
   border-radius: 26px;
 

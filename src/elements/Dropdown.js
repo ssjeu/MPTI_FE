@@ -50,6 +50,7 @@ const Dropdown = (props) => {
 
 const Container = styled.div`
   position: relative;
+  width: 100%;
 `;
 
 const dropdownFadeIn = css`
@@ -66,7 +67,8 @@ const dropdownFadeIn = css`
 `;
 
 const ButtonStyle = styled.button`
-  width: ${(props) => props.width};
+  // width: ${(props) => props.width};
+  width: 100%;
 
   // 고정 값
   background-color: transparent;
@@ -78,7 +80,8 @@ const ButtonStyle = styled.button`
 
 const DropdownList = styled.div`
   display: ${(props) => (props._display === true ? 'flex' : 'none')};
-  width: ${(props) => props.width};
+  // width: ${(props) => props.width};
+  width: 100%;
   height: ${(props) => (props.height ? props.height : 'auto')};
   ${(props) => (props._display === true ? `${dropdownFadeIn}` : null)}
 

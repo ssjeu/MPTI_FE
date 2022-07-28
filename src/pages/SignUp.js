@@ -6,10 +6,11 @@ import { useDispatch } from 'react-redux';
 import { signUpDB } from '../redux/modules/user';
 import { useNavigate } from 'react-router-dom';
 
-import logo from '../images/logo/Group 14@2x.png';
-
 import Input01 from '../elements/Input01';
 import Button01 from '../elements/Button01';
+import { authApi } from '../shared/api';
+import SweetAlert from '../components/sweetAlert/SweetAlert';
+import Swal from 'sweetalert2';
 
 const SignUp = () => {
   const [email, setEmail] = React.useState('');
@@ -41,20 +42,34 @@ const SignUp = () => {
   // 버튼 클릭 시
   const signUp = () => {
     if (isNext === 1 && email === '') {
-      alert('이메일을 입력해주세요!');
+      SweetAlert({ icon: 'error', text: '이메일을 입력해주세요!' });
       return;
     }
 
     if (isNext === 1 && !emailCheck_reg(email)) {
-      alert('이메일 형식을 확인해주세요.');
+      SweetAlert({ icon: 'error', text: '이메일 형식을 확인해주세요!' });
       return;
     } else if (isNext === 1 && emailCheck_reg(email)) {
-      setIsNext(2);
+      authApi
+        .idCheck(email)
+        .then((res) => {
+          Swal.fire({
+            text: '사용가능한 이메일입니다!',
+            icon: 'success',
+            confirmButtonColor: '#64be72',
+            confirmButtonText: '확인',
+          }).then((result) => {
+            setIsNext(2);
+          });
+        })
+        .catch((err) =>
+          SweetAlert({ icon: 'error', text: '중복된 이메일입니다!' })
+        );
       return;
     }
 
     if (isNext === 2 && name === '') {
-      alert('이름을 입력해주세요!');
+      SweetAlert({ icon: 'error', text: '이름을 입력해주세요!' });
       return;
     } else if (isNext === 2 && name !== '') {
       setIsNext(3);
@@ -62,23 +77,26 @@ const SignUp = () => {
     }
 
     if (isNext === 3 && (password === '' || passwordCheck === '')) {
-      alert('비밀번호를 입력해주세요!');
+      SweetAlert({ icon: 'error', text: '비밀번호를 입력해주세요!' });
       return;
     }
 
     if (isNext === 3 && !passwordCheck_reg(password)) {
-      alert(
-        '비밀번호 형식을 확인해주세요.\n영문, 숫자, 특수문자 포함 8자리 이상입니다!'
-      );
+      SweetAlert({
+        icon: 'error',
+        text: '비밀번호 형식을 확인해주세요. 영문, 숫자, 특수문자 포함 8자리 이상입니다!',
+      });
       return;
     }
 
     if (isNext === 3 && password !== passwordCheck) {
-      alert('비밀번호가 달라요! 다시 확인해주세요.');
+      SweetAlert({
+        icon: 'error',
+        text: '비밀번호가 달라요! 다시 확인해주세요.',
+      });
       return;
     }
 
-    console.log(email, name, password, passwordCheck);
     dispatch(signUpDB(email, name, password, passwordCheck));
   };
 

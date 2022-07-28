@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { communityApi } from "../../shared/api";
 import { produce } from "immer";
+import Swal from "sweetalert2";
 
 // Action Type
 const GET_POST = "GET_POST";
@@ -56,12 +57,18 @@ const detailPostDB = (postId) => {
 
 // 게시글 작성
 const addPostAC = (formData) => {
-  return async function (dispatch, getState) {
+  return async function () {
     await communityApi
       .postWrite(formData)
       .then((res) => {
-        window.location.replace("/community");
-        window.alert("게시글 작성 완료!");
+        Swal.fire({
+          text: "게시글 작성 완료!",
+          icon: "success",
+          confirmButtonColor: "#64be72",
+          confirmButtonText: "확인",
+        }).then((res) => {
+          window.location.replace("/community");
+        });
       })
       .catch((err) => {
         window.location.replace("/community");
@@ -82,9 +89,15 @@ const updatePostAC = (postId, formData) => {
   return async function () {
     await communityApi
       .postUpdate(postId, formData)
-      .then((res) => {
-        window.location.replace("/community");
-        window.alert("게시글 수정 완료!");
+      .then(() => {
+        Swal.fire({
+          text: "게시글 수정 완료!",
+          icon: "success",
+          confirmButtonColor: "#64be72",
+          confirmButtonText: "확인",
+        }).then(() => {
+          window.location.replace("/community");
+        });
       })
       .catch((err) => {
         window.location.replace("/community");
@@ -100,8 +113,14 @@ const deletePostAC = (postId) => {
     await communityApi
       .postDelete(postId)
       .then((res) => {
-        window.location.replace("/community");
-        window.alert("게시글 삭제 완료!");
+        Swal.fire({
+          text: "게시글 삭제 완료!",
+          icon: "success",
+          confirmButtonColor: "#64be72",
+          confirmButtonText: "확인",
+        }).then(() => {
+          window.location.replace("/community");
+        });
       })
       .catch((err) => {
         console.log("DELETE deletePostAC Error: ", err);
