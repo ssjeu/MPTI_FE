@@ -26,8 +26,6 @@ import UserInfoChange from './pages/UserInfoChange';
 import Myprofile from './pages/Myprofile';
 
 function App() {
-  //   const test = useSelector((state) => state);
-  //   console.log(test);
   return (
     <div className='App'>
       <div className='wrap'>

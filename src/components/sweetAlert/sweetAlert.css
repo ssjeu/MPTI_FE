@@ -4,6 +4,7 @@
 
 .swal2-actions {
   width: 90%;
+  flex-wrap: nowrap;
 }
 
 .swal2-styled.swal2-confirm {
@@ -16,4 +17,8 @@
 
 .swal2-styled.swal2-confirm:focus {
   box-shadow: none;
+}
+
+.swal2-styled.swal2-cancel {
+  width: 100%;
 }

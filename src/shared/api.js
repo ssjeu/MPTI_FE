@@ -101,8 +101,10 @@ export const authApi = {
   },
 
   kakaoLogin: async (code) => {
-    await instance
-      .get(`/api/kakao/callback?code=${code}`)
+    await axios
+      .get(`http://localhost:3000/api/kakao/callback?code=${code}`)
+      // .get(`/api/kakao/callback?code=${code}`)
+
       .then((res) => {
         console.log(res);
         alert('로그인 되었습니다!');
@@ -117,8 +119,14 @@ export const authApi = {
   userInfo: (formData, nickname) => {
     ImgApi.put('/api/signup/first', formData, { withCredentials: true })
       .then((res) => {
-        console.log('성공', res);
-        window.location.replace('/');
+        Swal.fire({
+          text: '환영합니다!!!',
+          icon: 'success',
+          confirmButtonColor: '#64be72',
+          confirmButtonText: '확인',
+        }).then((result) => {
+          window.location.replace('/');
+        });
       })
       .catch((err) => {
         console.log(err);
