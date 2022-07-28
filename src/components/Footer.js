@@ -30,6 +30,7 @@ const Footer = () => {
   else if (location === "/test") return null;
   else if (location === "/test/mbti") return null;
   else if (location === "/community/notice") return null;
+  else if (location === "/about") return null;
 
   return (
     <FooterWrap>

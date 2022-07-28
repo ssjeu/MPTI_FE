@@ -15,15 +15,15 @@ const Main = () => {
 
   return (
     <MainWrap>
-      <BannerWrap className="contents-container">
+      <SwiperWrap className="contents-container">
         <BannerSwiper images={bannerTest} />
-      </BannerWrap>
+      </SwiperWrap>
 
       <RecommendWrap>
         <MainRecommend />
       </RecommendWrap>
 
-      <SubWrap className="contents-container">
+      <SubWrap>
         <BannerWrap>
           초간단 MBTI 테스트!
           <BannerCard
@@ -36,7 +36,7 @@ const Main = () => {
             to="/test"
           />
         </BannerWrap>
-        <BannerWrap >
+        <BannerWrap>
           믑티 소개서 ❤️
           <BannerCard
             src={SubImg02}
@@ -45,7 +45,7 @@ const Main = () => {
               "진짜 찐친을 만나는 곳, 믑티",
               "자세히 보기",
             ]}
-            to="/"
+            to="/about"
           />
         </BannerWrap>
       </SubWrap>
@@ -58,7 +58,7 @@ const MainWrap = styled.div`
   padding: 10px 0 100px 0;
 `;
 
-const BannerWrap = styled.div`
+const SwiperWrap = styled.div`
   padding-bottom: 40px;
 `;
 
@@ -74,6 +74,13 @@ const SubWrap = styled.div`
   font-size: 18px;
   font-weight: bold;
   text-align: left;
+  margin-right: 5%;
+`;
+
+const BannerWrap = styled.div`
+  padding-bottom: 40px;
+  flex-grow: 1;
+  margin-left: 5%;
 `;
 
 export default Main;
