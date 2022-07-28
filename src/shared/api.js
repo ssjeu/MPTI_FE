@@ -7,7 +7,7 @@ import SweetAlert from '../components/sweetAlert/SweetAlert';
 const token = sessionStorage.getItem('is_login');
 
 const ImgApi = axios.create({
-  baseURL: 'http://3.35.170.203',
+  baseURL: 'https://mptiserver.link',
   headers: {
     'Content-type': 'multipart/form-data',
   },
@@ -101,10 +101,9 @@ export const authApi = {
   },
 
   kakaoLogin: async (code) => {
-    await axios
-      .get(`http://localhost:3000/api/kakao/callback?code=${code}`)
+    await instance
+      .get(`/api/kakao/callback?code=${code}`)
       // .get(`/api/kakao/callback?code=${code}`)
-
       .then((res) => {
         console.log(res);
         alert('로그인 되었습니다!');

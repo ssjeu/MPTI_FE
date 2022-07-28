@@ -14,6 +14,7 @@ import Button01 from '../elements/Button01';
 import Button02 from '../elements/Button02';
 import HorizontalLine from '../elements/HorizonLine';
 import SweetAlert from '../components/sweetAlert/SweetAlert';
+import { authApi } from '../shared/api';
 
 const SignIn = () => {
   const [email, setEmail] = React.useState('');
@@ -44,7 +45,7 @@ const SignIn = () => {
   // 카카오 로그인 테스트
   const CLIENT_ID = '	8889cc33c5ac3c4cec9e5da61462fad9';
   // const REDIRECT_URI = 'http://3.35.170.203/oauth/api/kakao/callback';
-  const REDIRECT_URI = 'http://localhost:3000/api/kakao/callback';
+  const REDIRECT_URI = 'https://mptiserver.link/api/kakao/callback';
 
   const KakaoLogin = () => {
     window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;

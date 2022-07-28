@@ -133,16 +133,6 @@ const Mypage = () => {
           ) : null}
         </InfoBox>
 
-        <Box>
-          <p>매너 점수</p>
-          {isLogin === true ? <span>{user_data.mannerScore}점</span> : null}
-        </Box>
-
-        <Box>
-          <p>나의 포인트</p>
-          {isLogin === true ? <span>{user_data.point}점</span> : null}
-        </Box>
-
         {isLogin === true ? (
           <Button02 text='로그아웃' margin='10px 0 0 0' _onClick={logOut} />
         ) : null}
@@ -157,7 +147,7 @@ const Container = styled.div`
   padding: 0 4.8%;
   margin-top: -40px;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 100px);
 
   position: relative;
 `;
@@ -291,37 +281,6 @@ const SpanStyle = styled.span`
   border: 0.5px solid #434343;
   border-radius: 30px;
   text-align: center;
-`;
-
-const Box = styled.div`
-  background-color: #fff;
-  border-radius: 6px;
-  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.06);
-  border: solid 0.5px #64be72;
-
-  width: 100%;
-  height: 48px;
-
-  margin-bottom: 20px;
-  box-sizing: border-box;
-  padding: 22px;
-
-  display: inline-flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: space-between;
-
-  p {
-    margin: 0;
-
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  span {
-    font-size: 14px;
-    font-weight: 700;
-  }
 `;
 
 export default Mypage;
