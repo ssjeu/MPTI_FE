@@ -23,7 +23,7 @@ const Myprofile = () => {
   const activeChange = () => {
     if (active === 1) {
       if (
-        profileImages.length > 0 ||
+        profileImages.length !== userProfiles.length ||
         userIntroduction !== user_data.introduction
       ) {
         Swal.fire({
