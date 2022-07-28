@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 
 import { ReactComponent as Home } from "../images/footer/home.svg";
-import { ReactComponent as Community } from "../images/footer/people.svg";
+import { ReactComponent as Community } from "../images/footer/list-alt.svg";
+import { ReactComponent as Friend } from "../images/footer/person-search.svg";
 import { ReactComponent as Chat } from "../images/footer/chat-bubble-outline.svg";
 import { ReactComponent as Mypage } from "../images/footer/person.svg";
 
@@ -12,7 +13,8 @@ const Footer = () => {
   const location = useLocation().pathname;
 
   const activeHome = "/";
-  const activeCommunity = ["/community", "/posts/:index"];
+  const activeCommunity = ["/community", "/posts/"];
+  const activeFriend = "/mbtifriends";
   const activeChat = ["/chatlist", "/chat"];
   const activeMypage = "/my";
 
@@ -49,6 +51,13 @@ const Footer = () => {
                   ? "#64be72"
                   : "#adadad",
             }}
+          />
+        </Link>
+
+        <Link to="/mbtifriends">
+          <Friend
+            className="icons"
+            style={{ fill: location === activeFriend ? "#64be72" : "#adadad" }}
           />
         </Link>
 
@@ -96,8 +105,8 @@ const FooterMenu = styled.div`
 
   .icons {
     width: 20px;
-    padding: 15px 10px;
-    margin: 0 20px;
+    padding: 15px 8px;
+    margin: 0 14px;
   }
 
   &:hover {
