@@ -53,7 +53,7 @@ const Community = () => {
   // 게시글 작성하기 버튼
   const postWrite = () => {
     if (token) navigate("/postwrite");
-    else Swal.fire("게시글 작성 불가", "로그인을 해주세요!", "warning");
+    else Swal.fire("게시글 작성", "로그인을 해주세요!", "warning");
   };
 
   return (
