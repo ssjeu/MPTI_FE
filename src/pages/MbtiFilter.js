@@ -46,6 +46,7 @@ const MbtiFilter = () => {
 const MbtiFilterWrap = styled.div`
   background-color: white;
   padding-bottom: 60px;
+  height: calc(100% - 124.5px);
 `;
 
 const Intro = styled.div`
@@ -68,6 +69,10 @@ const MbtiSelectWrap = styled.div`
   padding: auto;
 `;
 
-const MbtiButtonWrap = styled.div``;
+const MbtiButtonWrap = styled.div`
+  & :hover {
+    cursor: pointer;
+  }
+`;
 
 export default MbtiFilter;
