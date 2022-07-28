@@ -157,6 +157,10 @@ const PostInfo = styled.div`
     background-color: var(--subcolor);
     border: 1px solid var(--gray1);
   }
+
+  & img:hover {
+    cursor: pointer;
+  }
 `;
 
 const PostUser = styled.div`
@@ -183,6 +187,10 @@ const PostContents = styled.div`
     margin: 12px 0 4px 0;
     border: 1px solid var(--subcolor);
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const PostAction = styled.div`
@@ -202,6 +210,10 @@ const PostButton = styled.div`
   .icons {
     width: 16px;
     margin: 2px 4px 0 0;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 

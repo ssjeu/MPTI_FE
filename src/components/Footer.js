@@ -1,9 +1,7 @@
 // 하단 네비게이션바
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { ReactComponent as Home } from "../images/footer/home.svg";
 import { ReactComponent as Community } from "../images/footer/people.svg";
@@ -11,27 +9,12 @@ import { ReactComponent as Chat } from "../images/footer/chat-bubble-outline.svg
 import { ReactComponent as Mypage } from "../images/footer/person.svg";
 
 const Footer = () => {
-  //   const params = useParams();
-  //   const id = params.index;
-  //   console.log(id);
-  //   const searchParams = new URLSearchParams(location.search);
-
-  const navigate = useNavigate();
   const location = useLocation().pathname;
 
-  // 현재 선택된 아이콘
-  //   const activeHome = "/";
-  //   const activeCommunity = "/community";
-  //   const activeChat = "/chatlist";
-  //   const activeMypage = "/my";
-
-  const [activeHome, setActiveHome] = useState("/");
-  const [activeCommunity, setActiveCommunity] = useState([
-    "/community",
-    "/posts/:index",
-  ]);
-  const [activeChat, setActiveChat] = useState(["/chatlist", "/chat"]);
-  const [activeMypage, setActiveMypage] = useState("/my");
+  const activeHome = "/";
+  const activeCommunity = ["/community", "/posts/:index"];
+  const activeChat = ["/chatlist", "/chat"];
+  const activeMypage = "/my";
 
   // 하단 탭 없는 페이지 설정
   if (location === "/login") return null;
@@ -49,36 +32,44 @@ const Footer = () => {
   return (
     <FooterWrap>
       <FooterMenu>
-        <Home
-          className="icons"
-          style={{ fill: location === activeHome ? "#64be72" : "#adadad" }}
-          onClick={() => navigate("/")}
-        />
-        <Community
-          className="icons"
-          onClick={() => navigate("/community")}
-          style={{
-            fill:
-              location === activeCommunity[0] || location === activeCommunity[1]
-                ? "#64be72"
-                : "#adadad",
-          }}
-        />
-        <Chat
-          className="icons"
-          style={{
-            fill:
-              location === activeChat[0] || location === activeChat[1]
-                ? "#64be72"
-                : "#adadad",
-          }}
-          onClick={() => navigate("/chatlist")}
-        />
-        <Mypage
-          className="icons"
-          style={{ fill: location === activeMypage ? "#64be72" : "#adadad" }}
-          onClick={() => navigate("/my")}
-        />
+        <Link to="/">
+          <Home
+            className="icons"
+            style={{ fill: location === activeHome ? "#64be72" : "#adadad" }}
+          />
+        </Link>
+
+        <Link to="/community">
+          <Community
+            className="icons"
+            style={{
+              fill:
+                location === activeCommunity[0] ||
+                location === activeCommunity[1]
+                  ? "#64be72"
+                  : "#adadad",
+            }}
+          />
+        </Link>
+
+        <Link to="/chatlist">
+          <Chat
+            className="icons"
+            style={{
+              fill:
+                location === activeChat[0] || location === activeChat[1]
+                  ? "#64be72"
+                  : "#adadad",
+            }}
+          />
+        </Link>
+
+        <Link to="/my">
+          <Mypage
+            className="icons"
+            style={{ fill: location === activeMypage ? "#64be72" : "#adadad" }}
+          />
+        </Link>
       </FooterMenu>
     </FooterWrap>
   );

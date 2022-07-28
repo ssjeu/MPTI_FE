@@ -6,12 +6,11 @@ import autosize from "autosize";
 import "../../css/component.css";
 
 const ChatWrite = ({ chat, onChangeChat, onSubmitForm }) => {
-  // 채팅 입력 data
   const textareaRef = useRef();
 
   useEffect(() => {
     if (textareaRef.current) {
-      //   autosize(textareaRef.current);
+      autosize(textareaRef.current);
     }
   }, [textareaRef.current]);
 
@@ -80,6 +79,7 @@ const ChatInput = styled.div`
     padding: 10px 48px 10px 16px;
     background-color: #f8f8f8;
     resize: none;
+    max-height: 100px;
   }
 
   & textarea:focus {
@@ -99,6 +99,10 @@ const InputButton = styled.div`
   width: auto;
   color: var(--maincolor);
   font-weight: 500;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default ChatWrite;

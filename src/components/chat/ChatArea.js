@@ -1,5 +1,5 @@
 // 1:1 실시간 채팅 대화내역
-import React, { useEffect, useState, createElement } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
@@ -14,7 +14,6 @@ const ChatArea = ({ room }) => {
   const token = sessionStorage.getItem("is_login");
   const userNum = sessionStorage.getItem("userNum");
 
-  // 나와 잘 맞는 MBTI 유저 list
   const messages = useSelector((state) => state.chat.data);
   console.log(messages);
 
@@ -28,12 +27,7 @@ const ChatArea = ({ room }) => {
   useEffect(() => {
     // EventSource 생성
     const evtSource = new EventSource(
-      `http://3.35.170.203/api/message/` + room.roomId,
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
+      `http://3.35.170.203/api/message/` + room.roomId
     );
 
     // 실시간 채팅 메세지

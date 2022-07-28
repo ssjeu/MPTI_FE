@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 
 import MainRecommend from "../components/main/MainRecommend";
 import MainCommunity from "../components/main/MainCommunity";
 
 import "../css/component.css";
+import "../css/transition.css";
 import character from "../images/character/frame-main@3x.png";
 import BannerSwiper from "../components/main/BannerSwiper";
 
@@ -18,36 +20,44 @@ const Main = () => {
   ]);
 
   return (
-    <MainWrap>
-      <MainIntro>
-        <img src={character} alt="므팅이" />
-        <div>
-          다양한 MBTI 중에
-          <br /> <span>나의 찐친을 찾아봐요✨</span>
-        </div>
-      </MainIntro>
+    <CSSTransition
+      transitionName="homeTransition"
+      transitionAppear={true}
+      transitionAppearTimeout={500}
+      transitionEnter={false}
+      transitionLeave={false}
+    >
+      <MainWrap>
+        <MainIntro>
+          <img src={character} alt="므팅이" />
+          <div>
+            다양한 MBTI 중에
+            <br /> <span>나의 찐친을 찾아봐요✨</span>
+          </div>
+        </MainIntro>
 
-      <MainButtons className="contents-container">
-        <FriendsButton onClick={() => navigate("/mbtifriends")}>
-          다양한 MBTI 친구들 만나기
-        </FriendsButton>
-        <TestButton onClick={() => navigate("/test")}>
-          내 MBTI 테스트하러 가기
-        </TestButton>
-      </MainButtons>
+        <MainButtons className="contents-container">
+          <FriendsButton onClick={() => navigate("/mbtifriends")}>
+            다양한 MBTI 친구들 만나기
+          </FriendsButton>
+          <TestButton onClick={() => navigate("/test")}>
+            내 MBTI 테스트하러 가기
+          </TestButton>
+        </MainButtons>
 
-      <RecommendWrap>
-        <MainRecommend />
-      </RecommendWrap>
+        <RecommendWrap>
+          <MainRecommend />
+        </RecommendWrap>
 
-      <CommunityWrap className="contents-container">
-        <MainCommunity />
-      </CommunityWrap>
+        <CommunityWrap className="contents-container">
+          <MainCommunity />
+        </CommunityWrap>
 
-      <BannerWrap className="contents-container">
-        {/* <BannerSwiper images={bannerTest} /> */}
-      </BannerWrap>
-    </MainWrap>
+        <BannerWrap className="contents-container">
+          {/* <BannerSwiper images={bannerTest} /> */}
+        </BannerWrap>
+      </MainWrap>
+    </CSSTransition>
   );
 };
 
@@ -96,6 +106,10 @@ const MainButtons = styled.div`
 const FriendsButton = styled.div`
   background-color: var(--maincolor);
   color: white;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const TestButton = styled.div`
@@ -103,6 +117,10 @@ const TestButton = styled.div`
   color: var(--maincolor);
   border: 1px solid var(--maincolor);
   margin-top: 16px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const RecommendWrap = styled.div`

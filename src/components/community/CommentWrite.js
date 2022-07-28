@@ -90,6 +90,10 @@ const InputButton = styled.div`
   margin-top: 5px;
   color: var(--maincolor);
   font-weight: 500;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default CommentWrite;

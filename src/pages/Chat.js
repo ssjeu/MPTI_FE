@@ -1,5 +1,5 @@
 // 1:1 실시간 채팅
-import React, { useCallback, useEffect, useState, createElement } from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";

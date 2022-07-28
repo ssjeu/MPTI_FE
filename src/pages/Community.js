@@ -150,6 +150,10 @@ const CategoryAll = styled.div.attrs((props) => ({
     font-weight: bold;
     border-bottom: 2px solid var(--maincolor);
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const CategoryButton = styled.div.attrs((props) => ({
@@ -164,6 +168,10 @@ const CategoryButton = styled.div.attrs((props) => ({
     color: var(--maincolor);
     font-weight: bold;
     border-bottom: 2px solid var(--maincolor);
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -181,6 +189,10 @@ const Notice = styled.div`
     color: var(--pointcolor);
     font-weight: bold;
     margin-right: 10px;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 

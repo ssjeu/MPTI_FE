@@ -93,8 +93,6 @@ const ChatProfile = () => {
       <ProfileImageWrap className="contents-container">
         {data.profileImages === undefined || data.profileImages.length === 0 ? (
           <img src={data.userImage[0]} alt="profile" />
-        ) : data.profileImages.length === 1 ? (
-          <ProfileSwiper images={[data.userImage[0], data.profileImages]} />
         ) : (
           <ProfileSwiper images={data.profileImages} />
         )}

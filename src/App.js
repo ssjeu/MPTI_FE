@@ -26,14 +26,13 @@ import UserInfoChange from './pages/UserInfoChange';
 import Myprofile from './pages/Myprofile';
 
 function App() {
-  //   const test = useSelector((state) => state);
-  //   console.log(test);
+
   return (
     <div className='App'>
       <div className='wrap'>
         <Header />
         <Routes>
-          <Route path='/' element={<Main />} />
+          <Route path='/' exact element={<Main />} />
           <Route path='/test' exact element={<MBTITestMain />} />
           <Route path='/test/mbti' exact element={<MBTITest />} />
           <Route path='/mbtifriends' element={<MbtiFriends />} />
