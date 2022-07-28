@@ -11,7 +11,6 @@ import Message from "../../elements/Message";
 
 const ChatArea = ({ room }) => {
   const dispatch = useDispatch();
-  const token = sessionStorage.getItem("is_login");
   const userNum = sessionStorage.getItem("userNum");
 
   const messages = useSelector((state) => state.chat.data);
@@ -25,10 +24,18 @@ const ChatArea = ({ room }) => {
   }, []);
 
   useEffect(() => {
+    let evtSource;
+
+    if (evtSource !== undefined) {
+      evtSource.close();
+      console.log(evtSource);
+    }
+
     // EventSource 생성
-    const evtSource = new EventSource(
+    evtSource = new EventSource(
       `http://3.35.170.203/api/message/` + room.roomId
     );
+    console.log(evtSource);
 
     // 실시간 채팅 메세지
     evtSource.addEventListener("test", function (e) {
@@ -40,9 +47,6 @@ const ChatArea = ({ room }) => {
       const onTextDiv = document.createElement("div");
       const onTimeDiv = document.createElement("div");
       const onImgDiv = document.createElement("img");
-
-      //   chatArea.html('');
-      //   chatArea.removeChild();
 
       message.forEach((a) => {
         onTextDiv.innerHTML = a.content;

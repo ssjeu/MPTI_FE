@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
 
 import MainRecommend from "../components/main/MainRecommend";
 import MainCommunity from "../components/main/MainCommunity";
@@ -20,13 +19,6 @@ const Main = () => {
   ]);
 
   return (
-    <CSSTransition
-      transitionName="homeTransition"
-      transitionAppear={true}
-      transitionAppearTimeout={500}
-      transitionEnter={false}
-      transitionLeave={false}
-    >
       <MainWrap>
         <MainIntro>
           <img src={character} alt="므팅이" />
@@ -57,7 +49,6 @@ const Main = () => {
           {/* <BannerSwiper images={bannerTest} /> */}
         </BannerWrap>
       </MainWrap>
-    </CSSTransition>
   );
 };
 

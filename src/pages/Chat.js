@@ -1,5 +1,5 @@
 // 1:1 실시간 채팅
-import React, { useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -13,6 +13,8 @@ import ChatNotice from "../elements/ChatNotice";
 import "../css/component.css";
 import { ReactComponent as ExitSvg } from "../images/icons/exit_to_app_FILL0_wght400_GRAD0_opsz20.svg";
 
+let prePath = "";
+
 const Chat = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,8 +22,16 @@ const Chat = () => {
   const room = location.state.room;
   const recevierUser = location.state.data;
 
-  // 채팅 메세지 입력
   const [chat, onChangeChat, setChat] = useInput("");
+
+  useEffect(() => {
+    if (prePath.indexOf("/chat") !== -1) {
+      prePath = "";
+      window.location.reload(); 
+    }
+    prePath = location.pathname; // 지금 주소 /chat
+  }, [location]);
+
   const onSubmitForm = useCallback(
     (e) => {
       e.preventDefault();
