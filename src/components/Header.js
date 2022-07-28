@@ -5,7 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "../css/component.css";
 import Logo from "../images/header/logo@2x.png";
 
-// svg icons + logo
 import { ReactComponent as BackSvg } from "../images/header/keyboard-arrow-left.svg";
 import { ReactComponent as LogoSvg } from "../images/logo/Group 15.svg";
 import { ReactComponent as AlarmSvg } from "../images/header/notifications_none.svg";
@@ -14,7 +13,6 @@ import { ReactComponent as CloseSvg } from "../images/header/close.svg";
 export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
-
   const isLogin = sessionStorage.getItem("is_login");
 
   const goBack = () => {
@@ -167,6 +165,7 @@ const LogoIcon = styled.div.attrs((props) => ({
 const AlarmIcon = styled.div.attrs((props) => ({
   className: props.className,
 }))`
+  opacity: 0;
   &.hide {
     opacity: 0;
   }
@@ -192,15 +191,3 @@ const FilterIcon = styled.div.attrs((props) => ({
     opacity: 0;
   }
 `;
-
-// 스크롤 고정시
-
-// const HeaderWrap = styled.div`
-//   position: fixed;
-//   background-color: white;
-//   width: 100%;
-//   height: 40px;
-//   padding-top: 60px;
-//   display: flex;
-//   justify-content: space-between;
-// `;

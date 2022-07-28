@@ -33,14 +33,13 @@ const BannerSwiper = ({ images }) => {
 
 const StyledSwiper = styled(Swiper)`
   width: 100%;
-  height: 240px;
-  border-radius: 4px;
+  border-radius: 14px;
 
   .swiper-horizontal > .swiper-pagination-bullets,
   .swiper-pagination-bullets.swiper-pagination-horizontal,
   .swiper-pagination-custom,
   .swiper-pagination-fraction {
-    bottom: 90%;
+    bottom: 92%;
     width: 100%;
   }
 
@@ -52,7 +51,7 @@ const StyledSwiper = styled(Swiper)`
   }
 
   .swiper-pagination-bullet-active {
-    background-color: var(--maincolor);
+    background-color: white;
     transition: background-color 0.3s;
   }
 `;
@@ -62,6 +61,10 @@ const IMG = styled.img`
   height: 100%;
   object-fit: cover;
   object-position: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default BannerSwiper;

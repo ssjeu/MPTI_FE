@@ -11,8 +11,8 @@ import Message from "../../elements/Message";
 
 const ChatArea = ({ room }) => {
   const dispatch = useDispatch();
+  
   const userNum = sessionStorage.getItem("userNum");
-
   const messages = useSelector((state) => state.chat.data);
   console.log(messages);
 
@@ -25,17 +25,14 @@ const ChatArea = ({ room }) => {
 
   useEffect(() => {
     let evtSource;
-
     if (evtSource !== undefined) {
       evtSource.close();
-      console.log(evtSource);
     }
 
     // EventSource 생성
     evtSource = new EventSource(
       `http://3.35.170.203/api/message/` + room.roomId
     );
-    console.log(evtSource);
 
     // 실시간 채팅 메세지
     evtSource.addEventListener("test", function (e) {
