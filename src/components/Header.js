@@ -34,7 +34,10 @@ export const Header = () => {
   return (
     <HeaderWrap
       className="contents-container"
-      style={{ backgroundColor: location !== "/my" ? "#fff" : "transparent" }}
+      style={{
+        backgroundColor:
+          location !== "/my" && location !== "/chat" ? "#fff" : "transparent",
+      }}
     >
       <BackIcon
         onClick={goBack}

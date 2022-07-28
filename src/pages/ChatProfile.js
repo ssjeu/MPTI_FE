@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { userInfoDB } from "../redux/modules/userInfo";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 import { chatApi } from "../shared/api";
+import Swal from "sweetalert2";
 
 import "../css/component.css";
 import ProfileSwiper from "../components/myprofile/ProfileSwiper";
-import AskChatButton from "../elements/MainButton";
-import { ReactComponent as BlockSvg } from "../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg";
 import Button01 from "../elements/Button01";
+import { ReactComponent as BlockSvg } from "../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg";
 
 const ChatProfile = () => {
   const dispatch = useDispatch();
@@ -32,6 +32,11 @@ const ChatProfile = () => {
   // 차단 상태
   const [activeBlock, setActiveBlock] = useState();
 
+  // 유저 나이 구하기
+  const birthday = data.birthday && data.birthday.slice(0, 4);
+  const today = new Date();
+  const user_age = today.getFullYear() - birthday + 1;
+
   useEffect(() => {
     if (token) {
       dispatch(userInfoDB(userNum));
@@ -39,9 +44,11 @@ const ChatProfile = () => {
   }, []);
 
   useEffect(() => {
-    if (loginUser.blockedUsers.includes(data.userNum)) setActiveBlock(1);
+    if (loginUser.length !== 0 && loginUser.blockedUsers.includes(data.userNum))
+      setActiveBlock(1);
   }, [loginUser]);
 
+  // 1:1 대화하기 (방 생성)
   const createRoom = async () => {
     if (token) {
       await chatApi
@@ -53,19 +60,20 @@ const ChatProfile = () => {
         })
         .catch((err) => {
           if (err.response.data.blocked === "blocked") {
-            alert("차단 상태");
+            Swal.fire("차단 상태", "채팅방 생성이 불가합니다.", "error");
           } else {
             navigate("/chat", {
               state: { data: data, room: err.response.data.Room },
             });
           }
         });
-    } else alert("로그인 후 이용가능합니다.");
+    } else Swal.fire("1:1 채팅하기", "로그인을 해주세요!", "warning");
   };
 
+  // 유저 차단하기
   const blockUser = () => {
     if (!token) {
-      alert("로그인 후  이용가능합니다.");
+      Swal.fire("사용자 차단하기", "로그인을 해주세요!", "warning");
       return;
     }
 
@@ -81,18 +89,11 @@ const ChatProfile = () => {
     setActiveBlock(!activeBlock);
   };
 
-  // 유저 나이 구하기
-  const birthday = data.birthday && data.birthday.slice(0, 4);
-  const today = new Date();
-  const user_age = today.getFullYear() - birthday + 1;
-
   return (
     <ChatProfileWrap>
       <ProfileImageWrap className="contents-container">
         {data.profileImages === undefined || data.profileImages.length === 0 ? (
           <img src={data.userImage[0]} alt="profile" />
-        ) : data.profileImages.length === 1 ? (
-          <ProfileSwiper images={[data.userImage[0], data.profileImages]} />
         ) : (
           <ProfileSwiper images={data.profileImages} />
         )}

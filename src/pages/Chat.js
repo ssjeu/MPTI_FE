@@ -1,5 +1,5 @@
 // 1:1 실시간 채팅
-import React, { useCallback, useEffect, useState, createElement } from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -26,7 +26,7 @@ const Chat = () => {
     (e) => {
       e.preventDefault();
       if (room && chat?.trim()) {
-        setChat(chat.replace(/(?:\r\n|\r|\n)/g, '<br>'));
+        setChat(chat.replace(/(?:\r\n|\r|\n)/g, "<br>"));
         dispatch(chatActions.sendMessageAC(room.roomId, chat));
         setChat("");
         console.log("submit");
@@ -40,14 +40,14 @@ const Chat = () => {
   };
 
   return (
-    <div>
+    <ChatWrap>
       <BackgroundColor />
       <ChatWithTitle className="contents-container">
         <div style={{ width: "16px" }} />
         <ChatUser
           onClick={() =>
             navigate("/chatprofile", {
-              state: { data: recevierUser, from: "chatarea" },
+              state: { data: recevierUser, from: "chat" },
             })
           }
         >
@@ -63,28 +63,35 @@ const Chat = () => {
         </Icon>
       </ChatWithTitle>
 
-      <ChatArea room={room} />
-      
       {room && room.members.length === 1 ? (
-        <ChatNotice text="상대방이 채팅방을 나갔습니다." />
+        <ChatNotice text={recevierUser.nickname} />
       ) : null}
+
+      <ChatArea room={room} />
 
       <ChatWrite
         chat={chat}
         onChangeChat={onChangeChat}
         onSubmitForm={onSubmitForm}
       />
-    </div>
+    </ChatWrap>
   );
 };
+
+const ChatWrap = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
 
 const BackgroundColor = styled.div`
   background-color: var(--maincolor);
   width: 100%;
-  height: 110px;
+  height: 124px;
   z-index: -1;
   position: absolute;
-  top: 0;
+  top: -124px;
   left: 0;
 `;
 
@@ -94,10 +101,10 @@ const ChatWithTitle = styled.div`
   border-bottom: 1px solid var(--gray1);
   align-items: center;
   justify-content: space-between;
-  margin-top: -14px;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.8px;
+  margin-bottom: 12px;
 `;
 
 const ChatUser = styled.div`

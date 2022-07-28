@@ -1,29 +1,31 @@
 // 커뮤니티 탭
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as postActions } from '../redux/modules/post';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
+import Swal from "sweetalert2";
 
-import '../css/component.css';
-import PostList from '../components/community/PostList';
-import PostWrite from '../images/icons/mode@3x.png';
-import Character from '../images/character/frame-main@3x.png';
+import "../css/component.css";
+import PostList from "../components/community/PostList";
+import PostWrite from "../images/icons/mode@3x.png";
+import Character from "../images/character/frame-main@3x.png";
 
 const Community = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // 유저 정보
-  const token = sessionStorage.getItem('is_login');
+  const token = sessionStorage.getItem("is_login");
 
   // 서버에서 postlist 로드
   const posts = useSelector((state) => state.post.post);
 
   // 카테고리 목록
-  const categories = ['전체', 'MBTI', '자유', '고민상담', '익명'];
+  const categories = ["전체", "MBTI", "자유", "고민상담", "익명"];
   const [activeCat, setActiveCat] = useState(categories);
   const [activeCatState, setActiveCatState] = useState(0);
+
   // 해당 카테고리 게시물 목록
   const [data, setData] = useState([]);
 
@@ -37,9 +39,9 @@ const Community = () => {
 
   // 카테고리 별 게시글 보여주기
   const activeCategory = (btn) => {
-    if (btn === '전체') {
+    if (btn === "전체") {
       setData(posts);
-      console.log('전체', data);
+      console.log("전체", data);
       return data;
     }
 
@@ -50,15 +52,15 @@ const Community = () => {
 
   // 게시글 작성하기 버튼
   const postWrite = () => {
-    if (token) navigate('/postwrite');
-    else alert('로그인을 해주세요!');
+    if (token) navigate("/postwrite");
+    else Swal.fire("게시글 작성 불가", "로그인을 해주세요!", "warning");
   };
 
   return (
     <CommunityWrap>
       <Category>
         {activeCat.map((cate, index) => {
-          if (cate === '전체')
+          if (cate === "전체")
             return (
               <CategoryAll
                 onClick={() => {
@@ -66,7 +68,7 @@ const Community = () => {
                   setActiveCatState(index);
                 }}
                 key={index}
-                className={activeCatState === index ? 'active' : null}
+                className={activeCatState === index ? "active" : null}
               >
                 {cate}
               </CategoryAll>
@@ -79,7 +81,7 @@ const Community = () => {
                   setActiveCatState(index);
                 }}
                 key={index}
-                className={activeCatState === index ? 'active' : null}
+                className={activeCatState === index ? "active" : null}
               >
                 {cate}
               </CategoryButton>
@@ -88,8 +90,8 @@ const Community = () => {
       </Category>
 
       <Notice
-        onClick={() => navigate('/community/notice')}
-        className='contents-container'
+        onClick={() => navigate("/community/notice")}
+        className="contents-container"
       >
         <span>필독!</span>커뮤니티 이용 규칙
       </Notice>
@@ -97,7 +99,7 @@ const Community = () => {
       <CommunityList>
         {data.length === 0 ? (
           <CommunityNoList>
-            <img src={Character} alt='므팅이' />
+            <img src={Character} alt="므팅이" />
             <div>
               아직 등록된 게시물이 없어요!
               <br />
@@ -106,13 +108,13 @@ const Community = () => {
           </CommunityNoList>
         ) : (
           data.map((card, index) => (
-            <PostList card={card} key={index} click='yes' />
+            <PostList card={card} key={index} click="yes" />
           ))
         )}
       </CommunityList>
 
       <PostButton onClick={() => postWrite()}>
-        <img src={PostWrite} alt='postwrite' />
+        <img src={PostWrite} alt="postwrite" />
         <br />
         글작성
       </PostButton>
@@ -121,8 +123,6 @@ const Community = () => {
 };
 
 const CommunityWrap = styled.div`
-  background-color: var(--gray1);
-  margin-bottom: 80px;
   width: 100%;
   height: 100%;
 `;

@@ -1,62 +1,69 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 
-import MainRecommend from '../components/main/MainRecommend';
-import MainCommunity from '../components/main/MainCommunity';
+import MainRecommend from "../components/main/MainRecommend";
+import MainCommunity from "../components/main/MainCommunity";
 
-import '../css/component.css';
-import character from '../images/character/frame-main@3x.png';
-import BannerSwiper from '../components/main/BannerSwiper';
+import "../css/component.css";
+import "../css/transition.css";
+import character from "../images/character/frame-main@3x.png";
+import BannerSwiper from "../components/main/BannerSwiper";
 
 const Main = () => {
   const navigate = useNavigate();
 
   const [bannerTest, setBannerTest] = React.useState([
-    'https://d2v80xjmx68n4w.cloudfront.net/gigs/fcRew1619443814.jpg',
-    'https://miricanvas.zendesk.com/hc/article_attachments/360049191951/__________._1.png',
+    "https://d3g3p5loxgntj5.cloudfront.net/bikes/1631178475273847.jpg?d=900x600",
+    "https://d3g3p5loxgntj5.cloudfront.net/bikes/1631178475273847.jpg?d=900x600",
   ]);
 
   return (
-    <MainWrap>
-      <MainIntro>
-        <img src={character} alt='므팅이' />
-        <div>
-          다양한 MBTI 중에
-          <br /> <span>나의 찐친을 찾아봐요✨</span>
-        </div>
-      </MainIntro>
+    <CSSTransition
+      transitionName="homeTransition"
+      transitionAppear={true}
+      transitionAppearTimeout={500}
+      transitionEnter={false}
+      transitionLeave={false}
+    >
+      <MainWrap>
+        <MainIntro>
+          <img src={character} alt="므팅이" />
+          <div>
+            다양한 MBTI 중에
+            <br /> <span>나의 찐친을 찾아봐요✨</span>
+          </div>
+        </MainIntro>
 
-      <MainButtons className='contents-container'>
-        <VoiceButton>보이스로 랜덤 상대 MBTI 맞추기</VoiceButton>
-        <BottomBtns>
-          <RandomButton onClick={() => navigate('/test')}>
-            MBTI 약식 테스트
-          </RandomButton>
-          <RandomButton onClick={() => navigate('/mbtifriends')}>
-            다양한 MBTI 친구들
-          </RandomButton>
-        </BottomBtns>
-      </MainButtons>
+        <MainButtons className="contents-container">
+          <FriendsButton onClick={() => navigate("/mbtifriends")}>
+            다양한 MBTI 친구들 만나기
+          </FriendsButton>
+          <TestButton onClick={() => navigate("/test")}>
+            내 MBTI 테스트하러 가기
+          </TestButton>
+        </MainButtons>
 
-      <RecommendWrap>
-        <MainRecommend />
-      </RecommendWrap>
+        <RecommendWrap>
+          <MainRecommend />
+        </RecommendWrap>
 
-      <CommunityWrap className='contents-container'>
-        <MainCommunity />
-      </CommunityWrap>
-      <BannerSwiper images={bannerTest} />
-    </MainWrap>
+        <CommunityWrap className="contents-container">
+          <MainCommunity />
+        </CommunityWrap>
+
+        <BannerWrap className="contents-container">
+          {/* <BannerSwiper images={bannerTest} /> */}
+        </BannerWrap>
+      </MainWrap>
+    </CSSTransition>
   );
 };
 
 const MainWrap = styled.div`
   width: 100%;
-  padding-top: 10px;
-
-  // 나중에 삭제
-  padding-bottom: 100px;
+  padding: 10px 0 2px 0;
 `;
 
 const MainIntro = styled.div`
@@ -82,6 +89,7 @@ const MainButtons = styled.div`
   width: 100%;
   margin: 30px auto 20px auto;
   padding-bottom: 20px;
+
   & div {
     height: 60px;
     border-radius: 10px;
@@ -95,22 +103,24 @@ const MainButtons = styled.div`
   }
 `;
 
-const VoiceButton = styled.div`
+const FriendsButton = styled.div`
   background-color: var(--maincolor);
   color: white;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
-const BottomBtns = styled.div`
-  display: flex;
-  flex-flow: row;
-  gap: 10px;
-  margin-top: 16px;
-`;
-
-const RandomButton = styled.div`
+const TestButton = styled.div`
   width: 100%;
   color: var(--maincolor);
   border: 1px solid var(--maincolor);
+  margin-top: 16px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const RecommendWrap = styled.div`
@@ -120,11 +130,12 @@ const RecommendWrap = styled.div`
 
 const CommunityWrap = styled.div`
   width: 100%;
-  margin-top: 40px;
-  margin-bottom: 80px;
+  margin: 20px auto 80px auto;
   background-color: var(--subcolor);
   padding-top: 40px;
-  padding-bottom: 80px;
+  padding-bottom: 60px;
 `;
+
+const BannerWrap = styled.div``;
 
 export default Main;

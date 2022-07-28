@@ -3,14 +3,14 @@ import React from "react";
 import styled from "styled-components";
 
 const ChatNotice = (props) => {
-  return <ChatNoticeWrap>{props.text}</ChatNoticeWrap>;
+  return <ChatNoticeWrap>{props.text} 님이 퇴장하셨습니다.</ChatNoticeWrap>;
 };
 
 const ChatNoticeWrap = styled.div`
   background-color: var(--subcolor);
   font-size: 13.5px;
   height: 36px;
-  line-height : 36px;
+  line-height: 36px;
 `;
 
 export default ChatNotice;

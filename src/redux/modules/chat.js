@@ -1,13 +1,14 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { chatApi } from "../../shared/api";
+import Swal from "sweetalert2";
 
 // Action type
 const CREATE_ROOM = "CREATE_ROOM";
 const GET_CHAT_LIST = "GET_CHAT_LIST";
 const GET_USER_INFO = "GET_USER_INFO";
 const SEND_MESSAGE = "SEND_MESSAGE";
-const GET_MESSAGE = "GET_MESSAGE";
+const GET_MESSAGES = "GET_MESSAGES";
 
 const USER_BLOCK = "USER_BLOCK";
 const USER_UNBLOCK = "USER_UNBLOCK";
@@ -17,7 +18,7 @@ const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const getChatList = createAction(GET_CHAT_LIST, (rooms) => ({ rooms }));
 const getUserInfo = createAction(GET_USER_INFO, (userInfo) => ({ userInfo }));
 const sendMessage = createAction(SEND_MESSAGE, (data) => ({ data }));
-const getMessage = createAction(GET_MESSAGE, (data) => ({ data }));
+const getMessages = createAction(GET_MESSAGES, (data) => ({ data }));
 
 const userBlock = createAction(USER_BLOCK, (blocked) => ({ blocked }));
 const userUnblock = createAction(USER_UNBLOCK, (blocked) => ({ blocked }));
@@ -79,13 +80,12 @@ export const sendMessageAC = (roomId, content) => {
 };
 
 // 채팅방 메세지 get
-export const getMessageAC = (roomId) => {
+export const getMessagesAC = (roomId) => {
   return async function (dispatch) {
     await chatApi
-      .getMessage(roomId)
+      .getMessages(roomId)
       .then((res) => {
-        dispatch(getMessage(res.data));
-        console.log(res.data);
+        dispatch(getMessages(res.data.messages));
       })
       .catch((err) => {
         console.log(err);
@@ -96,30 +96,55 @@ export const getMessageAC = (roomId) => {
 // 채팅방 나가기
 export const exitRoomAC = (roomId) => {
   return async function () {
-    await chatApi
-      .exitRoom(roomId)
-      .then((res) => {
-        window.location.replace("/chatlist");
-        window.alert("채팅방에서 퇴장하셨습니다.");
-      })
-      .catch((err) => {
-        console.log("PUT updatePostAC Error: ", err);
-      });
+    Swal.fire({
+      text: "채팅방에서 나가시겠습니까?ㅜ.ㅜ",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#64be72",
+      confirmButtonText: "네",
+      cancelButtonText: "아니요",
+      cancleButtonColor: "#d9d9d9",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        chatApi
+          .exitRoom(roomId)
+          .then((res) => {
+            Swal.fire(
+              "방에서 퇴장하셨습니다.",
+              "채팅방 내역은 삭제되었습니다.",
+              "success"
+            ).then(() => {
+              window.location.replace("/chatlist");
+            });
+          })
+          .catch((err) => console.log(err));
+      }
+    });
   };
 };
 
 // 상대방 차단
 export const blockUserAC = (userNum) => {
   return async function (dispatch) {
-    await chatApi
-      .blockUser(userNum)
-      .then((res) => {
-        console.log(res.data);
+    Swal.fire({
+      text: "정말 상대방을 차단하실건가요?ㅜ.ㅜ",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#64be72",
+      confirmButtonText: "네",
+      cancelButtonText: "아니요",
+      cancleButtonColor: "#d9d9d9",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        chatApi
+          .blockUser(userNum)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
         dispatch(userBlock(1));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      } else {
+        window.location.reload();
+      }
+    });
   };
 };
 
@@ -159,7 +184,7 @@ export default handleActions(
         console.log("GET_USER_INFO");
       }),
 
-    [GET_MESSAGE]: (state, action) =>
+    [GET_MESSAGES]: (state, action) =>
       produce(state, (draft) => {
         draft.data = action.payload.data;
         console.log("GET_MESSAGE");
@@ -188,8 +213,8 @@ const actionCreators = {
   exitRoomAC,
   sendMessage,
   sendMessageAC,
-  getMessage,
-  getMessageAC,
+  getMessages,
+  getMessagesAC,
   userBlock,
   blockUserAC,
   userUnblock,

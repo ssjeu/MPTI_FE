@@ -3,9 +3,6 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import SweetAlert from '../components/sweetAlert/SweetAlert';
 
-// 토큰 설정
-const token = sessionStorage.getItem('is_login');
-
 const ImgApi = axios.create({
   baseURL: 'https://mptiserver.link',
   headers: {
@@ -159,7 +156,7 @@ export const chatApi = {
   exitRoom: (roomId) => instance.put(`/api/chat/${roomId}`),
   sendMessage: (roomId, content) =>
     instance.post(`/api/message/${roomId}`, { content: content }),
-  getMessage: (roomId) => instance.get(`/api/message/${roomId}`),
+  getMessages: (roomId) => instance.get(`/api/messages/${roomId}`),
 
   // 차단
   blockUser: (userNum) => instance.put(`/api/block`, { userNum: userNum }),

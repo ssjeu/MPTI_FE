@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { communityApi } from "../../shared/api";
+import Swal from "sweetalert2";
 
 // Action Type
 const ADD_COMMENT = "ADD_COMMENT";
@@ -23,14 +24,34 @@ const addCommentAC = (postId, text) => {
     await communityApi
       .commentWrite(postId, text)
       .then((res) => {
-        window.location.reload();
-        window.alert("댓글 작성 완료");
+        Swal.fire({
+          text: "댓글 작성 완료!",
+          icon: "success",
+          confirmButtonColor: "#64be72",
+          confirmButtonText: "확인",
+        }).then((res) => {
+          window.location.reload();
+        });
       })
       .catch((err) => {
         if (err.response.data.blocked === "blocked") {
-          window.alert("차단된 사용자는 댓글을 작성할 수 없습니다.");
+          Swal.fire({
+            text: "차단된 사용자는 댓글을 작성할 수 없습니다.",
+            icon: "error",
+            confirmButtonColor: "#64be72",
+            confirmButtonText: "확인",
+          }).then((res) => {
+            window.location.reload();
+          });
         } else {
-          window.alert("로그인 후 댓글 작성 가능합니다!");
+          Swal.fire({
+            text: "로그인 후 댓글 작성 가능합니다!",
+            icon: "warning",
+            confirmButtonColor: "#64be72",
+            confirmButtonText: "확인",
+          }).then((res) => {
+            window.location.reload();
+          });
         }
         console.log("POST addCommentAC Error: ", err);
       });
@@ -42,8 +63,14 @@ const deleteCommentAC = (commentId) => {
     await communityApi
       .commentDelete(commentId)
       .then((res) => {
-        window.location.reload();
-        window.alert("댓글 삭제 완료");
+        Swal.fire({
+          text: "댓글 삭제 완료!",
+          icon: "success",
+          confirmButtonColor: "#64be72",
+          confirmButtonText: "확인",
+        }).then((res) => {
+          window.location.reload();
+        });
       })
       .catch((err) => {
         console.log("DELETE deleteCommentAC Error: ", err);

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as recommendActions } from "../redux/modules/recommend";
-import { useInView } from "react-intersection-observer";
 
 import "../css/component.css";
 import FriendCard from "../elements/FriendCard";
@@ -20,10 +19,6 @@ const MbtiFriends = () => {
 
   // 필터로 선택한 MBTI
   const [filter, setFilter] = useState(null);
-
-  // 유저 목록 무한 스크롤
-  // ref를 div 에 걸어주면 해당 요소가 보이면 inView가 true 로, 안 보이면 false로 자동으로 변경
-  const [ref, inView] = useInView();
 
   const searchStr = (mbti, str) => {
     let res = 0;
@@ -67,7 +62,9 @@ const MbtiFriends = () => {
   );
 };
 
-const MbtiFriendsWrap = styled.div``;
+const MbtiFriendsWrap = styled.div`
+  height: 100%;
+`;
 
 const Top = styled.div`
   display: flex;

@@ -1,30 +1,33 @@
 // 1:1 실시간 채팅 대화내역
-import React, { useEffect, useState, createElement } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
+import { actionCreators as chatActions } from "../../redux/modules/chat";
 
 import "../../css/component.css";
 import "../../css/chat.css";
+import Message from "../../elements/Message";
 
 const ChatArea = ({ room }) => {
+  const dispatch = useDispatch();
   const token = sessionStorage.getItem("is_login");
   const userNum = sessionStorage.getItem("userNum");
+
+  const messages = useSelector((state) => state.chat.data);
+  console.log(messages);
 
   const EventSource = NativeEventSource || EventSourcePolyfill;
   global.EventSource = NativeEventSource || EventSourcePolyfill;
 
   useEffect(() => {
+    dispatch(chatActions.getMessagesAC(room.roomId));
+  }, []);
+
+  useEffect(() => {
     // EventSource 생성
-    // var eventSourceInitDict = { headers: { Authorization: "Bearer " + token } };
     const evtSource = new EventSource(
-      `http://3.35.170.203/api/message/` + room.roomId,
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
-      //   { withCredentials: true }
-      //   eventSourceInitDict
+      `http://3.35.170.203/api/message/` + room.roomId
     );
 
     // 실시간 채팅 메세지
@@ -71,15 +74,21 @@ const ChatArea = ({ room }) => {
 
   return (
     <ChatAreaWrap className="contents-container">
-      <Container id="chat-content"></Container>
+      <Container id="chat-content">
+        {messages.map((m, index) => {
+          if (Number(m.userNum) === Number(userNum))
+            return <Message type="sender" data={m} key={index} />;
+          else return <Message type="receiver" data={m} key={index} />;
+        })}
+      </Container>
     </ChatAreaWrap>
   );
 };
 
 const ChatAreaWrap = styled.div`
   overflow-y: scroll;
-  margin-bottom: 200px;
-  height: auto;
+  height: calc(100vh - 204px);
+  padding-bottom: 80px;
 `;
 
 const Container = styled.div`

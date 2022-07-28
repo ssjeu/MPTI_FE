@@ -55,8 +55,12 @@ const ChatListCard = ({ data, info }) => {
 
 const ChatListCardWrap = styled.div`
   display: flex;
-  margin: 16px 0;
+  margin: 16px auto;
   text-align: left;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const ProfileImage = styled.img`

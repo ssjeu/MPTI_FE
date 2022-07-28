@@ -37,7 +37,6 @@ const PostDetail = () => {
 };
 
 const PostDetailWrap = styled.div`
-  background-color: var(--gray1);
   position: relative;
 `;
 

@@ -161,14 +161,18 @@ const MbtiFilterSelect = (props) => {
 };
 
 const Buttons = styled.div`
-  display: flex;
-  flex-flow: row wrap;
+  //   display: flex;
+  //   flex-flow: row wrap;
   justify-content: space-between;
 `;
 
 const BtnWrap = styled.div`
   display: flex;
   justify-content: space-between;
+
+  & :hover {
+    cursor: pointer;
+  }
 `;
 
 export default MbtiFilterSelect;

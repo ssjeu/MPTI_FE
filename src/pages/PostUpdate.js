@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import uuid from "react-uuid";
 import imageCompression from "browser-image-compression";
+import Swal from "sweetalert2";
 
 import "../css/component.css";
 import PostDropdown from "../elements/PostDropdown";
@@ -85,10 +86,12 @@ const PostUpdate = () => {
 
   // 게시글 수정 function
   const addPost = async () => {
-    if (selected === undefined) alert("카테고리를 선택해주세요!");
-    else if (content_ref.current.value === "") alert("내용을 입력해주세요!");
+    if (selected === undefined || selected === "" || selected === "카테고리")
+      Swal.fire("", "카테고리를 선택해주세요!", "warning");
+    else if (content_ref.current.value === "")
+      Swal.fire("", "내용을 입력해주세요!", "warning");
     else if (content_ref.current.value.length < 5)
-      alert("최소 5자 이상 입력해주세요!");
+      Swal.fire("", "최소 5자 이상 입력해주세요!", "warning");
     else {
       const formData = new FormData();
       formData.append("postCategory", selected);
