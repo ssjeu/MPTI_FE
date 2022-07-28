@@ -143,7 +143,7 @@ const Container = styled.div`
   padding: 0 4.8%;
   margin-top: -40px;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 100px);
 
   position: relative;
 `;
