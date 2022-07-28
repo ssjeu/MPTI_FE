@@ -1,5 +1,6 @@
 // user.js
 import { authApi } from '../../shared/api';
+import Swal from 'sweetalert2';
 
 // Actions
 const LOAD_USER = 'user/LOAD_USER';
@@ -65,13 +66,24 @@ export const userInfoDB = (formData, nickname) => {
 
 export const logOutDB = () => {
   return function (dispatch) {
-    authApi
-      .logOut()
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-    dispatch(logOut());
-    alert('로그아웃 되었습니다!');
-    window.location.reload();
+    Swal.fire({
+      text: '정말 로그아웃하실 건가요?ㅜ.ㅜ',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#64be72',
+      confirmButtonText: '네',
+      cancelButtonText: '아니요',
+      cancleButtonColor: '#d9d9d9',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        authApi
+          .logOut()
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+        dispatch(logOut());
+        window.location.reload();
+      }
+    });
   };
 };
 

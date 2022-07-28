@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 
 // svg icons
 import { ReactComponent as Person } from '../images/icons/person.svg';
@@ -13,6 +14,7 @@ import Button01 from '../elements/Button01';
 import Dropdown from '../elements/Dropdown';
 import { userInfoDB } from '../redux/modules/user';
 import MbtiSelect from '../components/MbtiSelect';
+import SweetAlert from '../components/sweetAlert/SweetAlert';
 
 const UserInfo = () => {
   // 버튼 선택지 중 택1 구현
@@ -72,7 +74,9 @@ const UserInfo = () => {
 
   // 연도 셀렉트 박스
   for (let i = year; i >= 1963; i--) {
-    yearSelectList.push(i);
+    if (i <= 2006) {
+      yearSelectList.push(i);
+    }
   }
   // 월 셀렉트 박스
   for (let i = 1; i <= 12; i++) {
@@ -91,7 +95,7 @@ const UserInfo = () => {
       birthday.length < 5 ||
       introduction === ''
     ) {
-      alert('프로필과 빈칸을 모두 채워주세요!');
+      SweetAlert({ text: '프로필과 빈칸을 모두 채워주세요!', icon: 'error' });
       return;
     }
 
@@ -164,7 +168,7 @@ const UserInfo = () => {
         />
       </Profile>
 
-      <div>
+      <div style={{ width: '100%' }}>
         <div>
           <p>닉네임</p>
           <Input01
@@ -207,7 +211,6 @@ const UserInfo = () => {
             <div>
               <Dropdown
                 data={yearSelectList}
-                width='83px'
                 height='300px'
                 parent={yearDropdown}
               >
@@ -217,7 +220,7 @@ const UserInfo = () => {
             </div>
 
             <div>
-              <Dropdown data={monSelectList} width='61px' parent={monDropdown}>
+              <Dropdown data={monSelectList} parent={monDropdown}>
                 월
               </Dropdown>
               <span>월</span>
@@ -226,7 +229,6 @@ const UserInfo = () => {
             <div>
               <Dropdown
                 data={daySelectList}
-                width='61px'
                 height='300px'
                 parent={dayDropdown}
               >
@@ -274,6 +276,7 @@ const UserInfo = () => {
 };
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -356,17 +359,21 @@ const Profile = styled.div`
 
 const Buttons = styled.div`
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   justify-content: space-between;
+  gap: 10px;
 `;
 
 const SelectBox = styled.div``;
 
 const DropdownList = styled.div`
+  width: 100%;
   display: flex;
   flex-flow: row nowrap;
+  gap: 10px;
 
   & > div {
+    width: 100%;
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-end;
