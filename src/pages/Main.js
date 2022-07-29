@@ -31,6 +31,10 @@ const Main = () => {
         <MainRecommend />
       </RecommendWrap>
 
+      {/* <a href={BannerImg} download>
+        <button>이미지 원본 다운로드</button>
+      </a> */}
+
       <SubWrap>
         <BannerWrap>
           초간단 MBTI 테스트!

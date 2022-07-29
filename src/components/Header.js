@@ -29,6 +29,10 @@ export const Header = () => {
     navigate(-1);
   };
 
+  const goHome = () => {
+    navigate("/");
+  };
+
   return (
     <HeaderWrap
       className="contents-container"
@@ -76,6 +80,7 @@ export const Header = () => {
       </FilterIcon>
 
       <LogoIcon
+        onClick={goHome}
         className={
           location === "/login" || location === "/mbtifilter" ? "hide" : null
         }
@@ -136,14 +141,16 @@ export const Header = () => {
 };
 
 const HeaderWrap = styled.div`
-  // background-color: #fff;
   padding: 58px 5% 36px 5%;
-  // margin: 58px 0 36px 0;
   display: flex;
   justify-content: space-between;
   width: 100%;
   position: relative;
   z-index: 99;
+
+  & div:hover {
+    cursor: pointer;
+  }
 `;
 
 const BackIcon = styled.div.attrs((props) => ({

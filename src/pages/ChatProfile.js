@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import "../css/component.css";
 import ProfileSwiper from "../components/myprofile/ProfileSwiper";
 import Button01 from "../elements/Button01";
-import { ReactComponent as BlockSvg } from "../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg";
+import { ReactComponent as BlockSvg } from "../images/icons/flag.svg";
 
 const ChatProfile = () => {
   const dispatch = useDispatch();

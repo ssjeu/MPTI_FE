@@ -1,11 +1,14 @@
-// 메인페이지에서 MBTI 추천에 나타나는 유저 card
+// 메인페이지 MBTI 추천 유저 card
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const RecommendCard = ({ card }) => {
+  const birthday = card.birthday && card.birthday.slice(0, 4);
+  const today = new Date();
+  const age = today.getFullYear() - birthday + 1;
+
   return (
-    // <Link to={"/chatprofile/"+card.userNum} state={{ data: card }}>
     <Link to="/chatprofile" state={{ data: card, from: "recommend" }}>
       <RecommendCardWrap>
         <Card>
@@ -14,7 +17,7 @@ const RecommendCard = ({ card }) => {
           </CardImage>
           <CardTitle>
             <div>
-              {card.nickname}
+              {card.nickname}, {age}
               <br />
               <span>{card.mbti}</span>
             </div>
