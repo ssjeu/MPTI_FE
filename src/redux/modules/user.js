@@ -73,7 +73,6 @@ export const logOutDB = () => {
       confirmButtonColor: '#64be72',
       confirmButtonText: '네',
       cancelButtonText: '아니요',
-      cancleButtonColor: '#d9d9d9',
     }).then((result) => {
       if (result.isConfirmed) {
         authApi

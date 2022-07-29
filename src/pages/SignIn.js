@@ -43,12 +43,17 @@ const SignIn = () => {
   };
 
   // 카카오 로그인 테스트
-  const CLIENT_ID = '	8889cc33c5ac3c4cec9e5da61462fad9';
-  // const REDIRECT_URI = 'http://3.35.170.203/oauth/api/kakao/callback';
-  const REDIRECT_URI = 'https://mptiserver.link/api/kakao/callback';
+  // const CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
+  // const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
   const KakaoLogin = () => {
-    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    // window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    // window.location.href = `https://mptiserver.link/api/kakao/callback`;
+
+    SweetAlert({
+      icon: 'info',
+      text: '현재 개발 중입니다. 빠른 시일 내로 찾아올게요!',
+    });
   };
 
   return (

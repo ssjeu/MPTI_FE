@@ -99,15 +99,24 @@ export const authApi = {
 
   kakaoLogin: async (code) => {
     await instance
-      .get(`/api/kakao/callback?code=${code}`)
-      // .get(`/api/kakao/callback?code=${code}`)
+      // .get(`https://mptiserver.link/api/kakao/callback`)
+      .get(`https://mptiserver.link/api/kakao/callback?code=${code}`)
       .then((res) => {
         console.log(res);
-        alert('로그인 되었습니다!');
+        // alert('로그인 되었습니다!');
       })
       .catch((err) => {
         console.log(err);
       });
+  },
+
+  kakaoLoginData: (token) => {
+    instance
+      .post(`/api/kakao`, {
+        access_token: token,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   },
 
   logOut: () => instance.post('/api/logout'),
