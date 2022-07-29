@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const BannerSwiper = ({ images }) => {
+const BannerSwiper = ({ images, url }) => {
   SwiperCore.use([Navigation, Pagination, Autoplay]);
 
   return (
@@ -27,7 +27,15 @@ const BannerSwiper = ({ images }) => {
           images.map((list, idx) => {
             return (
               <SwiperSlide key={idx}>
-                <IMG src={list} alt="banner" key={idx} />
+                {idx === 0 ? (
+                  <a href={url[idx]} target="_blank">
+                    <IMG src={list} alt="banner" key={idx} />
+                  </a>
+                ) : (
+                  <a href={url[idx]}>
+                    <IMG src={list} alt="banner" key={idx} />
+                  </a>
+                )}
               </SwiperSlide>
             );
           })}
