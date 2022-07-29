@@ -40,6 +40,7 @@ const Card = styled.div`
 const CardImage = styled.div`
   width: 140px;
   height: 220px;
+
   & img {
     width: 140px;
     height: 220px;
@@ -75,4 +76,5 @@ const CardTitle = styled.div`
     font-weight: normal;
   }
 `;
+
 export default RecommendCard;

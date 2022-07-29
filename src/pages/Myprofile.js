@@ -1,16 +1,16 @@
-import React, { useCallback } from 'react';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
-import ProfileImg from '../components/myprofile/ProfileImg';
-import Button01 from '../elements/Button01';
-import { userInfoDB, userProfileDB } from '../redux/modules/userInfo';
-import ProfileSwiper from '../components/myprofile/ProfileSwiper';
-import Swal from 'sweetalert2';
+import ProfileImg from "../components/myprofile/ProfileImg";
+import Button01 from "../elements/Button01";
+import { userInfoDB, userProfileDB } from "../redux/modules/userInfo";
+import ProfileSwiper from "../components/myprofile/ProfileSwiper";
+import Swal from "sweetalert2";
 
 const Myprofile = () => {
   const [active, setActive] = React.useState(1);
-  const [userIntroduction, setUserIntroduction] = React.useState('');
+  const [userIntroduction, setUserIntroduction] = React.useState("");
 
   // 서버에 보내는 유저 프로필 이미지
   const [profileImages, setProfileImages] = React.useState();
@@ -27,13 +27,13 @@ const Myprofile = () => {
         userIntroduction !== user_data.introduction
       ) {
         Swal.fire({
-          text: '지금 페이지를 이동하면 정보가 저장되지 않아요!',
-          icon: 'question',
+          text: "지금 페이지를 이동하면 정보가 저장되지 않아요!",
+          icon: "question",
           showCancelButton: true,
-          confirmButtonColor: '#64be72',
-          confirmButtonText: '이동할래요',
-          cancelButtonText: '앗, 남을래요',
-          cancleButtonColor: '#d9d9d9',
+          confirmButtonColor: "#64be72",
+          confirmButtonText: "이동할래요",
+          cancelButtonText: "앗, 남을래요",
+          cancleButtonColor: "#d9d9d9",
         }).then((result) => {
           if (result.isConfirmed) {
             setActive(2);
@@ -50,7 +50,7 @@ const Myprofile = () => {
   };
 
   // 유저 정보
-  const userNum = sessionStorage.getItem('userNum');
+  const userNum = sessionStorage.getItem("userNum");
   const user_data = useSelector((state) => state.userInfo.user);
 
   // 서버에서 데이터 받아오기
@@ -60,13 +60,13 @@ const Myprofile = () => {
     if (user_data) {
       setUserProfiles(user_data.profileImages);
     }
-  }, [active]);
+  }, [user_data]);
 
   React.useEffect(() => {
     if (user_data) {
       setUserIntroduction(user_data.introduction);
     }
-  }, []);
+  }, [user_data]);
 
   // 자기소개 변경 부분
   const userIntroductionChange = useCallback((e) => {
@@ -90,12 +90,12 @@ const Myprofile = () => {
 
   return (
     <>
-      <div style={{ width: '100%', height: '100%' }}>
+      <div style={{ width: "100%", height: "100%" }}>
         <TabMenu active={active}>
           <button
             onClick={activeChange}
             style={{
-              color: active === 1 ? 'var(--maincolor)' : 'var(--gray3)',
+              color: active === 1 ? "var(--maincolor)" : "var(--gray3)",
             }}
           >
             프로필 수정
@@ -104,7 +104,7 @@ const Myprofile = () => {
           <button
             onClick={activeChange}
             style={{
-              color: active === 2 ? 'var(--maincolor)' : 'var(--gray3)',
+              color: active === 2 ? "var(--maincolor)" : "var(--gray3)",
             }}
           >
             내 프로필 미리보기
@@ -113,11 +113,13 @@ const Myprofile = () => {
 
         {active === 1 ? (
           <Container>
-            <ProfileImg
-              margin='0 0 51.5px 0'
-              parent={userProfileImages}
-              data={userProfiles}
-            />
+            {userProfiles !== undefined && (
+              <ProfileImg
+                margin="0 0 51.5px 0"
+                parent={userProfileImages}
+                data={userProfiles}
+              />
+            )}
 
             <Introduction>
               <p>자기소개</p>
@@ -127,9 +129,9 @@ const Myprofile = () => {
               />
             </Introduction>
             <Button01
-              backgroundColor='var(--maincolor)'
-              color='#fff'
-              margin='0 0 30px 0'
+              backgroundColor="var(--maincolor)"
+              color="#fff"
+              margin="0 0 30px 0"
               _onClick={completed}
             >
               완료

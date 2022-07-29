@@ -6,47 +6,32 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const BannerSwiper = ({ images, type }) => {
+const BannerSwiper = ({ images }) => {
   SwiperCore.use([Navigation, Pagination, Autoplay]);
 
   return (
     <>
-      {type === "mobile" ? (
-        <StyledSwiper
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 4000 }}
-          loop
-        >
-          {images &&
-            images.map((list, idx) => {
-              return (
-                <SwiperSlide key={idx}>
-                  <IMG src={list} alt="banner" key={idx} />
-                </SwiperSlide>
-              );
-            })}
-        </StyledSwiper>
-      ) : (
-        <StyledSwiper
-          slidesPerView={3}
-          spaceBetween={20}
-          loop={true}
-          loopFillGroupWithBlank={true}
-          pagination={{
-            clickable: true,
-          }}
-          autoplay={{ delay: 2000 }}
-        >
-          {images &&
-            images.map((list, idx) => {
-              return (
-                <SwiperSlide key={idx}>
-                  <IMG src={list} alt="banner" key={idx} />
-                </SwiperSlide>
-              );
-            })}
-        </StyledSwiper>
-      )}
+      <StyledSwiper
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 2000 }}
+        loop
+        breakpoints={{
+          820: {
+            slidesPerView: 3, //브라우저가 820보다 클 때
+            spaceBetween: 20,
+            loopFillGroupWithBlank: true,
+          },
+        }}
+      >
+        {images &&
+          images.map((list, idx) => {
+            return (
+              <SwiperSlide key={idx}>
+                <IMG src={list} alt="banner" key={idx} />
+              </SwiperSlide>
+            );
+          })}
+      </StyledSwiper>
     </>
   );
 };
