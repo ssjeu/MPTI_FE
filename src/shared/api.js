@@ -75,8 +75,6 @@ export const authApi = {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res);
-
         sessionStorage.setItem('is_login', res.data.token);
         sessionStorage.setItem('userNum', res.data.user.userNum);
         Swal.fire({
@@ -93,7 +91,7 @@ export const authApi = {
         });
       })
       .catch((err) => {
-        console.log(err);
+        SweetAlert({ icon: 'error', text: '아이디, 비밀번호를 확인해주세요!' });
       });
   },
 
