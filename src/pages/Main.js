@@ -6,17 +6,24 @@ import BannerSwiper from "../components/main/BannerSwiper";
 import BannerCard from "../elements/BannerCard";
 
 import "../css/component.css";
-import BannerImg from "../images/banner/main_bn_01.png";
+import MainImg01 from "../images/banner/main_bn_01.png";
+import MainImg02 from "../images/banner/main_bn_02.png";
+import MainImg03 from "../images/banner/main_bn_03.png";
 import SubImg01 from "../images/banner/sub_bn_mbti-test.png";
 import SubImg02 from "../images/banner/sub_bn_mbti-guide.png";
 
 const Main = () => {
-  const bannerTest = [BannerImg, BannerImg, BannerImg];
+  const mainImg = [MainImg01, MainImg02, MainImg03];
+  const mainUrl = [
+    "https://forms.gle/AA16D2RiBQxFvrj29",
+    "/mbtifriends",
+    "/test",
+  ];
 
   return (
     <MainWrap>
       <SwiperWrap className="contents-container">
-        <BannerSwiper images={bannerTest} />
+        <BannerSwiper images={mainImg} url={mainUrl} />
       </SwiperWrap>
 
       <RecommendWrap>
