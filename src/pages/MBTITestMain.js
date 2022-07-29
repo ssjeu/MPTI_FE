@@ -51,11 +51,15 @@ const MBTITestMain = () => {
 
 const Container = styled.div`
   width: 100%;
+  height: calc(100% - 124.5px);
+  background-color: var(--subcolor);
 `;
 
 const TitleArea = styled.div`
+  width: 100%;
+  background-color: #fff;
   background-clip: border-box;
-  padding: 20px 0 40px 0;
+  padding: 30px 0 50px 0;
 
   * {
     margin: 0;
@@ -83,14 +87,14 @@ const NoticeArea = styled.div`
   }
 
   width: 100%;
-  background-color: var(--subcolor);
+  height: auto;
 
   text-align: left;
   box-sizing: border-box;
   padding: 0 5%;
 
-  position: fixed;
-  top: 50%;
+  position: inherit;
+  top: 30%;
   bottom: 0;
 
   span {

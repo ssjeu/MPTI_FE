@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Pagination from '../components/mbti_test/Pagination';
+import SweetAlert from '../components/sweetAlert/SweetAlert';
 import Button01 from '../elements/Button01';
 import { mbtiTestApi } from '../shared/api';
+import Swal from 'sweetalert2';
 
 import { answer } from '../shared/mbti_question';
+import reactSelect from 'react-select';
 
 const MBTITest = () => {
   const [isActive, setIsActive] = React.useState(0);
@@ -20,13 +23,38 @@ const MBTITest = () => {
 
   const onNext = () => {
     if (3 > isActive) {
+      if (
+        (isActive === 0 && first.includes(null)) ||
+        (isActive === 1 && second.includes(null)) ||
+        (isActive === 2 && third.includes(null))
+      ) {
+        SweetAlert({ icon: 'error', text: '답변을 모두 선택해주세요!' });
+        return;
+      }
       setIsActive(isActive + 1);
+      window.scrollTo(0, 0);
     }
 
     if (isActive === 3) {
+      if (isActive === 3 && fourth.includes(null)) {
+        SweetAlert({ icon: 'error', text: '답변을 모두 선택해주세요!' });
+        return;
+      }
+
       mbtiTestApi
         .mbtiTest(first, second, third, fourth)
-        .then((res) => console.log(res))
+        .then((res) => {
+          console.log(res);
+          Swal.fire({
+            title: '당신의 MBTI는?',
+            text: res.data.mbti + '\n입니다!',
+            icon: 'success',
+            confirmButtonColor: '#64be72',
+            confirmButtonText: '확인',
+          }).then((result) => {
+            window.location.replace('/');
+          });
+        })
         .catch((err) => console.log(err));
     }
   };
@@ -43,7 +71,7 @@ const MBTITest = () => {
   };
 
   return (
-    <>
+    <div>
       <Wrap>
         <Pagination state={isActive} />
         <h3>
@@ -97,7 +125,7 @@ const MBTITest = () => {
                         secondNewArray[idx] = 'S';
                         setSecond(secondNewArray);
                       }}
-                      style={first[idx] === 'S' ? activeBtn : normalBtn}
+                      style={second[idx] === 'S' ? activeBtn : normalBtn}
                     >
                       {list[0]}
                     </button>
@@ -106,7 +134,7 @@ const MBTITest = () => {
                         secondNewArray[idx] = 'N';
                         setSecond(secondNewArray);
                       }}
-                      style={first[idx] === 'N' ? activeBtn : normalBtn}
+                      style={second[idx] === 'N' ? activeBtn : normalBtn}
                     >
                       {list[1]}
                     </button>
@@ -130,7 +158,7 @@ const MBTITest = () => {
                         thirdNewArray[idx] = 'T';
                         setThird(thirdNewArray);
                       }}
-                      style={first[idx] === 'T' ? activeBtn : normalBtn}
+                      style={third[idx] === 'T' ? activeBtn : normalBtn}
                     >
                       {list[0]}
                     </button>
@@ -139,7 +167,7 @@ const MBTITest = () => {
                         thirdNewArray[idx] = 'F';
                         setThird(thirdNewArray);
                       }}
-                      style={first[idx] === 'F' ? activeBtn : normalBtn}
+                      style={third[idx] === 'F' ? activeBtn : normalBtn}
                     >
                       {list[1]}
                     </button>
@@ -163,7 +191,7 @@ const MBTITest = () => {
                         fourthNewArray[idx] = 'J';
                         setFourth(fourthNewArray);
                       }}
-                      style={first[idx] === 'J' ? activeBtn : normalBtn}
+                      style={fourth[idx] === 'J' ? activeBtn : normalBtn}
                     >
                       {list[0]}
                     </button>
@@ -172,7 +200,7 @@ const MBTITest = () => {
                         fourthNewArray[idx] = 'P';
                         setFourth(fourthNewArray);
                       }}
-                      style={first[idx] === 'P' ? activeBtn : normalBtn}
+                      style={fourth[idx] === 'P' ? activeBtn : normalBtn}
                     >
                       {list[1]}
                     </button>
@@ -189,11 +217,12 @@ const MBTITest = () => {
           _onClick={onNext}
           backgroundColor='var(--maincolor)'
           color='#fff'
+          margin='0 0 30px 0'
         >
           {isActive === 3 ? '완료하기' : '다음으로'}
         </Button01>
       </ButtonWrap>
-    </>
+    </div>
   );
 };
 
@@ -201,6 +230,8 @@ const Wrap = styled.div`
   box-sizing: border-box;
   padding: 0 10.7%;
   text-align: left;
+
+  width: 100%;
 
   & > h3 {
     font-size: 20px;

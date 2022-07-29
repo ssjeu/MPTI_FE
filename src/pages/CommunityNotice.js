@@ -45,7 +45,7 @@ const CommunityNotice = () => {
 };
 
 const CommunityNoticeWrap = styled.div`
-  margin: 20px 0 140px 0;
+  width: 100%;
   text-align: left;
   color: #242424;
   font-size: 14px;
@@ -63,14 +63,11 @@ const Title = styled.div`
   padding-left: 32px;
   border-radius: 6px;
   line-height: 92px;
-`;
-
-const Pre = styled.div`
-  margin-top: 16px;
+  margin-bottom: 16px;
 `;
 
 const Notice = styled.div`
-  margin: 40px auto;
+  padding-bottom: 20px;
 `;
 
 const NoticeDetailWrap = styled.div`
@@ -86,6 +83,10 @@ const Detail = styled.div`
   & li {
     margin-bottom: 4px;
   }
+`;
+
+const Pre = styled.div`
+  padding-bottom: 40px;
 `;
 
 export default CommunityNotice;

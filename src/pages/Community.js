@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import Swal from "sweetalert2";
 
 import "../css/component.css";
 import PostList from "../components/community/PostList";
@@ -24,6 +25,7 @@ const Community = () => {
   const categories = ["전체", "MBTI", "자유", "고민상담", "익명"];
   const [activeCat, setActiveCat] = useState(categories);
   const [activeCatState, setActiveCatState] = useState(0);
+
   // 해당 카테고리 게시물 목록
   const [data, setData] = useState([]);
 
@@ -51,7 +53,7 @@ const Community = () => {
   // 게시글 작성하기 버튼
   const postWrite = () => {
     if (token) navigate("/postwrite");
-    else alert("로그인을 해주세요!");
+    else Swal.fire("게시글 작성", "로그인을 해주세요!", "warning");
   };
 
   return (
@@ -87,7 +89,10 @@ const Community = () => {
         })}
       </Category>
 
-      <Notice onClick={() => navigate("/community/notice")}>
+      <Notice
+        onClick={() => navigate("/community/notice")}
+        className="contents-container"
+      >
         <span>필독!</span>커뮤니티 이용 규칙
       </Notice>
 
@@ -118,8 +123,8 @@ const Community = () => {
 };
 
 const CommunityWrap = styled.div`
-  background-color: var(--gray1);
-  margin-bottom: 80px;
+  width: 100%;
+  height: 100%;
 `;
 
 const Category = styled.div`
@@ -146,6 +151,10 @@ const CategoryAll = styled.div.attrs((props) => ({
     font-weight: bold;
     border-bottom: 2px solid var(--maincolor);
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const CategoryButton = styled.div.attrs((props) => ({
@@ -160,6 +169,10 @@ const CategoryButton = styled.div.attrs((props) => ({
     color: var(--maincolor);
     font-weight: bold;
     border-bottom: 2px solid var(--maincolor);
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -176,16 +189,22 @@ const Notice = styled.div`
   & span {
     color: var(--pointcolor);
     font-weight: bold;
-    margin-left: 20px;
     margin-right: 10px;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
-const CommunityList = styled.div``;
+const CommunityList = styled.div`
+  padding-bottom: 80px;
+`;
 
 const CommunityNoList = styled.div`
   background-color: white;
   font-weight: 300;
+  height: 100vh;
 
   & img {
     margin: 100px auto 20px auto;

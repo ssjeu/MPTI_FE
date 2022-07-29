@@ -1,4 +1,4 @@
-// 메인페이지에서 나와 잘맞는 MBTI 추천
+// 메인페이지 나와 잘맞는 MBTI 추천
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -7,8 +7,9 @@ import { actionCreators as recommendActions } from "../../redux/modules/recommen
 
 import "../../css/component.css";
 import RecommendCard from "../../elements/RecommendCard";
-import Information from "../../images/icons/info_FILL0_wght400_GRAD0_opsz48.png";
 import Modal from "../Modal";
+import Information from "../../images/icons/info_FILL0_wght400_GRAD0_opsz48.png";
+import ExcelImg from "../../images/banner/excel.png";
 
 const MainRecommend = () => {
   const dispatch = useDispatch();
@@ -37,11 +38,13 @@ const MainRecommend = () => {
         <img src={Information} alt="info" onClick={onClickInfo} />
         {showInfo && (
           <Modal
-            show={showInfo}
-            onCloseModal={onClickInfo}
-            style={{ margin: "630px 0 0 170px", width: "13.8vh" }}
-            children={<div>MBTI 궁합표에 의해 추천되는 데이터입니다.</div>}
-          />
+            open={showInfo}
+            close={onClickInfo}
+            header="나와 잘 맞는 MBTI 추천"
+          >
+            <img src={ExcelImg} alt="MBTI 궁합표" style={{ height: "200px" }} />
+            <h6>MBTI 궁합표에 의해 추천되는 데이터입니다.</h6>
+          </Modal>
         )}
       </RecommendTitle>
 
@@ -78,6 +81,10 @@ const RecommendTitle = styled.div`
     opacity: 0.5;
     margin: 0 0 2px 6px;
   }
+
+  & img:hover {
+    cursor: pointer;
+  }
 `;
 
 const RecommendCardWrap = styled.div`
@@ -85,6 +92,12 @@ const RecommendCardWrap = styled.div`
   margin-left: -10px;
   padding: 12px 5%;
   overflow-x: scroll;
+
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+  }
 `;
 
 const NoCard = styled.div`

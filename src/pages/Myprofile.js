@@ -4,49 +4,34 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ProfileImg from '../components/myprofile/ProfileImg';
 import Button01 from '../elements/Button01';
-import { userInfoDB, userProfileDB } from '../redux/modules/userInfo';
+import userInfo, { userInfoDB, userProfileDB } from '../redux/modules/userInfo';
 import ProfileSwiper from '../components/myprofile/ProfileSwiper';
+import Swal from 'sweetalert2';
 
 const Myprofile = () => {
   const [active, setActive] = React.useState(1);
   const [userIntroduction, setUserIntroduction] = React.useState('');
-
   // 서버에 보내는 유저 프로필 이미지
   const [profileImages, setProfileImages] = React.useState();
-
   // 서버에서 받아오는 유저 프로필 이미지
   const [userProfiles, setUserProfiles] = React.useState();
 
   const dispatch = useDispatch();
 
-  const activeChange = () => {
-    if (active === 1) {
-      setActive(2);
-    }
-    if (active === 2) {
-      setActive(1);
-    }
-  };
-
   // 유저 정보
   const userNum = sessionStorage.getItem('userNum');
   const user_data = useSelector((state) => state.userInfo.user);
-  console.log(user_data);
 
-  // 서버에서 데이터 받아오기
   React.useEffect(() => {
     dispatch(userInfoDB(userNum));
-
-    if (user_data) {
-      setUserProfiles(user_data.profileImages);
-    }
-  }, [active]);
+  }, []);
 
   React.useEffect(() => {
     if (user_data) {
+      setUserProfiles(user_data.profileImages);
       setUserIntroduction(user_data.introduction);
     }
-  }, []);
+  }, [user_data]);
 
   // 자기소개 변경 부분
   const userIntroductionChange = useCallback((e) => {
@@ -70,60 +55,87 @@ const Myprofile = () => {
 
   return (
     <>
-      <TabMenu active={active}>
-        <button
-          onClick={activeChange}
-          style={{ color: active === 1 ? 'var(--maincolor)' : 'var(--gray3)' }}
-        >
-          프로필 수정
-        </button>
-        <div>|</div>
-        <button
-          onClick={activeChange}
-          style={{ color: active === 2 ? 'var(--maincolor)' : 'var(--gray3)' }}
-        >
-          내 프로필 미리보기
-        </button>
-      </TabMenu>
-
-      {active === 1 ? (
-        <Container>
-          <ProfileImg
-            margin='0 0 51.5px 0'
-            parent={userProfileImages}
-            data={userProfiles}
-          />
-
-          <Introduction>
-            <p>자기소개</p>
-            <textarea
-              value={userIntroduction}
-              onChange={userIntroductionChange}
-            />
-          </Introduction>
-          <Button01
-            backgroundColor='var(--maincolor)'
-            color='#fff'
-            margin='0 0 30px 0'
-            _onClick={completed}
+      <div style={{ width: '100%', height: '100%' }}>
+        <TabMenu active={active}>
+          <button
+            onClick={() => {
+              setActive(1);
+            }}
+            style={{
+              color: active === 1 ? 'var(--maincolor)' : 'var(--gray3)',
+            }}
           >
-            완료
-          </Button01>
-        </Container>
-      ) : (
-        <Container>
-          <ProfileSwiper images={userProfiles} />
-          <UserInfoArea>
-            <div>
-              <h3>{user_data && user_data.nickname}</h3>
-              <span>{user_age}</span>
-            </div>
-            <span>{user_data && user_data.mbti}</span>
-            <p>자기소개</p>
-            <p>{user_data && user_data.introduction}</p>
-          </UserInfoArea>
-        </Container>
-      )}
+            프로필 수정
+          </button>
+          <div>|</div>
+          <button
+            onClick={() => {
+              if (profileImages?.length !== userProfiles?.length) {
+                Swal.fire({
+                  text: '지금 페이지를 이동하면 정보가 저장되지 않아요!',
+                  icon: 'question',
+                  showCancelButton: true,
+                  confirmButtonColor: '#64be72',
+                  confirmButtonText: '이동할래요',
+                  cancelButtonText: '앗, 남을래요',
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    setActive(2);
+                  }
+                });
+                return;
+              }
+              setActive(2);
+            }}
+            style={{
+              color: active === 2 ? 'var(--maincolor)' : 'var(--gray3)',
+            }}
+          >
+            내 프로필 미리보기
+          </button>
+        </TabMenu>
+
+        {active === 1 ? (
+          <Container>
+            {userProfiles !== undefined && (
+              <ProfileImg
+                margin='0 0 51.5px 0'
+                parent={userProfileImages}
+                data={userProfiles}
+              />
+            )}
+
+            <Introduction>
+              <p>자기소개</p>
+              <textarea
+                value={userIntroduction}
+                onChange={userIntroductionChange}
+              />
+            </Introduction>
+            <Button01
+              backgroundColor='var(--maincolor)'
+              color='#fff'
+              margin='0 0 30px 0'
+              _onClick={completed}
+            >
+              완료
+            </Button01>
+          </Container>
+        ) : (
+          <Container>
+            <ProfileSwiper images={userProfiles} />
+            <UserInfoArea>
+              <div>
+                <h3>{user_data && user_data.nickname}</h3>
+                <span>{user_age}</span>
+              </div>
+              <span>{user_data && user_data.mbti}</span>
+              <p>자기소개</p>
+              <p>{user_data && user_data.introduction}</p>
+            </UserInfoArea>
+          </Container>
+        )}
+      </div>
     </>
   );
 };
@@ -150,12 +162,14 @@ const TabMenu = styled.div`
     width: 100%;
     background: transparent;
     border: none;
+    cursor: pointer;
   }
 `;
 
 const Container = styled.div`
   box-sizing: border-box;
   padding: 0 2.9%;
+  background-color: #fff;
 `;
 
 const Introduction = styled.div`

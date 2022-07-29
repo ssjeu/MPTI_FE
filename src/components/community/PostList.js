@@ -30,9 +30,6 @@ const PostList = ({ card, click }) => {
   const likes = useSelector((state) => state.like.like);
   const likeUsers = useSelector((state) => state.like.user);
   let [likeState, setLikeState] = useState();
-  console.log(likes);
-  console.log(likeUsers);
-  console.log(likeState);
 
   useEffect(() => {
     dispatch(userInfoDB(card.userNum));
@@ -130,8 +127,9 @@ const PostListWrap = styled.div`
   text-align: left;
   padding: 20px 0 12px 0;
   background-color: white;
-  margin-bottom: 12px;
+  border-bottom: 12px solid var(--gray1);
   color: #333333;
+  width: 100%;
 
   & hr {
     opacity: 0.1;
@@ -142,6 +140,7 @@ const PostListWrap = styled.div`
 const PostWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
 `;
 
 const PostInfo = styled.div`
@@ -154,6 +153,10 @@ const PostInfo = styled.div`
     border-radius: 18px;
     background-color: var(--subcolor);
     border: 1px solid var(--gray1);
+  }
+
+  & img:hover {
+    cursor: pointer;
   }
 `;
 
@@ -170,6 +173,8 @@ const PostUser = styled.div`
 `;
 
 const PostContents = styled.div`
+  width: 100%;
+
   margin: 12px 0;
   font-size: 16px;
 
@@ -177,6 +182,11 @@ const PostContents = styled.div`
     border-radius: 6px;
     width: 100%;
     margin: 12px 0 4px 0;
+    border: 1px solid var(--subcolor);
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -197,6 +207,10 @@ const PostButton = styled.div`
   .icons {
     width: 16px;
     margin: 2px 4px 0 0;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 

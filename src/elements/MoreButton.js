@@ -69,7 +69,11 @@ const MoreButton = ({ id, type }) => {
   );
 };
 
-const MoreButtonWrap = styled.div``;
+const MoreButtonWrap = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const MoreDropdown = styled.ul`
   list-style-type: none;

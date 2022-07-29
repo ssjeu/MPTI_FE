@@ -1,116 +1,86 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 import MainRecommend from "../components/main/MainRecommend";
-import MainCommunity from "../components/main/MainCommunity";
+import BannerSwiper from "../components/main/BannerSwiper";
+import BannerCard from "../elements/BannerCard";
 
 import "../css/component.css";
-import character from "../images/character/frame-main@3x.png";
+import BannerImg from "../images/banner/main_bn_01.png";
+import SubImg01 from "../images/banner/sub_bn_mbti-test.png";
+import SubImg02 from "../images/banner/sub_bn_mbti-guide.png";
 
 const Main = () => {
-  const navigate = useNavigate();
+  const bannerTest = [BannerImg, BannerImg, BannerImg];
 
   return (
     <MainWrap>
-      <MainIntro>
-        <img src={character} alt="므팅이" />
-        <div>
-          다양한 MBTI 중에
-          <br /> <span>나의 찐친을 찾아봐요✨</span>
-        </div>
-      </MainIntro>
-
-      <MainButtons className="contents-container">
-        <VoiceButton>보이스로 랜덤 상대 MBTI 맞추기</VoiceButton>
-        <BottomBtns>
-          <RandomButton onClick={() => navigate("/test")}>
-            MBTI 약식 테스트
-          </RandomButton>
-          <RandomButton onClick={() => navigate("/mbtifriends")}>
-            다양한 MBTI 친구들
-          </RandomButton>
-        </BottomBtns>
-      </MainButtons>
+      <SwiperWrap className="contents-container">
+        <BannerSwiper images={bannerTest} />
+      </SwiperWrap>
 
       <RecommendWrap>
         <MainRecommend />
       </RecommendWrap>
 
-      <CommunityWrap className="contents-container">
-        <MainCommunity />
-      </CommunityWrap>
+      <SubWrap>
+        <BannerWrap>
+          초간단 MBTI 테스트!
+          <BannerCard
+            src={SubImg01}
+            txt={[
+              "내 MBTI가 뭐였더라..?",
+              "더 빠른 MBTI 테스트",
+              "MBTI 약식 테스트 바로가기",
+            ]}
+            to="/test"
+          />
+        </BannerWrap>
+        <BannerWrap>
+          믑티 소개서 ❤️
+          <BannerCard
+            src={SubImg02}
+            txt={[
+              "믑티가 처음이신가요?",
+              "진짜 찐친을 만나는 곳, 믑티",
+              "자세히 보기",
+            ]}
+            to="/about"
+          />
+        </BannerWrap>
+      </SubWrap>
     </MainWrap>
   );
 };
 
 const MainWrap = styled.div`
-  padding-top: 10px;
-`;
-
-const MainIntro = styled.div`
-  margin: 30px auto;
-
-  & img {
-    width: 104px;
-  }
-
-  & div {
-    padding: 24px 0;
-    font-size: 24px;
-    font-weight: 300;
-    letter-spacing: -1.2px;
-  }
-
-  & span {
-    font-weight: 500;
-  }
-`;
-
-const MainButtons = styled.div`
-  margin: 30px auto 20px auto;
-  padding-bottom: 20px;
-  & div {
-    height: 60px;
-    border-radius: 10px;
-    // box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.06);
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: -0.8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-`;
-
-const VoiceButton = styled.div`
-  background-color: var(--maincolor);
-  color: white;
-`;
-
-const BottomBtns = styled.div`
-  display: flex;
-  flex-flow: row;
-  gap: 10px;
-  margin-top: 16px;
-`;
-
-const RandomButton = styled.div`
   width: 100%;
-  color: var(--maincolor);
-  border: 1px solid var(--maincolor);
+  padding: 10px 0 100px 0;
+`;
+
+const SwiperWrap = styled.div`
+  padding-bottom: 40px;
 `;
 
 const RecommendWrap = styled.div`
-  padding-top: 20px;
+  width: 100%;
 `;
 
-const CommunityWrap = styled.div`
-  margin-top: 40px;
-  margin-bottom: 80px;
-  background-color: var(--subcolor);
+const SubWrap = styled.div`
   padding-top: 40px;
-  padding-bottom: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  margin-right: 5%;
+`;
+
+const BannerWrap = styled.div`
+  padding-bottom: 40px;
+  flex-grow: 1;
+  margin-left: 5%;
 `;
 
 export default Main;

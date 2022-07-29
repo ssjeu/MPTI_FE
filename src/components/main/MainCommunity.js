@@ -1,5 +1,5 @@
 // 메인페이지에서 커뮤니티 목록
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,16 +33,19 @@ const MainCommunity = () => {
         <img src={arrow} alt="community arrow" />
       </CommunnityTitle>
       <CommunityCardWrap>
-        {posts.slice(0, 6).map((card, index) => (
-          <Link
-            to={"/posts/" + card.postId}
-            state={{ data: card, user: user }}
-            style={{ textDecoration: "none" }}
-            key={index}
-          >
-            <PostCard card={card} key={index} />
-          </Link>
-        ))}
+        {posts
+          .filter((post) => post.postImage.length > 0)
+          .slice(0, 6)
+          .map((card, index) => (
+            <Link
+              to={"/posts/" + card.postId}
+              state={{ data: card, user: user }}
+              style={{ textDecoration: "none" }}
+              key={index}
+            >
+              <PostCard card={card} key={index} />
+            </Link>
+          ))}
       </CommunityCardWrap>
     </MainCommunityWrap>
   );

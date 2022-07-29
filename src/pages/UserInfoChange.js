@@ -12,7 +12,7 @@ import { userInfoChangeDB, userInfoDB } from '../redux/modules/userInfo';
 
 const UserInfoChange = () => {
   const [userInfo, setUserInfo] = React.useState();
-  const [userNickname, setUserNickname] = React.useState();
+  const [userNickname, setUserNickname] = React.useState('');
   const [userImage, setUserImage] = React.useState();
   const [preUserImage, setPreUserImage] = React.useState();
 
@@ -32,7 +32,7 @@ const UserInfoChange = () => {
 
     if (user_data) {
       setUserInfo(user_data);
-      setUserImage(user_data.userImage[0]);
+      setUserImage(user_data.userImage && user_data.userImage[0]);
     }
   }, []);
 
@@ -95,7 +95,7 @@ const UserInfoChange = () => {
           <p>닉네임</p>
           <Input01
             placeholder='닉네임을 입력해주세요.'
-            color='#64be72'
+            _color='#64be72'
             _value={userNickname}
             _onChange={userNicknameChange}
           />
@@ -143,8 +143,8 @@ const UserInfoChange = () => {
 };
 
 const Container = styled.div`
-  width: 100vw;
-  height: auto;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   padding: 0 5.9%;
 
@@ -205,7 +205,7 @@ const Profile = styled.div`
 
 const Wrap = styled.div`
   width: 100%;
-  height: 100%;
+
   box-sizing: border-box;
   padding: 0 4.5%;
 `;

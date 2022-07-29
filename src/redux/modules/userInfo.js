@@ -1,6 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import { imageApi, userInfoApi } from '../../shared/api';
 import { produce } from 'immer';
+import SweetAlert from '../../components/sweetAlert/SweetAlert';
+import Swal from 'sweetalert2';
 
 // Action type
 const GET_USERINFO = 'GET_USERINFO';
@@ -33,7 +35,7 @@ export const userInfoChangeDB = (userNum, formData) => {
     userInfoApi
       .userInfoChange(userNum, formData)
       .then((res) => {
-        alert('수정이 완료되었습니다!');
+        SweetAlert({ icon: 'success', text: '수정이 완료되었습니다!' });
       })
       .catch((err) => console.log(err));
   };
@@ -45,8 +47,15 @@ export const userProfileDB = (userNum, userIntroduction, profileImages) => {
     userInfoApi
       .userProfile(userNum, userIntroduction, profileImages)
       .then((res) => {
-        console.log(res);
-        alert('프로필 수정이 완료되었어요!');
+        SweetAlert({ icon: 'success', text: '프로필 수정이 완료되었어요!' });
+        Swal.fire({
+          text: '프로필 수정이 완료되었어요!',
+          icon: 'success',
+          confirmButtonColor: '#64be72',
+          confirmButtonText: '확인',
+        }).then((result) => {
+          window.location.reload();
+        });
       })
       .catch((err) => {
         console.log(err);

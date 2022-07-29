@@ -5,7 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "../css/component.css";
 import Logo from "../images/header/logo@2x.png";
 
-// svg icons + logo
 import { ReactComponent as BackSvg } from "../images/header/keyboard-arrow-left.svg";
 import { ReactComponent as LogoSvg } from "../images/logo/Group 15.svg";
 import { ReactComponent as AlarmSvg } from "../images/header/notifications_none.svg";
@@ -14,12 +13,14 @@ import { ReactComponent as CloseSvg } from "../images/header/close.svg";
 export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
+  const isLogin = sessionStorage.getItem("is_login");
 
   const goBack = () => {
     if (
       location !== "/" &&
       location !== "/community" &&
-      location !== "/chatlist"
+      location !== "/chatlist" &&
+      location !== "/mbtifriends"
     )
       navigate(-1);
   };
@@ -28,8 +29,18 @@ export const Header = () => {
     navigate(-1);
   };
 
+  const goHome = () => {
+    navigate("/");
+  };
+
   return (
-    <HeaderWrap className="contents-container">
+    <HeaderWrap
+      className="contents-container"
+      style={{
+        backgroundColor:
+          location !== "/my" && location !== "/chat" ? "#fff" : "transparent",
+      }}
+    >
       <BackIcon
         onClick={goBack}
         className={
@@ -42,7 +53,8 @@ export const Header = () => {
           location === "/my" ||
           location === "/my/profile" ||
           location === "/mbtifriends" ||
-          location === "/mbtifilter"
+          location === "/mbtifilter" ||
+          location === "/chatlist"
             ? "hide"
             : null
         }
@@ -68,6 +80,7 @@ export const Header = () => {
       </FilterIcon>
 
       <LogoIcon
+        onClick={goHome}
         className={
           location === "/login" || location === "/mbtifilter" ? "hide" : null
         }
@@ -84,7 +97,8 @@ export const Header = () => {
           location === "/login" ||
           location === "/join" ||
           location === "/info" ||
-          location === "/info/change"
+          location === "/info/change" ||
+          isLogin === null
             ? "hide"
             : null
         }
@@ -127,14 +141,16 @@ export const Header = () => {
 };
 
 const HeaderWrap = styled.div`
-  // background-color: white;
-  margin: 58px 0 36px 0;
+  padding: 58px 5% 36px 5%;
   display: flex;
   justify-content: space-between;
-`;
+  width: 100%;
+  position: relative;
+  z-index: 99;
 
-const LogoStyle = styled.img`
-  margin: ${(props) => props.margin};
+  & div:hover {
+    cursor: pointer;
+  }
 `;
 
 const BackIcon = styled.div.attrs((props) => ({
@@ -156,6 +172,7 @@ const LogoIcon = styled.div.attrs((props) => ({
 const AlarmIcon = styled.div.attrs((props) => ({
   className: props.className,
 }))`
+  opacity: 0;
   &.hide {
     opacity: 0;
   }
@@ -181,15 +198,3 @@ const FilterIcon = styled.div.attrs((props) => ({
     opacity: 0;
   }
 `;
-
-// 스크롤 고정시
-
-// const HeaderWrap = styled.div`
-//   position: fixed;
-//   background-color: white;
-//   width: 100%;
-//   height: 40px;
-//   padding-top: 60px;
-//   display: flex;
-//   justify-content: space-between;
-// `;

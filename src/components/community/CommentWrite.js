@@ -1,10 +1,10 @@
 // 댓글 작성하기 컴포넌트
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
-
+import Swal from "sweetalert2";
 import "../../css/component.css";
 
 const CommentWrite = () => {
@@ -13,11 +13,11 @@ const CommentWrite = () => {
   const postId = params.index;
   const token = sessionStorage.getItem("is_login");
 
-  // 댓글 입력 data
-  const content_ref = React.useRef();
+  const content_ref = useRef();
 
   const activeComment = () => {
-    if (content_ref.current.value === "") alert("내용을 입력해주세요!");
+    if (content_ref.current.value === "")
+      Swal.fire("", "내용을 입력해주세요!", "warning");
     else {
       dispatch(commentActions.addCommentAC(postId, content_ref.current.value));
       content_ref.current.value = "";
@@ -31,7 +31,7 @@ const CommentWrite = () => {
         <InputButton
           onClick={() => {
             if (token) activeComment();
-            else alert("로그인을 해주세요!");
+            else Swal.fire("댓글 작성 불가", "로그인을 해주세요!", "warning");
           }}
         >
           입력
@@ -42,11 +42,12 @@ const CommentWrite = () => {
 };
 
 const CommentWriteWrap = styled.div`
-  position: fixed;
+  position: sticky;
   background-color: var(--subcolor);
   height: 80px;
   width: 100%;
   bottom: 80px;
+  display: flex;
 `;
 
 const CommentInput = styled.div`
@@ -56,6 +57,7 @@ const CommentInput = styled.div`
   height: 40px;
   margin: 20px 0;
   font-size: 16px;
+  width: 100%;
 
   &:hover {
     border: 1px solid var(--maincolor);
@@ -88,6 +90,10 @@ const InputButton = styled.div`
   margin-top: 5px;
   color: var(--maincolor);
   font-weight: 500;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default CommentWrite;

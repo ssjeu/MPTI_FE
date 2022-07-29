@@ -1,15 +1,16 @@
 // 커뮤니티 게시글 작성
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import imageCompression from "browser-image-compression";
+import Swal from "sweetalert2";
 
 import "../css/component.css";
+import PostDropdown from "../elements/PostDropdown";
 import UploadButton from "../elements/MainButton";
 import UploadImage from "../images/icons/filter@3x.png";
-import CategoryDown from "../images/icons/expand-more@3x.png";
 
 const PostWrite = () => {
   const dispatch = useDispatch();
@@ -17,17 +18,18 @@ const PostWrite = () => {
 
   // 카테고리
   const [selected, setSelected] = useState();
-  const handleSelect = (e) => {
-    setSelected(e.target.value);
-  };
-
-  // 이미지
-  const img_ref = React.useRef();
-  const [img, setImg] = useState([]);
-  const [previewImg, setPreviewImg] = useState([]);
+  const categoryList = ["MBTI", "자유", "고민상담", "익명"];
 
   // 게시글 내용
-  const content_ref = React.useRef();
+  const img_ref = useRef();
+  const [img, setImg] = useState([]);
+  const [previewImg, setPreviewImg] = useState([]);
+  const content_ref = useRef();
+
+  // 카테고리 선택
+  const categoryDrop = (x) => {
+    setSelected(x);
+  };
 
   // 이미지 압축
   const compressImage = async (image) => {
@@ -78,11 +80,12 @@ const PostWrite = () => {
 
   // 게시글 업로드 function
   const addPost = async () => {
-    if (selected === undefined || selected === "")
-      alert("카테고리를 선택해주세요!");
-    else if (content_ref.current.value === "") alert("내용을 입력해주세요!");
+    if (selected === undefined || selected === "" || selected === "카테고리")
+      Swal.fire("", "카테고리를 선택해주세요!", "warning");
+    else if (content_ref.current.value === "")
+      Swal.fire("", "내용을 입력해주세요!", "warning");
     else if (content_ref.current.value.length < 5)
-      alert("최소 5자 이상 입력해주세요!");
+      Swal.fire("", "최소 5자 이상 입력해주세요!", "warning");
     else {
       const formData = new FormData();
       formData.append("postCategory", selected);
@@ -95,23 +98,21 @@ const PostWrite = () => {
 
   return (
     <PostWriteWrap>
-      <Notice onClick={() => navigate("/community/notice")}>
+      <Notice
+        onClick={() => navigate("/community/notice")}
+        className="contents-container"
+      >
         <span>필독!</span>커뮤니티 이용 규칙
       </Notice>
 
-      <SelectWrap>
-        {/* <SelectCategory>
-          카테고리
-          <img src={CategoryDown} alt="categorydown" />
-        </SelectCategory> */}
-        <Select onChange={handleSelect} name="category">
-          <option value="">카테고리</option>
-          <option value="MBTI">MBTI</option>
-          <option value="자유">자유</option>
-          <option value="고민상담">고민상담</option>
-          <option value="익명">익명</option>
-        </Select>
-
+      <SelectWrap className="contents-container">
+        <PostDropdown
+          data={categoryList}
+          width="88px"
+          height="auto"
+          parent={categoryDrop}
+          children="카테고리"
+        />
         <SelectImage>
           <label>
             <img src={UploadImage} alt="uploadimage" />
@@ -128,7 +129,7 @@ const PostWrite = () => {
         </SelectImage>
       </SelectWrap>
 
-      <TextArea>
+      <TextArea className="contents-container">
         <textarea
           placeholder="최소 5자 이상 입력해 주세요"
           ref={content_ref}
@@ -136,7 +137,7 @@ const PostWrite = () => {
       </TextArea>
 
       {previewImg && (
-        <ImagePreview>
+        <ImagePreview className="contents-container">
           {" "}
           {previewImg.map((data, index) => (
             <div key={index}>
@@ -154,7 +155,9 @@ const PostWrite = () => {
   );
 };
 
-const PostWriteWrap = styled.div``;
+const PostWriteWrap = styled.div`
+  height: 100%;
+`;
 
 const Notice = styled.div`
   background-color: var(--subcolor);
@@ -168,54 +171,20 @@ const Notice = styled.div`
   & span {
     color: var(--pointcolor);
     font-weight: bold;
-    margin-left: 20px;
     margin-right: 10px;
   }
 `;
 
 const SelectWrap = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-const SelectCategory = styled.div`
-  background-color: var(--maincolor);
-  width: 88px;
-  height: 28px;
-  border-radius: 4px;
-  color: white;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  & img {
-    width: 16px;
-    margin-left: 4px;
-  }
-`;
-
-const Select = styled.select`
-  background-color: var(--maincolor);
-  width: 88px;
-  height: 28px;
-  border-radius: 4px;
-  color: white;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px 4px;
-  border: none;
-  &: focus {
-    border: none;
-  }
-`;
-
 const SelectImage = styled.div`
+  margin-right: -16px;
+
   & img {
     width: 24px;
     height: 24px;
@@ -229,7 +198,7 @@ const SelectImage = styled.div`
 `;
 
 const TextArea = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   text-align: left;
 
   & textarea {
@@ -254,11 +223,12 @@ const TextArea = styled.div`
 `;
 
 const ImagePreview = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   padding-bottom: 20px;
   text-algin: left;
   display: flex;
   overflow: auto;
+  min-height: 240px;
 
   & img {
     height: 160px;
@@ -270,9 +240,11 @@ const ImagePreview = styled.div`
 const Upload = styled.div`
   width: 100%;
   height: 92px;
-  position: fixed;
-  bottom: 0;
-  box-shadow: 0 0 1px 0 var(--gray4);
+  //   box-shadow: 0 0 1px 0 var(--gray4);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default PostWrite;
