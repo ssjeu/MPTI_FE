@@ -30,9 +30,6 @@ const PostList = ({ card, click }) => {
   const likes = useSelector((state) => state.like.like);
   const likeUsers = useSelector((state) => state.like.user);
   let [likeState, setLikeState] = useState();
-  console.log(likes);
-  console.log(likeUsers);
-  console.log(likeState);
 
   useEffect(() => {
     dispatch(userInfoDB(card.userNum));
@@ -157,6 +154,10 @@ const PostInfo = styled.div`
     background-color: var(--subcolor);
     border: 1px solid var(--gray1);
   }
+
+  & img:hover {
+    cursor: pointer;
+  }
 `;
 
 const PostUser = styled.div`
@@ -183,6 +184,10 @@ const PostContents = styled.div`
     margin: 12px 0 4px 0;
     border: 1px solid var(--subcolor);
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const PostAction = styled.div`
@@ -202,6 +207,10 @@ const PostButton = styled.div`
   .icons {
     width: 16px;
     margin: 2px 4px 0 0;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 

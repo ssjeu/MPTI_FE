@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 import ProfileImg from '../components/myprofile/ProfileImg';
 import Button01 from '../elements/Button01';
@@ -19,7 +19,7 @@ const Myprofile = () => {
   const dispatch = useDispatch();
 
   // 유저 정보
-  const userNum = sessionStorage.getItem('userNum');
+  const userNum = sessionStorage.getItem("userNum");
   const user_data = useSelector((state) => state.userInfo.user);
 
   React.useEffect(() => {
@@ -55,14 +55,14 @@ const Myprofile = () => {
 
   return (
     <>
-      <div style={{ width: '100%', height: '100%' }}>
+      <div style={{ width: "100%", height: "100%" }}>
         <TabMenu active={active}>
           <button
             onClick={() => {
               setActive(1);
             }}
             style={{
-              color: active === 1 ? 'var(--maincolor)' : 'var(--gray3)',
+              color: active === 1 ? "var(--maincolor)" : "var(--gray3)",
             }}
           >
             프로필 수정
@@ -88,7 +88,7 @@ const Myprofile = () => {
               setActive(2);
             }}
             style={{
-              color: active === 2 ? 'var(--maincolor)' : 'var(--gray3)',
+              color: active === 2 ? "var(--maincolor)" : "var(--gray3)",
             }}
           >
             내 프로필 미리보기
@@ -97,11 +97,13 @@ const Myprofile = () => {
 
         {active === 1 ? (
           <Container>
-            <ProfileImg
-              margin='0 0 51.5px 0'
-              parent={userProfileImages}
-              data={userProfiles}
-            />
+            {userProfiles !== undefined && (
+              <ProfileImg
+                margin="0 0 51.5px 0"
+                parent={userProfileImages}
+                data={userProfiles}
+              />
+            )}
 
             <Introduction>
               <p>자기소개</p>
@@ -111,9 +113,9 @@ const Myprofile = () => {
               />
             </Introduction>
             <Button01
-              backgroundColor='var(--maincolor)'
-              color='#fff'
-              margin='0 0 30px 0'
+              backgroundColor="var(--maincolor)"
+              color="#fff"
+              margin="0 0 30px 0"
               _onClick={completed}
             >
               완료

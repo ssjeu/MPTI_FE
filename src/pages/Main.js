@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useMediaQuery } from "react-responsive";
 
 import MainRecommend from "../components/main/MainRecommend";
 import BannerSwiper from "../components/main/BannerSwiper";
@@ -12,20 +11,13 @@ import SubImg01 from "../images/banner/sub_bn_mbti-test.png";
 import SubImg02 from "../images/banner/sub_bn_mbti-guide.png";
 
 const Main = () => {
-  const isTabletOrMobile = useMediaQuery({ maxWidth: 820 });
   const bannerTest = [BannerImg, BannerImg, BannerImg];
 
   return (
     <MainWrap>
-      {isTabletOrMobile ? (
-        <SwiperWrap className="contents-container">
-          <BannerSwiper images={bannerTest} type="mobile" />
-        </SwiperWrap>
-      ) : (
-        <SwiperWrap className="contents-container">
-          <BannerSwiper images={bannerTest} type="pc" />
-        </SwiperWrap>
-      )}
+      <SwiperWrap className="contents-container">
+        <BannerSwiper images={bannerTest} />
+      </SwiperWrap>
 
       <RecommendWrap>
         <MainRecommend />
