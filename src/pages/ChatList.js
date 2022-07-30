@@ -61,7 +61,8 @@ const ChatList = () => {
 
 const ChatListWrap = styled.div`
   background-color: white;
-  height: 100vh;
+  height: auto;
+  min-height: calc(100% - 124.5px);
   margin-top: -16px;
   padding-top: 16px;
 

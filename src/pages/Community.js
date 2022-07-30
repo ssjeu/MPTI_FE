@@ -124,7 +124,8 @@ const Community = () => {
 
 const CommunityWrap = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
+  min-height: calc(100% - 124.5px);
 `;
 
 const Category = styled.div`
