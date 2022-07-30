@@ -14,7 +14,7 @@ import ProfileCharacter from "../../images/character/profile-character.png";
 import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
 
-const PostList = ({ card, click }) => {
+const PostList = ({ card, click, cmtCnt }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,7 +29,8 @@ const PostList = ({ card, click }) => {
   // 좋아요
   const likes = useSelector((state) => state.like.like);
   const likeUsers = useSelector((state) => state.like.user);
-  let [likeState, setLikeState] = useState();
+  const [likeState, setLikeState] = useState();
+  const [likeCnt, setLikeCnt] = useState();
 
   useEffect(() => {
     dispatch(userInfoDB(card.userNum));
@@ -37,12 +38,12 @@ const PostList = ({ card, click }) => {
   }, []);
 
   useEffect(() => {
-    if (likeUsers) {
-      let res = likeUsers.find((user) => Number(userNum) === Number(user));
-      console.log(res);
-      setLikeState(res ? true : false);
-    } else setLikeState(false);
-  }, []);
+    if (likeUsers && likeUsers.includes(Number(userNum))) setLikeState(1);
+  }, [likeUsers]);
+
+  useEffect(() => {
+    setLikeCnt(likes);
+  }, [likes]);
 
   // 유저 프로필 보기
   const showProfile = () => {
@@ -62,8 +63,13 @@ const PostList = ({ card, click }) => {
 
   // 좋아요
   const handleLike = () => {
-    if (likeState) dispatch(likeActions.deleteLikeAC(card.postId));
-    else dispatch(likeActions.addLikeAC(card.postId));
+    if (likeState) {
+      dispatch(likeActions.deleteLikeAC(card.postId));
+      setLikeCnt(likeCnt - 1);
+    } else {
+      dispatch(likeActions.addLikeAC(card.postId));
+      setLikeCnt(likeCnt + 1);
+    }
 
     setLikeState(!likeState);
   };
@@ -105,21 +111,23 @@ const PostList = ({ card, click }) => {
         ) : null}
       </PostContents>
 
-      <PostAction className="contents-container">
-        <PostButton
-          onClick={() => {
-            if (token) handleLike();
-          }}
-        >
-          <Like
-            className="icons"
-            style={{ fill: likeState === true ? "#ff6565" : "#adadad" }}
-          />
-        </PostButton>
-        좋아요 {card.countLikes}
-        <img src={Comment} alt="comment" />
-        댓글 {card.commentCount}
-      </PostAction>
+      {click === "yes" ? null : (
+        <PostAction className="contents-container">
+          <PostButton
+            onClick={() => {
+              if (token) handleLike();
+            }}
+          >
+            <Like
+              className="icons"
+              style={{ fill: likeState ? "#ff6565" : "#adadad" }}
+            />
+          </PostButton>
+          좋아요 {likeCnt}
+          <img src={Comment} alt="comment" />
+          댓글 {cmtCnt}
+        </PostAction>
+      )}
     </PostListWrap>
   );
 };

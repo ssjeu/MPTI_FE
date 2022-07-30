@@ -64,13 +64,14 @@ const CommentInput = styled.div`
   }
 
   & input {
+    margin-top: -2px;
     font-size: 16px;
     border: none;
     float: left;
     margin-left: 16px;
     height: 38px;
     width: 70%;
-    background-color: #f8f8f8;
+    background-color: transparent;
   }
 
   & input:focus {

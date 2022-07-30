@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { communityApi } from "../../shared/api";
 import { produce } from "immer";
+import Swal from "sweetalert2";
 
 // Action Type
 const GET_LIKE = "GET_LIKE";
@@ -45,9 +46,14 @@ const addLikeAC = (postId) => {
   return async function (dispatch) {
     await communityApi
       .likeAdd(postId)
-      .then((res) => {
-        //   dispatch(addLike(like+1));
-        console.log(res.data, "addLikeAC response");
+      .then(() => {
+        Swal.fire({
+          text: "좋아요! 🥳",
+          icon: "success",
+          confirmButtonText: "확인",
+        }).then((res) => {
+          //   dispatch(addLike(like+1));
+        });
       })
       .catch((err) => {
         console.log("POST addLikeAC Error: ", err);
@@ -60,7 +66,14 @@ const deleteLikeAC = (postId) => {
     await communityApi
       .likeDelete(postId)
       .then((res) => {
-        console.log(res.data, "deleteLikeAC response");
+        Swal.fire({
+            text: "좋아요 취소 🥺",
+            icon: "success",
+            confirmButtonColor: "#64be72",
+            confirmButtonText: "확인",
+          }).then((res) => {
+            //   dispatch(addLike(like+1));
+          });
       })
       .catch((err) => {
         console.log("DELETE deleteLikeAC Error: ", err);
