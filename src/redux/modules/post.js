@@ -85,10 +85,10 @@ const addPostAC = (formData) => {
 };
 
 // 게시글 수정
-const updatePostAC = (postId, formData) => {
+const updatePostAC = (postId, category, content, img) => {
   return async function () {
     await communityApi
-      .postUpdate(postId, formData)
+      .postUpdate(postId, category, content, img)
       .then(() => {
         Swal.fire({
           text: "게시글 수정 완료!",

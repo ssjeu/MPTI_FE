@@ -4,13 +4,12 @@ import styled from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
-import imageCompression from "browser-image-compression";
 import Swal from "sweetalert2";
 
 import "../css/component.css";
+import PostImg from "../components/community/PostImg";
 import PostDropdown from "../elements/PostDropdown";
 import UploadButton from "../elements/MainButton";
-import UploadImage from "../images/icons/filter@3x.png";
 
 const PostUpdate = () => {
   const dispatch = useDispatch();
@@ -25,7 +24,6 @@ const PostUpdate = () => {
   const categoryList = ["MBTI", "자유", "고민상담", "익명"];
 
   // 게시글 내용
-  const img_ref = useRef();
   const content_ref = useRef();
   const [img, setImg] = useState();
   const [previewImg, setPreviewImg] = useState([]);
@@ -50,47 +48,10 @@ const PostUpdate = () => {
     setSelected(x);
   };
 
-  // 클릭 시 input file 연결
-  const onClickImageUpload = () => {
-    img_ref.current.click();
-  };
-
-  // 이미지 압축
-  const compressImage = async (image) => {
-    try {
-      const options = {
-        maxSizeMb: 0.2,
-        maxWidthOrHeight: 600,
-      };
-      return await imageCompression(image, options);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  // 이미지 업로드
-  const uploadFile = async (e) => {
-    const files = e.target.files;
-
-    if (files && files[0]) {
-      const originalImg = files[0];
-      const compressedImg = await compressImage(originalImg);
-      setImg(compressedImg);
-    }
-
-    let filePreviewURLs = [];
-    let filesLength = files.length > 10 ? 10 : files.length;
-
-    for (let i = 0; i < filesLength; i++) {
-      let file = files[i];
-      let reader = new FileReader();
-
-      reader.onload = () => {
-        filePreviewURLs[i] = reader.result;
-        setPreviewImg([...filePreviewURLs]);
-      };
-      reader.readAsDataURL(file);
-    }
+  // PostImg.js에서 이미지 데이터 받아오기
+  const getImgUrl = (x) => {
+    setImg(x);
+    setPreviewImg(x);
   };
 
   // 프리뷰에서 이미지 삭제
@@ -110,12 +71,10 @@ const PostUpdate = () => {
     else if (content_ref.current.value.length < 5)
       Swal.fire("", "최소 5자 이상 입력해주세요!", "warning");
     else {
-      const formData = new FormData();
-      formData.append("postCategory", selected);
-      formData.append("postContent", content_ref.current.value);
-      formData.append("postImage", img);
-
-      dispatch(postActions.updatePostAC(id, formData));
+      dispatch(
+        //   console.log(id, selected, content_ref.current.value, [previewImg]);
+        postActions.updatePostAC(id, selected, content_ref.current.value, previewImg)
+      );
     }
   };
 
@@ -136,20 +95,7 @@ const PostUpdate = () => {
           parent={categoryDrop}
           children={post.posts.postCategory}
         />
-        <SelectImage onClick={onClickImageUpload}>
-          <label>
-            <img src={UploadImage} alt="uploadimage" />
-          </label>
-          <input
-            type="file"
-            id="image_uploads"
-            name="image_uploads"
-            accept=".jpg, .jpeg, .png"
-            ref={img_ref}
-            onChange={uploadFile}
-            multiple
-          />
-        </SelectImage>
+        <PostImg parent={getImgUrl} data={serverImg}/>
       </SelectWrap>
 
       <TextArea className="contents-container">
@@ -211,21 +157,6 @@ const SelectWrap = styled.div`
 
   & :hover {
     cursor: pointer;
-  }
-`;
-
-const SelectImage = styled.div`
-  margin-right: -16px;
-
-  & img {
-    width: 24px;
-    height: 24px;
-  }
-
-  & input {
-    width: 20px;
-    height: 20px;
-    opacity: 0%;
   }
 `;
 
