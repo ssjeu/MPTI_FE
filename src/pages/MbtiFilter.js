@@ -45,7 +45,6 @@ const MbtiFilter = () => {
 
 const MbtiFilterWrap = styled.div`
   background-color: white;
-  padding-bottom: 60px;
   height: calc(100% - 124.5px);
 `;
 

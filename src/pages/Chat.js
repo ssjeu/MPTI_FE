@@ -36,7 +36,7 @@ const Chat = () => {
     (e) => {
       e.preventDefault();
       if (room && chat?.trim()) {
-        setChat(chat.replace(/(?:\r\n|\r|\n)/g, "<br>"));
+        setChat(chat.replace(/(?:\r\n|\r|\n)/g, "<br/>"));
         dispatch(chatActions.sendMessageAC(room.roomId, chat));
         setChat("");
         console.log("submit");

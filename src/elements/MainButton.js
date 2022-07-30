@@ -16,7 +16,11 @@ const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  -webkit-tap-highlight-color : transparent;
+  -webkit-tap-highlight-color: transparent;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export default MainButton;

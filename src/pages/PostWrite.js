@@ -31,6 +31,11 @@ const PostWrite = () => {
     setSelected(x);
   };
 
+  // 클릭 시 input file 연결
+  const onClickImageUpload = () => {
+    img_ref.current.click();
+  };
+
   // 이미지 압축
   const compressImage = async (image) => {
     try {
@@ -113,7 +118,7 @@ const PostWrite = () => {
           parent={categoryDrop}
           children="카테고리"
         />
-        <SelectImage>
+        <SelectImage onClick={onClickImageUpload}>
           <label>
             <img src={UploadImage} alt="uploadimage" />
           </label>
@@ -156,7 +161,7 @@ const PostWrite = () => {
 };
 
 const PostWriteWrap = styled.div`
-  height: 100%;
+  height: calc(100% - 124.5px);
 `;
 
 const Notice = styled.div`
@@ -173,6 +178,10 @@ const Notice = styled.div`
     font-weight: bold;
     margin-right: 10px;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const SelectWrap = styled.div`
@@ -180,6 +189,10 @@ const SelectWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  & :hover {
+    cursor: pointer;
+  }
 `;
 
 const SelectImage = styled.div`

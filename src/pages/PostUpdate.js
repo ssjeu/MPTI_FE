@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
-import uuid from "react-uuid";
 import imageCompression from "browser-image-compression";
 import Swal from "sweetalert2";
 
@@ -31,13 +30,29 @@ const PostUpdate = () => {
   const [img, setImg] = useState();
   const [previewImg, setPreviewImg] = useState([]);
 
+  // 서버에서 받아오는 유저 프로필 이미지
+  const [serverImg, setServerImg] = useState();
+
   useEffect(() => {
     dispatch(postActions.detailPostDB(id));
   }, []);
 
+  useEffect(() => {
+    if (post) {
+      setServerImg(post.posts.postImage);
+      setImg(post.posts.postImage);
+      setPreviewImg(post.posts.postImage);
+    }
+  }, [post]);
+
   // 카테고리 선택
   const categoryDrop = (x) => {
     setSelected(x);
+  };
+
+  // 클릭 시 input file 연결
+  const onClickImageUpload = () => {
+    img_ref.current.click();
   };
 
   // 이미지 압축
@@ -119,7 +134,7 @@ const PostUpdate = () => {
           parent={categoryDrop}
           children={post.posts.postCategory}
         />
-        <SelectImage>
+        <SelectImage onClick={onClickImageUpload}>
           <label>
             <img src={UploadImage} alt="uploadimage" />
           </label>
@@ -155,15 +170,15 @@ const PostUpdate = () => {
         </ImagePreview>
       )}
 
-      <div onClick={addPost} className="contents-container">
+      <ButtonWrap onClick={addPost} className="contents-container">
         <UploadButton text="수정하기" />
-      </div>
+      </ButtonWrap>
     </PostWriteWrap>
   );
 };
 
 const PostWriteWrap = styled.div`
-  height: 100%;
+  height: auto;
 `;
 
 const Notice = styled.div`
@@ -180,6 +195,10 @@ const Notice = styled.div`
     font-weight: bold;
     margin-right: 10px;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const SelectWrap = styled.div`
@@ -187,6 +206,10 @@ const SelectWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  & :hover {
+    cursor: pointer;
+  }
 `;
 
 const SelectImage = styled.div`
@@ -225,17 +248,20 @@ const TextArea = styled.div`
 
 const ImagePreview = styled.div`
   margin: 20px 0;
-  padding-bottom: 20px;
   text-algin: left;
   display: flex;
   overflow: auto;
-  min-height: 240px;
+  min-height: 180px;
 
   & img {
     height: 160px;
     border-radius: 6px;
     margin-right: 8px;
   }
+`;
+
+const ButtonWrap = styled.div`
+  padding-bottom: 100px;
 `;
 
 export default PostUpdate;

@@ -95,6 +95,8 @@ const FilterBtn = styled.div`
 const FriendWrap = styled.div`
   border-top: 1px solid var(--gray1);
   margin: 20px 0 80px 0;
+  padding-bottom: 100px;
+  background-color: white;
 `;
 
 export default MbtiFriends;

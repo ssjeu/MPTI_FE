@@ -31,7 +31,7 @@ const ChatArea = ({ room }) => {
 
     // EventSource 생성
     evtSource = new EventSource(
-      `http://3.35.170.203/api/message/` + room.roomId
+      `https://mptiserver.link/api/message/` + room.roomId
     );
 
     // 실시간 채팅 메세지

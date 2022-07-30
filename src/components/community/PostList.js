@@ -46,9 +46,10 @@ const PostList = ({ card, click }) => {
 
   // 유저 프로필 보기
   const showProfile = () => {
-    navigate("/chatprofile", {
-      state: { data: postUser, from: "postlist" },
-    });
+    if (click !== "yes")
+      navigate("/chatprofile", {
+        state: { data: postUser, from: "postlist" },
+      });
   };
 
   // 커뮤니티 탭에서 post 클릭 시 상세보기
@@ -87,7 +88,7 @@ const PostList = ({ card, click }) => {
           </PostUser>
         </PostInfo>
 
-        {Number(card.userNum) === Number(userNum) ? (
+        {Number(card.userNum) === Number(userNum) && click !== "yes" ? (
           <MoreButton id={card.postId} type={"post"} user={card.userId} />
         ) : null}
       </PostWrap>
