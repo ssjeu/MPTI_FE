@@ -1,3 +1,31 @@
+import React, { useCallback } from "react";
+import "../css/modal.css";
+
+const Modal = (props) => {
+  const { open, close } = props;
+
+  const stopPropagation = useCallback((e) => {
+    e.stopPropagation();
+  }, []);
+
+  return (
+    <div className={open ? "openModal modal" : "modal"} onClick={close}>
+      {open ? (
+        <section onClick={stopPropagation}>
+          <header>
+            <button className="close" onClick={close}>
+              &times;
+            </button>
+          </header>
+          <main>{props.children}</main>
+        </section>
+      ) : null}
+    </div>
+  );
+};
+
+export default Modal;
+
 // import React, { useCallback } from "react";
 // import styled from "styled-components";
 
@@ -54,27 +82,3 @@
 // `;
 
 // export default Modal;
-
-import React from "react";
-import "../css/modal.css";
-
-const Modal = (props) => {
-  const { open, close } = props;
-
-  return (
-    <div className={open ? "openModal modal" : "modal"}>
-      {open ? (
-        <section>
-            <header>
-            <button className="close" onClick={close}>
-              &times;
-            </button>
-            </header>
-          <main>{props.children}</main>
-        </section>
-      ) : null}
-    </div>
-  );
-};
-
-export default Modal;

@@ -42,8 +42,12 @@ const MainRecommend = () => {
             close={onClickInfo}
             header="나와 잘 맞는 MBTI 추천"
           >
-            <img src={ExcelImg} alt="MBTI 궁합표" style={{ height: "200px" }} />
-            <h6>MBTI 궁합표에 의해 추천되는 데이터입니다.</h6>
+            <img
+              src={ExcelImg}
+              alt="MBTI 궁합표"
+              style={{ height: "24vh", marginLeft: "-8px" }}
+            />
+            <p>MBTI 궁합표에 의해 추천되는 데이터입니다.</p>
           </Modal>
         )}
       </RecommendTitle>
