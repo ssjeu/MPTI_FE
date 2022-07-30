@@ -1,24 +1,24 @@
 .swal2-popup {
-  width: 25em;
+  width: 25em !important;
 }
 
 .swal2-actions {
-  width: 90%;
-  flex-wrap: nowrap;
+  width: 90% !important;
+  flex-wrap: nowrap !important;
 }
 
 .swal2-styled.swal2-confirm {
-  width: 100%;
+  width: 100% !important;
 }
 
 .swal2-styled.swal2-default-outline:focus {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .swal2-styled.swal2-confirm:focus {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .swal2-styled.swal2-cancel {
-  width: 100%;
+  width: 100% !important;
 }
