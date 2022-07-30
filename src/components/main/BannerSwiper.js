@@ -51,7 +51,7 @@ const StyledSwiper = styled(Swiper)`
   .swiper-pagination-bullets.swiper-pagination-horizontal,
   .swiper-pagination-custom,
   .swiper-pagination-fraction {
-    bottom: 92%;
+    bottom: 90%;
     width: 100%;
   }
 

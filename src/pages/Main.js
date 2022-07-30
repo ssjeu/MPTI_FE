@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 import MainRecommend from "../components/main/MainRecommend";
 import BannerSwiper from "../components/main/BannerSwiper";
@@ -20,6 +21,13 @@ const Main = () => {
     "/test",
   ];
 
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 820 });
+  //   const [pcScreen, setPcScreen] = useState();
+
+  //   useEffect(() => {
+
+  //   }, [isTabletOrMobile])
+
   return (
     <MainWrap>
       <SwiperWrap className="contents-container">
@@ -31,7 +39,7 @@ const Main = () => {
       </RecommendWrap>
 
       <SubWrap>
-        <BannerWrap>
+        <BannerWrap screen={isTabletOrMobile}>
           초간단 MBTI 테스트!
           <BannerCard
             src={SubImg01}
@@ -43,7 +51,7 @@ const Main = () => {
             to="/test"
           />
         </BannerWrap>
-        <BannerWrap>
+        <BannerWrap screen={isTabletOrMobile}>
           믑티 소개서 ❤️
           <BannerCard
             src={SubImg02}
@@ -88,6 +96,8 @@ const BannerWrap = styled.div`
   padding-bottom: 40px;
   flex-grow: 1;
   margin-left: 5%;
+
+  width: ${(props) => (props.screen ? "auto" : "200px")};
 `;
 
 export default Main;
