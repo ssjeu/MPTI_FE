@@ -90,6 +90,10 @@ const FilterBtn = styled.div`
     height: 16px;
     margin-right: 4px;
   }
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const FriendWrap = styled.div`

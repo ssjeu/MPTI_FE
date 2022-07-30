@@ -79,7 +79,7 @@ const PostWrite = () => {
     // const imgArr = img.filter((el, idx) => idx !== index);
     const imgNameArr = previewImg.filter((el, idx) => idx !== index);
 
-    // setImg([...imgArr]);
+    setImg([...imgNameArr]);
     setPreviewImg([...imgNameArr]);
   };
 

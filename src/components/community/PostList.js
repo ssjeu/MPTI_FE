@@ -48,11 +48,16 @@ const PostList = ({ card, click, cmtCnt }) => {
   }, [likes]);
 
   // 유저 프로필 보기
-  const showProfile = () => {
-    if (click !== 'yes')
-      navigate('/chatprofile', {
-        state: { data: postUser, from: 'postlist' },
+  const showProfile = (postId) => {
+    if (click !== "yes")
+      navigate("/chatprofile", {
+        state: { data: postUser, from: "postlist" },
       });
+    else {
+      navigate("/posts/" + postId, {
+        state: { data: card },
+      });
+    }
   };
 
   // 커뮤니티 탭에서 post 클릭 시 상세보기
@@ -83,8 +88,8 @@ const PostList = ({ card, click, cmtCnt }) => {
           {card.userImage.length && card.postCategory !== '익명' ? (
             <img
               src={card.userImage[0]}
-              alt='user profile'
-              onClick={() => showProfile()}
+              alt="user profile"
+              onClick={() => showProfile(card.postId)}
             />
           ) : (
             <img src={ProfileCharacter} alt='no profile' />

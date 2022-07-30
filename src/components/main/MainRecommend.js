@@ -19,7 +19,7 @@ const MainRecommend = () => {
 
   // 나와 잘 맞는 MBTI 유저 list
   const users = useSelector((state) => state.recommend.list);
-
+  
   // info 모달창
   const [showInfo, setShowInfo] = useState(false);
 
@@ -42,12 +42,13 @@ const MainRecommend = () => {
             close={onClickInfo}
             header="나와 잘 맞는 MBTI 추천"
           >
+            <h3>나와 잘 맞는 MBTI 추천 결과</h3>
             <img
               src={ExcelImg}
               alt="MBTI 궁합표"
-              style={{ height: "24vh", marginLeft: "-8px" }}
+              style={{ height: "24vh", margin: "8px auto auto -8px" }}
             />
-            <p>MBTI 궁합표에 의해 추천되는 데이터입니다.</p>
+            <p>💚 MBTI 궁합표에 의해 추천되는 데이터입니다 💚</p>
           </Modal>
         )}
       </RecommendTitle>
@@ -57,7 +58,7 @@ const MainRecommend = () => {
           users.map((card, index) => <RecommendCard card={card} key={index} />)
         ) : token ? (
           <NoCard>
-            아직 찾지 못했어요😥 <span>랜덤 매칭</span>은 어떠신가요?
+            아직 찾지 못했어요 😥 <span>랜덤 매칭</span>은 어떠신가요?
           </NoCard>
         ) : (
           <Link to="/login" style={{ textDecoration: "none" }}>

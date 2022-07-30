@@ -96,6 +96,8 @@ const PostUpdate = () => {
   // 프리뷰에서 이미지 삭제
   const deleteImg = (index) => {
     const imgNameArr = previewImg.filter((el, idx) => idx !== index);
+
+    setImg([...imgNameArr]);
     setPreviewImg([...imgNameArr]);
   };
 
