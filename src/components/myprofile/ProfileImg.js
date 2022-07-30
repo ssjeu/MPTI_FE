@@ -12,7 +12,9 @@ const ProfileImg = (props) => {
   const dispatch = useDispatch();
 
   const [profileFile, setProfileFile] = React.useState(null);
-  const [userProfileImages, setUserProfileImages] = React.useState([]);
+  const [userProfileImages, setUserProfileImages] = React.useState(
+    []
+  );
 
   // 이미지 추가 버튼 누를 시, input 연결 부분
   const imageUpload = () => {

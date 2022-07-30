@@ -35,7 +35,8 @@ export const communityApi = {
   likeList: (postId) => instance.get(`api/posts/likes/${postId}`),
   likeAdd: (postId) =>
     instance.post(`api/posts/likes/${postId}`, { countLikes: 1 }),
-  likeDelete: (postId) => instance.delete(`api/posts/likes/${postId}`),
+  likeDelete: (postId) =>
+    instance.delete(`api/posts/likes/${postId}`),
 };
 
 export const authApi = {
@@ -62,7 +63,8 @@ export const authApi = {
       });
   },
 
-  idCheck: (email) => instance.post('/api/dup_userId', { email: email }),
+  idCheck: (email) =>
+    instance.post('/api/dup_userId', { email: email }),
 
   login: (email, password) => {
     instance
@@ -91,7 +93,10 @@ export const authApi = {
         });
       })
       .catch((err) => {
-        SweetAlert({ icon: 'error', text: '아이디, 비밀번호를 확인해주세요!' });
+        SweetAlert({
+          icon: 'error',
+          text: '아이디, 비밀번호를 확인해주세요!',
+        });
       });
   },
 
@@ -120,7 +125,9 @@ export const authApi = {
   logOut: () => instance.post('/api/logout'),
 
   userInfo: (formData, nickname) => {
-    ImgApi.put('/api/signup/first', formData, { withCredentials: true })
+    ImgApi.put('/api/signup/first', formData, {
+      withCredentials: true,
+    })
       .then((res) => {
         Swal.fire({
           text: '환영합니다!!!',
@@ -144,8 +151,11 @@ export const userInfoApi = {
       introduction: userIntroduction,
       profileImages: profileImages,
     }),
-  userInfoChange: (userNum, formData) =>
-    ImgApi.put(`/api/mypage/${userNum}`, formData),
+  userInfoChange: (userNum, userNickname, preUserImage) =>
+    instance.put(`/api/mypage/${userNum}`, {
+      nickname: userNickname,
+      userImage: preUserImage,
+    }),
 };
 
 export const recommendApi = {
@@ -159,15 +169,18 @@ export const recommendApi = {
 export const chatApi = {
   // 채팅
   chatList: () => instance.get(`/api/chatList`),
-  createRoom: (userNum) => instance.post(`/api/chat`, { userNum: userNum }),
+  createRoom: (userNum) =>
+    instance.post(`/api/chat`, { userNum: userNum }),
   exitRoom: (roomId) => instance.put(`/api/chat/${roomId}`),
   sendMessage: (roomId, content) =>
     instance.post(`/api/message/${roomId}`, { content: content }),
   getMessages: (roomId) => instance.get(`/api/messages/${roomId}`),
 
   // 차단
-  blockUser: (userNum) => instance.put(`/api/block`, { userNum: userNum }),
-  unblockUser: (userNum) => instance.put(`/api/unblock`, { userNum: userNum }),
+  blockUser: (userNum) =>
+    instance.put(`/api/block`, { userNum: userNum }),
+  unblockUser: (userNum) =>
+    instance.put(`/api/unblock`, { userNum: userNum }),
 };
 
 //이미지 url 받아오기

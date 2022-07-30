@@ -2,8 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button01 = (props) => {
-  const { color, backgroundColor, _onClick, margin, children, _className } =
-    props;
+  const {
+    color,
+    backgroundColor,
+    _onClick,
+    margin,
+    children,
+    _className,
+  } = props;
 
   return (
     <>
