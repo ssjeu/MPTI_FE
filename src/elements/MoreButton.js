@@ -1,5 +1,5 @@
 // 더보기 버튼 (수정하기, 삭제하기)
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -15,13 +15,8 @@ const MoreButton = ({ id, type }) => {
 
   // 더보기 버튼 클릭 상태
   const [open, setOpen] = useState(0);
-  const outSection = useRef();
 
-  const activeButton = (e) => {
-    if (outSection.current === e.target) {
-      // setOpen(false); 수정 중 .........
-      // return;
-    }
+  const activeButton = () => {
     setOpen(!open);
   };
 
@@ -52,7 +47,7 @@ const MoreButton = ({ id, type }) => {
     <MoreButtonWrap>
       <MoreDropdown>
         <li>
-          <img src={more} alt="more" onClick={activeButton} ref={outSection} />
+          <img src={more} alt="more" onClick={activeButton} />
           <Menu openState={open}>
             {type === "comment" ? (
               <div onClick={handleDelete}>삭제</div>
@@ -95,10 +90,10 @@ const MoreDropdown = styled.ul`
 const Menu = styled.div`
   display: ${(props) => (props.openState ? "block" : "none")};
   position: absolute;
-  width: 28px;
-  margin-top: 16px;
-  padding: 4px 24px 4px 8px;
-  font-size: 12px;
+  width: 36px;
+  margin-top: 20px;
+  padding: 4px 24px 4px 12px;
+  font-size: 13px;
   color: var(--gray4);
   background-color: white;
   border-radius: 4px;
