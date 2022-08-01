@@ -19,7 +19,6 @@ const PostDetail = () => {
   );
   const [commentCnt, setCommentCnt] = useState();
 
-  // 서버에서 postlist, comments 로드
   useEffect(() => {
     dispatch(postActions.detailPostDB(data.postId));
   }, []);
@@ -30,16 +29,20 @@ const PostDetail = () => {
 
   return (
     <PostDetailWrap>
-      <PostList card={data} cmtCnt={commentCnt} />
+      <PostList card={data} cmtCnt={commentCnt} like={data.countLikes} />
       {data.postImage.length ? (
         <CommentList>
           {comments &&
-            comments.map((card, index) => <Comment card={card} key={index} />)}
+            comments.map((card, index) => (
+              <Comment card={card} key={index} cat={data.postCategory} />
+            ))}
         </CommentList>
       ) : (
         <CommentList2>
           {comments &&
-            comments.map((card, index) => <Comment card={card} key={index} />)}
+            comments.map((card, index) => (
+              <Comment card={card} key={index} cat={data.postCategory} />
+            ))}
         </CommentList2>
       )}
 

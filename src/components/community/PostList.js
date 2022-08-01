@@ -14,7 +14,7 @@ import ProfileCharacter from "../../images/character/profile-character.png";
 import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
 
-const PostList = ({ card, click, cmtCnt }) => {
+const PostList = ({ card, click, cmtCnt, like }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -116,23 +116,27 @@ const PostList = ({ card, click, cmtCnt }) => {
         ) : null}
       </PostContents>
 
-      {click === "yes" ? null : (
-        <PostAction className="contents-container">
-          <PostButton
-            onClick={() => {
-              if (token) handleLike();
-            }}
-          >
-            <Like
-              className="icons"
-              style={{ fill: likeState ? "#ff6565" : "#adadad" }}
-            />
-          </PostButton>
-          좋아요 {likeCnt}
-          <img src={Comment} alt="comment" />
-          댓글 {cmtCnt}
-        </PostAction>
-      )}
+      <PostAction className="contents-container">
+        {click === "yes" ? (
+          <div style={{ marginRight: "12px" }}>좋아요 {like} </div>
+        ) : (
+          <>
+            <PostButton
+              onClick={() => {
+                if (token) handleLike();
+              }}
+            >
+              <Like
+                className="icons"
+                style={{ fill: likeState ? "#ff6565" : "#adadad" }}
+              />
+            </PostButton>
+            좋아요 {likeCnt}
+            <img src={Comment} alt="comment" />
+          </>
+        )}
+        댓글 {cmtCnt}
+      </PostAction>
     </PostListWrap>
   );
 };

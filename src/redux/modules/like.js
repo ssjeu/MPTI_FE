@@ -34,7 +34,6 @@ const getLikeAC = (postId) => {
       .then((res) => {
         dispatch(getLike(res.data.likeUsers.length));
         dispatch(getUser(res.data.likeUsers));
-        console.log(res.data, "getLikeAC response");
       })
       .catch((err) => {
         console.log("GET getLikeAC Error: ", err);
@@ -67,13 +66,13 @@ const deleteLikeAC = (postId) => {
       .likeDelete(postId)
       .then((res) => {
         Swal.fire({
-            text: "좋아요 취소 🥺",
-            icon: "success",
-            confirmButtonColor: "#64be72",
-            confirmButtonText: "확인",
-          }).then((res) => {
-            //   dispatch(addLike(like+1));
-          });
+          text: "좋아요 취소 🥺",
+          icon: "success",
+          confirmButtonColor: "#64be72",
+          confirmButtonText: "확인",
+        }).then((res) => {
+          //   dispatch(addLike(like+1));
+        });
       })
       .catch((err) => {
         console.log("DELETE deleteLikeAC Error: ", err);
@@ -86,7 +85,6 @@ export default handleActions(
     [GET_LIKE]: (state, action) =>
       produce(state, (draft) => {
         draft.like = action.payload.like;
-        console.log("GET_LIKE 성공");
       }),
     [GET_USER]: (state, action) =>
       produce(state, (draft) => {
