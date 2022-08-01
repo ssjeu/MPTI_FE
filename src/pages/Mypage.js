@@ -50,7 +50,9 @@ const Mypage = () => {
             className='display-center'
             onClick={() => navigate('/info/change')}
             style={{
-              backgroundImage: `url(${user_data?.userImage[0]})`,
+              backgroundImage: `url(${
+                user_data.userImage && user_data?.userImage[0]
+              })`,
             }}
           >
             <div className='display-center'>
@@ -74,20 +76,14 @@ const Mypage = () => {
           </span>
 
           {isLogin === true ? (
-            <div
-              className='display-center'
-              style={{ marginBottom: '5.5px' }}
-            >
+            <div className='display-center' style={{ marginBottom: '5.5px' }}>
               <h3>{user_data.nickname}</h3>
               <button onClick={() => navigate('/my/profile')}>
                 내 프로필 완성하기
               </button>
             </div>
           ) : (
-            <div
-              className='display-center'
-              style={{ marginBottom: '5.5px' }}
-            >
+            <div className='display-center' style={{ marginBottom: '5.5px' }}>
               <div
                 style={{
                   padding: '0',
@@ -107,9 +103,7 @@ const Mypage = () => {
                 </h3>
                 <ArrowForward style={{ margin: '2px 0 0 4px' }} />
               </div>
-              <button style={{ display: 'none' }}>
-                내 프로필 완성하기
-              </button>
+              <button style={{ display: 'none' }}>내 프로필 완성하기</button>
             </div>
           )}
 
@@ -117,9 +111,7 @@ const Mypage = () => {
 
           <div>
             <p>나의 MBTI</p>
-            {isLogin === true ? (
-              <SpanStyle>{user_data.mbti}</SpanStyle>
-            ) : null}
+            {isLogin === true ? <SpanStyle>{user_data.mbti}</SpanStyle> : null}
           </div>
           <hr />
 
@@ -141,9 +133,7 @@ const Mypage = () => {
 
           <div>
             <p>생년월일</p>
-            {isLogin === true ? (
-              <span>{user_data.birthday}</span>
-            ) : null}
+            {isLogin === true ? <span>{user_data.birthday}</span> : null}
           </div>
           <hr />
 
@@ -155,11 +145,7 @@ const Mypage = () => {
         </InfoBox>
 
         {isLogin === true ? (
-          <Button02
-            text='로그아웃'
-            margin='12px 0 0 0'
-            _onClick={logOut}
-          />
+          <Button02 text='로그아웃' margin='12px 0 0 0' _onClick={logOut} />
         ) : null}
       </Container>
     </>
@@ -219,8 +205,7 @@ const Profile = styled.div`
   }
 
   & :hover {
-    cursor: ${(props) =>
-      props.isLogin === true ? 'pointer' : 'normal'};
+    cursor: ${(props) => (props.isLogin === true ? 'pointer' : 'normal')};
   }
 `;
 

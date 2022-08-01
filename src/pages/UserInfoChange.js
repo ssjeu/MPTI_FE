@@ -7,17 +7,14 @@ import { ReactComponent as Camera } from '../images/icons/camera_alt.svg';
 
 import Input01 from '../elements/Input01';
 import Button01 from '../elements/Button01';
-import {
-  userInfoChangeDB,
-  userInfoDB,
-} from '../redux/modules/userInfo';
+import { userInfoChangeDB, userInfoDB } from '../redux/modules/userInfo';
 import { imageApi } from '../shared/api';
 
 const UserInfoChange = () => {
   const [userInfo, setUserInfo] = React.useState();
   const [userNickname, setUserNickname] = React.useState('');
   const [userImage, setUserImage] = React.useState();
-  const [preUserImage, setPreUserImage] = React.useState([]);
+  const [preUserImage, setPreUserImage] = React.useState(null);
 
   const imageInput = useRef();
   const dispatch = useDispatch();
@@ -32,10 +29,15 @@ const UserInfoChange = () => {
 
     if (user_data) {
       setUserInfo(user_data);
-      setPreUserImage(user_data.userImage && user_data.userImage[0]);
-      setUserNickname(user_data.nickname);
     }
   }, [user_data]);
+
+  React.useEffect(() => {
+    if (user_data) {
+      setUserNickname(user_data.nickname);
+      setPreUserImage(user_data.userImage && user_data.userImage[0]);
+    }
+  }, []);
 
   const userNicknameChange = useCallback((e) => {
     setUserNickname(e.target.value);
@@ -55,10 +57,7 @@ const UserInfoChange = () => {
       imageApi
         .userImage(formData)
         .then((res) => {
-          setPreUserImage((userProfileImages) => [
-            ...userProfileImages,
-            res.data.profileImages,
-          ]);
+          setPreUserImage(res.data.profileImages);
         })
         .catch((err) => console.log(err));
     }
@@ -79,10 +78,10 @@ const UserInfoChange = () => {
       <Profile
         onClick={onClickImageUpload}
         style={{
-          backgroundImage:
-            userImage && preUserImage === undefined
-              ? `url(${userImage})`
-              : `url(${preUserImage})`,
+          backgroundImage: `url(${preUserImage})`,
+          // preUserImage === null
+          //   ? `url(${userImage})`
+          //   : `url(${preUserImage})`,
         }}
       >
         <div>
@@ -129,9 +128,7 @@ const UserInfoChange = () => {
             <div>
               <span>{userInfo && userInfo.name}</span>
               <span>
-                {userInfo && userInfo.gender === 'Female'
-                  ? '여성'
-                  : '남성'}
+                {userInfo && userInfo.gender === 'Female' ? '여성' : '남성'}
               </span>
               <span>{userInfo && userInfo.birthday}</span>
               <span>{userInfo && userInfo.mbti}</span>
