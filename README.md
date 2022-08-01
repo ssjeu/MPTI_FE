@@ -50,8 +50,9 @@
   
   |[오누리](https://github.com/OHNURI-github)|[서정은](https://github.com/ssjeu)|
   |:---:|:---:|
-  |<img src="https://user-images.githubusercontent.com/51162450/182141599-a7bf96c7-a6b0-4a50-93d3-b0f28aae9a9c.png" alt="" width="300px">||
+  |<img src="https://user-images.githubusercontent.com/51162450/182141599-a7bf96c7-a6b0-4a50-93d3-b0f28aae9a9c.png" alt="" width="300px">|<img src="https://user-images.githubusercontent.com/51162450/182152047-9bfa5a8e-b5bd-4f79-94ad-2525c853ddd3.png" alt="" width="300px">|
   |`Front-End`|`Front-End`|
+  
   
   **오누리**  
   `로그인 페이지` `회원가입 페이지` `첫 로그인 시 유저 정보 입력 페이지`  
