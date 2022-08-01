@@ -1,19 +1,19 @@
-import instance from "./Request";
-import axios from "axios";
-import Swal from "sweetalert2";
-import SweetAlert from "../components/sweetAlert/SweetAlert";
+import instance from './Request';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import SweetAlert from '../components/sweetAlert/SweetAlert';
 
 const ImgApi = axios.create({
-  baseURL: "https://mptiserver.link",
+  baseURL: 'https://mptiserver.link',
   headers: {
-    "Content-type": "multipart/form-data",
+    'Content-type': 'multipart/form-data',
   },
 });
 
-if (sessionStorage.getItem("is_login"))
+if (sessionStorage.getItem('is_login'))
   ImgApi.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${sessionStorage.getItem("is_login")}`;
+    'Authorization'
+  ] = `Bearer ${sessionStorage.getItem('is_login')}`;
 
 export const communityApi = {
   // 게시글
@@ -45,7 +45,7 @@ export const communityApi = {
 export const authApi = {
   signUp: (email, name, password, passwordCheck) => {
     instance
-      .post("/api/signup", {
+      .post('/api/signup', {
         email: email,
         name: name,
         password: password,
@@ -53,12 +53,12 @@ export const authApi = {
       })
       .then((res) => {
         Swal.fire({
-          text: "회원가입에 성공했습니다!",
-          icon: "success",
-          confirmButtonColor: "#64be72",
-          confirmButtonText: "확인",
+          text: '회원가입에 성공했습니다!',
+          icon: 'success',
+          confirmButtonColor: '#64be72',
+          confirmButtonText: '확인',
         }).then((result) => {
-          window.location.replace("/login");
+          window.location.replace('/login');
         });
       })
       .catch((err) => {
@@ -66,12 +66,12 @@ export const authApi = {
       });
   },
 
-  idCheck: (email) => instance.post("/api/dup_userId", { email: email }),
+  idCheck: (email) => instance.post('/api/dup_userId', { email: email }),
 
   login: (email, password) => {
     instance
       .post(
-        "/api/login",
+        '/api/login',
         {
           email,
           password,
@@ -79,25 +79,25 @@ export const authApi = {
         { withCredentials: true }
       )
       .then((res) => {
-        sessionStorage.setItem("is_login", res.data.token);
-        sessionStorage.setItem("userNum", res.data.user.userNum);
+        sessionStorage.setItem('is_login', res.data.token);
+        sessionStorage.setItem('userNum', res.data.user.userNum);
         Swal.fire({
-          text: "로그인 되었습니다!",
-          icon: "success",
-          confirmButtonColor: "#64be72",
-          confirmButtonText: "확인",
+          text: '로그인 되었습니다!',
+          icon: 'success',
+          confirmButtonColor: '#64be72',
+          confirmButtonText: '확인',
         }).then((result) => {
           if (res.data.user.nickname === undefined) {
-            window.location.replace("/info");
+            window.location.replace('/info');
           } else {
-            window.location.replace("/");
+            window.location.replace('/');
           }
         });
       })
       .catch((err) => {
         SweetAlert({
-          icon: "error",
-          text: "아이디, 비밀번호를 확인해주세요!",
+          icon: 'error',
+          text: '아이디, 비밀번호를 확인해주세요!',
         });
       });
   },
@@ -108,7 +108,6 @@ export const authApi = {
       .get(`https://mptiserver.link/api/kakao/callback?code=${code}`)
       .then((res) => {
         console.log(res);
-        // alert('로그인 되었습니다!');
       })
       .catch((err) => {
         console.log(err);
@@ -124,20 +123,20 @@ export const authApi = {
       .catch((err) => console.log(err));
   },
 
-  logOut: () => instance.post("/api/logout"),
+  logOut: () => instance.post('/api/logout'),
 
   userInfo: (formData, nickname) => {
-    ImgApi.put("/api/signup/first", formData, {
+    ImgApi.put('/api/signup/first', formData, {
       withCredentials: true,
     })
       .then((res) => {
         Swal.fire({
-          text: "환영합니다!!!",
-          icon: "success",
-          confirmButtonColor: "#64be72",
-          confirmButtonText: "확인",
+          text: '환영합니다!!!',
+          icon: 'success',
+          confirmButtonColor: '#64be72',
+          confirmButtonText: '확인',
         }).then((result) => {
-          window.location.replace("/");
+          window.location.replace('/');
         });
       })
       .catch((err) => {
@@ -184,13 +183,13 @@ export const chatApi = {
 
 //이미지 url 받아오기
 export const imageApi = {
-  userImage: (formData) => ImgApi.post("/api/images", formData),
+  userImage: (formData) => ImgApi.post('/api/images', formData),
 };
 
 // 약식 mbti 테스트
 export const mbtiTestApi = {
   mbtiTest: (first, second, third, fourth) =>
-    instance.post("/api/mbtitest", {
+    instance.post('/api/mbtitest', {
       first: first,
       second: second,
       third: third,
