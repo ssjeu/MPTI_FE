@@ -1,9 +1,16 @@
 # MBTI 기반 커뮤니티 서비스
-이미지 들어갈 것...
-<br/>
-❤ [믑티(MPTI) 바로가기](https://www.mptifriend.com)
 
-<br/>
+<div>
+  <img src="https://seohobucket.s3.ap-northeast-2.amazonaws.com/1659347542243.banner640.png" alt="">
+  <br/>
+  <br/>
+  
+  **믑티에서 찐친을 만나보세요!**
+  <br/>
+❤ [믑티(MPTI) 바로가기](https://www.mptifriend.com)
+  <br/>
+💚 [믑티(MPTI) 발표 및 시연 영상 보기]()
+
 <br/>
 
 ## ❓ 믑티(MPTI) 서비스 소개
@@ -17,7 +24,15 @@
 <br/>
 <br/>
 
-## 📅 프로젝트 기간
+## 📌 믑티 기능 요약
+
+1. **빠르게 확인하는 나의 MBTI** : MBTI 약식 테스트 📋️
+2. **자유로운 소통공간** : 커뮤니티 기능 👨‍👩‍👧‍👦
+3. **다양한 MBTI 유형의 사람들과의 만남** : 유저 MBTI 유형별 필터 기능 🔎
+4. **친구와의 1대1 실시간 대화** : 실시간 1대1 채팅 기능 💬
+5. **피하고 싶은 유저가 있어요** : 유저 차단 기능 ❌
+6. **다양한 기기에서 즐길 수 있어요** : 반응형 웹 🖥️ 📱
+
 
 2022.06.24 ~ 2022.08.05
 
@@ -44,10 +59,21 @@
 
 ## 📚 기술스택 및 선정이유
 
-|Name|Appliance|Version|선정이유|
-|:---:|:---:|:---:|:---:|
-|React|리액트|18.2.0|가장 대중적인 프론트엔드 UX, UI 구현 라이브러리로, 트러블슈팅 및 위기 대응에 용이할 것으로 판단되어 사용.|
-
+|Name|Appliance|Version|
+|:---:|:---:|:---:|
+|react-redux|상태 관리|8.0.2|
+|redux-thunk|리덕스 미들웨어|2.4.1|
+|redux-actions|액션 관리|2.6.5|
+|react-router-dom|라우터|6.3.0|
+|axios|API 서버 통신|0.27.2|
+|react-swiper|캐러셀|8.3.2|
+|sweetalert2|alert 스타일링|11.4.24|
+|eventsource|채팅|2.0.2|
+|styled-components|CSS in JS|5.3.5|
+|autosize|textarea 리사이징|5.0.1|
+|&nbsp;&nbsp;&nbsp;&nbsp;browser-image-compression&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;이미지 리사이징&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;2.0.0&nbsp;&nbsp;&nbsp;&nbsp;|
+|react-responsive|반응형 웹|9.0.0|
+  
 ## 핵심 기능
 
 
