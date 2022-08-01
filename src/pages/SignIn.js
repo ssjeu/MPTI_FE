@@ -77,11 +77,7 @@ const SignIn = () => {
             className='icons'
             style={{ fill: email === '' ? '#d9d9d9' : '#64be72' }}
           />
-          <input
-            type='text'
-            placeholder='이메일'
-            onChange={inputEmail}
-          />
+          <input type='text' placeholder='이메일' onChange={inputEmail} />
         </div>
 
         <div className='input-area'>
@@ -127,8 +123,8 @@ const SignIn = () => {
         카카오 계정으로 로그인
       </Button01>
       <p>
-        회원가입 시 믑티의 서비스 이용 약관과 개인정보 보호정책에
-        동의하게 됩니다.
+        회원가입 시 믑티의 서비스 이용 약관과 개인정보 보호정책에 동의하게
+        됩니다.
       </p>
     </Container>
   );
@@ -136,6 +132,7 @@ const SignIn = () => {
 
 const Container = styled.div`
   width: 100%;
+  height: 100%;
 
   display: flex;
   flex-flow: column nowrap;
