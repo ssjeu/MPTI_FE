@@ -24,7 +24,6 @@ const ChatProfile = () => {
 
   // 프로필 사용자 정보
   const data = location.state.data;
-  console.log(data);
 
   // 페이지에 따른 채팅 프로필 구분
   const from = location.state.from;

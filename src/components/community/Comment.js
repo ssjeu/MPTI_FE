@@ -5,20 +5,19 @@ import styled from "styled-components";
 import MoreButton from "../../elements/MoreButton";
 import ProfileCharacter from "../../images/character/profile-character.png";
 
-const Comment = ({ card }) => {
-  // 로그인 user
+const Comment = ({ card, cat }) => {
   const userNum = sessionStorage.getItem("userNum");
 
   return (
     <CommentWrap className="contents-container">
       <CommentInfo>
-        {card.userImage.length ? (
+        {card.userImage.length && cat !== "익명" ? (
           <img src={card.userImage[0]} alt="user profile" />
         ) : (
           <img src={ProfileCharacter} alt="no profile" />
         )}
         <PostUser>
-          <strong>{card.nickname}</strong>
+          <strong>{cat !== "익명" ? card.nickname: "익명"}</strong>
           <span>{card.createdAt}</span>
           <br />
           <div>{card.comment}</div>
