@@ -108,7 +108,13 @@ const Community = () => {
           </CommunityNoList>
         ) : (
           data.map((card, index) => (
-            <PostList card={card} key={index} click="yes" />
+            <PostList
+              card={card}
+              key={index}
+              click="yes"
+              cmtCnt={card.commentCount}
+              like={card.countLikes}
+            />
           ))
         )}
       </CommunityList>

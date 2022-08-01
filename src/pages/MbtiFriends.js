@@ -48,11 +48,14 @@ const MbtiFriends = () => {
       <FriendWrap>
         <div className="contents-container">
           {filter === null || filter.length === 0
-            ? users.map((card, index) => <FriendCard card={card} key={index} />)
+            ? users.map((card, index) => {
+                if (card.nickname)
+                  return <FriendCard card={card} key={index} />;
+              })
             : null}
           {filter && filter.length !== 0
             ? users.map((card, index) => {
-                if (searchStr(card.mbti, filter))
+                if (card.nickname && searchStr(card.mbti, filter))
                   return <FriendCard card={card} key={index} />;
               })
             : null}
