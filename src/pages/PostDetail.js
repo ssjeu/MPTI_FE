@@ -61,6 +61,7 @@ const CommentList = styled.div`
 `;
 
 const CommentList2 = styled.div`
+  margin-bottom: 80px;
   min-height: 400px;
   height: 100%;
 `;
