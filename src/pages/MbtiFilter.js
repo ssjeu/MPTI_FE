@@ -17,7 +17,6 @@ const MbtiFilter = () => {
 
   const completed = () => {
     navigate("/mbtifriends", { state: { selected: mbti } });
-    console.log(mbti);
   };
 
   return (

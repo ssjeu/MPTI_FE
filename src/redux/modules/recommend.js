@@ -53,12 +53,10 @@ export default handleActions(
     [GET_RECOMMEND]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.list;
-        console.log("GET_RECOMMEND 성공");
       }),
     [GET_MBTI_FRIEND]: (state, action) =>
       produce(state, (draft) => {
         draft.mbti = action.payload.mbti;
-        console.log("GET_MBTI_FRIEND 성공");
       }),
   },
   initialState

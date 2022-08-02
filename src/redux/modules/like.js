@@ -50,8 +50,6 @@ const addLikeAC = (postId) => {
           text: "좋아요! 🥳",
           icon: "success",
           confirmButtonText: "확인",
-        }).then((res) => {
-          //   dispatch(addLike(like+1));
         });
       })
       .catch((err) => {
@@ -70,8 +68,6 @@ const deleteLikeAC = (postId) => {
           icon: "success",
           confirmButtonColor: "#64be72",
           confirmButtonText: "확인",
-        }).then((res) => {
-          //   dispatch(addLike(like+1));
         });
       })
       .catch((err) => {
@@ -90,10 +86,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = action.payload.user;
       }),
-    // [ADD_LIKE]: (state, action) =>
-    //   produce(state, (draft) => {
-    //     draft.user = action.payload.user;
-    //   }),
   },
   initialState
 );

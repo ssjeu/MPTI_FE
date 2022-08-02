@@ -39,7 +39,6 @@ export const createRoomAC = (receiverNum) => {
       .createRoom(receiverNum)
       .then((res) => {
         dispatch(createRoom(res.data.Room));
-        console.log(res.data.Room);
       })
       .catch((err) => {
         console.log(err);
@@ -57,7 +56,6 @@ export const chatListAC = () => {
       .then((res) => {
         dispatch(getChatList(res.data.chatList));
         dispatch(getUserInfo(res.data.userInfo));
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -70,9 +68,7 @@ export const sendMessageAC = (roomId, content) => {
   return async function (dispatch) {
     await chatApi
       .sendMessage(roomId, content)
-      .then((res) => {
-        console.log(res.data);
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -154,7 +150,6 @@ export const unblockUserAC = (userNum) => {
     await chatApi
       .unblockUser(userNum)
       .then((res) => {
-        console.log(res.data);
         dispatch(userUnblock(0));
       })
       .catch((err) => {
@@ -169,36 +164,31 @@ export default handleActions(
     [CREATE_ROOM]: (state, action) =>
       produce(state, (draft) => {
         draft.room = action.payload.room;
-        console.log("CREATE_ROOM");
       }),
 
     [GET_CHAT_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.rooms = action.payload.rooms;
-        console.log("GET_CHAT_LIST");
       }),
 
     [GET_USER_INFO]: (state, action) =>
       produce(state, (draft) => {
         draft.userInfo = action.payload.userInfo;
-        console.log("GET_USER_INFO");
       }),
 
     [GET_MESSAGES]: (state, action) =>
       produce(state, (draft) => {
         draft.data = action.payload.data;
-        console.log("GET_MESSAGE");
       }),
 
     [USER_BLOCK]: (state, action) =>
       produce(state, (draft) => {
         draft.blocked = action.payload.blocked;
-        console.log("USER_BLOCK");
       }),
+
     [USER_UNBLOCK]: (state, action) =>
       produce(state, (draft) => {
         draft.blocked = action.payload.blocked;
-        console.log("USER_UNBLOCK");
       }),
   },
   initialState

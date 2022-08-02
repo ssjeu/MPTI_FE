@@ -39,7 +39,6 @@ const Chat = () => {
         setChat(chat.replace(/(?:\r\n|\r|\n)/g, "<br/>"));
         dispatch(chatActions.sendMessageAC(room.roomId, chat));
         setChat("");
-        console.log("submit");
       }
     },
     [chat]

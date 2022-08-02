@@ -31,7 +31,6 @@ const postDB = () => {
     await communityApi
       .postList()
       .then((res) => {
-        console.log(res.data, "postDB response");
         dispatch(getPost(res.data.posts));
       })
       .catch((err) => {
@@ -46,7 +45,6 @@ const detailPostDB = (postId) => {
     await communityApi
       .postDetail(postId)
       .then((res) => {
-        console.log(res.data, "detailPostDB response");
         dispatch(getDetail(res.data));
       })
       .catch((err) => {
@@ -133,13 +131,11 @@ export default handleActions(
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.post = action.payload.post;
-        console.log("GET_POST 성공");
       }),
 
     [GET_DETAIL]: (state, action) =>
       produce(state, (draft) => {
         draft.detail_post = action.payload.detail_post;
-        console.log("GET_DETAIL 성공");
       }),
 
     // [ADD_POST]: (state, action) =>

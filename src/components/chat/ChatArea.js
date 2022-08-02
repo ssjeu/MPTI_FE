@@ -14,7 +14,6 @@ const ChatArea = ({ room }) => {
   
   const userNum = sessionStorage.getItem("userNum");
   const messages = useSelector((state) => state.chat.data);
-  console.log(messages);
 
   const EventSource = NativeEventSource || EventSourcePolyfill;
   global.EventSource = NativeEventSource || EventSourcePolyfill;
@@ -37,7 +36,6 @@ const ChatArea = ({ room }) => {
     // 실시간 채팅 메세지
     evtSource.addEventListener("test", function (e) {
       let message = JSON.parse(e.data);
-      console.log(message);
 
       const chatArea = document.getElementById("chat-content");
       const onWrapDiv = document.createElement("div");
