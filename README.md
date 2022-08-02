@@ -65,7 +65,7 @@
 <br/>
 <br/>
   
-## ✍🏻 아키텍처(Architecture)
+## ✍🏻 Service Architecture
   
 <div align="center">
   <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cd8892bf-baeb-40c5-b36d-9d4a52c9a1ac/.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220801%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220801T112937Z&X-Amz-Expires=86400&X-Amz-Signature=8b3fe2b9aebd1af90c4ddd7a39daa53c82c285e5245c0fc39112b87630d90175&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%2595%2584%25ED%2582%25A4%25ED%2585%258D%25EC%25B2%2598.PNG.png%22&x-id=GetObject" alt="" width="900px">
@@ -74,7 +74,7 @@
 <br/>
 <br/>
 
-## 🛠 기술스택
+## 🛠 Tech & Platfrom
 
 <div>
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
@@ -94,7 +94,7 @@
 <br/>
 <br/>
 
-## 📚 라이브러리
+## 📚 Library
 
 |Name|Appliance|Version|
 |:---:|:---:|:---:|
