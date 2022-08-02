@@ -50,8 +50,8 @@ const PostUpdate = () => {
 
   // PostImg.js에서 이미지 데이터 받아오기
   const getImgUrl = (x) => {
-    setImg(x);
-    setPreviewImg(x);
+    setImg([x]);
+    setPreviewImg([x]);
   };
 
   // 프리뷰에서 이미지 삭제
@@ -72,8 +72,12 @@ const PostUpdate = () => {
       Swal.fire("", "최소 5자 이상 입력해주세요!", "warning");
     else {
       dispatch(
-        //   console.log(id, selected, content_ref.current.value, [previewImg]);
-        postActions.updatePostAC(id, selected, content_ref.current.value, previewImg)
+        postActions.updatePostAC(
+          id,
+          selected,
+          content_ref.current.value,
+          previewImg
+        )
       );
     }
   };
@@ -95,7 +99,7 @@ const PostUpdate = () => {
           parent={categoryDrop}
           children={post.posts.postCategory}
         />
-        <PostImg parent={getImgUrl} data={serverImg}/>
+        <PostImg parent={getImgUrl} data={serverImg} />
       </SelectWrap>
 
       <TextArea className="contents-container">
@@ -103,18 +107,17 @@ const PostUpdate = () => {
           placeholder="최소 5자 이상 입력해 주세요"
           ref={content_ref}
           defaultValue={post.posts.postContent}
-        ></textarea>
+        />
       </TextArea>
 
       {previewImg && (
         <ImagePreview className="contents-container">
-          {" "}
           {previewImg.map((data, index) => (
             <div key={index}>
               <img src={data} alt="preview" key={index} />
               <div onClick={() => deleteImg(index)}>x</div>
             </div>
-          ))}{" "}
+          ))}
         </ImagePreview>
       )}
 

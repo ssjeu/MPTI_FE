@@ -6,14 +6,13 @@ import imageCompression from "browser-image-compression";
 import UploadImage from "../../images/icons/filter@3x.png";
 
 const PostImg = (props) => {
-  const { margin, parent, data } = props;
+  const { parent } = props;
 
   const img_ref = useRef();
 
   const [imgFile, setImgFile] = useState(null);
   const [imgUrl, setImgUrl] = useState([]);
 
-  // s3 url 받아오는 api 연결 부분
   useEffect(() => {
     if (imgFile) {
       const formData = new FormData();
@@ -22,10 +21,7 @@ const PostImg = (props) => {
       imageApi
         .userImage(formData)
         .then((res) => {
-          setImgUrl((userProfileImages) => [
-            ...userProfileImages,
-            res.data.profileImages,
-          ]);
+          setImgUrl(res.data.profileImages);
         })
         .catch((err) => console.log(err));
     }
@@ -35,14 +31,6 @@ const PostImg = (props) => {
     img_ref.current.value = "";
     parent(imgUrl);
   }, [imgUrl]);
-
-  const onClickImageUpload = () => {
-    img_ref.current.click();
-  };
-
-  const addFileImg = (e) => {
-    setImgFile(e.target.files[0]);
-  };
 
   const compressImage = async (image) => {
     try {
@@ -54,6 +42,15 @@ const PostImg = (props) => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const onClickImageUpload = () => {
+    img_ref.current.click();
+  };
+
+  const addFileImg = async (e) => {
+    const compressedFile = await compressImage(e.target.files[0]);
+    setImgFile(compressedFile);
   };
 
   return (
