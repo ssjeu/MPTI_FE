@@ -23,9 +23,7 @@ const CommentWrite = () => {
         text: '내용을 입력해주세요!',
       });
     else {
-      dispatch(
-        commentActions.addCommentAC(postId, content_ref.current.value)
-      );
+      dispatch(commentActions.addCommentAC(postId, content_ref.current.value));
       content_ref.current.value = '';
     }
   };
@@ -33,11 +31,7 @@ const CommentWrite = () => {
   return (
     <CommentWriteWrap className='contents-container'>
       <CommentInput>
-        <input
-          type='text'
-          placeholder='댓글을 입력하세요.'
-          ref={content_ref}
-        />
+        <input type='text' placeholder='댓글을 입력하세요.' ref={content_ref} />
         <InputButton
           onClick={() => {
             if (token) activeComment();
@@ -61,7 +55,7 @@ const CommentWriteWrap = styled.div`
   background-color: var(--subcolor);
   height: 80px;
   width: 100%;
-  bottom: 80px;
+  bottom: 0px;
   display: flex;
 `;
 
