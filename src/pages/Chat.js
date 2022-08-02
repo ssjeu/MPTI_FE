@@ -39,7 +39,6 @@ const Chat = () => {
         setChat(chat.replace(/(?:\r\n|\r|\n)/g, "<br/>"));
         dispatch(chatActions.sendMessageAC(room.roomId, chat));
         setChat("");
-        console.log("submit");
       }
     },
     [chat]
@@ -68,6 +67,7 @@ const Chat = () => {
           <ExitSvg
             style={{
               fill: "var(--gray4)",
+              marginLeft: "4px",
             }}
             onClick={exitRoom}
           />
@@ -137,7 +137,7 @@ const ChatUser = styled.div`
 const Icon = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 60px;
   font-size: 12px;
   color: var(--gray4);
