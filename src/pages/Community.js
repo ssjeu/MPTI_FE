@@ -93,7 +93,7 @@ const Community = () => {
         onClick={() => navigate("/community/notice")}
         className="contents-container"
       >
-        <span>필독!</span>커뮤니티 이용 규칙
+        <span>필독!</span>커뮤니티 공지사항
       </Notice>
 
       <CommunityList>

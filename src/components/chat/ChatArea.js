@@ -89,7 +89,7 @@ const ChatAreaWrap = styled.div`
   min-height: calc(100vh - 244px);
   height: auto;
   background-color: white;
-  padding-bottom: 88px;
+  padding-bottom: 20px;
 `;
 
 const Container = styled.div`

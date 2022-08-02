@@ -27,7 +27,7 @@ const Chat = () => {
   useEffect(() => {
     if (prePath.indexOf("/chat") !== -1) {
       prePath = "";
-      window.location.reload(); 
+      window.location.reload();
     }
     prePath = location.pathname; // 지금 주소 /chat
   }, [location]);
@@ -52,7 +52,7 @@ const Chat = () => {
     <ChatWrap>
       <BackgroundColor />
       <ChatWithTitle className="contents-container">
-        <div style={{ width: "16px" }} />
+        <div style={{ width: "60px" }} />
         <ChatUser
           onClick={() =>
             navigate("/chatprofile", {
@@ -63,9 +63,11 @@ const Chat = () => {
           {recevierUser.nickname}
         </ChatUser>
         <Icon>
+          나가기
           <ExitSvg
             style={{
               fill: "var(--gray4)",
+              marginLeft: "4px",
             }}
             onClick={exitRoom}
           />
@@ -106,7 +108,9 @@ const BackgroundColor = styled.div`
 
 const ChatWithTitle = styled.div`
   display: flex;
+  width: 100%;
   height: 52px;
+  background-color: white;
   border-bottom: 1px solid var(--gray1);
   align-items: center;
   justify-content: space-between;
@@ -114,18 +118,29 @@ const ChatWithTitle = styled.div`
   font-weight: 500;
   letter-spacing: -0.8px;
   margin-bottom: 12px;
+
+  &:hover {
+    background-color: var(--subcolor);
+  }
 `;
 
 const ChatUser = styled.div`
+  width: 60px;
+
   &:hover {
     cursor: pointer;
+    color: var(--maincolor);
+    font-weight: bold;
   }
 `;
 
 const Icon = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  width: 60px;
+  font-size: 12px;
+  color: var(--gray4);
 
   &:hover {
     cursor: pointer;

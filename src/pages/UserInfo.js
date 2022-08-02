@@ -1,37 +1,35 @@
-import React, { useRef } from 'react';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import Swal from 'sweetalert2';
+import React, { useRef } from "react";
+import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { userInfoDB } from "../redux/modules/user";
 
-// svg icons
-import { ReactComponent as Person } from '../images/icons/person.svg';
-import { ReactComponent as Camera } from '../images/icons/camera_alt.svg';
-import { ReactComponent as Warning } from '../images/icons/warning.svg';
+import Input01 from "../elements/Input01";
+import Button03 from "../elements/Button03";
+import Button01 from "../elements/Button01";
+import Dropdown from "../elements/Dropdown";
+import MbtiSelect from "../components/MbtiSelect";
+import SweetAlert from "../components/sweetAlert/SweetAlert";
 
-import Input01 from '../elements/Input01';
-import Button03 from '../elements/Button03';
-import Button01 from '../elements/Button01';
-import Dropdown from '../elements/Dropdown';
-import { userInfoDB } from '../redux/modules/user';
-import MbtiSelect from '../components/MbtiSelect';
-import SweetAlert from '../components/sweetAlert/SweetAlert';
+import { ReactComponent as Person } from "../images/icons/person.svg";
+import { ReactComponent as Camera } from "../images/icons/camera_alt.svg";
+import { ReactComponent as Warning } from "../images/icons/warning.svg";
 
 const UserInfo = () => {
   // 버튼 선택지 중 택1 구현
   const [gender, setGender] = React.useState([true, false]);
 
   // 버튼 선택 시 데이터 저장 부분 (성별, mbti)
-  const [userGender, setUserGender] = React.useState('Male');
+  const [userGender, setUserGender] = React.useState("Male");
   const [mbti, setMbti] = React.useState();
 
   // 유저 닉네임, 소개 저장
-  const [nickname, setNickname] = React.useState('');
-  const [introduction, setIntroduction] = React.useState('');
+  const [nickname, setNickname] = React.useState("");
+  const [introduction, setIntroduction] = React.useState("");
 
   // 생년월일 저장
-  const [userYear, setUserYear] = React.useState('');
-  const [userMon, setUserMon] = React.useState('');
-  const [userDay, setUserDay] = React.useState('');
+  const [userYear, setUserYear] = React.useState("");
+  const [userMon, setUserMon] = React.useState("");
+  const [userDay, setUserDay] = React.useState("");
 
   //! 프로필 사진 저장
   const [profile, setProfile] = React.useState(null);
@@ -46,7 +44,7 @@ const UserInfo = () => {
   // 유저 생년월일 저장 부분
   const birthday_mon = () => {
     if (userMon < 10) {
-      const new_userMon = '0' + userMon;
+      const new_userMon = "0" + userMon;
       return new_userMon;
     } else {
       return userMon;
@@ -55,14 +53,14 @@ const UserInfo = () => {
 
   const birthday_day = () => {
     if (userDay < 10) {
-      const new_userDay = '0' + userDay;
+      const new_userDay = "0" + userDay;
       return new_userDay;
     } else {
       return userDay;
     }
   };
 
-  const birthday = userYear + '-' + birthday_mon() + '-' + birthday_day();
+  const birthday = userYear + "-" + birthday_mon() + "-" + birthday_day();
 
   // 생년월일 드롭다운 부분
   const now = new Date();
@@ -89,23 +87,18 @@ const UserInfo = () => {
 
   //! 입력 완료 버튼 클릭 시
   const completed = () => {
-    if (
-      profile === null ||
-      nickname === '' ||
-      birthday.length < 5 ||
-      introduction === ''
-    ) {
-      SweetAlert({ text: '프로필과 빈칸을 모두 채워주세요!', icon: 'error' });
+    if (nickname === "" || birthday.length < 5 || introduction === "") {
+      SweetAlert({ text: "빈칸을 모두 채워주세요!", icon: "error" });
       return;
     }
 
     const formData = new FormData();
-    formData.append('userImage', profile);
-    formData.append('nickname', nickname);
-    formData.append('gender', userGender);
-    formData.append('birthday', birthday);
-    formData.append('mbti', mbti);
-    formData.append('introduction', introduction);
+    if (profile !== null) formData.append("userImage", profile);
+    formData.append("nickname", nickname);
+    formData.append("gender", userGender);
+    formData.append("birthday", birthday);
+    formData.append("mbti", mbti);
+    formData.append("introduction", introduction);
 
     dispatch(userInfoDB(formData, nickname));
   };
@@ -152,27 +145,27 @@ const UserInfo = () => {
   };
 
   return (
-    <Container className='container'>
+    <Container className="container">
       <Profile onClick={onClickImageUpload}>
-        {profile === null ? <Person /> : <img src={imgBase64} alt='' />}
+        {profile === null ? <Person /> : <img src={imgBase64} alt="" />}
 
         <div>
           <Camera />
         </div>
         <input
-          type='file'
-          accept='image/*'
-          style={{ display: 'none' }}
+          type="file"
+          accept="image/*"
+          style={{ display: "none" }}
           ref={imageInput}
           onChange={handleChangeFile}
         />
       </Profile>
 
-      <div style={{ width: '100%' }}>
+      <div style={{ width: "100%" }}>
         <div>
           <p>닉네임</p>
           <Input01
-            placeholder='닉네임을 입력해주세요.'
+            placeholder="닉네임을 입력해주세요."
             _onChange={(e) => {
               setNickname(e.target.value);
             }}
@@ -187,7 +180,7 @@ const UserInfo = () => {
               state={gender[0]}
               _onClick={() => {
                 setGender([true, false]);
-                setUserGender('Male');
+                setUserGender("Male");
               }}
             >
               남성
@@ -196,7 +189,7 @@ const UserInfo = () => {
               state={gender[1]}
               _onClick={() => {
                 setGender([false, true]);
-                setUserGender('Female');
+                setUserGender("Female");
               }}
             >
               여성
@@ -211,7 +204,7 @@ const UserInfo = () => {
             <div>
               <Dropdown
                 data={yearSelectList}
-                height='300px'
+                height="300px"
                 parent={yearDropdown}
               >
                 년
@@ -229,7 +222,7 @@ const UserInfo = () => {
             <div>
               <Dropdown
                 data={daySelectList}
-                height='300px'
+                height="300px"
                 parent={dayDropdown}
               >
                 일
@@ -240,13 +233,13 @@ const UserInfo = () => {
         </SelectBox>
 
         <div>
-          <p style={{ marginBottom: '4px' }}>MBTI</p>
+          <p style={{ marginBottom: "4px" }}>MBTI</p>
 
           <WaringBox
-            className='display-Hcenter'
-            style={{ marginBottom: '20px' }}
+            className="display-Hcenter"
+            style={{ marginBottom: "20px" }}
           >
-            <Warning style={{ marginRight: '5.4px' }} />
+            <Warning style={{ marginRight: "5.4px" }} />
             <span>MBTI는 한번 선택하면 변경할 수 없습니다.</span>
           </WaringBox>
           <MbtiSelect parent={userMbti} />
@@ -255,7 +248,7 @@ const UserInfo = () => {
         <div>
           <p>유저님에 대해 알려주세요 :)</p>
           <textarea
-            placeholder='안녕하세요! 저는 식물 키우는걸 좋아하고, 평소에 책 읽는걸 좋아합니다!'
+            placeholder="안녕하세요! 저는 식물 키우는걸 좋아하고, 평소에 책 읽는걸 좋아합니다!"
             onChange={(e) => {
               setIntroduction(e.target.value);
             }}
@@ -263,9 +256,9 @@ const UserInfo = () => {
         </div>
 
         <Button01
-          color='#fff'
-          backgroundColor='#64be72'
-          margin='0 0 77px 0'
+          color="#fff"
+          backgroundColor="#64be72"
+          margin="0 0 77px 0"
           _onClick={completed}
         >
           입력 완료
