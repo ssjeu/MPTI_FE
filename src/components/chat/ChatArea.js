@@ -1,6 +1,7 @@
 // 1:1 실시간 채팅 대화내역
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
 import { actionCreators as chatActions } from "../../redux/modules/chat";
@@ -9,18 +10,36 @@ import "../../css/component.css";
 import "../../css/chat.css";
 import Message from "../../elements/Message";
 
+let prePath = "";
+
 const ChatArea = ({ room }) => {
   const dispatch = useDispatch();
-  
+  const location = useLocation();
+
   const userNum = sessionStorage.getItem("userNum");
   const messages = useSelector((state) => state.chat.data);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const EventSource = NativeEventSource || EventSourcePolyfill;
   global.EventSource = NativeEventSource || EventSourcePolyfill;
 
   useEffect(() => {
     dispatch(chatActions.getMessagesAC(room.roomId));
+    // console.log("ggg");
   }, []);
+
+  useEffect(() => {
+    if (prePath.indexOf("/chat") !== -1) {
+      prePath = "";
+      window.location.reload();
+    }
+
+    prePath = location.pathname; // 지금 주소 /chat
+  }, [location]);
 
   useEffect(() => {
     let evtSource;

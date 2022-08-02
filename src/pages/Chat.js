@@ -1,19 +1,18 @@
 // 1:1 실시간 채팅
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 
+import "../css/component.css";
 import useInput from "../hooks/useInput";
 import ChatArea from "../components/chat/ChatArea";
 import ChatWrite from "../components/chat/ChatWrite";
 import ChatNotice from "../elements/ChatNotice";
 
-import "../css/component.css";
 import { ReactComponent as ExitSvg } from "../images/icons/exit_to_app_FILL0_wght400_GRAD0_opsz20.svg";
-
-let prePath = "";
+import { ReactComponent as BackSvg } from "../images/header/keyboard-arrow-left.svg";
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -22,15 +21,37 @@ const Chat = () => {
   const room = location.state.room;
   const recevierUser = location.state.data;
 
+  const [scrollY, setScrollY] = useState(0);
+  const [scrollActive, setScrollActive] = useState(false);
+  const messagesEndRef = useRef(null);
+  const messages = useSelector((state) => state.chat.data);
   const [chat, onChangeChat, setChat] = useInput("");
 
   useEffect(() => {
-    if (prePath.indexOf("/chat") !== -1) {
-      prePath = "";
-      window.location.reload();
+    // scrollToBottom();
+  }, []);
+
+  useEffect(() => {
+    // 스크롤 감시, 상단 고정
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleScroll = () => {
+    if (scrollY > 68) {
+      setScrollY(window.pageYOffset);
+      setScrollActive(true);
+    } else {
+      setScrollY(window.pageYOffset);
+      setScrollActive(false);
     }
-    prePath = location.pathname; // 지금 주소 /chat
-  }, [location]);
+  };
 
   const onSubmitForm = useCallback(
     (e) => {
@@ -51,8 +72,18 @@ const Chat = () => {
   return (
     <ChatWrap>
       <BackgroundColor />
-      <ChatWithTitle className="contents-container">
-        <div style={{ width: "60px" }} />
+      <ChatWithTitle
+        className={
+          scrollActive ? "contents-container fixedBox" : "contents-container"
+        }
+      >
+        <Left>
+          {scrollActive ? (
+            <div onClick={() => navigate(-1)}>
+              <BackSvg style={{ fill: "var(--gray4)" }} />
+            </div>
+          ) : null}
+        </Left>
         <ChatUser
           onClick={() =>
             navigate("/chatprofile", {
@@ -62,23 +93,20 @@ const Chat = () => {
         >
           {recevierUser.nickname}
         </ChatUser>
-        <Icon>
+        <Icon onClick={exitRoom}>
           나가기
-          <ExitSvg
-            style={{
-              fill: "var(--gray4)",
-              marginLeft: "4px",
-            }}
-            onClick={exitRoom}
-          />
+          <ExitSvg style={{ fill: "var(--gray4)", marginLeft: "4px" }} />
         </Icon>
       </ChatWithTitle>
 
       {room && room.members.length === 1 ? (
-        <ChatNotice text={recevierUser.nickname} />
+        <NoticeWrap className={scrollActive ? "fixedBox" : null}>
+          <ChatNotice text={recevierUser.nickname} />
+        </NoticeWrap>
       ) : null}
 
-      <ChatArea room={room} />
+      <ChatArea room={room} messages={messages} className="content" />
+      <div ref={messagesEndRef} />
 
       <ChatWrite
         chat={chat}
@@ -92,7 +120,8 @@ const Chat = () => {
 const ChatWrap = styled.div`
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
+  min-height: calc(100vh - 124.5px);
+  height: auto;
   position: relative;
 `;
 
@@ -122,11 +151,26 @@ const ChatWithTitle = styled.div`
   &:hover {
     background-color: var(--subcolor);
   }
+
+  &.fixedBox {
+    position: sticky;
+    z-index: 999;
+    top: 0;
+    right: 0;
+  }
+`;
+
+const Left = styled.div`
+  width: 60px;
+  display: flex;
+  align-items: center;
+
+  & div:hover {
+    cursor: pointer;
+  }
 `;
 
 const ChatUser = styled.div`
-  width: 60px;
-
   &:hover {
     cursor: pointer;
     color: var(--maincolor);
@@ -144,6 +188,15 @@ const Icon = styled.div`
 
   &:hover {
     cursor: pointer;
+  }
+`;
+
+const NoticeWrap = styled.div`
+  &.fixedBox {
+    position: sticky;
+    z-index: 999;
+    top: 52px;
+    right: 0;
   }
 `;
 
