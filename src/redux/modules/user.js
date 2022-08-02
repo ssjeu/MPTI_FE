@@ -75,10 +75,7 @@ export const logOutDB = () => {
       cancelButtonText: '아니요',
     }).then((result) => {
       if (result.isConfirmed) {
-        authApi
-          .logOut()
-          .then((res) => console.log(res))
-          .catch((err) => console.log(err));
+        authApi.logOut().catch((err) => console.log(err));
         dispatch(logOut());
         window.location.reload();
       }
@@ -90,8 +87,6 @@ export const logOutDB = () => {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case 'user/SIGN_IN': {
-      console.log(action);
-
       return { is_login: true, email: action.user, user: { ...state.user } };
     }
 
@@ -100,12 +95,6 @@ export default function reducer(state = initialState, action = {}) {
 
       return { is_login: false };
     }
-
-    // case 'user/SIGN_UP': {
-    //   // const user_info = {is_login: true, user: action.user}
-    //   console.log(action);
-    //   return { is_login: true, user: action.user };
-    // }
     default:
       return state;
   }

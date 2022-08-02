@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import imageCompression from 'browser-image-compression';
 
 import AddImgBtn from '../../elements/AddImgBtn';
 import { imageApi } from '../../shared/api';
@@ -12,17 +13,30 @@ const ProfileImg = (props) => {
   const dispatch = useDispatch();
 
   const [profileFile, setProfileFile] = React.useState(null);
-  const [userProfileImages, setUserProfileImages] = React.useState(
-    []
-  );
+  const [userProfileImages, setUserProfileImages] = React.useState([]);
 
   // 이미지 추가 버튼 누를 시, input 연결 부분
   const imageUpload = () => {
     imageInput.current?.click();
   };
 
-  const addFileImage = (e) => {
-    setProfileFile(e.target.files[0]);
+  // 이미지 압축
+  const compressImage = async (image) => {
+    try {
+      const options = {
+        maxSizeMb: 0.2,
+        maxWidthOrHeight: 600,
+      };
+      return await imageCompression(image, options);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const addFileImage = async (e) => {
+    const originalImg = e.target.files[0];
+    const compressedImg = await compressImage(originalImg);
+    setProfileFile(compressedImg);
   };
 
   // s3 url 받아오는 api 연결 부분

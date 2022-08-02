@@ -1,12 +1,16 @@
 import React, { useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import imageCompression from 'browser-image-compression';
 
 // svg icons
 import { ReactComponent as Camera } from '../images/icons/camera_alt.svg';
 
+// elements
 import Input01 from '../elements/Input01';
 import Button01 from '../elements/Button01';
+
+// etc.
 import { userInfoChangeDB, userInfoDB } from '../redux/modules/userInfo';
 import { imageApi } from '../shared/api';
 
@@ -48,6 +52,19 @@ const UserInfoChange = () => {
     imageInput.current.click();
   };
 
+  // 이미지 압축
+  const compressImage = async (image) => {
+    try {
+      const options = {
+        maxSizeMb: 0.2,
+        maxWidthOrHeight: 600,
+      };
+      return await imageCompression(image, options);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   // s3 url 받아오는 api 연결 부분
   React.useEffect(() => {
     if (userImage) {
@@ -63,9 +80,12 @@ const UserInfoChange = () => {
     }
   }, [userImage]);
 
-  // 유저 이미지 데이터 및 미리보기 설정
-  const userImageChange = (e) => {
-    setUserImage(e.target.files[0]);
+  // 프로필 설정 시 데이터
+  const userImageChange = async (e) => {
+    const originalImg = e.target.files[0];
+    const compressedImg = await compressImage(originalImg);
+
+    setUserImage(compressedImg);
   };
 
   // 완료 버튼 클릭 시
