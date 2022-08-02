@@ -1,19 +1,23 @@
 // 메인페이지 MBTI 추천 유저 card
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const RecommendCard = ({ card }) => {
+const RecommendCard = ({ card, _onClick }) => {
   const birthday = card.birthday && card.birthday.slice(0, 4);
   const today = new Date();
   const age = today.getFullYear() - birthday + 1;
 
   return (
-    <Link to="/chatprofile" state={{ data: card, from: "recommend" }}>
+    <Link
+      to='/chatprofile'
+      state={{ data: card, from: 'recommend' }}
+      onClick={_onClick}
+    >
       <RecommendCardWrap>
         <Card>
           <CardImage>
-            <img src={card.userImage} alt="recommend card" />
+            <img src={card.userImage} alt='recommend card' />
           </CardImage>
           <CardTitle>
             <div>

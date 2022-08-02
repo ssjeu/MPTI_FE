@@ -1,36 +1,31 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { useMediaQuery } from "react-responsive";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { useMediaQuery } from 'react-responsive';
 
-import MainRecommend from "../components/main/MainRecommend";
-import BannerSwiper from "../components/main/BannerSwiper";
-import BannerCard from "../elements/BannerCard";
+import MainRecommend from '../components/main/MainRecommend';
+import BannerSwiper from '../components/main/BannerSwiper';
+import BannerCard from '../elements/BannerCard';
 
-import "../css/component.css";
-import MainImg01 from "../images/banner/main_bn_01.png";
-import MainImg02 from "../images/banner/main_bn_02.png";
-import MainImg03 from "../images/banner/main_bn_03.png";
-import SubImg01 from "../images/banner/sub_bn_mbti-test.png";
-import SubImg02 from "../images/banner/sub_bn_mbti-guide.png";
+import '../css/component.css';
+import MainImg01 from '../images/banner/main_bn_01.png';
+import MainImg02 from '../images/banner/main_bn_02.png';
+import MainImg03 from '../images/banner/main_bn_03.png';
+import SubImg01 from '../images/banner/sub_bn_mbti-test.png';
+import SubImg02 from '../images/banner/sub_bn_mbti-guide.png';
 
 const Main = () => {
   const mainImg = [MainImg01, MainImg02, MainImg03];
   const mainUrl = [
-    "https://forms.gle/AA16D2RiBQxFvrj29",
-    "/mbtifriends",
-    "/test",
+    'https://forms.gle/AA16D2RiBQxFvrj29',
+    '/mbtifriends',
+    '/test',
   ];
 
   const isTabletOrMobile = useMediaQuery({ maxWidth: 820 });
-  //   const [pcScreen, setPcScreen] = useState();
-
-  //   useEffect(() => {
-
-  //   }, [isTabletOrMobile])
 
   return (
     <MainWrap>
-      <SwiperWrap className="contents-container">
+      <SwiperWrap className='contents-container'>
         <BannerSwiper images={mainImg} url={mainUrl} />
       </SwiperWrap>
 
@@ -44,11 +39,11 @@ const Main = () => {
           <BannerCard
             src={SubImg01}
             txt={[
-              "내 MBTI가 뭐였더라..?",
-              "더 빠른 MBTI 테스트",
-              "MBTI 약식 테스트 바로가기",
+              '내 MBTI가 뭐였더라..?',
+              '더 빠른 MBTI 테스트',
+              'MBTI 약식 테스트 바로가기',
             ]}
-            to="/test"
+            to='/test'
           />
         </BannerWrap>
         <BannerWrap screen={isTabletOrMobile}>
@@ -56,11 +51,11 @@ const Main = () => {
           <BannerCard
             src={SubImg02}
             txt={[
-              "믑티가 처음이신가요?",
-              "진짜 찐친을 만나는 곳, 믑티",
-              "자세히 보기",
+              '믑티가 처음이신가요?',
+              '진짜 찐친을 만나는 곳, 믑티',
+              '자세히 보기',
             ]}
-            to="/about"
+            to='/about'
           />
         </BannerWrap>
       </SubWrap>
@@ -97,7 +92,7 @@ const BannerWrap = styled.div`
   flex-grow: 1;
   margin-left: 5%;
 
-  width: ${(props) => (props.screen ? "auto" : "200px")};
+  width: ${(props) => (props.screen ? 'auto' : '200px')};
 `;
 
 export default Main;
