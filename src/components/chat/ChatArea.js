@@ -89,7 +89,7 @@ const ChatArea = ({ room }) => {
 const ChatAreaWrap = styled.div`
   overflow-y: scroll;
   min-height: calc(100vh - 244px);
-  padding-bottom: 80px;
+  padding-bottom: 20px;
 `;
 
 const Container = styled.div`
