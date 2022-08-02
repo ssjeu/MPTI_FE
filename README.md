@@ -77,16 +77,16 @@
 ## 🛠 기술스택
 
 <div>
-  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=&logo=javascript&logoColor=black">
-  <img src="https://img.shields.io/badge/html5-E34F26?style=&logo=html5&logoColor=white">
-  <img src="https://img.shields.io/badge/css-1572B6?style=&logo=css3&logoColor=white">
-  <img src="https://img.shields.io/badge/react-61DAFB?style=&logo=react&logoColor=black">
-  <img src="https://img.shields.io/badge/styled-components-DB7093?style=&logo=styled-components&logoColor=white">
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+  <img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
   <br/>
-  <img src="https://img.shields.io/badge/Axios-6828e2?style=">
-  <img src="https://img.shields.io/badge/React Router-CA4245?style=&logo=React Router&logoColor=white">
-  <img src="https://img.shields.io/badge/Redux-764ABC?style=&logo=Redux&logoColor=white">
-  <img src="https://img.shields.io/badge/Swiper-6332F6?style=&logo=Swiper&logoColor=white">
+  <img src="https://img.shields.io/badge/Axios-6828e2?style=for-the-badge&logo=Axios">
+  <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white">
+  <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
+  <img src="https://img.shields.io/badge/Swiper-6332F6?style=for-the-badge&logo=Swiper&logoColor=white">
 </div>
 
 <br/>
