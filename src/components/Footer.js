@@ -1,84 +1,86 @@
 // 하단 네비게이션바
-import React from "react";
-import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import { Link, useLocation } from 'react-router-dom';
 
-import { ReactComponent as Home } from "../images/footer/home.svg";
-import { ReactComponent as Community } from "../images/footer/list-alt.svg";
-import { ReactComponent as Friend } from "../images/footer/person-search.svg";
-import { ReactComponent as Chat } from "../images/footer/chat-bubble-outline.svg";
-import { ReactComponent as Mypage } from "../images/footer/person.svg";
+import { ReactComponent as Home } from '../images/footer/home.svg';
+import { ReactComponent as Community } from '../images/footer/list-alt.svg';
+import { ReactComponent as Friend } from '../images/footer/person-search.svg';
+import { ReactComponent as Chat } from '../images/footer/chat-bubble-outline.svg';
+import { ReactComponent as Mypage } from '../images/footer/person.svg';
 
 const Footer = () => {
   const location = useLocation().pathname;
+  const postIndex = location.split('/')[2];
 
-  const activeHome = "/";
-  const activeCommunity = ["/community", "/posts/"];
-  const activeFriend = "/mbtifriends";
-  const activeChat = ["/chatlist", "/chat"];
-  const activeMypage = "/my";
+  const activeHome = '/';
+  const activeCommunity = ['/community', '/posts/'];
+  const activeFriend = '/mbtifriends';
+  const activeChat = ['/chatlist', '/chat'];
+  const activeMypage = '/my';
 
   // 하단 탭 없는 페이지 설정
-  if (location === "/login") return null;
-  else if (location === "/join") return null;
-  else if (location === "/info") return null;
-  else if (location === "/info/change") return null;
-  else if (location === "/chatprofile") return null;
-  else if (location === "/my/profile") return null;
-  else if (location === "/postwrite") return null;
-  else if (location === "/mbtifilter") return null;
-  else if (location === "/test") return null;
-  else if (location === "/test/mbti") return null;
-  else if (location === "/community/notice") return null;
-  else if (location === "/about") return null;
-  else if (location === "/chat") return null;
+  if (location === '/login') return null;
+  else if (location === '/join') return null;
+  else if (location === '/info') return null;
+  else if (location === '/info/change') return null;
+  else if (location === '/chatprofile') return null;
+  else if (location === '/my/profile') return null;
+  else if (location === '/postwrite') return null;
+  else if (location === '/mbtifilter') return null;
+  else if (location === '/test') return null;
+  else if (location === '/test/mbti') return null;
+  else if (location === '/community/notice') return null;
+  else if (location === '/about') return null;
+  else if (location === '/chat') return null;
+  else if (location === `/posts/${postIndex}`) return null;
 
   return (
     <FooterWrap>
       <FooterMenu>
-        <Link to="/">
+        <Link to='/'>
           <Home
-            className="icons"
-            style={{ fill: location === activeHome ? "#64be72" : "#adadad" }}
+            className='icons'
+            style={{ fill: location === activeHome ? '#64be72' : '#adadad' }}
           />
         </Link>
 
-        <Link to="/community">
+        <Link to='/community'>
           <Community
-            className="icons"
+            className='icons'
             style={{
               fill:
                 location === activeCommunity[0] ||
                 location === activeCommunity[1]
-                  ? "#64be72"
-                  : "#adadad",
+                  ? '#64be72'
+                  : '#adadad',
             }}
           />
         </Link>
 
-        <Link to="/mbtifriends">
+        <Link to='/mbtifriends'>
           <Friend
-            className="icons"
-            style={{ fill: location === activeFriend ? "#64be72" : "#adadad" }}
+            className='icons'
+            style={{ fill: location === activeFriend ? '#64be72' : '#adadad' }}
           />
         </Link>
 
-        <Link to="/chatlist">
+        <Link to='/chatlist'>
           <Chat
-            className="icons"
+            className='icons'
             style={{
               fill:
                 location === activeChat[0] || location === activeChat[1]
-                  ? "#64be72"
-                  : "#adadad",
+                  ? '#64be72'
+                  : '#adadad',
             }}
           />
         </Link>
 
-        <Link to="/my">
+        <Link to='/my'>
           <Mypage
-            className="icons"
-            style={{ fill: location === activeMypage ? "#64be72" : "#adadad" }}
+            className='icons'
+            style={{ fill: location === activeMypage ? '#64be72' : '#adadad' }}
           />
         </Link>
       </FooterMenu>

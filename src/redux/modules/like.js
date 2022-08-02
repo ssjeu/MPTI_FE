@@ -1,13 +1,14 @@
-import { createAction, handleActions } from "redux-actions";
-import { communityApi } from "../../shared/api";
-import { produce } from "immer";
-import Swal from "sweetalert2";
+import { createAction, handleActions } from 'redux-actions';
+import { communityApi } from '../../shared/api';
+import { produce } from 'immer';
+import Swal from 'sweetalert2';
+import SweetAlert from '../../components/sweetAlert/SweetAlert';
 
 // Action Type
-const GET_LIKE = "GET_LIKE";
-const GET_USER = "GET_USER";
-const ADD_LIKE = "ADD_LIKE";
-const DELETE_LIKE = "DELETE_LIKE";
+const GET_LIKE = 'GET_LIKE';
+const GET_USER = 'GET_USER';
+const ADD_LIKE = 'ADD_LIKE';
+const DELETE_LIKE = 'DELETE_LIKE';
 
 // Action Creator
 const getLike = createAction(GET_LIKE, (like) => ({
@@ -36,7 +37,7 @@ const getLikeAC = (postId) => {
         dispatch(getUser(res.data.likeUsers));
       })
       .catch((err) => {
-        console.log("GET getLikeAC Error: ", err);
+        console.log('GET getLikeAC Error: ', err);
       });
   };
 };
@@ -46,14 +47,10 @@ const addLikeAC = (postId) => {
     await communityApi
       .likeAdd(postId)
       .then(() => {
-        Swal.fire({
-          text: "좋아요! 🥳",
-          icon: "success",
-          confirmButtonText: "확인",
-        });
+        SweetAlert({ text: '좋아요! 🥳', icon: 'success' });
       })
       .catch((err) => {
-        console.log("POST addLikeAC Error: ", err);
+        console.log('POST addLikeAC Error: ', err);
       });
   };
 };
@@ -63,15 +60,10 @@ const deleteLikeAC = (postId) => {
     await communityApi
       .likeDelete(postId)
       .then((res) => {
-        Swal.fire({
-          text: "좋아요 취소 🥺",
-          icon: "success",
-          confirmButtonColor: "#64be72",
-          confirmButtonText: "확인",
-        });
+        SweetAlert({ text: '좋아요 취소 🥺', icon: 'success' });
       })
       .catch((err) => {
-        console.log("DELETE deleteLikeAC Error: ", err);
+        console.log('DELETE deleteLikeAC Error: ', err);
       });
   };
 };
