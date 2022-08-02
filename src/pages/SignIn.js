@@ -28,7 +28,10 @@ const SignIn = () => {
 
   const login = () => {
     if (email === '' || password === '') {
-      SweetAlert({ icon: 'error', text: '빈칸을 모두 입력해주세요!' });
+      SweetAlert({
+        icon: 'error',
+        text: '빈칸을 모두 입력해주세요!',
+      });
       return;
     }
     dispatch(signInDB(email, password));
@@ -184,6 +187,7 @@ const Container = styled.div`
     color: #d3d3d3;
 
     margin: 0;
+    margin-bottom: 20px;
   }
 `;
 

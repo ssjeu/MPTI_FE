@@ -7,17 +7,14 @@ import { ReactComponent as Camera } from '../images/icons/camera_alt.svg';
 
 import Input01 from '../elements/Input01';
 import Button01 from '../elements/Button01';
-
 import { userInfoChangeDB, userInfoDB } from '../redux/modules/userInfo';
+import { imageApi } from '../shared/api';
 
 const UserInfoChange = () => {
   const [userInfo, setUserInfo] = React.useState();
   const [userNickname, setUserNickname] = React.useState('');
   const [userImage, setUserImage] = React.useState();
-  const [preUserImage, setPreUserImage] = React.useState();
-
-  console.log(userInfo);
-  console.log(preUserImage);
+  const [preUserImage, setPreUserImage] = React.useState(null);
 
   const imageInput = useRef();
   const dispatch = useDispatch();
@@ -32,14 +29,13 @@ const UserInfoChange = () => {
 
     if (user_data) {
       setUserInfo(user_data);
-      setUserImage(user_data.userImage && user_data.userImage[0]);
     }
-  }, []);
+  }, [user_data]);
 
-  // 유저 닉네임 설정
   React.useEffect(() => {
     if (user_data) {
       setUserNickname(user_data.nickname);
+      setPreUserImage(user_data.userImage && user_data.userImage[0]);
     }
   }, []);
 
@@ -52,19 +48,29 @@ const UserInfoChange = () => {
     imageInput.current.click();
   };
 
+  // s3 url 받아오는 api 연결 부분
+  React.useEffect(() => {
+    if (userImage) {
+      const formData = new FormData();
+      formData.append('profileImages', userImage);
+
+      imageApi
+        .userImage(formData)
+        .then((res) => {
+          setPreUserImage(res.data.profileImages);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [userImage]);
+
   // 유저 이미지 데이터 및 미리보기 설정
   const userImageChange = (e) => {
-    setPreUserImage(URL.createObjectURL(e.target.files[0]));
     setUserImage(e.target.files[0]);
   };
 
   // 완료 버튼 클릭 시
   const completed = () => {
-    const formData = new FormData();
-    formData.append('nickname', userNickname);
-    formData.append('userImage', userImage);
-
-    dispatch(userInfoChangeDB(userNum, formData));
+    dispatch(userInfoChangeDB(userNum, userNickname, preUserImage));
   };
 
   return (
@@ -72,10 +78,10 @@ const UserInfoChange = () => {
       <Profile
         onClick={onClickImageUpload}
         style={{
-          backgroundImage:
-            userImage && preUserImage === undefined
-              ? `url(${userImage})`
-              : `url(${preUserImage})`,
+          backgroundImage: `url(${preUserImage})`,
+          // preUserImage === null
+          //   ? `url(${userImage})`
+          //   : `url(${preUserImage})`,
         }}
       >
         <div>

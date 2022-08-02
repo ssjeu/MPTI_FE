@@ -21,8 +21,12 @@ export const communityApi = {
   postDetail: (postId) => instance.get(`/api/posts/${postId}`),
   postWrite: (formData) =>
     ImgApi.post(`/api/posts`, formData, { withCredentials: true }),
-  postUpdate: (postId, formData) =>
-    instance.put(`/api/posts/${postId}`, formData),
+  postUpdate: (postId, category, content, img) =>
+    instance.put(`/api/posts/${postId}`, {
+      postCategory: category,
+      postContent: content,
+      postImage: img,
+    }),
   postDelete: (postId) => instance.delete(`/api/posts/${postId}`),
 
   // 댓글
@@ -91,7 +95,10 @@ export const authApi = {
         });
       })
       .catch((err) => {
-        SweetAlert({ icon: 'error', text: '아이디, 비밀번호를 확인해주세요!' });
+        SweetAlert({
+          icon: 'error',
+          text: '아이디, 비밀번호를 확인해주세요!',
+        });
       });
   },
 
@@ -101,7 +108,6 @@ export const authApi = {
       .get(`https://mptiserver.link/api/kakao/callback?code=${code}`)
       .then((res) => {
         console.log(res);
-        // alert('로그인 되었습니다!');
       })
       .catch((err) => {
         console.log(err);
@@ -120,7 +126,9 @@ export const authApi = {
   logOut: () => instance.post('/api/logout'),
 
   userInfo: (formData, nickname) => {
-    ImgApi.put('/api/signup/first', formData, { withCredentials: true })
+    ImgApi.put('/api/signup/first', formData, {
+      withCredentials: true,
+    })
       .then((res) => {
         Swal.fire({
           text: '환영합니다!!!',
@@ -144,8 +152,11 @@ export const userInfoApi = {
       introduction: userIntroduction,
       profileImages: profileImages,
     }),
-  userInfoChange: (userNum, formData) =>
-    ImgApi.put(`/api/mypage/${userNum}`, formData),
+  userInfoChange: (userNum, userNickname, preUserImage) =>
+    instance.put(`/api/mypage/${userNum}`, {
+      nickname: userNickname,
+      userImage: preUserImage,
+    }),
 };
 
 export const recommendApi = {

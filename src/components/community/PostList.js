@@ -13,6 +13,7 @@ import MoreButton from "../../elements/MoreButton";
 import ProfileCharacter from "../../images/character/profile-character.png";
 import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
+import SweetAlert from "../sweetAlert/SweetAlert";
 
 const PostList = ({ card, click, cmtCnt, like }) => {
   const dispatch = useDispatch();
@@ -68,15 +69,22 @@ const PostList = ({ card, click, cmtCnt, like }) => {
 
   // 좋아요
   const handleLike = () => {
-    if (likeState) {
-      dispatch(likeActions.deleteLikeAC(card.postId));
-      setLikeCnt(likeCnt - 1);
+    if (token) {
+      if (likeState) {
+        dispatch(likeActions.deleteLikeAC(card.postId));
+        setLikeCnt(likeCnt - 1);
+      } else {
+        dispatch(likeActions.addLikeAC(card.postId));
+        setLikeCnt(likeCnt + 1);
+      }
+      setLikeState(!likeState);
     } else {
-      dispatch(likeActions.addLikeAC(card.postId));
-      setLikeCnt(likeCnt + 1);
+      SweetAlert({
+        icon: "warning",
+        title: "좋아요 누르기 불가",
+        text: "로그인을 해주세요!",
+      });
     }
-
-    setLikeState(!likeState);
   };
 
   return (
@@ -121,11 +129,7 @@ const PostList = ({ card, click, cmtCnt, like }) => {
           <div style={{ marginRight: "12px" }}>좋아요 {like} </div>
         ) : (
           <>
-            <PostButton
-              onClick={() => {
-                if (token) handleLike();
-              }}
-            >
+            <PostButton onClick={() => handleLike()}>
               <Like
                 className="icons"
                 style={{ fill: likeState ? "#ff6565" : "#adadad" }}
