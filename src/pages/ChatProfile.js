@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import "../css/component.css";
 import ProfileSwiper from "../components/myprofile/ProfileSwiper";
 import Button01 from "../elements/Button01";
-import { ReactComponent as BlockSvg } from "../images/icons/flag.svg";
+import { ReactComponent as BlockSvg } from "../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg";
 
 const ChatProfile = () => {
   const dispatch = useDispatch();
@@ -113,10 +113,15 @@ const ChatProfile = () => {
             <span>{user_age}</span>
           </div>
           {Number(data.userNum) !== Number(userNum) ? (
-            <BlockSvg
-              style={{ fill: activeBlock ? "#ff6565" : "#adadad" }}
-              onClick={blockUser}
-            />
+            <BlockWrap onClick={blockUser}>
+              {activeBlock ? "차단해제" : "차단"}
+              <BlockSvg
+                style={{
+                  marginLeft: "4px",
+                  fill: activeBlock ? "#ff6565" : "#adadad",
+                }}
+              />
+            </BlockWrap>
           ) : null}
         </User>
         <MBTI>{data.mbti}</MBTI>
@@ -180,6 +185,13 @@ const User = styled.div`
     font-weight: 400;
     margin-left: 7px;
   }
+`;
+
+const BlockWrap = styled.div`
+  display: flex;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--gray4);
 `;
 
 const MBTI = styled.div`
