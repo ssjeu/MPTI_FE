@@ -1,4 +1,4 @@
-# MBTI 기반 커뮤니티 서비스
+# 믑티(MPTI): MBTI 기반 커뮤니티 서비스
 
 <div>
   <img src="https://seohobucket.s3.ap-northeast-2.amazonaws.com/1659347542243.banner640.png" alt="">
@@ -42,8 +42,8 @@
   * 2022.06.24 ~ 2022.08.05
   
   ### 프로젝트 팀원
-  * Front-End : 오누리(VL), 서정은 (🔗 [Front-End github repository](https://github.com/ymkwon3/nbbang))
-  * Back-End : 이기안(L), 최서호, 김하얀 (🔗 [Back-End github repository](https://github.com/moonhjang/09Project_BE))
+  * Front-End : 오누리(VL), 서정은 (🔗 [Front-End github repository](https://github.com/Hanghae-Final-Project/MPTI_FE))
+  * Back-End : 이기안(L), 최서호, 김하얀 (🔗 [Back-End github repository](https://github.com/Hanghae-Final-Project/MPTI_BE))
   * Designer : 김소정
   
   ### 👨‍💻👩‍💻 FE Team 
@@ -60,7 +60,7 @@
   
   **서정은**  
   `커뮤니티 페이지(게시글 작성, 수정, 삭제, 댓글 작성, 삭제, 좋아요 기능)` `메인페이지(배너, 모달, 잘맞는 MBTI 추천)`  
-  `채팅 페이지(유저 리스트 필터 목록, 유저 프로필, 채팅 기능, 차단 기능)` `반응형` `기타`
+  `유저 리스트 및 채팅 페이지(유저 리스트 필터 목록, 유저 프로필, 채팅 기능, 차단 기능)` `반응형` `기타`
   
 <br/>
 <br/>
@@ -124,7 +124,9 @@
     <strong>[원인]</strong> 이미지 업로드 시 이미지 데이터 용량 그대로 업로드하여 전송
     <br/>
     <br/>
-    <strong>[해결방안]</strong> browser-image-compression 라이브러리 사용해 이미지를 압축해 서버로 전달, 1/10 리사이징 (리사이징 전 대비 파일 크기가 현저히 낮아지고 로딩 및 업로드시 속도 개선. 사진 크기를 줄여서 백엔드에 들어가는 용량도 아낄수 있게 됨)
+    <strong>[해결방안]</strong> browser-image-compression 라이브러리 사용해 이미지를 압축해 서버로 전달, 1/10 리사이징
+      <br/>
+      -> 리사이징 전 대비 파일 크기가 현저히 낮아지고 로딩 및 업로드시 속도 개선. 사진 크기를 줄여 백엔드에 들어가는 용량도 아낄수 있게 됨
   </div>
 </details>
   
