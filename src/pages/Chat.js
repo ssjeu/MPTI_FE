@@ -1,5 +1,5 @@
 // 1:1 실시간 채팅
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,7 @@ import ChatNotice from "../elements/ChatNotice";
 
 import { ReactComponent as ExitSvg } from "../images/icons/exit_to_app_FILL0_wght400_GRAD0_opsz20.svg";
 import { ReactComponent as BackSvg } from "../images/header/keyboard-arrow-left.svg";
+import { ReactComponent as DownSvg } from "../images/icons/arrow_downward_FILL0_wght400_GRAD0_opsz24.svg";
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -19,16 +20,24 @@ const Chat = () => {
   const room = location.state.room;
   const recevierUser = location.state.data;
 
+  const scrollRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
   const [scrollActive, setScrollActive] = useState(false);
 
   useEffect(() => {
-    // 스크롤 감시, 상단 고정
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   });
+
+  const scrollToBottom = () => {
+    scrollRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  };
 
   const handleScroll = () => {
     if (scrollY > 68) {
@@ -45,7 +54,7 @@ const Chat = () => {
   };
 
   return (
-    <ChatWrap>
+    <ChatWrap ref={scrollRef}>
       <BackgroundColor />
       <ChatWithTitle
         className={
@@ -81,6 +90,12 @@ const Chat = () => {
       ) : null}
 
       <ChatArea room={room} className="content" />
+
+      <ScrollButton onClick={() => scrollToBottom()} className="noScrollBtn">
+        <DownSvg style={{ fill: "white", marginTop: "12px" }} />
+        <br />
+        맨아래
+      </ScrollButton>
     </ChatWrap>
   );
 };
@@ -165,6 +180,23 @@ const NoticeWrap = styled.div`
     z-index: 999;
     top: 52px;
     right: 0;
+  }
+`;
+
+const ScrollButton = styled.div`
+  background-color: var(--maincolor);
+  color: white;
+  font-size: 12px;
+  position: fixed;
+  bottom: 20px;
+  right: 3%;
+  width: 68px;
+  height: 68px;
+  border-radius: 34px;
+  z-index: 2;
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
