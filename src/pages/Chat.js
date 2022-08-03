@@ -1,8 +1,8 @@
 // 1:1 실시간 채팅
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 
 import "../css/component.css";
@@ -23,13 +23,7 @@ const Chat = () => {
 
   const [scrollY, setScrollY] = useState(0);
   const [scrollActive, setScrollActive] = useState(false);
-  const messagesEndRef = useRef(null);
-  const messages = useSelector((state) => state.chat.data);
   const [chat, onChangeChat, setChat] = useInput("");
-
-  useEffect(() => {
-    // scrollToBottom();
-  }, []);
 
   useEffect(() => {
     // 스크롤 감시, 상단 고정
@@ -38,10 +32,6 @@ const Chat = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   });
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
   const handleScroll = () => {
     if (scrollY > 68) {
@@ -105,8 +95,7 @@ const Chat = () => {
         </NoticeWrap>
       ) : null}
 
-      <ChatArea room={room} messages={messages} className="content" />
-      <div ref={messagesEndRef} />
+      <ChatArea room={room} className="content" />
 
       <ChatWrite
         chat={chat}

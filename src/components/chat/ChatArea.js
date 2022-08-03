@@ -18,10 +18,11 @@ const ChatArea = ({ room }) => {
 
   const userNum = sessionStorage.getItem("userNum");
   const messages = useSelector((state) => state.chat.data);
-  const messagesEndRef = useRef(null);
+  const scrollRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    // messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const EventSource = NativeEventSource || EventSourcePolyfill;
@@ -29,7 +30,6 @@ const ChatArea = ({ room }) => {
 
   useEffect(() => {
     dispatch(chatActions.getMessagesAC(room.roomId));
-    // console.log("ggg");
   }, []);
 
   useEffect(() => {
@@ -37,7 +37,6 @@ const ChatArea = ({ room }) => {
       prePath = "";
       window.location.reload();
     }
-
     prePath = location.pathname; // 지금 주소 /chat
   }, [location]);
 
@@ -86,13 +85,15 @@ const ChatArea = ({ room }) => {
         onWrapDiv.appendChild(onTimeDiv);
 
         chatArea.appendChild(onWrapDiv);
+
+        scrollToBottom();
       });
     });
   }, []);
 
   return (
     <ChatAreaWrap className="contents-container">
-      <Container id="chat-content">
+      <Container id="chat-content" ref={scrollRef}>
         {messages.map((m, index) => {
           if (Number(m.userNum) === Number(userNum))
             return <Message type="sender" data={m} key={index} />;
