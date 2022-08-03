@@ -1,7 +1,7 @@
 # 믑티(MPTI): MBTI 기반 커뮤니티 서비스
 
 <div>
-  <img src="https://user-images.githubusercontent.com/61870508/182596998-25e0d27e-0f66-4f2e-aca9-4f00c6d48261.png" alt="" width="90%">
+  <img src="https://user-images.githubusercontent.com/61870508/182596998-25e0d27e-0f66-4f2e-aca9-4f00c6d48261.png" alt="">
   <br/>
   <br/>
   
