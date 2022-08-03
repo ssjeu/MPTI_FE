@@ -1,7 +1,7 @@
 # 믑티(MPTI): MBTI 기반 커뮤니티 서비스
 
 <div>
-  <img src="https://seohobucket.s3.ap-northeast-2.amazonaws.com/1659347542243.banner640.png" alt="">
+  <img src="https://user-images.githubusercontent.com/61870508/182596998-25e0d27e-0f66-4f2e-aca9-4f00c6d48261.png" alt="" width="90%">
   <br/>
   <br/>
   
@@ -60,7 +60,7 @@
   
   **서정은**  
   `커뮤니티 페이지(게시글 작성, 수정, 삭제, 댓글 작성, 삭제, 좋아요 기능)` `메인페이지(배너, 모달, 잘맞는 MBTI 추천)`  
-  `유저 리스트 및 채팅 페이지(유저 리스트 필터 목록, 유저 프로필, 채팅 기능, 차단 기능)` `반응형` `기타`
+  `다양한 MBTI 친구들 페이지(유저 리스트 필터 기능)` `채팅 프로필 및 채팅 페이지(유저 프로필, 채팅 기능, 차단 기능)` `반응형` `기타`
   
 <br/>
 <br/>
