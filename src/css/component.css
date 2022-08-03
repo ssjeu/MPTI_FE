@@ -1,60 +1,70 @@
 .container {
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  padding: 0 10.4%;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 0 10.4%;
 }
 
 .contents-container {
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  padding: 0 5%;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 0 5%;
 }
 
 .logo {
-  width: 85px;
-  height: 25.3px;
-  object-fit: contain;
+    width: 85px;
+    height: 25.3px;
+    object-fit: contain;
 }
 
 .hover-btn1:hover {
-  background-color: #73ca80;
-  transition: background-color 0.15s ease-in-out;
+    background-color: #73ca80;
+    transition: background-color 0.15s ease-in-out;
 }
 
 .hover-btn1:focus {
-  background-color: #73ca80;
-  transition: background-color 0.15s ease-in-out;
+    background-color: #73ca80;
+    transition: background-color 0.15s ease-in-out;
 }
 
 .hover-btn2:hover {
-  background-color: #ffed4d;
-  transition: background-color 0.15s ease-in-out;
+    background-color: #ffed4d;
+    transition: background-color 0.15s ease-in-out;
 }
 
 .hover-btn2:focus {
-  background-color: #ffed4d;
-  transition: background-color 0.15s ease-in-out;
+    background-color: #ffed4d;
+    transition: background-color 0.15s ease-in-out;
 }
 
 .display-Hcenter {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
 }
 
 /* 중앙 정렬 */
 .display-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .no-scroll {
-  -ms-overflow-style: none; /* IE, Edge */
-  scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE, Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
+
 .no-scroll::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+    display: none;
+    /* Chrome, Safari, Opera */
+}
+
+@media only screen and (max-width: 920px) {
+    .noScrollBtn {
+        display: none;
+    }
 }
