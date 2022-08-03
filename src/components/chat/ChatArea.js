@@ -1,13 +1,15 @@
-// 1:1 실시간 채팅 대화내역
-import React, { useEffect, useRef } from "react";
+// 1:1 실시간 채팅 대화, 입력 창
+import React, { useEffect, useRef,useCallback  } from "react";
 import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
 import { actionCreators as chatActions } from "../../redux/modules/chat";
 
 import "../../css/component.css";
 import "../../css/chat.css";
+import useInput from "../../hooks/useInput";
+import ChatWrite from "../../components/chat/ChatWrite";
 import Message from "../../elements/Message";
 
 let prePath = "";
@@ -19,11 +21,7 @@ const ChatArea = ({ room }) => {
   const userNum = sessionStorage.getItem("userNum");
   const messages = useSelector((state) => state.chat.data);
   const scrollRef = useRef(null);
-
-  const scrollToBottom = () => {
-    scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
-    // messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  const [chat, onChangeChat, setChat] = useInput("");
 
   const EventSource = NativeEventSource || EventSourcePolyfill;
   global.EventSource = NativeEventSource || EventSourcePolyfill;
@@ -91,25 +89,49 @@ const ChatArea = ({ room }) => {
     });
   }, []);
 
+  const onSubmitForm = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (room && chat?.trim()) {
+        setChat(chat.replace(/(?:\r\n|\r|\n)/g, "<br/>"));
+        dispatch(chatActions.sendMessageAC(room.roomId, chat));
+        setChat("");
+      }
+    },
+    [chat]
+  );
+
+  const scrollToBottom = () => {
+    scrollRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  };
+
   return (
-    <ChatAreaWrap className="contents-container">
-      <Container id="chat-content" ref={scrollRef}>
+    <ChatAreaWrap ref={scrollRef}>
+      <Container id="chat-content" className="contents-container">
         {messages.map((m, index) => {
           if (Number(m.userNum) === Number(userNum))
             return <Message type="sender" data={m} key={index} />;
           else return <Message type="receiver" data={m} key={index} />;
         })}
       </Container>
+
+      <ChatWrite
+        chat={chat}
+        onChangeChat={onChangeChat}
+        onSubmitForm={onSubmitForm}
+      />
     </ChatAreaWrap>
   );
 };
 
 const ChatAreaWrap = styled.div`
-  overflow-y: scroll;
-  min-height: calc(100vh - 244px);
-  height: auto;
+  position: relative;
+  box-sizing: border-box;
   background-color: white;
-  padding-bottom: 20px;
 `;
 
 const Container = styled.div`
@@ -117,6 +139,10 @@ const Container = styled.div`
   align-content: stretch;
   flex-direction: column;
   flex-wrap: wrap;
+  padding-bottom: 20px;
+  overflow-y: scroll;
+  min-height: calc(100vh - 300px);
+  height: auto;
 `;
 
 export default ChatArea;

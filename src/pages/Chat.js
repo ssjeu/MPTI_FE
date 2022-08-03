@@ -1,14 +1,12 @@
 // 1:1 실시간 채팅
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 
 import "../css/component.css";
-import useInput from "../hooks/useInput";
 import ChatArea from "../components/chat/ChatArea";
-import ChatWrite from "../components/chat/ChatWrite";
 import ChatNotice from "../elements/ChatNotice";
 
 import { ReactComponent as ExitSvg } from "../images/icons/exit_to_app_FILL0_wght400_GRAD0_opsz20.svg";
@@ -23,7 +21,6 @@ const Chat = () => {
 
   const [scrollY, setScrollY] = useState(0);
   const [scrollActive, setScrollActive] = useState(false);
-  const [chat, onChangeChat, setChat] = useInput("");
 
   useEffect(() => {
     // 스크롤 감시, 상단 고정
@@ -42,18 +39,6 @@ const Chat = () => {
       setScrollActive(false);
     }
   };
-
-  const onSubmitForm = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (room && chat?.trim()) {
-        setChat(chat.replace(/(?:\r\n|\r|\n)/g, "<br/>"));
-        dispatch(chatActions.sendMessageAC(room.roomId, chat));
-        setChat("");
-      }
-    },
-    [chat]
-  );
 
   const exitRoom = async () => {
     dispatch(chatActions.exitRoomAC(room.roomId));
@@ -96,12 +81,6 @@ const Chat = () => {
       ) : null}
 
       <ChatArea room={room} className="content" />
-
-      <ChatWrite
-        chat={chat}
-        onChangeChat={onChangeChat}
-        onSubmitForm={onSubmitForm}
-      />
     </ChatWrap>
   );
 };
