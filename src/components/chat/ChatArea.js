@@ -1,5 +1,5 @@
 // 1:1 실시간 채팅 대화, 입력 창
-import React, { useEffect, useRef,useCallback  } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,16 +27,16 @@ const ChatArea = ({ room }) => {
   global.EventSource = NativeEventSource || EventSourcePolyfill;
 
   useEffect(() => {
-    dispatch(chatActions.getMessagesAC(room.roomId));
-  }, []);
-
-  useEffect(() => {
     if (prePath.indexOf("/chat") !== -1) {
       prePath = "";
       window.location.reload();
     }
     prePath = location.pathname; // 지금 주소 /chat
   }, [location]);
+
+  useEffect(() => {
+    dispatch(chatActions.getMessagesAC(room.roomId));
+  }, []);
 
   useEffect(() => {
     let evtSource;
