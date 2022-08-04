@@ -30,16 +30,13 @@ const UserInfoChange = () => {
   // 서버에서 데이터 받아오기
   React.useEffect(() => {
     dispatch(userInfoDB(userNum));
-
-    if (user_data) {
-      setUserInfo(user_data);
-    }
   }, []);
 
   React.useEffect(() => {
     if (user_data) {
       setUserNickname(user_data.nickname);
       setPreUserImage(user_data.userImage && user_data.userImage[0]);
+      setUserInfo(user_data);
     }
   }, [user_data]);
 
@@ -99,9 +96,6 @@ const UserInfoChange = () => {
         onClick={onClickImageUpload}
         style={{
           backgroundImage: `url(${preUserImage})`,
-          // preUserImage === null
-          //   ? `url(${userImage})`
-          //   : `url(${preUserImage})`,
         }}
       >
         <div>
