@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { userInfoDB } from "../../redux/modules/userInfo";
+import { actionCreators as userActions } from "../../redux/modules/userInfo";
 import { actionCreators as likeActions } from "../../redux/modules/like";
 
 import "../../css/component.css";
@@ -32,9 +32,11 @@ const PostList = ({ card, from, cmtCnt, like }) => {
   const [likeCnt, setLikeCnt] = useState();
 
   useEffect(() => {
-    if (from !== "community") {
-      dispatch(userInfoDB(card.userNum));
+    if (from === "detail") {
+      dispatch(userActions.userInfoDB(card.userNum));
       dispatch(likeActions.getLikeAC(card.postId));
+
+      return () => dispatch(userActions.resetInfoAC());
     }
   }, []);
 

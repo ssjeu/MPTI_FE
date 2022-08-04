@@ -29,7 +29,7 @@ const PostDetail = () => {
 
   return (
     <PostDetailWrap>
-      <PostList card={data} cmtCnt={commentCnt} like={data.countLikes} />
+      <PostList card={data} cmtCnt={commentCnt} like={data.countLikes} from="detail"/>
       {data.postImage.length ? (
         <CommentList>
           {comments && comments.length ? (
