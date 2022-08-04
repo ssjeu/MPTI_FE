@@ -21,15 +21,6 @@ const initialState = {
   },
 };
 
-// Action Creators
-// export function loadUser(user) {
-//   return { type: LOAD_USER, user };
-// }
-
-// export function signUp(user) {
-//   return { type: SIGN_UP, user: user };
-// }
-
 export function signIn(user) {
   return { type: SIGN_IN, user: user };
 }
