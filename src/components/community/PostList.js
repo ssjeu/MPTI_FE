@@ -28,7 +28,8 @@ const PostList = ({ card, from, cmtCnt, like }) => {
 
   // 좋아요
   const likeUsers = useSelector((state) => state.like.user);
-  const [likeState, setLikeState] = useState(0);
+  const [likeState, setLikeState] = useState();
+  console.log(likeState);
   const [likeCnt, setLikeCnt] = useState();
 
   useEffect(() => {
@@ -42,6 +43,7 @@ const PostList = ({ card, from, cmtCnt, like }) => {
     setLikeCnt(card.countLikes);
 
     if (likeUsers && likeUsers.includes(Number(userNum))) setLikeState(1);
+    return () => setLikeState(0);
   }, [likeUsers]);
 
   // 유저 프로필 보기
