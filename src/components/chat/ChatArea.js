@@ -36,6 +36,7 @@ const ChatArea = ({ room }) => {
 
   useEffect(() => {
     dispatch(chatActions.getMessagesAC(room.roomId));
+    return () => dispatch(chatActions.resetMessageAC());
   }, []);
 
   useEffect(() => {

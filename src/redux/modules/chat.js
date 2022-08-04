@@ -9,6 +9,7 @@ const GET_CHAT_LIST = "GET_CHAT_LIST";
 const GET_USER_INFO = "GET_USER_INFO";
 const SEND_MESSAGE = "SEND_MESSAGE";
 const GET_MESSAGES = "GET_MESSAGES";
+const RESET_MESSAGES = "RESET_MESSAGES";
 
 const USER_BLOCK = "USER_BLOCK";
 const USER_UNBLOCK = "USER_UNBLOCK";
@@ -19,6 +20,7 @@ const getChatList = createAction(GET_CHAT_LIST, (rooms) => ({ rooms }));
 const getUserInfo = createAction(GET_USER_INFO, (userInfo) => ({ userInfo }));
 const sendMessage = createAction(SEND_MESSAGE, (data) => ({ data }));
 const getMessages = createAction(GET_MESSAGES, (data) => ({ data }));
+const resetMessages = createAction(RESET_MESSAGES, (data) => ({ data }));
 
 const userBlock = createAction(USER_BLOCK, (blocked) => ({ blocked }));
 const userUnblock = createAction(USER_UNBLOCK, (blocked) => ({ blocked }));
@@ -86,6 +88,13 @@ export const getMessagesAC = (roomId) => {
       .catch((err) => {
         console.log(err);
       });
+  };
+};
+
+// 채팅 내역 reset
+export const resetMessageAC = () => {
+  return function (dispatch) {
+    dispatch(resetMessages());
   };
 };
 
@@ -190,6 +199,11 @@ export default handleActions(
       produce(state, (draft) => {
         draft.blocked = action.payload.blocked;
       }),
+
+    [RESET_MESSAGES]: (state) =>
+      produce(state, (draft) => {
+        draft.data = initialState.data;
+      }),
   },
   initialState
 );
@@ -209,6 +223,8 @@ const actionCreators = {
   blockUserAC,
   userUnblock,
   unblockUserAC,
+  resetMessages,
+  resetMessageAC,
 };
 
 export { actionCreators };
