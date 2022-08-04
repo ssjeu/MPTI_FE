@@ -34,14 +34,14 @@ const UserInfoChange = () => {
     if (user_data) {
       setUserInfo(user_data);
     }
-  }, [user_data]);
+  }, []);
 
   React.useEffect(() => {
     if (user_data) {
       setUserNickname(user_data.nickname);
       setPreUserImage(user_data.userImage && user_data.userImage[0]);
     }
-  }, []);
+  }, [user_data]);
 
   const userNicknameChange = useCallback((e) => {
     setUserNickname(e.target.value);

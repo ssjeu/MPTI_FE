@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { userInfoDB } from "../redux/modules/userInfo";
-import { actionCreators as chatActions } from "../redux/modules/chat";
-import { chatApi } from "../shared/api";
-import Swal from "sweetalert2";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { userInfoDB } from '../redux/modules/userInfo';
+import { actionCreators as chatActions } from '../redux/modules/chat';
+import { chatApi } from '../shared/api';
+import Swal from 'sweetalert2';
 
-import "../css/component.css";
-import ProfileSwiper from "../components/myprofile/ProfileSwiper";
-import Button01 from "../elements/Button01";
-import { ReactComponent as BlockSvg } from "../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg";
+import '../css/component.css';
+import ProfileSwiper from '../components/myprofile/ProfileSwiper';
+import Button01 from '../elements/Button01';
+import { ReactComponent as BlockSvg } from '../images/icons/person_off_FILL0_wght400_GRAD0_opsz20.svg';
+import SweetAlert from '../components/sweetAlert/SweetAlert';
 
 const ChatProfile = () => {
   const dispatch = useDispatch();
@@ -18,8 +19,8 @@ const ChatProfile = () => {
   const location = useLocation();
 
   // 내 정보
-  const token = sessionStorage.getItem("is_login");
-  const userNum = sessionStorage.getItem("userNum");
+  const token = sessionStorage.getItem('is_login');
+  const userNum = sessionStorage.getItem('userNum');
   const loginUser = useSelector((state) => state.userInfo.user);
 
   // 프로필 사용자 정보
@@ -53,34 +54,43 @@ const ChatProfile = () => {
       await chatApi
         .createRoom(data.userNum)
         .then((res) => {
-          navigate("/chat", {
+          navigate('/chat', {
             state: { data: data, room: res.data.Room },
           });
         })
         .catch((err) => {
-          if (err.response.data.blocked === "blocked") {
-            Swal.fire("차단 상태", "채팅방 생성이 불가합니다.", "error");
+          if (err.response.data.blocked === 'blocked') {
+            SweetAlert({
+              title: '차단 상태',
+              text: '채팅방 생성이 불가합니다.',
+              icon: 'error',
+            });
           } else {
-            navigate("/chat", {
+            navigate('/chat', {
               state: { data: data, room: err.response.data.Room },
             });
           }
         });
-    } else Swal.fire("1:1 채팅하기", "로그인을 해주세요!", "warning");
+    } else
+      SweetAlert({
+        title: '1:1 채팅하기',
+        text: '로그인을 해주세요!',
+        icon: 'warning',
+      });
   };
 
   // 유저 차단하기
   const blockUser = () => {
     if (!token) {
-      Swal.fire("사용자 차단하기", "로그인을 해주세요!", "warning");
+      Swal.fire('사용자 차단하기', '로그인을 해주세요!', 'warning');
       return;
     }
 
     if (!activeBlock) {
       dispatch(chatActions.blockUserAC(data.userNum));
-      if (from === "chatarea") {
-        alert("상대방을 차단하여 채팅방에서 대화하실 수 없습니다.");
-        navigate("/chatlist");
+      if (from === 'chatarea') {
+        alert('상대방을 차단하여 채팅방에서 대화하실 수 없습니다.');
+        navigate('/chatlist');
       }
     } else {
       dispatch(chatActions.unblockUserAC(data.userNum));
@@ -90,23 +100,23 @@ const ChatProfile = () => {
 
   return (
     <ChatProfileWrap>
-      <ProfileImageWrap className="contents-container">
+      <ProfileImageWrap className='contents-container'>
         {data.profileImages === undefined || data.profileImages.length === 0 ? (
-          <img src={data.userImage[0]} alt="user" />
+          <img src={data.userImage[0]} alt='user' />
         ) : data.profileImages.length === 1 ? (
-          <img src={data.profileImages} alt="profile" />
+          <img src={data.profileImages} alt='profile' />
         ) : (
           <ProfileSwiper images={data.profileImages} />
         )}
       </ProfileImageWrap>
 
-      <ProfileInfoWrap className="container">
+      <ProfileInfoWrap className='container'>
         <User>
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyItems: "center",
+              display: 'flex',
+              alignItems: 'center',
+              justifyItems: 'center',
             }}
           >
             <div>{data.nickname}</div>
@@ -114,11 +124,11 @@ const ChatProfile = () => {
           </div>
           {Number(data.userNum) !== Number(userNum) ? (
             <BlockWrap onClick={blockUser}>
-              {activeBlock ? "차단해제" : "차단"}
+              {activeBlock ? '차단해제' : '차단'}
               <BlockSvg
                 style={{
-                  marginLeft: "4px",
-                  fill: activeBlock ? "#ff6565" : "#adadad",
+                  marginLeft: '4px',
+                  fill: activeBlock ? '#ff6565' : '#adadad',
                 }}
               />
             </BlockWrap>
@@ -131,18 +141,18 @@ const ChatProfile = () => {
         </Introduction>
       </ProfileInfoWrap>
 
-      {from === "chat" || Number(data.userNum) === Number(userNum) ? (
-        <div style={{ height: "52px" }} />
+      {from === 'chat' || Number(data.userNum) === Number(userNum) ? (
+        <div style={{ height: '52px' }} />
       ) : (
         <div
-          className="container"
+          className='container'
           onClick={createRoom}
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
         >
           <Button01
-            backgroundColor="var(--maincolor)"
-            color="#fff"
-            margin="0 0 60px 0"
+            backgroundColor='var(--maincolor)'
+            color='#fff'
+            margin='0 0 60px 0'
           >
             대화하기
           </Button01>
