@@ -111,7 +111,7 @@ const Community = () => {
             <PostList
               card={card}
               key={index}
-              click="yes"
+              from="community"
               cmtCnt={card.commentCount}
               like={card.countLikes}
             />

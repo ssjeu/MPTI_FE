@@ -15,7 +15,7 @@ import Comment from "../../images/icons/chat-bubble-outline@3x.png";
 import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
 import SweetAlert from "../sweetAlert/SweetAlert";
 
-const PostList = ({ card, click, cmtCnt, like }) => {
+const PostList = ({ card, from, cmtCnt, like }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,30 +25,28 @@ const PostList = ({ card, click, cmtCnt, like }) => {
 
   // 게시글 작성 user
   const postUser = useSelector((state) => state.userInfo.user);
-  //   console.log(postUser);
 
   // 좋아요
-  const likes = useSelector((state) => state.like.like);
   const likeUsers = useSelector((state) => state.like.user);
-  const [likeState, setLikeState] = useState();
+  const [likeState, setLikeState] = useState(0);
   const [likeCnt, setLikeCnt] = useState();
 
   useEffect(() => {
-    if (click !== "yes") dispatch(userInfoDB(card.userNum));
-    dispatch(likeActions.getLikeAC(card.postId));
+    if (from !== "community") {
+      dispatch(userInfoDB(card.userNum));
+      dispatch(likeActions.getLikeAC(card.postId));
+    }
   }, []);
 
   useEffect(() => {
+    setLikeCnt(card.countLikes);
+
     if (likeUsers && likeUsers.includes(Number(userNum))) setLikeState(1);
   }, [likeUsers]);
 
-  useEffect(() => {
-    setLikeCnt(likes);
-  }, [likes]);
-
   // 유저 프로필 보기
   const showProfile = (postId) => {
-    if (click !== "yes")
+    if (from !== "community")
       navigate("/chatprofile", {
         state: { data: postUser, from: "postlist" },
       });
@@ -61,7 +59,7 @@ const PostList = ({ card, click, cmtCnt, like }) => {
 
   // 커뮤니티 탭에서 post 클릭 시 상세보기
   const showPost = (postId) => {
-    if (click === "yes")
+    if (from === "community")
       navigate("/posts/" + postId, {
         state: { data: card },
       });
@@ -107,7 +105,7 @@ const PostList = ({ card, click, cmtCnt, like }) => {
           </PostUser>
         </PostInfo>
 
-        {Number(card.userNum) === Number(userNum) && click !== "yes" ? (
+        {Number(card.userNum) === Number(userNum) && from !== "community" ? (
           <MoreButton id={card.postId} type={"post"} user={card.userId} />
         ) : null}
       </PostWrap>
@@ -125,7 +123,7 @@ const PostList = ({ card, click, cmtCnt, like }) => {
       </PostContents>
 
       <PostAction className="contents-container">
-        {click === "yes" ? (
+        {from === "community" ? (
           <div style={{ marginRight: "12px" }}>좋아요 {like} </div>
         ) : (
           <>
