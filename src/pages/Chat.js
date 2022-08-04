@@ -1,19 +1,17 @@
 // 1:1 실시간 채팅
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionCreators as chatActions } from "../redux/modules/chat";
 
-import useInput from "../hooks/useInput";
+import "../css/component.css";
 import ChatArea from "../components/chat/ChatArea";
-import ChatWrite from "../components/chat/ChatWrite";
 import ChatNotice from "../elements/ChatNotice";
 
-import "../css/component.css";
 import { ReactComponent as ExitSvg } from "../images/icons/exit_to_app_FILL0_wght400_GRAD0_opsz20.svg";
-
-let prePath = "";
+import { ReactComponent as BackSvg } from "../images/header/keyboard-arrow-left.svg";
+import { ReactComponent as DownSvg } from "../images/icons/arrow_downward_FILL0_wght400_GRAD0_opsz24.svg";
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -22,37 +20,54 @@ const Chat = () => {
   const room = location.state.room;
   const recevierUser = location.state.data;
 
-  const [chat, onChangeChat, setChat] = useInput("");
+  const scrollRef = useRef(null);
+  const [scrollY, setScrollY] = useState(0);
+  const [scrollActive, setScrollActive] = useState(false);
 
   useEffect(() => {
-    if (prePath.indexOf("/chat") !== -1) {
-      prePath = "";
-      window.location.reload();
-    }
-    prePath = location.pathname; // 지금 주소 /chat
-  }, [location]);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 
-  const onSubmitForm = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (room && chat?.trim()) {
-        setChat(chat.replace(/(?:\r\n|\r|\n)/g, "<br/>"));
-        dispatch(chatActions.sendMessageAC(room.roomId, chat));
-        setChat("");
-      }
-    },
-    [chat]
-  );
+  const scrollToBottom = () => {
+    scrollRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  };
+
+  const handleScroll = () => {
+    if (scrollY > 68) {
+      setScrollY(window.pageYOffset);
+      setScrollActive(true);
+    } else {
+      setScrollY(window.pageYOffset);
+      setScrollActive(false);
+    }
+  };
 
   const exitRoom = async () => {
     dispatch(chatActions.exitRoomAC(room.roomId));
   };
 
   return (
-    <ChatWrap>
+    <ChatWrap ref={scrollRef}>
       <BackgroundColor />
-      <ChatWithTitle className="contents-container">
-        <div style={{ width: "60px" }} />
+      <ChatWithTitle
+        className={
+          scrollActive ? "contents-container fixedBox" : "contents-container"
+        }
+      >
+        <Left>
+          {scrollActive ? (
+            <div onClick={() => navigate(-1)}>
+              <BackSvg style={{ fill: "var(--gray4)" }} />
+            </div>
+          ) : null}
+        </Left>
         <ChatUser
           onClick={() =>
             navigate("/chatprofile", {
@@ -62,29 +77,25 @@ const Chat = () => {
         >
           {recevierUser.nickname}
         </ChatUser>
-        <Icon>
+        <Icon onClick={exitRoom}>
           나가기
-          <ExitSvg
-            style={{
-              fill: "var(--gray4)",
-              marginLeft: "4px",
-            }}
-            onClick={exitRoom}
-          />
+          <ExitSvg style={{ fill: "var(--gray4)", marginLeft: "4px" }} />
         </Icon>
       </ChatWithTitle>
 
       {room && room.members.length === 1 ? (
-        <ChatNotice text={recevierUser.nickname} />
+        <NoticeWrap className={scrollActive ? "fixedBox" : null}>
+          <ChatNotice text={recevierUser.nickname} />
+        </NoticeWrap>
       ) : null}
 
-      <ChatArea room={room} />
+      <ChatArea room={room} className="content" />
 
-      <ChatWrite
-        chat={chat}
-        onChangeChat={onChangeChat}
-        onSubmitForm={onSubmitForm}
-      />
+      <ScrollButton onClick={() => scrollToBottom()} className="noScrollBtn">
+        <DownSvg style={{ fill: "white", marginTop: "12px" }} />
+        <br />
+        맨아래
+      </ScrollButton>
     </ChatWrap>
   );
 };
@@ -92,7 +103,8 @@ const Chat = () => {
 const ChatWrap = styled.div`
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
+  min-height: calc(100vh - 124.5px);
+  height: auto;
   position: relative;
 `;
 
@@ -122,11 +134,26 @@ const ChatWithTitle = styled.div`
   &:hover {
     background-color: var(--subcolor);
   }
+
+  &.fixedBox {
+    position: sticky;
+    z-index: 999;
+    top: 0;
+    right: 0;
+  }
+`;
+
+const Left = styled.div`
+  width: 60px;
+  display: flex;
+  align-items: center;
+
+  & div:hover {
+    cursor: pointer;
+  }
 `;
 
 const ChatUser = styled.div`
-  width: 60px;
-
   &:hover {
     cursor: pointer;
     color: var(--maincolor);
@@ -141,6 +168,32 @@ const Icon = styled.div`
   width: 60px;
   font-size: 12px;
   color: var(--gray4);
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const NoticeWrap = styled.div`
+  &.fixedBox {
+    position: sticky;
+    z-index: 999;
+    top: 52px;
+    right: 0;
+  }
+`;
+
+const ScrollButton = styled.div`
+  background-color: var(--maincolor);
+  color: white;
+  font-size: 12px;
+  position: fixed;
+  bottom: 20px;
+  right: 3%;
+  width: 68px;
+  height: 68px;
+  border-radius: 34px;
+  z-index: 2;
 
   &:hover {
     cursor: pointer;
