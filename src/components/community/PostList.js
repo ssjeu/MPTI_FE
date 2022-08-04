@@ -29,7 +29,6 @@ const PostList = ({ card, from, cmtCnt, like }) => {
   // 좋아요
   const likeUsers = useSelector((state) => state.like.user);
   const [likeState, setLikeState] = useState();
-  console.log(likeState);
   const [likeCnt, setLikeCnt] = useState();
 
   useEffect(() => {
