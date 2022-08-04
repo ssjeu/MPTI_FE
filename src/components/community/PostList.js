@@ -1,59 +1,57 @@
 // 게시글 카드 목록
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { userInfoDB } from '../../redux/modules/userInfo';
-import { actionCreators as likeActions } from '../../redux/modules/like';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userInfoDB } from "../../redux/modules/userInfo";
+import { actionCreators as likeActions } from "../../redux/modules/like";
 
-import '../../css/component.css';
-import PostSwiper from './PostSwiper';
-import MoreButton from '../../elements/MoreButton';
+import "../../css/component.css";
+import PostSwiper from "./PostSwiper";
+import MoreButton from "../../elements/MoreButton";
 
-import ProfileCharacter from '../../images/character/profile-character.png';
-import Comment from '../../images/icons/chat-bubble-outline@3x.png';
-import { ReactComponent as Like } from '../../images/icons/favorite-border.svg';
-import SweetAlert from '../sweetAlert/SweetAlert';
+import ProfileCharacter from "../../images/character/profile-character.png";
+import Comment from "../../images/icons/chat-bubble-outline@3x.png";
+import { ReactComponent as Like } from "../../images/icons/favorite-border.svg";
+import SweetAlert from "../sweetAlert/SweetAlert";
 
-const PostList = ({ card, click, cmtCnt, like }) => {
+const PostList = ({ card, from, cmtCnt, like }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // 로그인 user
-  const token = sessionStorage.getItem('is_login');
-  const userNum = sessionStorage.getItem('userNum');
+  const token = sessionStorage.getItem("is_login");
+  const userNum = sessionStorage.getItem("userNum");
 
   // 게시글 작성 user
   const postUser = useSelector((state) => state.userInfo.user);
-  //   console.log(postUser);
 
   // 좋아요
-  const likes = useSelector((state) => state.like.like);
   const likeUsers = useSelector((state) => state.like.user);
-  const [likeState, setLikeState] = useState();
+  const [likeState, setLikeState] = useState(0);
   const [likeCnt, setLikeCnt] = useState();
 
   useEffect(() => {
-    dispatch(userInfoDB(card.userNum));
-    dispatch(likeActions.getLikeAC(card.postId));
+    if (from !== "community") {
+      dispatch(userInfoDB(card.userNum));
+      dispatch(likeActions.getLikeAC(card.postId));
+    }
   }, []);
 
   useEffect(() => {
+    setLikeCnt(card.countLikes);
+
     if (likeUsers && likeUsers.includes(Number(userNum))) setLikeState(1);
   }, [likeUsers]);
 
-  useEffect(() => {
-    setLikeCnt(likes);
-  }, [likes]);
-
   // 유저 프로필 보기
   const showProfile = (postId) => {
-    if (click !== 'yes')
-      navigate('/chatprofile', {
-        state: { data: postUser, from: 'postlist' },
+    if (from !== "community")
+      navigate("/chatprofile", {
+        state: { data: postUser, from: "postlist" },
       });
     else {
-      navigate('/posts/' + postId, {
+      navigate("/posts/" + postId, {
         state: { data: card },
       });
     }
@@ -61,8 +59,8 @@ const PostList = ({ card, click, cmtCnt, like }) => {
 
   // 커뮤니티 탭에서 post 클릭 시 상세보기
   const showPost = (postId) => {
-    if (click === 'yes')
-      navigate('/posts/' + postId, {
+    if (from === "community")
+      navigate("/posts/" + postId, {
         state: { data: card },
       });
   };
@@ -80,63 +78,63 @@ const PostList = ({ card, click, cmtCnt, like }) => {
       setLikeState(!likeState);
     } else {
       SweetAlert({
-        icon: 'warning',
-        title: '좋아요 누르기 불가',
-        text: '로그인을 해주세요!',
+        icon: "warning",
+        title: "좋아요 누르기 불가",
+        text: "로그인을 해주세요!",
       });
     }
   };
 
   return (
     <PostListWrap>
-      <PostWrap className='contents-container'>
+      <PostWrap className="contents-container">
         <PostInfo>
-          {card.userImage.length && card.postCategory !== '익명' ? (
+          {card.userImage.length && card.postCategory !== "익명" ? (
             <img
               src={card.userImage[0]}
-              alt='user profile'
+              alt="user profile"
               onClick={() => showProfile(card.postId)}
             />
           ) : (
-            <img src={ProfileCharacter} alt='no profile' />
+            <img src={ProfileCharacter} alt="no profile" />
           )}
           <PostUser>
-            {card.postCategory !== '익명' ? card.nickname : '익명'}
+            {card.postCategory !== "익명" ? card.nickname : "익명"}
             <br />
             <span>{card.createdAt}</span>
           </PostUser>
         </PostInfo>
 
-        {Number(card.userNum) === Number(userNum) && click !== 'yes' ? (
-          <MoreButton id={card.postId} type={'post'} user={card.userId} />
+        {Number(card.userNum) === Number(userNum) && from !== "community" ? (
+          <MoreButton id={card.postId} type={"post"} user={card.userId} />
         ) : null}
       </PostWrap>
 
       <PostContents
-        className='contents-container'
+        className="contents-container"
         onClick={() => showPost(card.postId)}
       >
         {card.postContent}
         {card.postImage.length === 1 ? (
-          <img src={card.postImage.toString()} alt='postImage' />
+          <img src={card.postImage.toString()} alt="postImage" />
         ) : card.postImage.length !== 0 ? (
           <PostSwiper card={card} />
         ) : null}
       </PostContents>
 
-      <PostAction className='contents-container'>
-        {click === 'yes' ? (
-          <div style={{ marginRight: '12px' }}>좋아요 {like} </div>
+      <PostAction className="contents-container">
+        {from === "community" ? (
+          <div style={{ marginRight: "12px" }}>좋아요 {like} </div>
         ) : (
           <>
             <PostButton onClick={() => handleLike()}>
               <Like
-                className='icons'
-                style={{ fill: likeState ? '#ff6565' : '#adadad' }}
+                className="icons"
+                style={{ fill: likeState ? "#ff6565" : "#adadad" }}
               />
             </PostButton>
             좋아요 {likeCnt}
-            <img src={Comment} alt='comment' />
+            <img src={Comment} alt="comment" />
           </>
         )}
         댓글 {cmtCnt}

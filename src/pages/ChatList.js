@@ -65,6 +65,7 @@ const ChatListWrap = styled.div`
   min-height: calc(100% - 124.5px);
   margin-top: -16px;
   padding-top: 16px;
+  overflow-y: scroll;
 
   & hr {
     opacity: 0.16;
