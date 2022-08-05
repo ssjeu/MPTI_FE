@@ -9,7 +9,6 @@
   <br/>
 ❤ [믑티(MPTI) 바로가기](https://www.mptifriend.com)
   <br/>
-💚 [믑티(MPTI) 발표 및 시연 영상 보기]()
 
 <br/>
 
