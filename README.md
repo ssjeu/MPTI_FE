@@ -68,9 +68,9 @@
 ## ✍🏻 Service Architecture
   
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/51162450/182762774-97da73bd-9ce0-48e8-a15d-caa40969917e.png" alt="" width="900px">
+  <img src="https://user-images.githubusercontent.com/51162450/182980609-38bd1589-4578-4c54-8d86-1738479718ec.png" alt="" width="900px">
   </div>
-  
+
 <br/>
 <br/>
 
@@ -116,32 +116,48 @@
   
 ## 🔥 Trouble Shooting
 
-<details>
-  <summary>1. 이미지 리사이징</summary>
-  <div markdown="1">
-    <br/>
-    <strong>[문제 상황]</strong> 사용자 사진 업로드 시 고화질 이미지 업로드 가능성, 커뮤니티에서 누적된 다량의 이미지 업로드 상황 발생 / 이미지가 포함된 게시글 로드 시 이미지가 천천히 뜨는 현상 발생
-    <br/>
-    <br/>
-    <strong>[원인]</strong> 이미지 업로드 시 이미지 데이터 용량 그대로 업로드하여 전송
-    <br/>
-    <br/>
-    <strong>[해결방안]</strong> browser-image-compression 라이브러리 사용해 이미지를 압축해 서버로 전달, 1/10 리사이징
+### 1. 이미지 리사이징  
+
+**📌 문제 상황**  
+
+사용자 사진 업로드 시 고화질 이미지 업로드 가능성, 커뮤니티에서 누적된 다량의 이미지 업로드 상황 발생 / 이미지가 포함된 게시글 로드 시 이미지가 천천히 뜨는 현상 발생
+<br/>
+<br/>
+
+**📌 원인**    
+
+이미지 업로드 시 이미지 데이터 용량 그대로 업로드하여 전송
+<br/>
+<br/>
+
+**📌 해결 방안**  
+
+browser-image-compression 라이브러리 사용해 이미지를 압축해 서버로 전달, 1/10 리사이징
       <br/>
       -> 리사이징 전 대비 파일 크기가 현저히 낮아지고 로딩 및 업로드시 속도 개선. 사진 크기를 줄여 백엔드에 들어가는 용량도 아낄수 있게 됨
-  </div>
-</details>
-  
-<details>
-  <summary>2. 로딩 속도 최적화</summary>
-  <div markdown="2">
-    <br/>
-    <strong>[문제 상황]</strong> 페이지 로딩이 느려 화면이 늦게 뜨는 현상 발생
-    <br/>
-    <br/>
-    <strong>[원인]</strong> 대용량 기본 이미지 및 불필요한 코드가 많음
-    <br/>
-    <br/>
-    <strong>[해결방안]</strong> 기본 이미지 압축 및 불필요한 코드 정리
-  </div>
-</details>
+<img src="https://user-images.githubusercontent.com/51162450/182982357-06399013-3be6-4d10-b52f-be5ee1e62ff3.png" alt="" width="500px">
+
+<br/>
+
+### 2. 다른 유저 data가 로그인 유저의 마이페이지에 뜨는 문제
+
+**📌 문제 상황**  
+
+커뮤니티 페이지 접속 후, 마이페이지 접속 시 다른 유저의 프로필 및 정보가 마이페이지 프로필 부분에 표시된 후 해당 유저의 정보로 변경되는 문제 발생
+<br/>
+<br/>
+
+**📌 원인**    
+
+커뮤니티 페이지와 마이페이지에서 동일한 API를 사용하고 있으며 커뮤니티 페이지에서 데이터 요청이 많아, 응답이 끝나기 전에 마이페이지로 이동 시 마이페이지에서 다른 유저의 값이 표시되는 것으로 확인됨
+<br/>
+<br/>
+
+**📌 해결 방안**  
+
+커뮤니티 페이지 load 시, 게시글 작성자들의 data를 한번에 요청하는 것이 아닌 게시글 상세로 입장할 때만 해당 유저의 정보를 요청하는 로직으로 변경하여 해결함  
+
+<img src="https://user-images.githubusercontent.com/51162450/182981198-d57f995c-f672-4418-9704-b86082ee283d.png" alt="" width="900px">
+
+
+ 
