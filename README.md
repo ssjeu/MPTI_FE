@@ -7,7 +7,8 @@
   
   **믑티에서 찐친을 만나보세요!**
   <br/>
-❤ [믑티(MPTI) 바로가기](https://www.mptifriend.com)
+  <br/>
+❤ [믑티(MPTI) 바로가기](https://www.mptifriend.com) ❤️
   <br/>
 
 <br/>
@@ -140,7 +141,6 @@
     리사이징 전 대비 파일 크기가 현저히 낮아지고 로딩 및 업로드시 속도 개선. 사진 크기를 줄여 백엔드에 들어가는 용량도 아낄수 있게 됨
   </div>
 </details>
-<br/>
   
 <details>
   <summary>2. 다른 유저 data가 로그인 유저의 마이페이지에 뜨는 문제</summary>
