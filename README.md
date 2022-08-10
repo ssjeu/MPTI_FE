@@ -10,6 +10,7 @@
   <br/>
 ❤ [믑티(MPTI) 바로가기](https://www.mptifriend.com) ❤️
   <br/>
+  💚 [믑티(MPTI) 영상보기](https://youtu.be/-vm54D6g79U) 💚
 
 <br/>
 
