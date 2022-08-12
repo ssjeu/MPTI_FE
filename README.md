@@ -41,6 +41,7 @@
 
   ### 프로젝트 기간
   * 2022.06.24 ~ 2022.08.05
+  * 2022.08.15 ~ 
   
   ### 프로젝트 팀원
   * Front-End : 오누리(VL), 서정은 (🔗 [Front-End github repository](https://github.com/Hanghae-Final-Project/MPTI_FE))
